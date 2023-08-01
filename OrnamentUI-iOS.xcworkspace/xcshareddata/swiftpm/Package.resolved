@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "designsystem",
+      "kind" : "remoteSourceControl",
+      "location" : "https://gitlab.com/firdavs3/designsystem",
+      "state" : {
+        "branch" : "main",
+        "revision" : "83b4c323497136a1c6c54cc7b5098c17379e7155"
+      }
+    },
+    {
+      "identity" : "snapkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SnapKit/SnapKit.git",
+      "state" : {
+        "revision" : "f222cbdf325885926566172f6f5f06af95473158",
+        "version" : "5.6.0"
+      }
+    }
+  ],
+  "version" : 2
+}

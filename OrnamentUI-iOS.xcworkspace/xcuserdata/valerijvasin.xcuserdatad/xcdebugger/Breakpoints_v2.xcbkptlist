@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "468877AE-845B-4E99-8D4B-AD7120CB7D56"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2B8FA117-B187-4E69-9FCA-01E00FCD88C5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "create(with:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2B8FA117-B187-4E69-9FCA-01E00FCD88C5 - aad79718f0292e4f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OrnamentApp.MainCollectionView.collectionView(_: __C.UICollectionView, numberOfItemsInSection: Swift.Int) -&gt; Swift.Int"
+                  moduleName = "OrnamentApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/valerijvasin/Documents/Job/design.ios/OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "2B8FA117-B187-4E69-9FCA-01E00FCD88C5 - b27fea73e3aeb82f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OrnamentApp.MainCollectionView.create(with: Swift.Optional&lt;OrnamentApp.MainCollectionView.ViewProperties&gt;) -&gt; ()"
+                  moduleName = "OrnamentApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/valerijvasin/Documents/Job/design.ios/OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "116">
+               </Location>
+               <Location
+                  uuid = "2B8FA117-B187-4E69-9FCA-01E00FCD88C5 - b27fea73e3aeb9e9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OrnamentApp.MainCollectionView.create(with: Swift.Optional&lt;OrnamentApp.MainCollectionView.ViewProperties&gt;) -&gt; ()"
+                  moduleName = "OrnamentApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/valerijvasin/Documents/Job/design.ios/OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "140">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "36D910A8-A2A4-440B-9802-7297CAB968E5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "update(with:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "36D910A8-A2A4-440B-9802-7297CAB968E5 - 8821de1574ad0f25"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OrnamentApp.MainCollectionView.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
+                  moduleName = "OrnamentApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/valerijvasin/Documents/Job/design.ios/OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "180">
+               </Location>
+               <Location
+                  uuid = "36D910A8-A2A4-440B-9802-7297CAB968E5 - 6abf4f7975d83966"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OrnamentApp.MainCollectionView.update(with: Swift.Optional&lt;OrnamentApp.MainCollectionView.ViewProperties&gt;) -&gt; ()"
+                  moduleName = "OrnamentApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/valerijvasin/Documents/Job/design.ios/OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "116">
+               </Location>
+               <Location
+                  uuid = "36D910A8-A2A4-440B-9802-7297CAB968E5 - 6abf4f7975d83924"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OrnamentApp.MainCollectionView.update(with: Swift.Optional&lt;OrnamentApp.MainCollectionView.ViewProperties&gt;) -&gt; ()"
+                  moduleName = "OrnamentApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/valerijvasin/Documents/Job/design.ios/OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "116">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "84358710-3D87-423A-AD97-BB70C78174BB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "collectionView(_:numberOfItemsInSection:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "84358710-3D87-423A-AD97-BB70C78174BB - 8821de1574ad0cc0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OrnamentApp.MainCollectionView.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
+                  moduleName = "OrnamentApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/valerijvasin/Documents/Job/design.ios/OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "67"
+                  endingLineNumber = "67"
+                  offsetFromSymbolStart = "1528">
+               </Location>
+               <Location
+                  uuid = "84358710-3D87-423A-AD97-BB70C78174BB - aad79718f0292cd2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OrnamentApp.MainCollectionView.collectionView(_: __C.UICollectionView, numberOfItemsInSection: Swift.Int) -&gt; Swift.Int"
+                  moduleName = "OrnamentApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/valerijvasin/Documents/Job/design.ios/OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "68"
+                  endingLineNumber = "68"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "84358710-3D87-423A-AD97-BB70C78174BB - aad79718f0292d46"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OrnamentApp.MainCollectionView.collectionView(_: __C.UICollectionView, numberOfItemsInSection: Swift.Int) -&gt; Swift.Int"
+                  moduleName = "OrnamentApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/valerijvasin/Documents/Job/design.ios/OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "80"
+                  endingLineNumber = "80"
+                  offsetFromSymbolStart = "40">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1C5DAA88-D467-4717-B9D3-FBC4583A7C39"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "collectionView(_:cellForItemAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1C5DAA88-D467-4717-B9D3-FBC4583A7C39 - 8821de1574ad0a3d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OrnamentApp.MainCollectionView.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
+                  moduleName = "OrnamentApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/valerijvasin/Documents/Job/design.ios/OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "86"
+                  endingLineNumber = "86"
+                  offsetFromSymbolStart = "1360">
+               </Location>
+               <Location
+                  uuid = "1C5DAA88-D467-4717-B9D3-FBC4583A7C39 - 8821de1574ad08c1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OrnamentApp.MainCollectionView.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
+                  moduleName = "OrnamentApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/valerijvasin/Documents/Job/design.ios/OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "98"
+                  endingLineNumber = "98"
+                  offsetFromSymbolStart = "1360">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E56BFAC8-D9A1-4A33-B089-9F079F82BC09"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "collectionView(_:cellForItemAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E56BFAC8-D9A1-4A33-B089-9F079F82BC09 - 8821de1574ad0d8e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OrnamentApp.MainCollectionView.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
+                  moduleName = "OrnamentApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/valerijvasin/Documents/Job/design.ios/OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "1164">
+               </Location>
+               <Location
+                  uuid = "E56BFAC8-D9A1-4A33-B089-9F079F82BC09 - 8821de1574ad0d8e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OrnamentApp.MainCollectionView.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
+                  moduleName = "OrnamentApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/valerijvasin/Documents/Job/design.ios/OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "180">
+               </Location>
+               <Location
+                  uuid = "E56BFAC8-D9A1-4A33-B089-9F079F82BC09 - 8821de1574ad0a12"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OrnamentApp.MainCollectionView.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
+                  moduleName = "OrnamentApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/valerijvasin/Documents/Job/design.ios/OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "85"
+                  endingLineNumber = "85"
+                  offsetFromSymbolStart = "180">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6FFE1F04-FF63-4D9E-A320-3445C8C15345"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "6FFE1F04-FF63-4D9E-A320-3445C8C15345 - 7dbd3496938cc7b8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static OrnamentApp.ComponentsService.getAllComponents() -&gt; Swift.Array&lt;Swift.String&gt;"
+                  moduleName = "OrnamentApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/valerijvasin/Documents/Job/design.ios/OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "91"
+                  endingLineNumber = "91"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "6FFE1F04-FF63-4D9E-A320-3445C8C15345 - 7020a85404d33f7b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OrnamentApp.MainCollectionView.collectionView(_: __C.UICollectionView, didSelectItemAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "OrnamentApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/valerijvasin/Documents/Job/design.ios/OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "116">
+               </Location>
+               <Location
+                  uuid = "6FFE1F04-FF63-4D9E-A320-3445C8C15345 - 7020a85404d33c8f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OrnamentApp.MainCollectionView.collectionView(_: __C.UICollectionView, didSelectItemAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "OrnamentApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/valerijvasin/Documents/Job/design.ios/OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "116">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "979C3E65-7563-431E-8CEF-B7058EE10E1E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "init()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "979C3E65-7563-431E-8CEF-B7058EE10E1E - 6abf4f7975d838d2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OrnamentApp.MainCollectionView.update(with: Swift.Optional&lt;OrnamentApp.MainCollectionView.ViewProperties&gt;) -&gt; ()"
+                  moduleName = "OrnamentApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/valerijvasin/Documents/Job/design.ios/OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "50"
+                  endingLineNumber = "50"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  uuid = "979C3E65-7563-431E-8CEF-B7058EE10E1E - d5a4ad89da680481"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "OrnamentApp.MainCollectionView.init() -&gt; OrnamentApp.MainCollectionView"
+                  moduleName = "OrnamentApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/valerijvasin/Documents/Job/design.ios/OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "48"
+                  endingLineNumber = "48"
+                  offsetFromSymbolStart = "912">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8CCAE6A4-125A-4F73-B538-48C79F388837"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "init?(coder:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "98B2581C-0B73-473A-B399-19445909B9B4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "OrnamentApp/OrnamentApp/CollectionView/MainCollectionView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "collectionView(_:cellForItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
