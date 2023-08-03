@@ -9,48 +9,52 @@ import UIKit
 
 public extension UIColor {
     
-    static var backgroundErrorLight: UIColor {
-        return ColorService.hexFFE5DD
-    }
+    // MARK: content
     
-    static var backgroundWarningLight: UIColor {
-        return ColorService.hexFFF5D9
-    }
-    
-    static var backgroundSuccessLight: UIColor {
-        return ColorService.hexE6FBD9
-    }
-    
-    static var backgroundInfoLight: UIColor {
-        return ColorService.hexE1F2FF
-    }
-    
-    static var backgroundSecondary: UIColor {
-        return ColorService.hexE8E8E8
-    }
-
-    static var contentInfo: UIColor {
-        return ColorService.hex2B82E9
-    }
-    
-    static var contenWarning: UIColor {
-        return ColorService.hexFB9100
-    }
-    
-    static var contentPrimary: UIColor {
-        return ColorService.hex2C2C2C
-    }
-    
-    static var contentSuccess: UIColor {
-        return ColorService.hex82AF1A
+    static var contentAction: UIColor {
+        return ColorService.contentAction
     }
     
     static var contentError: UIColor {
-        return ColorService.hexEE3D32
+        return ColorService.contentError
     }
     
-    static var contentAction: UIColor {
-        return ColorService.hex19AB4A
+    static var contentInfo: UIColor {
+        return ColorService.contentInfo
+    }
+    
+    static var contentPrimary: UIColor {
+        return ColorService.contentPrimary
+    }
+    
+    static var contentSuccess: UIColor {
+        return ColorService.contentSuccess
+    }
+
+    static var contentWarning: UIColor {
+        return ColorService.contentWarning
+    }
+    
+    // MARK: background
+    
+    static var backgroundErrorLight: UIColor {
+        return ColorService.backgroundErrorLight
+    }
+    
+    static var backgroundInfoLight: UIColor {
+        return ColorService.backgroundInfoLight
+    }
+    
+    static var backgroundSecondary: UIColor {
+        return ColorService.backgroundSecondary
+    }
+    
+    static var backgroundSuccessLight: UIColor {
+        return ColorService.backgroundSuccessLight
+    }
+    
+    static var backgroundWarningLight: UIColor {
+        return ColorService.backgroundWarningLight
     }
 }
 

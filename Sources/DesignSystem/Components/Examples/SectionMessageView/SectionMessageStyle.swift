@@ -34,8 +34,8 @@ public enum SectionMessageStyle {
         case .warning:
             viewProperties.title =  viewProperties.title?.string.textM_1(color: .contentPrimary)
             viewProperties.content = viewProperties.content?.string.textM_1(color: .contentPrimary)
-            viewProperties.subtitle = viewProperties.subtitle?.string.textM_1(color: .contenWarning)
-            viewProperties.iconImage = ImagesService.warningTriangleOutline.tinted(with: .contenWarning)
+            viewProperties.subtitle = viewProperties.subtitle?.string.textM_1(color: .contentWarning)
+            viewProperties.iconImage = ImagesService.warningTriangleOutline.tinted(with: .contentWarning)
             viewProperties.backgroundColor = .backgroundWarningLight
            return viewProperties
             
@@ -92,8 +92,8 @@ public enum TestSectionMessageStyle {
         case .warning:
             viewProperties.title =  viewProperties.title?.string.textM_1(color: .contentPrimary)
             viewProperties.content = viewProperties.content?.string.textM_1(color: .contentPrimary)
-            viewProperties.subtitle = viewProperties.subtitle?.string.textM_1(color: .contenWarning)
-            viewProperties.iconImage = ImagesService.warningTriangleOutline.tinted(with: .contenWarning)
+            viewProperties.subtitle = viewProperties.subtitle?.string.textM_1(color: .contentWarning)
+            viewProperties.iconImage = ImagesService.warningTriangleOutline.tinted(with: .contentWarning)
             viewProperties.backgroundColor = .backgroundWarningLight
            return viewProperties
             
