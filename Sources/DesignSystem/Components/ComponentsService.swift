@@ -5,8 +5,8 @@
 //  Created by Валерий Васин on 28.07.2023.
 //
 
-final class ComponentsService {
-    static func getAllComponents() -> [String] {
+public final class ComponentsService {
+    public static func getAllComponents() -> [String] {
         var components: [String] = []
         
         components.append("Attachment")
