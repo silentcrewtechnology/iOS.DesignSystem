@@ -21,7 +21,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://gitlab.akbars.tech/abo/ios.architecture", branch: "main"),
-        .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.0.1")),//"4.2.0"
+        .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "4.2.0")),//"4.2.0"
     ],
     targets: [
         .target(
