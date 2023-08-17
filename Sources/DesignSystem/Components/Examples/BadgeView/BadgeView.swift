@@ -91,7 +91,7 @@ final class BadgeView: UIView, Reusable, ViewProtocol {
         }
         mainView.isHidden = false
         let width = text.width(
-            height: CGFloat(Constants.labelHight),
+            height: CGFloat(Constants.labelHeight),
             add: CGFloat(Constants.labelPadding * 2)
         )
         mainView.snp.updateConstraints {
@@ -108,5 +108,5 @@ final class BadgeView: UIView, Reusable, ViewProtocol {
 private struct Constants {
     
     static let labelPadding = 6
-    static let labelHight = 20
+    static let labelHeight = 20
 }
