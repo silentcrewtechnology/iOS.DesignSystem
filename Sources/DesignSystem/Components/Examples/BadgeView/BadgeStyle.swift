@@ -12,22 +12,23 @@ public enum BadgeStyle {
     case action
     case neutral
     
-    public func applay(
-        with viewProperties: inout BadgeView.ViewProperties
-    ) -> BadgeView.ViewProperties {
+    func apply(
+        with viewProperties: BadgeView.ViewProperties?
+    ) -> BadgeView.ViewProperties? {
+        guard var viewProperties = viewProperties else { return nil }
         switch self {
         case .default:
-            viewProperties.text = viewProperties.text?.string.textM_1(color: .contentPrimary)
+            viewProperties.text = viewProperties.text?.string.textS_1(color: .contentActionOn)
             viewProperties.backgroundColor = .contentError
            return viewProperties
             
         case .action:
-            viewProperties.text = viewProperties.text?.string.textM_1(color: .contentPrimary)
+            viewProperties.text = viewProperties.text?.string.textS_1(color: .contentActionOn)
             viewProperties.backgroundColor = .backgroundSuccess
            return viewProperties
             
         case .neutral:
-            viewProperties.text = viewProperties.text?.string.textM_1(color: .contentPrimary)
+            viewProperties.text = viewProperties.text?.string.textS_1(color: .contentActionOn)
             viewProperties.backgroundColor = .backgroundMainInverse
            return viewProperties
     
