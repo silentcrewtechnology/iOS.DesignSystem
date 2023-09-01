@@ -18,10 +18,6 @@ public extension String {
         let attributedString = NSMutableAttributedString(string: self)
         return attributedString
     }
-    
-    func style(_ style: CommonTextStyles) -> NSAttributedString {
-        return style.text()
-    }
 }
 
 public extension String {
