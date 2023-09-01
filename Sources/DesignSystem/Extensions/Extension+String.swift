@@ -18,6 +18,11 @@ public extension String {
         let attributedString = NSMutableAttributedString(string: self)
         return attributedString
     }
+    
+    func fontStyle(_ style: FontStyle) -> NSMutableAttributedString {
+        let styledString = attributed.fontStyle(style)
+        return styledString
+    }
 }
 
 public extension String {
