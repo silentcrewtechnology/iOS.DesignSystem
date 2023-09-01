@@ -13,7 +13,14 @@ public struct FontStyle {
     /// Высота строки
     let lineHeight: CGFloat
     /// Отступ снизу для центрирования текста по вертикали
-    var baselineOffset: CGFloat { (lineHeight - font.pointSize) / 4.0 }
+    var baselineOffset: CGFloat {
+        let offset = (lineHeight - font.capHeight) / 2 + font.descender
+        if #available(iOS 16.4, *) {
+            return offset
+        } else {
+            return offset / 2
+        }
+    }
     
     // MARK: Heading
     
