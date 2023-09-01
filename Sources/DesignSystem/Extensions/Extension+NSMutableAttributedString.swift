@@ -51,7 +51,7 @@ extension NSMutableAttributedString {
         let paragraphStyle = existingParagraphStyle
         paragraphStyle.minimumLineHeight = lineHeight
         paragraphStyle.maximumLineHeight = lineHeight
-        return addingAttributes(.lineHeight(lineHeight))
+        return addingAttributes([.paragraphStyle: paragraphStyle])
     }
     
     func alignment(_ alignment: NSTextAlignment) -> Self {
