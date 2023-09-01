@@ -14,7 +14,7 @@ extension NSAttributedString {
         return nsString.range(of: self.string)
     }
     
-    func stringRange(with string: String) -> NSRange {
+    func range(of string: String) -> NSRange {
         let result = self.string as NSString
         return result.range(of: string)
     }

@@ -28,7 +28,7 @@ extension NSMutableAttributedString {
     }
     
     func foregroundColor(_ color: UIColor, for string: String) -> Self {
-        let range = stringRange(with: string)
+        let range = range(of: string)
         let attribute = addingAttributes([.foregroundColor: color], range: range)
         return attribute
     }
