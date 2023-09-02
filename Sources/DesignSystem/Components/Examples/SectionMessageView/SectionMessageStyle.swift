@@ -7,7 +7,6 @@
 
 import Foundation
 import ImagesService
-import ColorService
 import UIKit
 
 public enum SectionMessageStyle {
