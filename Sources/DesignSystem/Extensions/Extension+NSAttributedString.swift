@@ -14,16 +14,8 @@ extension NSAttributedString {
         return nsString.range(of: self.string)
     }
     
-    func stringRange(with string: String) -> NSRange {
+    func range(of string: String) -> NSRange {
         let result = self.string as NSString
         return result.range(of: string)
-    }
-    
-    func applyColor(_ color: UIColor) -> NSAttributedString {
-        if let result = self.mutableCopy() as? NSMutableAttributedString {
-            result.addAttributes([.foregroundColor: color], range: fullRange())
-            return (result.copy() as? NSAttributedString) ?? self
-        }
-        return self
     }
 }

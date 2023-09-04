@@ -24,17 +24,17 @@ extension NSMutableAttributedString {
     }
     
     func foregroundColor(_ color: UIColor) -> Self {
-        addingAttributes(.foregroundColor(color))
+        addingAttributes([.foregroundColor: color])
+    }
+    
+    func foregroundColor(_ color: UIColor, for string: String) -> Self {
+        let range = range(of: string)
+        let attribute = addingAttributes([.foregroundColor: color], range: range)
+        return attribute
     }
     
     func font(_ font: UIFont) -> Self {
-        addingAttributes(.font(font))
-    }
-    
-    func addColor(_ color: UIColor, for string: String) -> Self {
-        let range = stringRange(with: string)
-        let attribute = addingAttributes(.foregroundColor(color), range: range)
-        return attribute
+        addingAttributes([.font: font])
     }
     
     private var existingParagraphStyle: NSMutableParagraphStyle {
@@ -51,7 +51,7 @@ extension NSMutableAttributedString {
         let paragraphStyle = existingParagraphStyle
         paragraphStyle.minimumLineHeight = lineHeight
         paragraphStyle.maximumLineHeight = lineHeight
-        return addingAttributes(.lineHeight(lineHeight))
+        return addingAttributes([.paragraphStyle: paragraphStyle])
     }
     
     func alignment(_ alignment: NSTextAlignment) -> Self {

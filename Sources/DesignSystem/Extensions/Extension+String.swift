@@ -19,8 +19,9 @@ public extension String {
         return attributedString
     }
     
-    func style(_ style: CommonTextStyles) -> NSAttributedString {
-        return style.text()
+    func fontStyle(_ style: FontStyle) -> NSMutableAttributedString {
+        let styledString = attributed.fontStyle(style)
+        return styledString
     }
 }
 
