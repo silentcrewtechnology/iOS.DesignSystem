@@ -26,7 +26,7 @@ public enum SectionMessageStyle {
             viewProperties.title = viewProperties.title?.string.textM_1(color: .contentPrimary)
             viewProperties.content = viewProperties.content?.string.textM_1(color: .contentPrimary)
             viewProperties.subtitle = viewProperties.subtitle?.string.textM_1(color: .contentInfo)
-            viewProperties.iconImage = ImagesService.infoCircleOutline.tinted(with: .contentInfo)
+            viewProperties.iconImage = .ic24InfoCircleOutline.tinted(with: .contentInfo)
             viewProperties.backgroundColor = .backgroundInfoLight
            return viewProperties
             
@@ -34,7 +34,7 @@ public enum SectionMessageStyle {
             viewProperties.title =  viewProperties.title?.string.textM_1(color: .contentPrimary)
             viewProperties.content = viewProperties.content?.string.textM_1(color: .contentPrimary)
             viewProperties.subtitle = viewProperties.subtitle?.string.textM_1(color: .contentWarning)
-            viewProperties.iconImage = ImagesService.warningTriangleOutline.tinted(with: .contentWarning)
+            viewProperties.iconImage = .ic24WarningTriangleOutline.tinted(with: .contentWarning)
             viewProperties.backgroundColor = .backgroundWarningLight
            return viewProperties
             
@@ -42,7 +42,7 @@ public enum SectionMessageStyle {
             viewProperties.title = viewProperties.title?.string.textM_1(color: .contentPrimary)
             viewProperties.content = viewProperties.content?.string.textM_1(color: .contentPrimary)
             viewProperties.subtitle = viewProperties.subtitle?.string.textM_1(color: .contentSuccess)
-            viewProperties.iconImage = ImagesService.checkCircleOutline.tinted(with: .contentSuccess)
+            viewProperties.iconImage = .ic24CheckCircleOutline.tinted(with: .contentSuccess)
             viewProperties.backgroundColor = .backgroundSuccessLight
            return viewProperties
             
@@ -50,7 +50,7 @@ public enum SectionMessageStyle {
             viewProperties.title = viewProperties.title?.string.textM_1(color: .contentPrimary)
             viewProperties.content = viewProperties.content?.string.textM_1(color: .contentPrimary)
             viewProperties.subtitle = viewProperties.subtitle?.string.textM_1(color: .contentError)
-            viewProperties.iconImage = ImagesService.infoCircleOutline.tinted(with: .contentInfo)
+            viewProperties.iconImage = .ic24InfoCircleOutline.tinted(with: .contentInfo)
             viewProperties.backgroundColor = .backgroundErrorLight
            return viewProperties
             
@@ -58,7 +58,7 @@ public enum SectionMessageStyle {
             viewProperties.title = viewProperties.title?.string.textM_1(color: .contentPrimary)
             viewProperties.content = viewProperties.content?.string.textM_1(color: .contentPrimary)
             viewProperties.subtitle = viewProperties.subtitle?.string.textM_1(color: .contentAction)
-            viewProperties.iconImage = ImagesService.security.tinted(with: .contentInfo)
+            viewProperties.iconImage = .ic24Security.tinted(with: .contentInfo)
             viewProperties.backgroundColor = .backgroundSecondary
            return viewProperties
             
@@ -84,7 +84,7 @@ public enum TestSectionMessageStyle {
             viewProperties.title = viewProperties.title?.string.textM_1(color: .contentPrimary)
             viewProperties.content = viewProperties.content?.string.textM_1(color: .contentPrimary)
             viewProperties.subtitle = viewProperties.subtitle?.string.textM_1(color: .contentInfo)
-            viewProperties.iconImage = ImagesService.infoCircleOutline.tinted(with: .contentInfo)
+            viewProperties.iconImage = .ic24InfoCircleOutline.tinted(with: .contentInfo)
             viewProperties.backgroundColor = .backgroundInfoLight
            return viewProperties
             
@@ -92,7 +92,7 @@ public enum TestSectionMessageStyle {
             viewProperties.title =  viewProperties.title?.string.textM_1(color: .contentPrimary)
             viewProperties.content = viewProperties.content?.string.textM_1(color: .contentPrimary)
             viewProperties.subtitle = viewProperties.subtitle?.string.textM_1(color: .contentWarning)
-            viewProperties.iconImage = ImagesService.warningTriangleOutline.tinted(with: .contentWarning)
+            viewProperties.iconImage = .ic24WarningTriangleOutline.tinted(with: .contentWarning)
             viewProperties.backgroundColor = .backgroundWarningLight
            return viewProperties
             
@@ -100,7 +100,7 @@ public enum TestSectionMessageStyle {
             viewProperties.title = viewProperties.title?.string.textM_1(color: .contentPrimary)
             viewProperties.content = viewProperties.content?.string.textM_1(color: .contentPrimary)
             viewProperties.subtitle = viewProperties.subtitle?.string.textM_1(color: .contentSuccess)
-            viewProperties.iconImage = ImagesService.checkCircleOutline.tinted(with: .contentSuccess)
+            viewProperties.iconImage = .ic24CheckCircleOutline.tinted(with: .contentSuccess)
             viewProperties.backgroundColor = .backgroundSuccessLight
            return viewProperties
             
@@ -108,7 +108,7 @@ public enum TestSectionMessageStyle {
             viewProperties.title = viewProperties.title?.string.textM_1(color: .contentPrimary)
             viewProperties.content = viewProperties.content?.string.textM_1(color: .contentPrimary)
             viewProperties.subtitle = viewProperties.subtitle?.string.textM_1(color: .contentError)
-            viewProperties.iconImage = ImagesService.infoCircleOutline.tinted(with: .contentInfo)
+            viewProperties.iconImage = .ic24InfoCircleOutline.tinted(with: .contentInfo)
             viewProperties.backgroundColor = .backgroundErrorLight
            return viewProperties
             
@@ -116,7 +116,7 @@ public enum TestSectionMessageStyle {
             viewProperties.title = viewProperties.title?.string.textM_1(color: .contentPrimary)
             viewProperties.content = viewProperties.content?.string.textM_1(color: .contentPrimary)
             viewProperties.subtitle = viewProperties.subtitle?.string.textM_1(color: .contentAction)
-            viewProperties.iconImage = ImagesService.security.tinted(with: .contentInfo)
+            viewProperties.iconImage = .ic24Security.tinted(with: .contentInfo)
             viewProperties.backgroundColor = .backgroundSecondary
            return viewProperties
             
