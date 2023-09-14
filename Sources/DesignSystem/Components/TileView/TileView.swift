@@ -80,7 +80,7 @@ public final class TileView: UIView, ViewProtocol {
     public func update(with viewProperties: ViewProperties?) {
         guard let viewProperties else { return }
         textLabel.attributedText = viewProperties.text
-        setupSizeConstraints()
+        setupSizeConstraints(with: viewProperties)
         backgroundColor = viewProperties.backgroundColor
         setupIcon(with: viewProperties)
         self.viewProperties = viewProperties
@@ -111,7 +111,9 @@ public final class TileView: UIView, ViewProtocol {
         addGestureRecognizer(gr)
     }
     
-    private func setupSizeConstraints() {
+    private func setupSizeConstraints(
+        with viewProperties: ViewProperties
+    ) {
         guard
             self.viewProperties.width != viewProperties.width,
             self.viewProperties.textWidth != viewProperties.textWidth
