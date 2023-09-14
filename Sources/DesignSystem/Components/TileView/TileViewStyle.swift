@@ -13,7 +13,7 @@ public enum TileViewStyle {
         case main
     }
     
-    static func resize(
+    public static func resize(
         size: Size,
         viewProperties: TileView.ViewProperties
     ) -> TileView.ViewProperties {
@@ -31,7 +31,7 @@ public enum TileViewStyle {
         return viewProperties
     }
     
-    static func restyle(
+    public static func restyle(
         style: Style,
         viewProperties: TileView.ViewProperties
     ) -> TileView.ViewProperties {
