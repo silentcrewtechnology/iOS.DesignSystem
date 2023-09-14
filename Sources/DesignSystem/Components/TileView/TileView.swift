@@ -2,21 +2,45 @@ import UIKit
 import SnapKit
 import Architecture
 
-final class TileView: UIView, ViewProtocol {
+public final class TileView: UIView, ViewProtocol {
     
-    struct ViewProperties {
-        var icon: Icon = .init()
-        var text: NSMutableAttributedString = .init(string: "")
-        var backgroundColor: UIColor = .clear
-        var width: CGFloat = .zero
-        var textWidth: CGFloat = .zero
-        var action: () -> Void = { }
+    public struct ViewProperties {
+        public var icon: Icon
+        public var text: NSMutableAttributedString
+        public var backgroundColor: UIColor
+        public var width: CGFloat
+        public var textWidth: CGFloat
+        public var action: () -> Void
         
-        struct Icon {
-            var variant: Variant = .icon(.init())
-            var backgroundColor: UIColor = .clear
+        public init(
+            icon: TileView.ViewProperties.Icon = .init(),
+            text: NSMutableAttributedString = .init(string: ""),
+            backgroundColor: UIColor = .clear,
+            width: CGFloat = .zero,
+            textWidth: CGFloat = .zero,
+            action: @escaping () -> Void = { }
+        ) {
+            self.icon = icon
+            self.text = text
+            self.backgroundColor = backgroundColor
+            self.width = width
+            self.textWidth = textWidth
+            self.action = action
+        }
+        
+        public struct Icon {
+            public var variant: Variant
+            public var backgroundColor: UIColor
             
-            enum Variant {
+            public init(
+                variant: TileView.ViewProperties.Icon.Variant = .icon(.init()),
+                backgroundColor: UIColor = .clear
+            ) {
+                self.variant = variant
+                self.backgroundColor = backgroundColor
+            }
+            
+            public enum Variant {
                 case icon(UIImage)
                 case image(UIImage)
             }
@@ -46,14 +70,14 @@ final class TileView: UIView, ViewProtocol {
     @available(*, unavailable)
     required init?(coder: NSCoder) { fatalError() }
     
-    func create(with viewProperties: ViewProperties?) {
+    public func create(with viewProperties: ViewProperties?) {
         guard let viewProperties else { return }
         self.viewProperties = viewProperties
         textLabel.attributedText = viewProperties.text.alignment(.center)
         setupIcon(with: viewProperties)
     }
     
-    func update(with viewProperties: ViewProperties?) {
+    public func update(with viewProperties: ViewProperties?) {
         guard let viewProperties else { return }
         textLabel.attributedText = viewProperties.text
         setupSizeConstraints()
