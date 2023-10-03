@@ -6,20 +6,20 @@ public final class MessageView: UIView, ViewProtocol {
     
     public struct ViewProperties {
         public var attributedText: NSMutableAttributedString?
-        public var placeholder: String?
+        public var attributedPlaceholder: NSMutableAttributedString?
         public var backgroundColor: UIColor
         public var borderColor: UIColor
         public var isUserInteractionEnabled: Bool
 
         public init(
             attributedText: NSMutableAttributedString? = nil,
-            placeholder: String? = nil,
+            attributedPlaceholder: NSMutableAttributedString? = nil,
             backgroundColor: UIColor = .backgroundPrimary,
             borderColor: UIColor = .clear,
             isUserInteractionEnabled: Bool = true
         ) {
             self.attributedText = attributedText
-            self.placeholder = placeholder
+            self.attributedPlaceholder = attributedPlaceholder
             self.backgroundColor = backgroundColor
             self.borderColor = borderColor
             self.isUserInteractionEnabled = isUserInteractionEnabled
@@ -71,7 +71,7 @@ public final class MessageView: UIView, ViewProtocol {
         layer.borderColor = viewProperties.borderColor.cgColor
 
         textField.attributedText = viewProperties.attributedText
-        textField.placeholder = viewProperties.placeholder
+        textField.attributedPlaceholder = viewProperties.attributedPlaceholder
         
         isUserInteractionEnabled = viewProperties.isUserInteractionEnabled
     }

@@ -6,7 +6,7 @@ private func example() {
         style: .default,
         viewProperties: .init(
             attributedText: "Content".attributed,
-            placeholder: "PlaceHolder"
+            attributedPlaceholder: "PlaceHolder".attributed
         )
     )
     

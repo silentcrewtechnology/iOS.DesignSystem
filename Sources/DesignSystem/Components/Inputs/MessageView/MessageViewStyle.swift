@@ -17,14 +17,17 @@ public enum MessageViewStyle {
         case .active:
             viewProperties.backgroundColor = .backgroundMain
             viewProperties.attributedText = viewProperties.attributedText?.foregroundColor(.contentPrimary)
+            viewProperties.attributedPlaceholder = viewProperties.attributedText?.foregroundColor(.contentTertiary)
             viewProperties.borderColor = .borderAction
         case .disabled:
             viewProperties.backgroundColor = .backgroundDisabled
             viewProperties.attributedText = viewProperties.attributedText?.foregroundColor(.contentSecondary)
+            viewProperties.attributedPlaceholder = viewProperties.attributedText?.foregroundColor(.contentDisabled)
             viewProperties.isUserInteractionEnabled = false
         case .`default`:
             viewProperties.backgroundColor = .backgroundPrimary
             viewProperties.attributedText = viewProperties.attributedText?.foregroundColor(.contentPrimary)
+            viewProperties.attributedPlaceholder = viewProperties.attributedText?.foregroundColor(.contentTertiary)
         }
         return viewProperties
     }
