@@ -529,6 +529,7 @@ public extension UIImage {
     static let ic24Yuan = ImagesService.image(named: "ic24Yuan")
     static let ic24ZoomIn = ImagesService.image(named: "ic24ZoomIn")
     static let ic24ZoomOut = ImagesService.image(named: "ic24ZoomOut")
+    static let ic24SpinnerLoader = ImagesService.image(named: "ic24SpinerLoader")
     
     // MARK: - ic24Colored
     
