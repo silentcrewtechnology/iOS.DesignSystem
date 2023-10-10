@@ -6,7 +6,7 @@ class ActivityIndicatorView: UIView {
     // MARK: - Constants
     
     private enum Constants {
-        static let activityImage: UIImage = .ic24SpinnerLoader
+        static let activityImage: UIImage = .ic24SpinerLoader
         static let kRotationAnimationKey = "bankok.RotationAnimation"
         static let animationDuration: CGFloat = 0.3
     }

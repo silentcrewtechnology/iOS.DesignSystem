@@ -5,7 +5,7 @@ import Architecture
 public final class ButtonView: UIView, ViewProtocol {
     
     public struct ViewProperties {
-        public var attributedText: NSMutableAttributedString?
+        public var attributedText: NSMutableAttributedString
         public var leftIcon: UIImage?
         public var rightIcon: UIImage?
         public var loaderImage: UIImage?
@@ -13,7 +13,7 @@ public final class ButtonView: UIView, ViewProtocol {
         public var action: ClosureEmpty
         
         public init(
-            attributedText: NSMutableAttributedString?,
+            attributedText: NSMutableAttributedString,
             leftIcon: UIImage? = nil,
             rightIcon: UIImage? = nil,
             loaderImage: UIImage? = nil,
@@ -33,8 +33,18 @@ public final class ButtonView: UIView, ViewProtocol {
     
     // MARK: - UI
     
-    private var activityIndicator = ActivityIndicatorView()
-    private let actionButton = UIButton(type: .system)
+    private var activityIndicator: ActivityIndicatorView = {
+        let view = ActivityIndicatorView()
+        view.isHidden = true
+        return view
+    }()
+    
+    private let actionButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitleColor(.contentActionOn, for: .normal)
+        button.titleLabel?.font = .textM
+        return button
+    }()
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -91,7 +101,9 @@ public final class ButtonView: UIView, ViewProtocol {
     
     // MARK: - Private Methods
     
-    private func setupProperties(with viewProperties: ViewProperties) {
+    private func setupProperties(with viewProperties: ViewProperties?) {
+        guard let viewProperties else { return }
+
         backgroundColor = viewProperties.backgroundColor
 
         leftIconView.image = viewProperties.leftIcon
