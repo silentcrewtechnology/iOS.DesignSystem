@@ -79,8 +79,10 @@ public final class MessageView: UIView, ViewProtocol {
     private func setupView() {
         addSubview(textField)
         textField.snp.makeConstraints {
-            $0.top.leading.equalToSuperview().offset(16)
-            $0.bottom.trailing.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().offset(16)
+            $0.leading.equalToSuperview().offset(20)
+            $0.bottom.equalToSuperview().inset(16)
+            $0.trailing.equalToSuperview().inset(20)
         }
     }
     
