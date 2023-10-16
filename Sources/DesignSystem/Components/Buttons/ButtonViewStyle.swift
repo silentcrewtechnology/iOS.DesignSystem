@@ -5,7 +5,7 @@ public enum ButtonViewStyle {
     public enum Style {
         case action
         case secondary
-        case clear
+        case ghost
     }
     
     public static func updateStyle(
@@ -16,19 +16,25 @@ public enum ButtonViewStyle {
         switch style {
         case .action:
             viewProperties.backgroundColor = .backgroundAction
-            viewProperties.loaderImage = .ic24SpinerLoader.tinted(with: .contentPrimaryInverse)
+            viewProperties.higlightColor = .backgroundActionPressed
+            viewProperties.leftIcon = viewProperties.leftIcon?.tinted(with: .contentActionOn)
+            viewProperties.rightIcon = viewProperties.rightIcon?.tinted(with: .contentActionOn)
             viewProperties.attributedText = viewProperties.attributedText
                 .fontStyle(.textM)
                 .foregroundColor(.contentActionOn)
         case .secondary:
             viewProperties.backgroundColor = .backgroundSecondary
-            viewProperties.loaderImage = .ic24SpinerLoader.tinted(with: .contentDisabled)
+            viewProperties.higlightColor = .backgroundSecondaryPressed
+            viewProperties.leftIcon = viewProperties.leftIcon?.tinted(with: .contentPrimary)
+            viewProperties.rightIcon = viewProperties.rightIcon?.tinted(with: .contentPrimary)
             viewProperties.attributedText = viewProperties.attributedText
                 .fontStyle(.textM)
                 .foregroundColor(.contentPrimary)
-        case .clear:
+        case .ghost:
             viewProperties.backgroundColor = .clear
-            viewProperties.loaderImage = .ic24SpinerLoader.tinted(with: .contentDisabled)
+            viewProperties.higlightColor = .backgroundActionLightPressed
+            viewProperties.leftIcon = viewProperties.leftIcon?.tinted(with: .contentAction)
+            viewProperties.rightIcon = viewProperties.rightIcon?.tinted(with: .contentAction)
             viewProperties.attributedText = viewProperties.attributedText
                 .fontStyle(.textM)
                 .foregroundColor(.contentAction)
