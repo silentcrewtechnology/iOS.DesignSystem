@@ -203,7 +203,7 @@ public final class TextareaView: UIView, ViewProtocol {
     private func updateView(with viewProperties: ViewProperties) {
         
         headerLabel.attributedText = viewProperties.header
-        headerView.isHidden = viewProperties.header == nil || viewProperties.header?.string.isEmpty == true
+        headerView.isHidden = viewProperties.header?.string.isEmpty != false
         
         placeholderLabel.attributedText = viewProperties.placeholder
         placeholderLabel.isHidden = !viewProperties.text.string.isEmpty
