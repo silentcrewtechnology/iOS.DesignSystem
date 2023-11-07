@@ -1,5 +1,5 @@
 //
-//  TexareaViewExample.swift
+//  TextareaViewExample.swift
 //  
 //
 //  Created by Ilnur Mugaev on 07.11.2023.
