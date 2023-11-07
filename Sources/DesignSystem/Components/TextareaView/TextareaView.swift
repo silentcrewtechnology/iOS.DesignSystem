@@ -37,7 +37,6 @@ public final class TextareaView: UIView, ViewProtocol {
         public var maxCount: Counter = .undefined
         public var borderColor: UIColor = .clear
         public var backgroundColor: UIColor = .clear
-        public var textViewDidEndEditingHandler: ((String?) -> Void)?
     }
     
     private var viewProperties: ViewProperties = .init()
