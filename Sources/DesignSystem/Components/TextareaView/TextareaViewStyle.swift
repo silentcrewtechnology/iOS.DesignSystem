@@ -30,6 +30,7 @@ public enum TextareaViewStyle {
             viewProperties.text = viewProperties.text.foregroundColor(.contentPrimary)
             viewProperties.typingText = viewProperties.typingText.foregroundColor(.contentPrimary)
             viewProperties.placeholder = viewProperties.placeholder.foregroundColor(.contentTertiary)
+            viewProperties.isUserInteractionEnabled = true
             viewProperties.borderColor = .clear
             viewProperties.backgroundColor = .backgroundPrimary
         case .active:
@@ -39,6 +40,7 @@ public enum TextareaViewStyle {
             viewProperties.placeholder = viewProperties.placeholder.foregroundColor(.contentTertiary)
             viewProperties.counter = viewProperties.counter.foregroundColor(.contentSecondary)
             viewProperties.isCounterHidden = false
+            viewProperties.isUserInteractionEnabled = true
             viewProperties.borderColor = .borderAction
             viewProperties.backgroundColor = .backgroundMain
         case .error:
@@ -50,6 +52,7 @@ public enum TextareaViewStyle {
             viewProperties.isHintHidden = false
             viewProperties.counter = viewProperties.counter.foregroundColor(.contentError)
             viewProperties.isCounterHidden = false
+            viewProperties.isUserInteractionEnabled = true
             viewProperties.borderColor = .borderError
             viewProperties.backgroundColor = .backgroundPrimary
         case .disabled:
