@@ -3,12 +3,12 @@ import UIKit
 struct FontName {
     
     enum SFProDisplay: String, CaseIterable {
-        case regular = "SFProDisplay-Regular"
-        case black = "SFProDisplay-Black"
-        case medium = "SFProDisplay-Medium"
-        case bold = "SFProDisplay-Bold"
-        case light = "SFProDisplay-Light"
-        case heavy = "SFProDisplay-Heavy"
+        case regular = "SF-Pro-Display-Regular"
+        case black = "SF-Pro-Display-Black"
+        case medium = "SF-Pro-Display-Medium"
+        case bold = "SF-Pro-Display-Bold"
+        case light = "SF-Pro-Display-Light"
+        case heavy = "SF-Pro-Display-Heavy"
         
         public func font(size: CGFloat) -> UIFont {
             let descriptor = UIFontDescriptor(fontAttributes: [.name: rawValue])
