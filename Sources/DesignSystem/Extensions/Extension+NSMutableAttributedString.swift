@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension NSMutableAttributedString {
+public extension NSMutableAttributedString {
     
     private func addingAttributes(
         _ attributes: [NSAttributedString.Key: Any],
