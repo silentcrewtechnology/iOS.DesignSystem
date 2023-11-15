@@ -9,11 +9,11 @@ import UIKit
 
 public struct FontStyle {
     /// Шрифт
-    let font: UIFont
+    public let font: UIFont
     /// Высота строки
-    let lineHeight: CGFloat
+    public let lineHeight: CGFloat
     /// Отступ снизу для центрирования текста по вертикали
-    var baselineOffset: CGFloat {
+    public var baselineOffset: CGFloat {
         let offset = (lineHeight - font.capHeight) / 2 + font.descender
         if #available(iOS 16.4, *) {
             return offset
@@ -21,6 +21,9 @@ public struct FontStyle {
             return offset / 2
         }
     }
+}
+
+public extension FontStyle {
     
     // MARK: Heading
     

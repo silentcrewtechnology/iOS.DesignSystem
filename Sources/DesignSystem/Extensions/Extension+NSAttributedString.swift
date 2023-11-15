@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension NSAttributedString {
+public extension NSAttributedString {
     
     func fullRange() -> NSRange {
         let nsString = self.string as NSString
