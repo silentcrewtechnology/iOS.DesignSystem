@@ -39,6 +39,7 @@ public extension NSMutableAttributedString {
     
     private var existingParagraphStyle: NSMutableParagraphStyle {
         var effectiveRange = fullRange()
+        guard effectiveRange.length > 0 else { return .init() }
         let existingParagraphStyle = attribute(
             .paragraphStyle,
             at: 0,
