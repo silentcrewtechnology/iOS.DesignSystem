@@ -77,7 +77,7 @@ public final class TileView: UIView, ViewProtocol {
         setupIcon(with: viewProperties)
     }
     
-    public func update(with viewProperties: ViewProperties?) {
+    public func update(viewProperties: ViewProperties?) {
         guard let viewProperties else { return }
         textLabel.attributedText = viewProperties.text
         setupSizeConstraints(with: viewProperties)

@@ -93,7 +93,7 @@ public final class TestSectionMessageView: UIView, ViewProtocol {
         setupView()
     }
     
-    public func update(with viewProperties: ViewProperties?) {
+    public func update(viewProperties: ViewProperties?) {
         self.viewProperties = viewProperties
         setData(with: viewProperties)
     }
