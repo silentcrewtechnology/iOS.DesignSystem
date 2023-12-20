@@ -30,5 +30,5 @@ private func example() {
             indexPath: indexPath),
         viewProperties: viewProperties)
     
-    view.update(with: viewProperties)
+    view.update(viewProperties: viewProperties)
 }
