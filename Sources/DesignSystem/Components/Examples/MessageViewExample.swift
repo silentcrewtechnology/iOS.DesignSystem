@@ -12,5 +12,5 @@ private func example() {
     
     view.create(with: viewProperties)
     viewProperties = MessageViewStyle.updateStyle(style: .disabled, viewProperties: .init())
-    view.update(with: viewProperties)
+    view.update(viewProperties: viewProperties)
 }
