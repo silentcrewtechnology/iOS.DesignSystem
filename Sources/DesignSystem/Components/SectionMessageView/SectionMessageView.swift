@@ -15,18 +15,16 @@ public final class SectionMessageView: UIView, ViewProtocol {
         public var title: NSAttributedString?
         public var content: NSAttributedString?
         public var subtitle: NSAttributedString?
-        public var iconImage: UIImage
-        public var backgroundColor: UIColor
-        public let action: ClosureEmpty
+        public var iconImage: UIImage?
+        public var backgroundColor: UIColor?
+        public let action: ClosureEmpty?
         
-        public init(
-            title: NSAttributedString,
-            content: NSAttributedString,
-            subtitle: NSAttributedString,
-            iconImage: UIImage,
-            backgroundColor: UIColor,
-            action: @escaping ClosureEmpty
-        ) {
+        public init(title: NSAttributedString?,
+                    content: NSAttributedString?,
+                    subtitle: NSAttributedString?,
+                    iconImage: UIImage?,
+                    backgroundColor: UIColor?,
+                    action: ClosureEmpty?) {
             self.title = title
             self.content = content
             self.subtitle = subtitle
@@ -36,24 +34,37 @@ public final class SectionMessageView: UIView, ViewProtocol {
         }
     }
     
+//    enum State {
+//        // Здесь описываются состояния вью
+//        case create(ViewProperties?)
+//        case info
+//        case warning
+//        case success
+//        case error
+//        case security
+//        case none
+//    }
     
     //MARK: - UI
     
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
+        label.numberOfLines = 0
         return label
     }()
     
     private let contentLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
+        label.numberOfLines = 0
         return label
     }()
     
     private let subtitleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
+        label.numberOfLines = 0
         return label
     }()
     
@@ -74,6 +85,10 @@ public final class SectionMessageView: UIView, ViewProtocol {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
+        addedViews()
+        setupConstraints()
+        setupActionButton()
+        setupView()
     }
     
     required init?(coder: NSCoder) {
@@ -136,14 +151,16 @@ public final class SectionMessageView: UIView, ViewProtocol {
         }
         
         titlesStackView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview().inset(14)
+            $0.top.equalToSuperview().offset(14)
+            $0.trailing.equalToSuperview().offset(-16)
             $0.leading.equalTo(actionButton.snp.trailing).inset(-14)
+            $0.bottom.equalToSuperview().offset(-14)
         }
     }
     
     @objc
     private func didTapAction(){
-        self.viewProperties?.action()
+        self.viewProperties?.action?()
     }
 }
 
