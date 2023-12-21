@@ -497,6 +497,7 @@ public extension UIImage {
     static let ic24StickerPay = ImagesService.image(named: "ic24StickerPay")
     static let ic24SubdirectoryArrow = ImagesService.image(named: "ic24SubdirectoryArrow")
     static let ic24Support = ImagesService.image(named: "ic24Support")
+    static let ic24SpinerLoader = ImagesService.image(named: "ic24SpinerLoader")
     static let ic24Task = ImagesService.image(named: "ic24Task")
     static let ic24Tasks = ImagesService.image(named: "ic24Tasks")
     static let ic24TechChat = ImagesService.image(named: "ic24TechChat")
