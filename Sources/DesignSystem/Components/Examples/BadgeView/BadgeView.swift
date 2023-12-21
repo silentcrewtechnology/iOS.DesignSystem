@@ -8,13 +8,13 @@
 import Architecture
 import UIKit
 
-final class BadgeView: UIView, Reusable, ViewProtocol {
+final class BadgeView: UIView, ViewProtocol {
     
     // MARK: - ViewProperties
     
     struct ViewProperties {
         var text: NSAttributedString?
-        let backgroundColor: UIColor?
+        var backgroundColor: UIColor?
     }
     
     // MARK: - UI
@@ -46,7 +46,7 @@ final class BadgeView: UIView, Reusable, ViewProtocol {
     
     // MARK: - public methods
     
-    func update(with viewProperties: ViewProperties?) {
+    func update(viewProperties: ViewProperties?) {
         setText(with: viewProperties)
         setColor(with: viewProperties)
         updateConstraints(with: viewProperties)
@@ -74,8 +74,8 @@ final class BadgeView: UIView, Reusable, ViewProtocol {
     private func setConstraints() {
         mainView.snp.makeConstraints {
             $0.edges.equalToSuperview()
-            $0.height.equalTo(Constants.labelHight)
-            $0.width.equalTo(Constants.labelHight)
+            $0.height.equalTo(Constants.labelHeight)
+            $0.width.equalTo(Constants.labelHeight)
         }
         
         titleLabel.snp.makeConstraints {
