@@ -12,11 +12,11 @@ private func example() {
     
     view.create(with: viewProperties)
     viewProperties = ButtonViewStyle.updateStyle(style: .action, viewProperties: viewProperties)
-    view.update(with: viewProperties)
+    view.update(viewProperties: viewProperties)
     viewProperties = ButtonViewStyle.updateStyle(style: .secondary, viewProperties: viewProperties)
-    view.update(with: viewProperties)
-    viewProperties = ButtonViewStyle.updateStyle(style: .clear, viewProperties: viewProperties)
-    view.update(with: viewProperties)
+    view.update(viewProperties: viewProperties)
+    viewProperties = ButtonViewStyle.updateStyle(style: .ghost, viewProperties: viewProperties)
+    view.update(viewProperties: viewProperties)
     
     view.startLoading()
     view.stopLoading()
