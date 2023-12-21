@@ -73,12 +73,14 @@ public final class RadioView: UIView {
         }
     }
     
-    public func create(with viewProperties: ViewProperties) {
-        self.viewProperties = viewProperties
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
         setupView()
     }
     
-    public func update(with viewProperties: ViewProperties) {
+    @available(*, unavailable) required init?(coder: NSCoder) { fatalError() }
+    
+    public func update(viewProperties: ViewProperties) {
         setupBackground(background: viewProperties.background)
         setupOnIndicator(indicator: viewProperties.onIndicator)
         setupOffIndicator(indicator: viewProperties.offIndicator)
