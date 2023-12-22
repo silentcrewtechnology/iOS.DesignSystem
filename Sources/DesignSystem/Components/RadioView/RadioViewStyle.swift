@@ -62,28 +62,3 @@ public enum RadioViewStyle {
         return viewProperties
     }
 }
-
-private enum Constant {
-    
-    enum Small {
-        static let radiosize: CGFloat = 16
-        static let radioDotOnsize: CGFloat = 8
-        static let radioDotOffsize: CGFloat = 14
-    }
-    
-    enum Large {
-        static let radiosize: CGFloat = 20
-        static let radioDotOnsize: CGFloat = 10
-        static let radioDotOffsize: CGFloat = 18
-    }
-    
-    static let radioBackgroundColorOff: UIColor = .borderMain
-    static let radioDotBackgroundColorOff: UIColor = .backgroundPrimary
-    static let radioBackgroundColorOffDisabled: UIColor = .borderMain
-    static let radioDotBackgroundColorOffDisabled: UIColor = .backgroundDisabled
-    
-    static let radioBackgroundColorOn: UIColor = .backgroundAction
-    static let radioDotBackgroundColorOn: UIColor = .contentActionOn
-    static let radioBackgroundColorOnDisabled: UIColor = .backgroundActionActiveDisabled
-    static let radioDotBackgroundColorOnDisabled: UIColor = .contentActionOn
-}
