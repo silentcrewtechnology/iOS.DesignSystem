@@ -23,20 +23,20 @@ private func example() {
     
     properties.clearButtonAction = { [weak view] in
         properties.text = "".attributed
-        view?.update(viewProperties: properties)
+        view?.update(with: properties)
     }
     
     properties.inputTapAction = { [weak view] in
         properties = SelectViewStyle.restyle(
             style: .active,
             viewProperties: properties)
-        view?.update(viewProperties: properties)
+        view?.update(with: properties)
         properties.text = "Content 2".attributed
         properties = SelectViewStyle.restyle(
             style: .default,
             viewProperties: properties)
-        view?.update(viewProperties: properties)
+        view?.update(with: properties)
     }
     
-    view.update(viewProperties: properties)
+    view.update(with: properties)
 }

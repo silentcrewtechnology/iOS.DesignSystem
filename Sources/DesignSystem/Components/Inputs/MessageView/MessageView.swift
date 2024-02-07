@@ -58,7 +58,7 @@ public final class MessageView: UIView, ViewProtocol {
         setupProperties(with: viewProperties)
     }
     
-    public func update(viewProperties: ViewProperties?) {
+    public func update(with viewProperties: ViewProperties?) {
         guard let viewProperties else { return }
         self.viewProperties = viewProperties
         setupProperties(with: viewProperties)
@@ -108,7 +108,7 @@ extension MessageView: UITextFieldDelegate {
             viewProperties: viewProperties
         )
         
-        update(viewProperties: updatedProperties)
+        update(with: updatedProperties)
     }
     
     public func textFieldDidEndEditing(_ textField: UITextField) {
@@ -117,6 +117,6 @@ extension MessageView: UITextFieldDelegate {
             viewProperties: .init(attributedText: textField.text?.attributed)
         )
         
-        update(viewProperties: updatedProperties)
+        update(with: updatedProperties)
     }
 }

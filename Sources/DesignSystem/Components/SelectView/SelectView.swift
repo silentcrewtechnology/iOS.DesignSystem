@@ -142,7 +142,11 @@ public final class SelectView: UIView, ViewProtocol {
     
     // MARK: - Public Methods
     
-    public func update(viewProperties: ViewProperties?) {
+    // TODO: Depricated
+    public func create(with viewProperties: ViewProperties?) {
+    }
+    
+    public func update(with viewProperties: ViewProperties?) {
         guard let viewProperties else { return }
         self.viewProperties = viewProperties
         updateView(with: viewProperties)

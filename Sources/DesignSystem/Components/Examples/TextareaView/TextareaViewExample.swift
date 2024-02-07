@@ -29,5 +29,5 @@ private func example() {
         style: .disabled,
         viewProperties: viewProperties)
     
-    view.update(viewProperties: viewProperties)
+    view.update(with: viewProperties)
 }

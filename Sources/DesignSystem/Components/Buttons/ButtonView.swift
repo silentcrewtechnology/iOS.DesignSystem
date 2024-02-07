@@ -93,7 +93,7 @@ public final class ButtonView: UIButton, ViewProtocol {
         setupProperties(with: viewProperties)
     }
     
-    public func update(viewProperties: ViewProperties?) {
+    public func update(with viewProperties: ViewProperties?) {
         guard let viewProperties else { return }
         self.viewProperties = viewProperties
         setupProperties(with: viewProperties)

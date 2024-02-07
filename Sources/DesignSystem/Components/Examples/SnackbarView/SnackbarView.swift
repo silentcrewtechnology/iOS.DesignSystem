@@ -95,7 +95,7 @@ public final class SnackbarView: UIView, ViewProtocol {
         setupView()
     }
     
-    public func update(viewProperties: ViewProperties?) {
+    public func update(with viewProperties: ViewProperties?) {
         self.viewProperties = viewProperties
         setData(with: viewProperties)
     }

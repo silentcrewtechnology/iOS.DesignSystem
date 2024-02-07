@@ -131,7 +131,7 @@ public final class TextareaView: UIView, ViewProtocol {
         updateView(with: viewProperties)
     }
     
-    public func update(viewProperties: ViewProperties?) {
+    public func update(with viewProperties: ViewProperties?) {
         guard let viewProperties else { return }
         updateView(with: viewProperties)
         self.viewProperties = viewProperties
@@ -268,7 +268,7 @@ extension TextareaView: UITextViewDelegate {
             style: currentStyle,
             viewProperties: updatedProperties)
         
-        update(viewProperties: updatedProperties)
+        update(with: updatedProperties)
     }
 }
 

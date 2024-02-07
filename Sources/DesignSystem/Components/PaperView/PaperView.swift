@@ -47,7 +47,7 @@ public final class PaperView: UIView, ViewProtocol {
         updateView(with: viewProperties)
     }
     
-    public func update(viewProperties: ViewProperties?) {
+    public func update(with viewProperties: ViewProperties?) {
         guard let viewProperties else { return }
         updateView(with: viewProperties)
         self.viewProperties = viewProperties

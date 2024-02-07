@@ -9,5 +9,5 @@ private func example() {
     view.create(with: viewProperties)
     viewProperties = TileViewStyle.resize(size: .large, viewProperties: viewProperties)
     viewProperties = TileViewStyle.restyle(style: .primary, viewProperties: viewProperties)
-    view.update(viewProperties: viewProperties)
+    view.update(with: viewProperties)
 }

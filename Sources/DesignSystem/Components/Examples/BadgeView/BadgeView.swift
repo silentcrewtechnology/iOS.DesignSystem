@@ -46,7 +46,7 @@ final class BadgeView: UIView, ViewProtocol {
     
     // MARK: - public methods
     
-    func update(viewProperties: ViewProperties?) {
+    func update(with viewProperties: ViewProperties?) {
         setText(with: viewProperties)
         setColor(with: viewProperties)
         updateConstraints(with: viewProperties)
