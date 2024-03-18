@@ -8,6 +8,7 @@ public final class TileView: UIView {
         public var text: NSMutableAttributedString
         public var backgroundColor: UIColor
         public var width: CGFloat
+        public var cornerRadius: CGFloat
         public var textWidth: CGFloat
         public var action: () -> Void
         
@@ -16,6 +17,7 @@ public final class TileView: UIView {
             text: NSMutableAttributedString = .init(string: ""),
             backgroundColor: UIColor = .clear,
             width: CGFloat = .zero,
+            cornerRadius: CGFloat = .zero,
             textWidth: CGFloat = .zero,
             action: @escaping () -> Void = { }
         ) {
@@ -23,6 +25,7 @@ public final class TileView: UIView {
             self.text = text
             self.backgroundColor = backgroundColor
             self.width = width
+            self.cornerRadius = cornerRadius
             self.textWidth = textWidth
             self.action = action
         }
@@ -66,27 +69,18 @@ public final class TileView: UIView {
         setupView()
     }
     
-    @available(*, unavailable)
     required init?(coder: NSCoder) { fatalError() }
     
-    public func create(with viewProperties: ViewProperties?) {
-        guard let viewProperties else { return }
-        self.viewProperties = viewProperties
-        textLabel.attributedText = viewProperties.text.alignment(.center)
-        setupIcon(with: viewProperties)
-    }
-    
-    public func update(with viewProperties: ViewProperties?) {
-        guard let viewProperties else { return }
+    public func update(with viewProperties: ViewProperties) {
         textLabel.attributedText = viewProperties.text
         setupSizeConstraints(with: viewProperties)
         backgroundColor = viewProperties.backgroundColor
+        layer.cornerRadius = viewProperties.cornerRadius
         setupIcon(with: viewProperties)
         self.viewProperties = viewProperties
     }
     
     private func setupView() {
-        layer.cornerRadius = 12
         snp.makeConstraints {
             $0.width.equalTo(0) // будет обновлён
         }

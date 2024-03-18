@@ -28,6 +28,7 @@ public enum TileViewStyle {
             viewProperties.textWidth = 80
             viewProperties.text = viewProperties.text.fontStyle(.textXS)
         }
+        viewProperties.cornerRadius = 12
         return viewProperties
     }
     
