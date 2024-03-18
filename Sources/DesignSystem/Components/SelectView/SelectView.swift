@@ -7,9 +7,8 @@
 
 import UIKit
 import SnapKit
-import Architecture
 
-public final class SelectView: UIView, ViewProtocol {
+public final class SelectView: UIView {
     
     public struct ViewProperties {
         public var header: NSMutableAttributedString?

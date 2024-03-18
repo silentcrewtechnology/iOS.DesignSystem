@@ -1,8 +1,7 @@
 import UIKit
 import SnapKit
-import Architecture
 
-public final class MessageView: UIView, ViewProtocol {
+public final class MessageView: UIView {
     
     public struct ViewProperties {
         public var attributedText: NSMutableAttributedString?

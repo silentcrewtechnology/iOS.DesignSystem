@@ -1,8 +1,7 @@
 import UIKit
 import SnapKit
-import Architecture
 
-public final class TileView: UIView, ViewProtocol {
+public final class TileView: UIView {
     
     public struct ViewProperties {
         public var icon: Icon

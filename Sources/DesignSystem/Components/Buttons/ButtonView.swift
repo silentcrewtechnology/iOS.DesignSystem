@@ -1,8 +1,7 @@
 import UIKit
 import SnapKit
-import Architecture
 
-public final class ButtonView: UIButton, ViewProtocol {
+public final class ButtonView: UIButton {
     
     public struct ViewProperties {
         public var attributedText: NSMutableAttributedString

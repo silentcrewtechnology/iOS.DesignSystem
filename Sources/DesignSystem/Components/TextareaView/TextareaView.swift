@@ -7,9 +7,8 @@
 
 import UIKit
 import SnapKit
-import Architecture
 
-public final class TextareaView: UIView, ViewProtocol {
+public final class TextareaView: UIView {
     
     // MARK: - ViewProperties
     
