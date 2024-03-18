@@ -9,7 +9,7 @@ public final class ButtonView: UIButton {
         public var rightIcon: UIImage?
         public var backgroundColor: UIColor
         public var higlightColor: UIColor
-        public var action: ClosureEmpty
+        public var action: () -> Void
         
         public init(
             attributedText: NSMutableAttributedString,
@@ -17,7 +17,7 @@ public final class ButtonView: UIButton {
             rightIcon: UIImage? = nil,
             backgroundColor: UIColor = .backgroundAction,
             higlightColor: UIColor = .backgroundActionPressed,
-            action: @escaping ClosureEmpty = { }
+            action: @escaping () -> Void = { }
         ) {
             self.attributedText = attributedText
             self.leftIcon = leftIcon

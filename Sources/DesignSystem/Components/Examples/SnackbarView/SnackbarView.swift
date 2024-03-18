@@ -16,7 +16,7 @@ public final class SnackbarView: UIView {
         public let subtitle: NSAttributedString?
         public let iconImage: UIImage?
         public let backgroundColor: UIColor?
-        public let closeAction: ClosureEmpty
+        public let closeAction: () -> Void
         
         public init(
             title: NSAttributedString?,
@@ -24,7 +24,7 @@ public final class SnackbarView: UIView {
             subtitle: NSAttributedString?,
             iconImage: UIImage?,
             backgroundColor: UIColor?,
-            closeAction: @escaping ClosureEmpty
+            closeAction: @escaping () -> Void
         ) {
             self.title = title
             self.content = content
