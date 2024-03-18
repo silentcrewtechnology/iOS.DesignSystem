@@ -18,28 +18,34 @@ public final class CheckboxView: UIView {
         public struct Background {
             public var color: UIColor
             public var size: CGFloat
+            public var cornerRadius: CGFloat
             
             public init(
                 color: UIColor = .clear,
-                size: CGFloat = .zero
+                size: CGFloat = .zero,
+                cornerRadius: CGFloat = .zero
             ) {
                 self.color = color
                 self.size = size
+                self.cornerRadius = cornerRadius
             }
         }
         
         public struct Indicator {
             public var backgroundColor: UIColor
             public var size: CGFloat
+            public var cornerRadius: CGFloat
             public var image: UIImage?
             
             public init(
                 backgroundColor: UIColor = .clear,
                 size: CGFloat = .zero,
+                cornerRadius: CGFloat = .zero,
                 image: UIImage? = nil
             ) {
                 self.backgroundColor = backgroundColor
                 self.size = size
+                self.cornerRadius = cornerRadius
                 self.image = image
             }
         }
@@ -50,12 +56,18 @@ public final class CheckboxView: UIView {
     private let checkView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .center
-        view.layer.cornerRadius = 3
         return view
     }()
     
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
+    
+    required init?(coder: NSCoder) { fatalError() }
+    
     private func setupView() {
-        layer.cornerRadius = 4
+        layer.masksToBounds = true
         snp.makeConstraints {
             $0.size.equalTo(0) // будет обновляться
         }
@@ -64,11 +76,6 @@ public final class CheckboxView: UIView {
             $0.center.equalToSuperview()
             $0.size.equalTo(0) // будет обновляться
         }
-    }
-    
-    public func create(with viewProperties: ViewProperties) {
-        self.viewProperties = viewProperties
-        setupView()
     }
     
     public func update(with viewProperties: ViewProperties) {
@@ -84,9 +91,11 @@ public final class CheckboxView: UIView {
                 $0.size.equalTo(background.size)
             }
         }
+        layer.cornerRadius = background.cornerRadius
     }
     
     private func setupIndicator(indicator: ViewProperties.Indicator) {
+        checkView.layer.cornerRadius = indicator.cornerRadius
         checkView.image = indicator.image
         checkView.backgroundColor = indicator.backgroundColor
         if self.viewProperties.indicator.size != indicator.size {
@@ -96,4 +105,3 @@ public final class CheckboxView: UIView {
         }
     }
 }
-
