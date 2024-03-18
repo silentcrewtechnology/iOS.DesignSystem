@@ -30,6 +30,8 @@ public enum CheckboxViewStyle {
             viewProperties.background.size = 20
             viewProperties.indicator.size = 18
         }
+        viewProperties.background.cornerRadius = 4
+        viewProperties.indicator.cornerRadius = 3
         return viewProperties
     }
     

@@ -3,7 +3,6 @@ import UIKit
 private func example() {
     let view = CheckboxView()
     var viewProperties = CheckboxView.ViewProperties()
-    view.create(with: viewProperties)
     viewProperties = CheckboxViewStyle.update(size: .small, viewProperties: viewProperties)
     viewProperties = CheckboxViewStyle.update(state: .default, action: .on, viewProperties: viewProperties)
     view.update(with: viewProperties)
