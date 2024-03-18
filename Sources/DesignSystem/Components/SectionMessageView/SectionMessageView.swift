@@ -5,11 +5,10 @@
 //  Created by firdavs on 09.06.2023.
 //
 
-import SnapKit
-import Architecture
 import UIKit
+import SnapKit
 
-public final class SectionMessageView: UIView, ViewProtocol {
+public final class SectionMessageView: UIView {
     
     public struct ViewProperties {
         public var title: NSAttributedString?

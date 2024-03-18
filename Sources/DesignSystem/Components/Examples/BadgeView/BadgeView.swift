@@ -5,10 +5,10 @@
 //  Created by firdavs on 16.08.2023.
 //  Copyright © 2023 ps. All rights reserved.
 //
-import Architecture
+
 import UIKit
 
-final class BadgeView: UIView, ViewProtocol {
+final class BadgeView: UIView {
     
     // MARK: - ViewProperties
     

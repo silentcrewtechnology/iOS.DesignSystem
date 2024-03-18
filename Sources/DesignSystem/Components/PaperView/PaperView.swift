@@ -5,11 +5,10 @@
 //  Created by Ilnur Mugaev on 03.12.2023.
 //
 
-import SnapKit
 import UIKit
-import Architecture
+import SnapKit
 
-public final class PaperView: UIView, ViewProtocol {
+public final class PaperView: UIView {
     
     // MARK: - ViewProperties
     

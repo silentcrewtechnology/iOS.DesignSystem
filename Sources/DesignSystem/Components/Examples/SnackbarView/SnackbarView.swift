@@ -4,11 +4,11 @@
 //
 //  Created by Firdavs on 29.03.2023.
 //
-import SnapKit
-import Architecture
-import UIKit
 
-public final class SnackbarView: UIView, ViewProtocol {
+import UIKit
+import SnapKit
+
+public final class SnackbarView: UIView {
     
     public struct ViewProperties {
         public let title: NSAttributedString?
