@@ -16,14 +16,14 @@ public final class SectionMessageView: UIView {
         public var subtitle: NSAttributedString?
         public var iconImage: UIImage?
         public var backgroundColor: UIColor?
-        public let action: ClosureEmpty?
+        public let action: (() -> Void)?
         
         public init(title: NSAttributedString?,
                     content: NSAttributedString?,
                     subtitle: NSAttributedString?,
                     iconImage: UIImage?,
                     backgroundColor: UIColor?,
-                    action: ClosureEmpty?) {
+                    action: (() -> Void)?) {
             self.title = title
             self.content = content
             self.subtitle = subtitle
