@@ -11,11 +11,11 @@ private class Example {
         let image = UIImage.ic16Book
         viewProperties.onHighlighted = { [weak self] isHighlighted in
             guard let self else { return }
-            if isHighlighted {
-                self.viewProperties = IconButtonStyle.update(style: style, size: size, state: .pressed(image), viewProperties: self.viewProperties)
-            } else {
-                self.viewProperties = IconButtonStyle.update(style: style, size: size, state: .default(image), viewProperties: self.viewProperties)
-            }
+            self.viewProperties = IconButtonStyle.update(
+                style: style,
+                size: size,
+                state: isHighlighted ? .pressed(image) : .default(image),
+                viewProperties: self.viewProperties)
             self.view.update(with: self.viewProperties)
         }
         viewProperties.onTap = { print("tapped") }
