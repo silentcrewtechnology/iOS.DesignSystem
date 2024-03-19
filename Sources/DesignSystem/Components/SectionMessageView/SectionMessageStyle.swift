@@ -17,9 +17,8 @@ public enum SectionMessageStyle {
     case none
     
     public func apply(
-        with viewProperties: inout SectionMessageView.ViewProperties?
-    ) -> SectionMessageView.ViewProperties? {
-        guard var viewProperties = viewProperties else { return nil }
+        with viewProperties: inout SectionMessageView.ViewProperties
+    ) -> SectionMessageView.ViewProperties {
         switch self {
         case .info:
             viewProperties.title = viewProperties.title?.string.textM_1(color: .contentPrimary)

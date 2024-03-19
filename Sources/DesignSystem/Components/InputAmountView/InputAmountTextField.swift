@@ -26,11 +26,12 @@ public final class InputAmountTextField: UITextField {
     
     private var viewProperties: ViewProperties = .init()
     
-    public func create(with viewProperties: ViewProperties) {
-        self.viewProperties = viewProperties
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
         setupView()
-        updateView(viewProperties: viewProperties)
     }
+    
+    required init?(coder: NSCoder) { fatalError() }
     
     public func update(with viewProperties: ViewProperties) {
         updateView(viewProperties: viewProperties)

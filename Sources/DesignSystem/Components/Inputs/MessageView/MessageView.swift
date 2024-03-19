@@ -36,11 +36,11 @@ public final class MessageView: UIView {
     
     // MARK: - Private Properties
 
-    private var viewProperties: ViewProperties?
+    private var viewProperties: ViewProperties = .init()
     
     // MARK: - Init
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
         setupLayer()
@@ -51,16 +51,9 @@ public final class MessageView: UIView {
     
     // MARK: - Public Methods
     
-    public func create(with viewProperties: ViewProperties?) {
-        guard let viewProperties else { return }
-        self.viewProperties = viewProperties
+    public func update(with viewProperties: ViewProperties) {
         setupProperties(with: viewProperties)
-    }
-    
-    public func update(with viewProperties: ViewProperties?) {
-        guard let viewProperties else { return }
         self.viewProperties = viewProperties
-        setupProperties(with: viewProperties)
     }
     
     // MARK: - Private Methods
@@ -101,7 +94,6 @@ extension MessageView: UITextFieldDelegate {
     }
     
     public func textFieldDidBeginEditing(_ textField: UITextField) {
-        guard let viewProperties else { return }
         let updatedProperties = MessageViewStyle.updateStyle(
             style: .active,
             viewProperties: viewProperties

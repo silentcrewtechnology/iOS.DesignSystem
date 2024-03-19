@@ -16,7 +16,7 @@ public enum ButtonViewStyle {
         switch style {
         case .action:
             viewProperties.backgroundColor = .backgroundAction
-            viewProperties.higlightColor = .backgroundActionPressed
+            viewProperties.highlightColor = .backgroundActionPressed
             viewProperties.leftIcon = viewProperties.leftIcon?.tinted(with: .contentActionOn)
             viewProperties.rightIcon = viewProperties.rightIcon?.tinted(with: .contentActionOn)
             viewProperties.attributedText = viewProperties.attributedText
@@ -24,7 +24,7 @@ public enum ButtonViewStyle {
                 .foregroundColor(.contentActionOn)
         case .secondary:
             viewProperties.backgroundColor = .backgroundSecondary
-            viewProperties.higlightColor = .backgroundSecondaryPressed
+            viewProperties.highlightColor = .backgroundSecondaryPressed
             viewProperties.leftIcon = viewProperties.leftIcon?.tinted(with: .contentPrimary)
             viewProperties.rightIcon = viewProperties.rightIcon?.tinted(with: .contentPrimary)
             viewProperties.attributedText = viewProperties.attributedText
@@ -32,7 +32,7 @@ public enum ButtonViewStyle {
                 .foregroundColor(.contentPrimary)
         case .ghost:
             viewProperties.backgroundColor = .clear
-            viewProperties.higlightColor = .backgroundActionLightPressed
+            viewProperties.highlightColor = .backgroundActionLightPressed
             viewProperties.leftIcon = viewProperties.leftIcon?.tinted(with: .contentAction)
             viewProperties.rightIcon = viewProperties.rightIcon?.tinted(with: .contentAction)
             viewProperties.attributedText = viewProperties.attributedText

@@ -7,14 +7,23 @@
 //
 
 import UIKit
+import SnapKit
 
-final class BadgeView: UIView {
+public final class BadgeView: UIView {
     
     // MARK: - ViewProperties
     
-    struct ViewProperties {
-        var text: NSAttributedString?
-        var backgroundColor: UIColor?
+    public struct ViewProperties {
+        public var text: NSAttributedString?
+        public var backgroundColor: UIColor?
+        
+        public init(
+            text: NSAttributedString? = nil,
+            backgroundColor: UIColor? = nil
+        ) {
+            self.text = text
+            self.backgroundColor = backgroundColor
+        }
     }
     
     // MARK: - UI
@@ -32,43 +41,36 @@ final class BadgeView: UIView {
     
     private lazy var titleLabel = UILabel()
     
+    private var viewProperties: ViewProperties = .init()
+    
     // MARK: - init
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         self.addedViews()
         self.setConstraints()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder: NSCoder) { fatalError() }
     
     // MARK: - public methods
     
-    func update(with viewProperties: ViewProperties?) {
+    public func update(with viewProperties: ViewProperties) {
         setText(with: viewProperties)
         setColor(with: viewProperties)
         updateConstraints(with: viewProperties)
+        self.viewProperties = viewProperties
     }
-    
-    func create(with viewProperties: ViewProperties?) {
-        setText(with: viewProperties)
-        setColor(with: viewProperties)
-        updateConstraints(with: viewProperties)
-    }
-    
-    func prepareForReuse() {}
     
     // MARK: - private methods
     
-    private func setText(with viewProperties: ViewProperties?) {
-        titleLabel.attributedText = viewProperties?.text
+    private func setText(with viewProperties: ViewProperties) {
+        titleLabel.attributedText = viewProperties.text
         titleLabel.textAlignment = .center
     }
     
-    private func setColor(with viewProperties: ViewProperties?) {
-        mainView.backgroundColor = viewProperties?.backgroundColor
+    private func setColor(with viewProperties: ViewProperties) {
+        mainView.backgroundColor = viewProperties.backgroundColor
     }
     
     private func setConstraints() {
@@ -84,8 +86,8 @@ final class BadgeView: UIView {
         }
     }
     
-    private func updateConstraints(with viewProperties: ViewProperties?) {
-        guard let text = viewProperties?.text else {
+    private func updateConstraints(with viewProperties: ViewProperties) {
+        guard let text = viewProperties.text else {
             mainView.isHidden = true
             return
         }

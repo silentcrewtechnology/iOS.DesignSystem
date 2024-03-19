@@ -14,7 +14,7 @@ private func example() {
         amountSymbol: "₽".attributed,
         isUserInteractionEnabled: true)
     viewProperties = InputAmountViewStyle.update(state: .default, viewProperties: viewProperties)
-    view.create(with: viewProperties)
+    view.update(with: viewProperties)
     viewProperties = InputAmountViewStyle.update(state: .error("Error"), viewProperties: viewProperties)
     view.update(with: viewProperties)
     viewProperties = InputAmountViewStyle.update(state: .disabled, viewProperties: viewProperties)

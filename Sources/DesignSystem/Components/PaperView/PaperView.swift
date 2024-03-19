@@ -29,25 +29,9 @@ public final class PaperView: UIView {
     
     private var viewProperties: ViewProperties = .init()
     
-    // MARK: - Init
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) { fatalError() }
-    
     // MARK: - Public methods
     
-    public func create(with viewProperties: ViewProperties?) {
-        guard let viewProperties else { return }
-        self.viewProperties = viewProperties
-        updateView(with: viewProperties)
-    }
-    
-    public func update(with viewProperties: ViewProperties?) {
-        guard let viewProperties else { return }
+    public func update(with viewProperties: ViewProperties) {
         updateView(with: viewProperties)
         self.viewProperties = viewProperties
     }

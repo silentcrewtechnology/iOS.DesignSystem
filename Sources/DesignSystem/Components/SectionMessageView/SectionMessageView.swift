@@ -16,14 +16,16 @@ public final class SectionMessageView: UIView {
         public var subtitle: NSAttributedString?
         public var iconImage: UIImage?
         public var backgroundColor: UIColor?
-        public let action: (() -> Void)?
+        public var action: (() -> Void)?
         
-        public init(title: NSAttributedString?,
-                    content: NSAttributedString?,
-                    subtitle: NSAttributedString?,
-                    iconImage: UIImage?,
-                    backgroundColor: UIColor?,
-                    action: (() -> Void)?) {
+        public init(
+            title: NSAttributedString? = nil,
+            content: NSAttributedString? = nil,
+            subtitle: NSAttributedString? = nil,
+            iconImage: UIImage? = nil,
+            backgroundColor: UIColor? = nil,
+            action: (() -> Void)? = nil
+        ) {
             self.title = title
             self.content = content
             self.subtitle = subtitle
@@ -32,17 +34,6 @@ public final class SectionMessageView: UIView {
             self.action = action
         }
     }
-    
-//    enum State {
-//        // Здесь описываются состояния вью
-//        case create(ViewProperties?)
-//        case info
-//        case warning
-//        case success
-//        case error
-//        case security
-//        case none
-//    }
     
     //MARK: - UI
     
@@ -79,8 +70,9 @@ public final class SectionMessageView: UIView {
         return stackView
     }()
     
-    //MARK: - private preperties
-    private var viewProperties: ViewProperties?
+    //MARK: - private properties
+    
+    private var viewProperties: ViewProperties = .init()
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -90,34 +82,23 @@ public final class SectionMessageView: UIView {
         setupView()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder: NSCoder) { fatalError() }
     
-    //MARK: - public methods
+    // MARK: - public methods
     
-    public func create(with viewProperties: ViewProperties?) {
-        self.viewProperties = viewProperties
-        addedViews()
-        setupConstraints()
-        setupActionButton()
+    public func update(with viewProperties: ViewProperties) {
         setData(with: viewProperties)
-        setupView()
-    }
-    
-    public func update(with viewProperties: ViewProperties?) {
         self.viewProperties = viewProperties
-        setData(with: viewProperties)
     }
     
     //MARK: - private methods
     
-    private func setData(with viewProperties: ViewProperties?){
-        titleLabel.attributedText = viewProperties?.title
-        contentLabel.attributedText = viewProperties?.content
-        subtitleLabel.attributedText = viewProperties?.subtitle
-        actionButton.setImage(viewProperties?.iconImage, for: .normal)
-        backgroundColor = viewProperties?.backgroundColor
+    private func setData(with viewProperties: ViewProperties){
+        titleLabel.attributedText = viewProperties.title
+        contentLabel.attributedText = viewProperties.content
+        subtitleLabel.attributedText = viewProperties.subtitle
+        actionButton.setImage(viewProperties.iconImage, for: .normal)
+        backgroundColor = viewProperties.backgroundColor
     }
     
     private func setupView(){
@@ -159,7 +140,7 @@ public final class SectionMessageView: UIView {
     
     @objc
     private func didTapAction(){
-        self.viewProperties?.action?()
+        viewProperties.action?()
     }
 }
 
