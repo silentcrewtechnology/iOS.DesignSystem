@@ -34,19 +34,6 @@ public class IconButton: UIButton {
             case image(UIImage)
             case loader
         }
-        
-        public struct Indicator {
-            public var isAnimating: Bool
-            public var color: UIColor
-            
-            public init(
-                isAnimating: Bool = false,
-                tintColor: UIColor = .clear
-            ) {
-                self.isAnimating = isAnimating
-                self.color = tintColor
-            }
-        }
     }
     
     public override var isHighlighted: Bool {
