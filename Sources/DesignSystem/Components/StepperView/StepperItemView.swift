@@ -14,11 +14,6 @@ public final class StepperItemView: UIView {
     
     private var viewProperties: ViewProperties = .init()
     
-    public func create(with viewProperties: ViewProperties) {
-        self.viewProperties = viewProperties
-        backgroundColor = viewProperties.backgroundColor
-    }
-    
     public func update(with viewProperties: ViewProperties) {
         backgroundColor = viewProperties.backgroundColor
         self.viewProperties = viewProperties

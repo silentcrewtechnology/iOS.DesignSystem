@@ -75,12 +75,12 @@ public final class InputAmountView: UIView {
         return stack
     }()
     
-    public func create(with viewProperties: ViewProperties) {
-        self.viewProperties = viewProperties
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
         setupView()
-        amountTextField.create(with: viewProperties.textFieldProperties)
-        updateView(viewProperties: viewProperties)
     }
+    
+    required init?(coder: NSCoder) { fatalError() }
     
     public func update(with viewProperties: ViewProperties) {
         amountTextField.update(with: viewProperties.textFieldProperties)

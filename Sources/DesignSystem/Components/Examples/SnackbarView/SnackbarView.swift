@@ -19,12 +19,12 @@ public final class SnackbarView: UIView {
         public let closeAction: () -> Void
         
         public init(
-            title: NSAttributedString?,
-            content: NSAttributedString?,
-            subtitle: NSAttributedString?,
-            iconImage: UIImage?,
-            backgroundColor: UIColor?,
-            closeAction: @escaping () -> Void
+            title: NSAttributedString? = nil,
+            content: NSAttributedString? = nil,
+            subtitle: NSAttributedString? = nil,
+            iconImage: UIImage? = nil,
+            backgroundColor: UIColor? = nil,
+            closeAction: @escaping () -> Void = { }
         ) {
             self.title = title
             self.content = content
@@ -62,7 +62,6 @@ public final class SnackbarView: UIView {
     
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
-        
         return imageView
     }()
     
@@ -73,45 +72,39 @@ public final class SnackbarView: UIView {
         return stackView
     }()
     
-    //MARK: - private preperties
-    private var viewProperties: ViewProperties?
+    // MARK: - private properties
+    
+    private var viewProperties: ViewProperties = .init()
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    //MARK: - public methods
-    
-    public func create(with viewProperties: ViewProperties?) {
-        self.viewProperties = viewProperties
-        addedViews()
-        setupConstraints()
-        setupActionButton()
-        setData(with: viewProperties)
         setupView()
     }
     
-    public func update(with viewProperties: ViewProperties?) {
-        self.viewProperties = viewProperties
+    required init?(coder: NSCoder) { fatalError() }
+    
+    // MARK: - public methods
+    
+    public func update(with viewProperties: ViewProperties) {
         setData(with: viewProperties)
+        self.viewProperties = viewProperties
     }
     
-    //MARK: - private methods
+    // MARK: - private methods
     
-    private func setData(with viewProperties: ViewProperties?){
-        titleLabel.attributedText = viewProperties?.title
-        contentLabel.attributedText = viewProperties?.content
-        subtitleLabel.attributedText = viewProperties?.subtitle
-        iconImageView.image = viewProperties?.iconImage
-        backgroundColor = viewProperties?.backgroundColor
+    private func setData(with viewProperties: ViewProperties){
+        titleLabel.attributedText = viewProperties.title
+        contentLabel.attributedText = viewProperties.content
+        subtitleLabel.attributedText = viewProperties.subtitle
+        iconImageView.image = viewProperties.iconImage
+        backgroundColor = viewProperties.backgroundColor
     }
     
     private func setupView(){
-        self.cornerRadius(
+        addedViews()
+        setupConstraints()
+        setupActionButton()
+        cornerRadius(
             radius: 12,
             direction: .allCorners,
             clipsToBounds: true
@@ -153,6 +146,6 @@ public final class SnackbarView: UIView {
     
     @objc
     private func didTapAction(){
-        self.viewProperties?.closeAction()
+        self.viewProperties.closeAction()
     }
 }

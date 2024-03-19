@@ -19,7 +19,7 @@ private func example() {
         hasShadow: false,
         viewProperties: viewProperties)
     
-    view.create(with: viewProperties)
+    view.update(with: viewProperties)
     
     let rowsInSection = 3
     let indexPath = IndexPath(row: 1, section: 0)

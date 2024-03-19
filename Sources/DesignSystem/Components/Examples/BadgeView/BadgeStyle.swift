@@ -13,9 +13,9 @@ public enum BadgeStyle {
     case neutral
     
     func apply(
-        with viewProperties: BadgeView.ViewProperties?
-    ) -> BadgeView.ViewProperties? {
-        guard var viewProperties = viewProperties else { return nil }
+        with viewProperties: BadgeView.ViewProperties
+    ) -> BadgeView.ViewProperties {
+        var viewProperties = viewProperties
         switch self {
         case .default:
             viewProperties.text = viewProperties.text?.string.textS_1(color: .contentActionOn)

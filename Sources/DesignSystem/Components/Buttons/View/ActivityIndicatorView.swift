@@ -18,7 +18,7 @@ class ActivityIndicatorView: UIView {
     
     // MARK: - Init
 
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         commonInitActivityIndicator(image: Constants.activityImage)
     }

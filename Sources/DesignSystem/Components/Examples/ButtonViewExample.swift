@@ -9,8 +9,6 @@ private func example() {
         action: {
             print("Example")
         })
-    
-    view.create(with: viewProperties)
     viewProperties = ButtonViewStyle.updateStyle(style: .action, viewProperties: viewProperties)
     view.update(with: viewProperties)
     viewProperties = ButtonViewStyle.updateStyle(style: .secondary, viewProperties: viewProperties)

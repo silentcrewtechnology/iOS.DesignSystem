@@ -26,7 +26,14 @@ public final class StepperView: UIView {
         return stack
     }()
     
-    private func setupItemsStack() {
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
+    
+    required init?(coder: NSCoder) { fatalError() }
+    
+    private func setupView() {
         addSubview(itemsStack)
         itemsStack.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -34,21 +41,20 @@ public final class StepperView: UIView {
         }
     }
     
-    public func create(with viewProperties: ViewProperties) {
-        self.viewProperties = viewProperties
-        setupItemsStack()
-        for _ in 0..<viewProperties.items.count {
-            let itemView = StepperItemView()
-            itemView.create(with: .init())
-            itemsStack.addArrangedSubview(itemView)
-        }
-    }
-    
     public func update(with viewProperties: ViewProperties) {
-        let itemViews = itemsStack.arrangedSubviews.compactMap { $0 as? StepperItemView }
+        let itemViews = recreateItemViews(items: viewProperties.items)
         for (itemView, itemViewProperties) in zip(itemViews, viewProperties.items) {
             itemView.update(with: itemViewProperties)
         }
         self.viewProperties = viewProperties
+    }
+    
+    private func recreateItemViews(items: [StepperItemView.ViewProperties]) -> [StepperItemView] {
+        itemsStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        let itemViews = (0..<items.count).map { _ in StepperItemView() }
+        for itemView in itemViews {
+            itemsStack.addArrangedSubview(itemView)
+        }
+        return itemViews
     }
 }

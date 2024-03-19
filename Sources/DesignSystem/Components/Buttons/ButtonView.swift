@@ -8,27 +8,27 @@ public final class ButtonView: UIButton {
         public var leftIcon: UIImage?
         public var rightIcon: UIImage?
         public var backgroundColor: UIColor
-        public var higlightColor: UIColor
+        public var highlightColor: UIColor
         public var action: () -> Void
         
         public init(
-            attributedText: NSMutableAttributedString,
+            attributedText: NSMutableAttributedString = "".attributed,
             leftIcon: UIImage? = nil,
             rightIcon: UIImage? = nil,
             backgroundColor: UIColor = .backgroundAction,
-            higlightColor: UIColor = .backgroundActionPressed,
+            highlightColor: UIColor = .backgroundActionPressed,
             action: @escaping () -> Void = { }
         ) {
             self.attributedText = attributedText
             self.leftIcon = leftIcon
             self.rightIcon = rightIcon
             self.backgroundColor = backgroundColor
-            self.higlightColor = higlightColor
+            self.highlightColor = highlightColor
             self.action = action
         }
     }
     
-    private var viewProperties: ViewProperties?
+    private var viewProperties: ViewProperties = .init()
     
     // MARK: - UI
     
@@ -67,8 +67,8 @@ public final class ButtonView: UIButton {
                 options: [.beginFromCurrentState, .allowUserInteraction],
                 animations: { [self] in
                     self.backgroundColor = self.isHighlighted 
-                    ? viewProperties?.higlightColor
-                    : viewProperties?.backgroundColor
+                    ? viewProperties.highlightColor
+                    : viewProperties.backgroundColor
                 },
                 completion: nil)
         }
@@ -76,7 +76,7 @@ public final class ButtonView: UIButton {
     
     // MARK: - Init
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
     }
@@ -86,16 +86,9 @@ public final class ButtonView: UIButton {
     
     // MARK: - Public Methods
     
-    public func create(with viewProperties: ViewProperties?) {
-        guard let viewProperties else { return }
-        self.viewProperties = viewProperties
+    public func update(with viewProperties: ViewProperties) {
         setupProperties(with: viewProperties)
-    }
-    
-    public func update(with viewProperties: ViewProperties?) {
-        guard let viewProperties else { return }
         self.viewProperties = viewProperties
-        setupProperties(with: viewProperties)
     }
     
     public func startLoading() {
@@ -108,9 +101,7 @@ public final class ButtonView: UIButton {
     
     // MARK: - Private Methods
     
-    private func setupProperties(with viewProperties: ViewProperties?) {
-        guard let viewProperties else { return }
-
+    private func setupProperties(with viewProperties: ViewProperties) {
         backgroundColor = viewProperties.backgroundColor
 
         if let leftIcon = viewProperties.leftIcon {
@@ -159,9 +150,9 @@ public final class ButtonView: UIButton {
         if isLoading {
             backgroundColor = backgroundColor != .clear
             ? .backgroundDisabled
-            : viewProperties?.backgroundColor
+            : viewProperties.backgroundColor
         } else {
-            backgroundColor = viewProperties?.backgroundColor
+            backgroundColor = viewProperties.backgroundColor
         }
         
         stackView.isHidden = isLoading
@@ -171,6 +162,6 @@ public final class ButtonView: UIButton {
     
     @objc
     private func didTapAction() {
-        self.viewProperties?.action()
+        self.viewProperties.action()
     }
 }
