@@ -14,7 +14,6 @@ let package = Package(
             targets: [
                 "DesignSystem",
                 "ImagesService",
-                "FontService"
             ]
         ),
     ],
@@ -26,13 +25,8 @@ let package = Package(
             name: "DesignSystem",
             dependencies: [
                 .product(name: "SnapKit", package: "SnapKit"),
-                .target(name: "FontService"),
                 .target(name: "ImagesService")
             ]
-        ),
-        .target(
-            name: "FontService",
-            resources: [.process("Fonts")]
         ),
         .target(
             name: "ImagesService",
