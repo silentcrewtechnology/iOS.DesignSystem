@@ -13,7 +13,6 @@ let package = Package(
             name: "ios.designsystem",
             targets: [
                 "DesignSystem",
-                "ImagesService",
             ]
         ),
     ],
@@ -29,12 +28,7 @@ let package = Package(
                 .product(name: "SnapKit", package: "SnapKit"),
                 .product(name: "iOS.Resources.Fonts", package: "ios-resources-fonts"),
                 .product(name: "iOS.Resources.Colors", package: "ios-resources-colors"),
-                .target(name: "ImagesService")
             ]
         ),
-        .target(
-            name: "ImagesService",
-            resources: [.process("Resources")]
-        )
     ]
 )
