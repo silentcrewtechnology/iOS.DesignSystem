@@ -28,6 +28,15 @@
       }
     },
     {
+      "identity" : "ios-resources-ui-components",
+      "kind" : "remoteSourceControl",
+      "location" : "https://gitlab.akbars.tech/abo/ios-resources-ui-components.git",
+      "state" : {
+        "revision" : "7a0309fe33f285911fafc669dae3541b711af6e5",
+        "version" : "0.0.2"
+      }
+    },
+    {
       "identity" : "snapkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SnapKit/SnapKit.git",
