@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "ios-resources-fonts",
+      "kind" : "remoteSourceControl",
+      "location" : "https://gitlab.akbars.tech/abo/ios-resources-fonts.git",
+      "state" : {
+        "revision" : "ba60010f93fa82ff25fa3509ed1a132833a1d590",
+        "version" : "0.0.1"
+      }
+    },
+    {
       "identity" : "snapkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SnapKit/SnapKit.git",

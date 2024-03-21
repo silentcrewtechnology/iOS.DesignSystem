@@ -19,12 +19,14 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/SnapKit/SnapKit.git", exact: "5.6.0"),
+        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-fonts.git", exact: "0.0.1"),
     ],
     targets: [
         .target(
             name: "DesignSystem",
             dependencies: [
                 .product(name: "SnapKit", package: "SnapKit"),
+                .product(name: "iOS.Resources.Fonts", package: "ios-resources-fonts"),
                 .target(name: "ImagesService")
             ]
         ),
