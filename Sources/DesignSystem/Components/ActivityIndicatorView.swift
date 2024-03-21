@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import ImagesService
 
 class ActivityIndicatorView: UIView {
     

@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "ios-resources-icons",
+      "kind" : "remoteSourceControl",
+      "location" : "https://gitlab.akbars.tech/abo/ios-resources-icons.git",
+      "state" : {
+        "revision" : "f5a5dd7cf3f851b297708deaeb2029e8e2334fc8",
+        "version" : "0.0.1"
+      }
+    },
+    {
       "identity" : "snapkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SnapKit/SnapKit.git",

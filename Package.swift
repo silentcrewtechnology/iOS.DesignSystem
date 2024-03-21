@@ -20,6 +20,7 @@ let package = Package(
         .package(url: "https://github.com/SnapKit/SnapKit.git", exact: "5.6.0"),
         .package(url: "https://gitlab.akbars.tech/abo/ios-resources-fonts.git", exact: "0.0.1"),
         .package(url: "https://gitlab.akbars.tech/abo/ios-resources-colors.git", exact: "0.0.1"),
+        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-icons.git", exact: "0.0.1"),
     ],
     targets: [
         .target(
@@ -28,6 +29,7 @@ let package = Package(
                 .product(name: "SnapKit", package: "SnapKit"),
                 .product(name: "iOS.Resources.Fonts", package: "ios-resources-fonts"),
                 .product(name: "iOS.Resources.Colors", package: "ios-resources-colors"),
+                .product(name: "iOS.Resources.Icons", package: "ios-resources-icons"),
             ]
         ),
     ]
