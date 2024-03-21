@@ -1,4 +1,5 @@
 import UIKit
+import Colors
 
 public enum CheckboxViewStyle {
     
