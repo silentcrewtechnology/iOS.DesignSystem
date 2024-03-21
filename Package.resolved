@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://gitlab.akbars.tech/abo/ios-resources-colors.git",
       "state" : {
-        "revision" : "2891eff850d8c41b7b30e7f1d097d345c9b897d4",
-        "version" : "0.0.1"
+        "revision" : "5b170b5d26d76329616146b95caf2a6aff3f6f53",
+        "version" : "0.0.2"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://gitlab.akbars.tech/abo/ios-resources-ui-components.git",
       "state" : {
-        "revision" : "7a0309fe33f285911fafc669dae3541b711af6e5",
-        "version" : "0.0.2"
+        "revision" : "2e38e053b87bff7381fe1733cf1e46550e2a39e7",
+        "version" : "0.0.3"
       }
     },
     {
