@@ -7,6 +7,7 @@
 
 import ImagesService
 import UIKit
+import Components
 
 public enum SectionMessageStyle {
     case info

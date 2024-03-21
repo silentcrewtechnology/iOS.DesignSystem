@@ -1,6 +1,42 @@
 {
   "pins" : [
     {
+      "identity" : "ios-resources-colors",
+      "kind" : "remoteSourceControl",
+      "location" : "https://gitlab.akbars.tech/abo/ios-resources-colors.git",
+      "state" : {
+        "revision" : "2891eff850d8c41b7b30e7f1d097d345c9b897d4",
+        "version" : "0.0.1"
+      }
+    },
+    {
+      "identity" : "ios-resources-fonts",
+      "kind" : "remoteSourceControl",
+      "location" : "https://gitlab.akbars.tech/abo/ios-resources-fonts.git",
+      "state" : {
+        "revision" : "ba60010f93fa82ff25fa3509ed1a132833a1d590",
+        "version" : "0.0.1"
+      }
+    },
+    {
+      "identity" : "ios-resources-icons",
+      "kind" : "remoteSourceControl",
+      "location" : "https://gitlab.akbars.tech/abo/ios-resources-icons.git",
+      "state" : {
+        "revision" : "f5a5dd7cf3f851b297708deaeb2029e8e2334fc8",
+        "version" : "0.0.1"
+      }
+    },
+    {
+      "identity" : "ios-resources-ui-components",
+      "kind" : "remoteSourceControl",
+      "location" : "https://gitlab.akbars.tech/abo/ios-resources-ui-components.git",
+      "state" : {
+        "revision" : "7a0309fe33f285911fafc669dae3541b711af6e5",
+        "version" : "0.0.2"
+      }
+    },
+    {
       "identity" : "snapkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SnapKit/SnapKit.git",

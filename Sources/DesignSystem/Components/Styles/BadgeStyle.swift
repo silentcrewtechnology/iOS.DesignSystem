@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Components
 
 public enum BadgeStyle {
     case `default`

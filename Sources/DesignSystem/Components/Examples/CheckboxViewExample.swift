@@ -1,4 +1,5 @@
 import UIKit
+import Components
 
 private func example() {
     let view = CheckboxView()

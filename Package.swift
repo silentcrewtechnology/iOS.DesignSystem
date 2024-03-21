@@ -13,30 +13,26 @@ let package = Package(
             name: "ios.designsystem",
             targets: [
                 "DesignSystem",
-                "ImagesService",
-                "FontService"
             ]
         ),
     ],
     dependencies: [
         .package(url: "https://github.com/SnapKit/SnapKit.git", exact: "5.6.0"),
+        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-fonts.git", exact: "0.0.1"),
+        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-colors.git", exact: "0.0.1"),
+        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-icons.git", exact: "0.0.1"),
+        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-ui-components.git", exact: "0.0.2"),
     ],
     targets: [
         .target(
             name: "DesignSystem",
             dependencies: [
                 .product(name: "SnapKit", package: "SnapKit"),
-                .target(name: "FontService"),
-                .target(name: "ImagesService")
+                .product(name: "iOS.Resources.Fonts", package: "ios-resources-fonts"),
+                .product(name: "iOS.Resources.Colors", package: "ios-resources-colors"),
+                .product(name: "iOS.Resources.Icons", package: "ios-resources-icons"),
+                .product(name: "iOS.Resources.UiComponents", package: "ios-resources-ui-components"),
             ]
         ),
-        .target(
-            name: "FontService",
-            resources: [.process("Fonts")]
-        ),
-        .target(
-            name: "ImagesService",
-            resources: [.process("Resources")]
-        )
     ]
 )
