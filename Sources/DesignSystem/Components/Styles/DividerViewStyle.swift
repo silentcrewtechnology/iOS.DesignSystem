@@ -9,6 +9,7 @@ public enum DividerViewStyle {
     public enum Orientation {
         case horizontal
         case vertical
+        case fixed(CGSize)
     }
     
     public enum Style {
@@ -38,6 +39,8 @@ public enum DividerViewStyle {
             viewProperties.size = .height(Constant.thickness)
         case .vertical:
             viewProperties.size = .width(Constant.thickness)
+        case .fixed(let size):
+            viewProperties.size = .size(size)
         }
         return viewProperties
     }

@@ -15,6 +15,18 @@ private func example2() {
     stack.addArrangedSubview(divider(orientation: .vertical, style: .main))
 }
 
+/// Пример с фиксированным размером 
+private func example3() {
+    let stack = UIStackView()
+    stack.axis = .horizontal
+    stack.spacing = .zero
+    stack.alignment = .center
+    stack.addArrangedSubview(spacer(width: 16, height: 100))
+    // divider меньше по высоте, чем другие arranged subviews
+    stack.addArrangedSubview(divider(orientation: .fixed(.init(width: 1, height: 50)), style: .secondary))
+    stack.addArrangedSubview(spacer(width: 16, height: 100))
+}
+
 private func divider(
     orientation: DividerViewStyle.Orientation,
     style: DividerViewStyle.Style
