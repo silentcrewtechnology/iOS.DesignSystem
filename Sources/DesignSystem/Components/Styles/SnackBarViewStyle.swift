@@ -60,7 +60,7 @@ public struct SnackBarViewStyle {
         updateAnimations(to: &viewProperties)
     }
     
-    public func updateBottomButton(
+    private func updateBottomButton(
         to viewProperties: inout SnackBarView.ViewProperties
     ) {
         guard let bottomButton = viewProperties.bottomButton else { return }
