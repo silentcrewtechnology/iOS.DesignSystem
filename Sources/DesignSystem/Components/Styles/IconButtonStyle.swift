@@ -1,7 +1,7 @@
 import UIKit
 import Components
 
-public enum IconButtonStyle {
+public struct IconButtonStyle {
     
     public enum Style {
         case primary
@@ -18,207 +18,160 @@ public enum IconButtonStyle {
     }
     
     public enum State {
-        case `default`(UIImage)
-        case pressed(UIImage)
-        case disabled(UIImage)
+        case `default`
+        case pressed
+        case disabled
         case loading
     }
     
-    public static func update(
+    private let style: Style
+    private let size: Size
+    
+    public init(
         style: Style,
-        size: Size,
+        size: Size
+    ) {
+        self.style = style
+        self.size = size
+    }
+    
+    public func update(
         state: State,
-        viewProperties: IconButton.ViewProperties
-    ) -> IconButton.ViewProperties {
-        var viewProperties = viewProperties
-        viewProperties = updateSize(size: size, viewProperties: viewProperties)
-        viewProperties = updateCornerRadius(style: style, size: size, viewProperties: viewProperties)
-        viewProperties = updateColors(style: style, state: state, viewProperties: viewProperties)
-        viewProperties = updateEnabled(state: state, viewProperties: viewProperties)
-        return viewProperties
+        viewProperties: inout IconButton.ViewProperties
+    ) {
+        viewProperties.isEnabled = state.isEnabled()
+        viewProperties.size = size.size()
+        viewProperties.cornerRadius = cornerRadius()
+        viewProperties.backgroundColor = style.backgroundColor(state: state)
+        viewProperties.image = viewProperties.image.tinted(with: style.tintColor(state: state))
+        viewProperties.isLoading = state.isLoading()
     }
     
-    private static func updateSize(
-        size: Size,
-        viewProperties: IconButton.ViewProperties
-    ) -> IconButton.ViewProperties {
-        var viewProperties = viewProperties
-        switch size {
-        case .size2XS:
-            viewProperties.size = 32
-        case .sizeXS:
-            viewProperties.size = 40
-        case .sizeM:
-            viewProperties.size = 56
-        }
-        return viewProperties
-    }
-    
-    private static func updateCornerRadius(
-        style: Style,
-        size: Size,
-        viewProperties: IconButton.ViewProperties
-    ) -> IconButton.ViewProperties {
+    private func cornerRadius() -> CGFloat {
         if style == .round {
-            return updateRoundCornerRadius(size: size, viewProperties: viewProperties)
+            return size.size() / 2
+        } else {
+            return size.cornerRadius()
         }
-        var viewProperties = viewProperties
-        switch size {
-        case .size2XS:
-            viewProperties.cornerRadius = 6
-        case .sizeXS:
-            viewProperties.cornerRadius = 6
-        case .sizeM:
-            viewProperties.cornerRadius = 8
-        }
-        return viewProperties
     }
+}
+
+public extension IconButtonStyle.Style {
     
-    private static func updateRoundCornerRadius(
-        size: IconButtonStyle.Size,
-        viewProperties: IconButton.ViewProperties
-    ) -> IconButton.ViewProperties {
-        var viewProperties = viewProperties
-        switch size {
-        case .size2XS:
-            viewProperties.cornerRadius = 16
-        case .sizeXS:
-            viewProperties.cornerRadius = 20
-        case .sizeM:
-            viewProperties.cornerRadius = 28
-        }
-        return viewProperties
-    }
-    
-    private static func updateColors(
-        style: Style,
-        state: State,
-        viewProperties: IconButton.ViewProperties
-    ) -> IconButton.ViewProperties {
-        switch style {
-        case .primary:
-            return updatePrimaryColors(state: state, viewProperties: viewProperties)
-        case .secondary:
-            return updateSecondaryColors(state: state, viewProperties: viewProperties)
-        case .tertiary:
-            return updateTertiaryColors(state: state, viewProperties: viewProperties)
-        case .functional:
-            return updateFunctionalColors(state: state, viewProperties: viewProperties)
-        case .round:
-            return updateRoundColors(state: state, viewProperties: viewProperties)
+    func backgroundColor(
+        state: IconButtonStyle.State
+    ) -> UIColor {
+        switch self {
+        case .primary: primaryBackgroundColor(state: state)
+        case .secondary: secondaryBackgroundColor(state: state)
+        case .tertiary: tertiaryBackgroundColor(state: state)
+        case .functional: .clear
+        case .round: tertiaryBackgroundColor(state: state)
         }
     }
     
-    private static func updateEnabled(
-        state: State,
-        viewProperties: IconButton.ViewProperties
-    ) -> IconButton.ViewProperties {
-        var viewProperties = viewProperties
+    func tintColor(
+        state: IconButtonStyle.State
+    ) -> UIColor {
+        switch self {
+        case .primary: primaryTintColor(state: state)
+        case .secondary: secondaryTintColor(state: state)
+        case .tertiary: secondaryTintColor(state: state)
+        case .functional: secondaryTintColor(state: state)
+        case .round: secondaryTintColor(state: state)
+        }
+    }
+    
+    private func primaryBackgroundColor(
+        state: IconButtonStyle.State
+    ) -> UIColor {
         switch state {
-        case .default:
-            viewProperties.isEnabled = true
-        case .pressed:
-            viewProperties.isEnabled = true
-        case .disabled:
-            viewProperties.isEnabled = false
-        case .loading:
-            viewProperties.isEnabled = false
+        case .default: .backgroundAction
+        case .pressed: .backgroundActionPressed
+        case .disabled: .backgroundDisabled
+        case .loading: .backgroundDisabled
         }
-        return viewProperties
     }
     
-    private static func updatePrimaryColors(
-        state: IconButtonStyle.State,
-        viewProperties: IconButton.ViewProperties
-    ) -> IconButton.ViewProperties {
-        var viewProperties = viewProperties
+    private func primaryTintColor(
+        state: IconButtonStyle.State
+    ) -> UIColor {
         switch state {
-        case .default(let image):
-            viewProperties.backgroundColor = .backgroundAction
-            viewProperties.icon = .image(image.tinted(with: .contentActionOn))
-        case .pressed(let image):
-            viewProperties.backgroundColor = .backgroundActionPressed
-            viewProperties.icon = .image(image.tinted(with: .contentActionOn))
-        case .disabled(let image):
-            viewProperties.backgroundColor = .backgroundDisabled
-            viewProperties.icon = .image(image.tinted(with: .contentDisabled))
-        case .loading:
-            viewProperties.backgroundColor = .backgroundDisabled
-            viewProperties.icon = .loader
+        case .default: .contentActionOn
+        case .pressed: .contentActionOn
+        case .disabled: .contentDisabled
+        case .loading: .clear
         }
-        return viewProperties
     }
     
-    private static func updateSecondaryColors(
-        state: IconButtonStyle.State,
-        viewProperties: IconButton.ViewProperties
-    ) -> IconButton.ViewProperties {
-        var viewProperties = viewProperties
+    private func secondaryBackgroundColor(
+        state: IconButtonStyle.State
+    ) -> UIColor {
         switch state {
-        case .default(let image):
-            viewProperties.backgroundColor = .clear
-            viewProperties.icon = .image(image.tinted(with: .contentPrimary))
-        case .pressed(let image):
-            viewProperties.backgroundColor = .backgroundMainPressed
-            viewProperties.icon = .image(image.tinted(with: .contentPrimary))
-        case .disabled(let image):
-            viewProperties.backgroundColor = .clear
-            viewProperties.icon = .image(image.tinted(with: .contentDisabled))
-        case .loading:
-            viewProperties.backgroundColor = .clear
-            viewProperties.icon = .loader
+        case .default: .clear
+        case .pressed: .backgroundMainPressed
+        case .disabled: .clear
+        case .loading: .clear
         }
-        return viewProperties
     }
     
-    private static func updateTertiaryColors(
-        state: IconButtonStyle.State,
-        viewProperties: IconButton.ViewProperties
-    ) -> IconButton.ViewProperties {
-        var viewProperties = viewProperties
+    private func secondaryTintColor(
+        state: IconButtonStyle.State
+    ) -> UIColor {
         switch state {
-        case .default(let image):
-            viewProperties.backgroundColor = .backgroundPrimary
-            viewProperties.icon = .image(image.tinted(with: .contentPrimary))
-        case .pressed(let image):
-            viewProperties.backgroundColor = .backgroundPrimaryPressed
-            viewProperties.icon = .image(image.tinted(with: .contentPrimary))
-        case .disabled(let image):
-            viewProperties.backgroundColor = .backgroundDisabled
-            viewProperties.icon = .image(image.tinted(with: .contentDisabled))
-        case .loading:
-            viewProperties.backgroundColor = .backgroundDisabled
-            viewProperties.icon = .loader
+        case .default: .contentPrimary
+        case .pressed: .contentPrimary
+        case .disabled: .contentDisabled
+        case .loading: .clear
         }
-        return viewProperties
     }
     
-    private static func updateFunctionalColors(
-        state: IconButtonStyle.State,
-        viewProperties: IconButton.ViewProperties
-    ) -> IconButton.ViewProperties {
-        var viewProperties = viewProperties
+    private func tertiaryBackgroundColor(
+        state: IconButtonStyle.State
+    ) -> UIColor {
         switch state {
-        case .default(let image):
-            viewProperties.backgroundColor = .clear
-            viewProperties.icon = .image(image.tinted(with: .contentPrimary))
-        case .pressed(let image):
-            viewProperties.backgroundColor = .clear
-            viewProperties.icon = .image(image.tinted(with: .contentPrimary))
-        case .disabled(let image):
-            viewProperties.backgroundColor = .clear
-            viewProperties.icon = .image(image.tinted(with: .contentDisabled))
-        case .loading:
-            viewProperties.backgroundColor = .clear
-            viewProperties.icon = .loader
+        case .default: .backgroundPrimary
+        case .pressed: .backgroundPrimaryPressed
+        case .disabled: .backgroundDisabled
+        case .loading: .backgroundDisabled
         }
-        return viewProperties
+    }
+}
+
+public extension IconButtonStyle.Size {
+    
+    func size() -> CGFloat {
+        switch self {
+        case .size2XS: 32
+        case .sizeXS: 40
+        case .sizeM: 56
+        }
     }
     
-    private static func updateRoundColors(
-        state: IconButtonStyle.State,
-        viewProperties: IconButton.ViewProperties
-    ) -> IconButton.ViewProperties {
-        return updateTertiaryColors(state: state, viewProperties: viewProperties)
+    func cornerRadius() -> CGFloat {
+        switch self {
+        case .size2XS: 6
+        case .sizeXS: 6
+        case .sizeM: 8
+        }
+    }
+}
+
+public extension IconButtonStyle.State {
+    
+    func isLoading() -> Bool {
+        switch self {
+        case .loading: true
+        default: false
+        }
+    }
+    
+    func isEnabled() -> Bool {
+        switch self {
+        case .default: true
+        case .pressed: true
+        case .disabled: false
+        case .loading: false
+        }
     }
 }
