@@ -13,7 +13,7 @@ public enum TextBlockViewStyle {
     
     public func update(
         viewProperties: inout TextBlockView.ViewProperties
-    ) -> TextBlockView.ViewProperties {
+    ) {
         switch self {
         case .plain:
             viewProperties.text = viewProperties.text.string.textM(color: .contentPrimary)
@@ -66,7 +66,6 @@ public enum TextBlockViewStyle {
             viewProperties.icon?.backgroundColor = .white
             viewProperties.icon?.text = String(number.wrappedValue).textS(color: .contentPrimary)
         }
-        return viewProperties
     }
 }
 
