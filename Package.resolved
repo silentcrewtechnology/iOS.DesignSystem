@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://gitlab.akbars.tech/abo/ios-resources-colors.git",
       "state" : {
-        "revision" : "5b170b5d26d76329616146b95caf2a6aff3f6f53",
-        "version" : "0.0.2"
+        "revision" : "a5575917f6db4ed88533fa8ed13ff2f36ba6a09c",
+        "version" : "0.0.3"
       }
     },
     {
