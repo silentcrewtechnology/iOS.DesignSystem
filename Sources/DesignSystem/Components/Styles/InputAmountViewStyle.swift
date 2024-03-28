@@ -1,4 +1,5 @@
 import UIKit
+import Components
 import Colors
 
 public enum InputAmountViewStyle {
@@ -17,6 +18,7 @@ public enum InputAmountViewStyle {
         viewProperties.title = viewProperties.title
             .fontStyle(.textS)
             .foregroundColor(.contentSecondary)
+        viewProperties.textFieldProperties.cursorColor = .contentPrimary
         switch state {
         case .default:
             viewProperties.isUserInteractionEnabled = true
