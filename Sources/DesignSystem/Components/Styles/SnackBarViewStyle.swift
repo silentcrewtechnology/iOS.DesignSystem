@@ -49,9 +49,9 @@ public struct SnackBarViewStyle {
         let fontStyles = color.fontStyles()
         let foregroundColors = color.foregroundColors()
         
-        viewProperties.icon = variant.icon().tinted(with: variant.iconTintColor())
         viewProperties.title = viewProperties.title?.fontStyle(fontStyles.title).foregroundColor(foregroundColors.title)
         viewProperties.content = viewProperties.content?.fontStyle(fontStyles.content).foregroundColor(foregroundColors.content)
+        viewProperties.icon = variant.icon()
         viewProperties.closeButton?.icon = .ic16Close.tinted(with: color.closeButtonIconTintColor())
         viewProperties.backgroundColor = color.backgroundColor()
         
@@ -162,19 +162,10 @@ public extension SnackBarViewStyle.Variant {
     
     func icon() -> UIImage {
         switch self {
-        case .success: .ic24CheckCircleFilled
-        case .info: .ic24InfoCircleFilled
-        case .warning: .ic24WarningCircleFilled
-        case .error: .ic24WarningCircleFilled
-        }
-    }
-    
-    func iconTintColor() -> UIColor {
-        switch self {
-        case .success: .backgroundSuccess
-        case .info: .contentInfo
-        case .warning: .contentWarning
-        case .error: .contentError
+        case .success: .ic24CheckCircleFilled.tinted(with: .backgroundSuccess)
+        case .info: .ic24InfoCircleFilled.tinted(with: .contentInfo)
+        case .warning: .ic24WarningCircleFilled.tinted(with: .contentWarning)
+        case .error: .ic24WarningCircleFilled.tinted(with: .contentError)
         }
     }
 }
