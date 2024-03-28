@@ -46,12 +46,11 @@ public struct SnackBarViewStyle {
     public func update(
         viewProperties: inout SnackBarView.ViewProperties
     ) {
-        let fontStyles = color.fontStyles()
         let foregroundColors = color.foregroundColors()
         
-        viewProperties.title = viewProperties.title?.fontStyle(fontStyles.title).foregroundColor(foregroundColors.title)
-        viewProperties.content = viewProperties.content?.fontStyle(fontStyles.content).foregroundColor(foregroundColors.content)
         viewProperties.icon = variant.icon()
+        viewProperties.title = viewProperties.title?.fontStyle(.textM_1).foregroundColor(foregroundColors.title)
+        viewProperties.content = viewProperties.content?.fontStyle(.textS).foregroundColor(foregroundColors.content)
         viewProperties.closeButton?.icon = .ic16Close.tinted(with: color.closeButtonIconTintColor())
         viewProperties.backgroundColor = color.backgroundColor()
         
@@ -65,7 +64,7 @@ public struct SnackBarViewStyle {
     ) {
         guard let bottomButton = viewProperties.bottomButton else { return }
         viewProperties.bottomButton?.title = bottomButton.title
-            .fontStyle(color.fontStyles().bottomButtonTitle)
+            .fontStyle(.textXS)
             .foregroundColor(color.foregroundColors().bottomButtonTitle)
     }
     
@@ -132,27 +131,6 @@ public extension SnackBarViewStyle.Color {
                 title: .contentPrimaryInverse,
                 content: .contentPrimaryInverse,
                 bottomButtonTitle: .contentAction
-            )
-        }
-    }
-    
-    func fontStyles() -> (
-        title: FontStyle,
-        content: FontStyle,
-        bottomButtonTitle: FontStyle
-    ) {
-        switch self {
-        case .light:
-            return (
-                title: .textM_1,
-                content: .textS,
-                bottomButtonTitle: .textXS
-            )
-        case .dark:
-            return (
-                title: .textM_1,
-                content: .textS,
-                bottomButtonTitle: .textXS
             )
         }
     }
