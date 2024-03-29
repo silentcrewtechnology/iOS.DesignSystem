@@ -1,4 +1,6 @@
 import UIKit
+import ImagesService
+import Colors
 
 private func example() {
     let view = ButtonView()
@@ -6,6 +8,10 @@ private func example() {
         attributedText: "Example".attributed,
         leftIcon: .ic24Book,
         rightIcon: .ic24FilledBook,
+        activityIndicator: .init(
+            icon: .ic24SpinerLoader.tinted(with: .contentDisabled),
+            size: .init(width: 24, height: 24),
+            isAnimating: false),
         action: {
             print("Example")
         })
@@ -16,6 +22,10 @@ private func example() {
     viewProperties = ButtonViewStyle.updateStyle(style: .ghost, viewProperties: viewProperties)
     view.update(with: viewProperties)
     
-    view.startLoading()
-    view.stopLoading()
+    viewProperties.activityIndicator.isAnimating = true
+    view.update(with: viewProperties)
+    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+        viewProperties.activityIndicator.isAnimating = false
+        view.update(with: viewProperties)
+    }
 }
