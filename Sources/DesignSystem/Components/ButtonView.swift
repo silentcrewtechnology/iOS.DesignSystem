@@ -134,7 +134,6 @@ public final class ButtonView: UIButton {
         
         activityIndicator.snp.makeConstraints {
             $0.center.equalToSuperview()
-            $0.size.equalTo(CGSize(width: 24, height: 24))
         }
     }
     
