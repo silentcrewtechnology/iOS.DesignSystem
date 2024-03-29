@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import Components
 import Colors
 import ImagesService
 
@@ -11,6 +12,7 @@ public final class ButtonView: UIButton {
         public var rightIcon: UIImage?
         public var backgroundColor: UIColor
         public var highlightColor: UIColor
+        public var activityIndicator: ActivityIndicatorView.ViewProperties
         public var action: () -> Void
         
         public init(
@@ -19,6 +21,7 @@ public final class ButtonView: UIButton {
             rightIcon: UIImage? = nil,
             backgroundColor: UIColor = .backgroundAction,
             highlightColor: UIColor = .backgroundActionPressed,
+            activityIndicator: ActivityIndicatorView.ViewProperties = .init(),
             action: @escaping () -> Void = { }
         ) {
             self.attributedText = attributedText
@@ -26,6 +29,7 @@ public final class ButtonView: UIButton {
             self.rightIcon = rightIcon
             self.backgroundColor = backgroundColor
             self.highlightColor = highlightColor
+            self.activityIndicator = activityIndicator
             self.action = action
         }
     }
@@ -34,12 +38,8 @@ public final class ButtonView: UIButton {
     
     // MARK: - UI
     
-    private lazy var activityIndicator: ActivityIndicatorView = {
-        let view = ActivityIndicatorView(image: .ic24SpinerLoader.tinted(with: .contentDisabled))
-        view.isHidden = true
-        return view
-    }()
-        
+    private let activityIndicator = ActivityIndicatorView()
+    
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.distribution = .fillProportionally
@@ -48,7 +48,7 @@ public final class ButtonView: UIButton {
         stackView.isUserInteractionEnabled = false
         return stackView
     }()
-
+    
     private let leftIconView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .center
@@ -68,7 +68,7 @@ public final class ButtonView: UIButton {
                 delay: 0,
                 options: [.beginFromCurrentState, .allowUserInteraction],
                 animations: { [self] in
-                    self.backgroundColor = self.isHighlighted 
+                    self.backgroundColor = self.isHighlighted
                     ? viewProperties.highlightColor
                     : viewProperties.backgroundColor
                 },
@@ -90,22 +90,16 @@ public final class ButtonView: UIButton {
     
     public func update(with viewProperties: ViewProperties) {
         setupProperties(with: viewProperties)
+        setupActionButton(with: viewProperties)
+        updateIndicator(indicator: viewProperties.activityIndicator)
         self.viewProperties = viewProperties
-    }
-    
-    public func startLoading() {
-        setupActivityIndicator(isLoading: true)
-    }
-    
-    public func stopLoading() {
-        setupActivityIndicator(isLoading: false)
     }
     
     // MARK: - Private Methods
     
     private func setupProperties(with viewProperties: ViewProperties) {
         backgroundColor = viewProperties.backgroundColor
-
+        
         if let leftIcon = viewProperties.leftIcon {
             leftIconView.image = leftIcon
         } else {
@@ -117,8 +111,6 @@ public final class ButtonView: UIButton {
         } else {
             stackView.removeArrangedSubview(rightIconView)
         }
-        
-        setupActionButton(with: viewProperties)
     }
     
     private func setupActionButton(with viewProperties: ViewProperties) {
@@ -146,7 +138,8 @@ public final class ButtonView: UIButton {
         }
     }
     
-    private func setupActivityIndicator(isLoading: Bool) {
+    private func updateIndicator(indicator: ActivityIndicatorView.ViewProperties) {
+        let isLoading = indicator.isAnimating
         isUserInteractionEnabled = !isLoading
         
         if isLoading {
@@ -158,8 +151,7 @@ public final class ButtonView: UIButton {
         }
         
         stackView.isHidden = isLoading
-        activityIndicator.isHidden = !isLoading
-        isLoading ? activityIndicator.startAnimating() : activityIndicator.stopAnimating()
+        activityIndicator.update(with: indicator)
     }
     
     @objc
