@@ -4,6 +4,8 @@ import Colors
 
 public struct PaymentButtonStyle {
     
+    public init() { }
+    
     public func update(viewProperties: inout PaymentButton.ViewProperties) {
         viewProperties.height = 56
         viewProperties.backgroundColor = .backgroundMainInverse
