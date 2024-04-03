@@ -3,7 +3,7 @@ import Components
 
 /// Обычный divider
 private func example1() {
-    let view = divider(orientation: .horizontal, style: .action)
+    _ = divider(orientation: .horizontal, style: .action)
 }
 
 /// Пример с отступами от границ супервью
