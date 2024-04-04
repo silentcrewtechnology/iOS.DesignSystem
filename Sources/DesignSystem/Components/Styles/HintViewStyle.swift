@@ -9,6 +9,8 @@ public struct HintViewStyle {
         case right(NSMutableAttributedString)
         case both(NSMutableAttributedString, NSMutableAttributedString)
     }
+
+    public init() { }
     
     public func update(
         variant: Variant,
