@@ -31,7 +31,6 @@ public struct InputTextareaViewStyle {
         viewProperties.typingText = viewProperties.typingText.fontStyle(.textM).foregroundColor(state.textColor())
         viewProperties.placeholder = viewProperties.placeholder.fontStyle(.textM).foregroundColor(.contentTertiary)
         viewProperties.backgroundColor = state.backgroundColor()
-        viewProperties.border.color = state.borderColor()
         viewProperties.border = .init(color: state.borderColor(), width: 1)
         viewProperties.cornerRadius = 8
         viewProperties.isUserInteractionEnabled = state.isEnabled()
