@@ -1,25 +1,31 @@
 import UIKit
 import ImagesService
 import Colors
+import Components
 
 private func example() {
     let view = ButtonView()
-    var viewProperties = ButtonView.ViewProperties(
-        attributedText: "Example".attributed,
-        leftIcon: .ic24Book,
-        rightIcon: .ic24FilledBook,
-        activityIndicator: .init(
-            icon: .ic24SpinerLoader.tinted(with: .contentDisabled),
-            size: .init(width: 24, height: 24),
-            isAnimating: false),
-        action: {
-            print("Example")
-        })
-    viewProperties = ButtonViewStyle.updateStyle(style: .action, viewProperties: viewProperties)
-    view.update(with: viewProperties)
-    viewProperties = ButtonViewStyle.updateStyle(style: .secondary, viewProperties: viewProperties)
-    view.update(with: viewProperties)
-    viewProperties = ButtonViewStyle.updateStyle(style: .ghost, viewProperties: viewProperties)
+    var viewProperties = ButtonView.ViewProperties()
+
+    var style = ButtonViewStyle(style: .action(.contained), size: .sizeM)
+
+    viewProperties.attributedText = "Example".attributed
+    viewProperties.leftIcon = .ic24Book
+    viewProperties.rightIcon = .ic24FilledBook
+    viewProperties.activityIndicator = .init(
+                    icon: .ic24SpinerLoader.tinted(with: .contentDisabled),
+                    size: .init(width: 24, height: 24),
+                    isAnimating: false)
+    viewProperties.onHighlighted = {  isHighlighted in
+        style.update(
+            state: isHighlighted ? .pressed : .default,
+            viewProperties: &viewProperties)
+        view.update(with: viewProperties)
+        
+    }
+    viewProperties.onTap = ({ print("Example") })
+ 
+    style.update(state: .disabled, viewProperties: &viewProperties)
     view.update(with: viewProperties)
     
     viewProperties.activityIndicator.isAnimating = true
