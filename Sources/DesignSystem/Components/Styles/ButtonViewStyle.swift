@@ -32,7 +32,6 @@ public struct ButtonViewStyle {
     private let style: Context
     private let size: Size
 
-    
     public init(
         style: Context,
         size: Size
@@ -79,7 +78,7 @@ public extension ButtonViewStyle.Context {
         state: ButtonViewStyle.State
     ) -> UIColor {
         switch self {
-    
+            
         case .action(let variant):
             switch variant {
                 
@@ -90,6 +89,7 @@ public extension ButtonViewStyle.Context {
             case .ghost:
                 return actionGhostBackgroundColor(state: state)
             }
+            
         case .warning(let variant):
             switch variant {
             case .contained:
@@ -99,6 +99,7 @@ public extension ButtonViewStyle.Context {
             case .ghost:
                 return  warningGhostBackgroundColor(state: state)
             }
+            
         case .error(let variant):
             switch variant {
             case .contained:
