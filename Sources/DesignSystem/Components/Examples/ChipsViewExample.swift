@@ -9,9 +9,14 @@ private class Example {
     let badgeView = BadgeView()
     
     func example() {
-        let badgeViewProperties = BadgeStyle.action.apply(
-            with: .init(text: "99+".attributed))
+        var badgeViewProperties = BadgeView.ViewProperties()
+        badgeViewProperties.text = "99+".attributed
+        let badgeStyle = BadgeStyle(style: .sText)
+        
+        badgeStyle.update(state: .action,
+                          viewProperties: &badgeViewProperties)
         badgeView.update(with: badgeViewProperties)
+        
         let updater = ChipsViewLeftIconRightBadgeUpdater(
             view: view,
             leftView: iconImageView(icon: .ic24Car, size: 24),
