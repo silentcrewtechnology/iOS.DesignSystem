@@ -2,7 +2,9 @@ import UIKit
 import Colors
 import Components
 
-public enum SegmentViewStyle {
+public struct SegmentViewStyle {
+    
+    private typealias ViewProperties = SegmentView.ViewProperties
     
     public enum Background {
         case primary
@@ -10,104 +12,64 @@ public enum SegmentViewStyle {
     }
     
     public enum Size {
-        case small
-        case medium
+        case sizeS
+        case sizeL
     }
     
-    public enum Style {
+    public enum Variant {
         case `default`
         case action
     }
     
-    public static func update(
+    private let background: Background
+    private let size: Size
+    private let variant: Variant
+    
+    public init(
         background: Background,
-        viewProperties: SegmentView.ViewProperties
-    ) -> SegmentView.ViewProperties {
-        var viewProperties = viewProperties
-        switch background {
-        case .primary:
-            viewProperties.backgroundColor = .backgroundPrimary
-        case .secondary:
-            viewProperties.backgroundColor = .backgroundSecondary
-        }
-        return viewProperties
-    }
-    
-    public static func update(
         size: Size,
-        viewProperties: SegmentView.ViewProperties
-    ) -> SegmentView.ViewProperties {
-        var viewProperties = viewProperties
-        switch size {
-        case .small:
-            viewProperties.height = 36
-            for (index, item) in viewProperties.items.enumerated() {
-                viewProperties.items[index].text = item.text
-                    .fontStyle(.textS)
-                    .alignment(.center)
-            }
-        case .medium:
-            viewProperties.height = 56
-            for (index, item) in viewProperties.items.enumerated() {
-                viewProperties.items[index].text = item.text
-                    .fontStyle(.textM)
-                    .alignment(.center)
-            }
+        variant: Variant
+    ) {
+        self.background = background
+        self.size = size
+        self.variant = variant
+    }
+    
+    public func update(
+        viewProperties: inout SegmentView.ViewProperties
+    ) {
+        viewProperties.backgroundColor = background.color()
+        viewProperties.height = size.height()
+        for index in viewProperties.items.indices {
+            viewProperties.items[index].text = viewProperties.items[index].text
+                .fontStyle(size.fontStyle())
+                .alignment(.center)
         }
+        viewProperties.slider = .init(
+            backgroundColor: variant.sliderBackgroundColor(),
+            cornerRadius: 6)
+        updateItemsColors(viewProperties: &viewProperties)
+        updateItemsDividers(viewProperties: &viewProperties)
         viewProperties.cornerRadius = 8
-        return viewProperties
+        viewProperties.animationDuration = 0.3
     }
     
-    public static func update(
-        style: Style,
-        viewProperties: SegmentView.ViewProperties
-    ) -> SegmentView.ViewProperties {
-        var viewProperties = viewProperties
-        switch style {
-        case .default:
-            viewProperties = updateItemsColors(
-                activeColor: .contentPrimary,
-                inactiveColor: .contentSecondary,
-                viewProperties: viewProperties)
-            viewProperties.slider = .init(
-                backgroundColor: .backgroundMain,
-                cornerRadius: Constant.sliderCornerRadius)
-        case .action:
-            viewProperties = updateItemsColors(
-                activeColor: .contentActionOn,
-                inactiveColor: .contentSecondary,
-                viewProperties: viewProperties)
-            viewProperties.slider = .init(
-                backgroundColor: .backgroundAction,
-                cornerRadius: Constant.sliderCornerRadius)
+    private func updateItemsColors(
+        viewProperties: inout SegmentView.ViewProperties
+    ) {
+        let textColors = variant.textColors()
+        for index in viewProperties.items.indices {
+            viewProperties.items[index].text = viewProperties.items[index].text
+                .foregroundColor(
+                    viewProperties.selectedSegmentIndex == index
+                    ? textColors.active
+                    : textColors.inactive)
         }
-        viewProperties = updateItemsDividers(viewProperties: viewProperties)
-        viewProperties.animationDuration = Constant.animationDuration
-        return viewProperties
     }
     
-    private static func updateItemsColors(
-        activeColor: UIColor,
-        inactiveColor: UIColor,
-        viewProperties: SegmentView.ViewProperties
-    ) -> SegmentView.ViewProperties {
-        var viewProperties = viewProperties
-        for (index, item) in viewProperties.items.enumerated() {
-            if viewProperties.selectedSegmentIndex == index {
-                viewProperties.items[index].text = item.text
-                    .foregroundColor(activeColor)
-            } else {
-                viewProperties.items[index].text = item.text
-                    .foregroundColor(inactiveColor)
-            }
-        }
-        return viewProperties
-    }
-    
-    private static func updateItemsDividers(
-        viewProperties: SegmentView.ViewProperties
-    ) -> SegmentView.ViewProperties {
-        var viewProperties = viewProperties
+    private func updateItemsDividers(
+        viewProperties: inout SegmentView.ViewProperties
+    ) {
         let selectedSegmentIndex = viewProperties.selectedSegmentIndex
         for index in viewProperties.items.indices {
             if
@@ -123,12 +85,49 @@ public enum SegmentViewStyle {
                 .update(viewProperties: &viewProperties.items[index].divider)
             }
         }
-        return viewProperties
     }
 }
 
-private enum Constant {
-    static let animationDuration: TimeInterval = 0.3
-    static let viewCornerRadius: CGFloat = 8
-    static let sliderCornerRadius: CGFloat = 6
+public extension SegmentViewStyle.Background {
+    
+    func color() -> UIColor {
+        switch self {
+        case .primary: .backgroundPrimary
+        case .secondary: .backgroundSecondary
+        }
+    }
+}
+
+public extension SegmentViewStyle.Size {
+    
+    func height() -> CGFloat {
+        switch self {
+        case .sizeS: 36
+        case .sizeL: 56
+        }
+    }
+    
+    func fontStyle() -> FontStyle {
+        switch self {
+        case .sizeS: .textS
+        case .sizeL: .textM
+        }
+    }
+}
+
+public extension SegmentViewStyle.Variant {
+    
+    func sliderBackgroundColor() -> UIColor {
+        switch self {
+        case .default: .backgroundMain
+        case .action: .backgroundAction
+        }
+    }
+    
+    func textColors() -> (active: UIColor, inactive: UIColor) {
+        switch self {
+        case .default: (.contentPrimary, .contentSecondary)
+        case .action: (.contentActionOn, .contentSecondary)
+        }
+    }
 }
