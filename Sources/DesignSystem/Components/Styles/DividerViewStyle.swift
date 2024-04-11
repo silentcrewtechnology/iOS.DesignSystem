@@ -29,21 +29,17 @@ public struct DividerViewStyle {
         self.orientation = orientation
     }
     
-    public  func update(
-        orientation: Orientation,
-        style: Style,
+    public func update(
         viewProperties: inout ViewProperties
     ) {
-        var viewProperties = viewProperties
-        viewProperties = update(orientation: orientation, viewProperties: viewProperties)
-        viewProperties = update(style: style, viewProperties: viewProperties)
+        update(orientation: orientation, viewProperties: &viewProperties)
+        update(style: style, viewProperties: &viewProperties)
     }
     
     private func update(
         orientation: Orientation,
-        viewProperties: ViewProperties
-    ) -> ViewProperties {
-        var viewProperties = viewProperties
+        viewProperties: inout ViewProperties
+    ) {
         switch orientation {
         case .horizontal:
             viewProperties.size = .height(Constant.thickness)
@@ -52,14 +48,12 @@ public struct DividerViewStyle {
         case .fixed(let size):
             viewProperties.size = .size(size)
         }
-        return viewProperties
     }
     
     private func update(
         style: Style,
-        viewProperties: ViewProperties
-    ) -> ViewProperties {
-        var viewProperties = viewProperties
+        viewProperties: inout ViewProperties
+    ) {
         switch style {
         case .action:
             viewProperties.backgroundColor = .borderAction
@@ -68,7 +62,6 @@ public struct DividerViewStyle {
         case .secondary:
             viewProperties.backgroundColor = .borderSecondary
         }
-        return viewProperties
     }
 }
 

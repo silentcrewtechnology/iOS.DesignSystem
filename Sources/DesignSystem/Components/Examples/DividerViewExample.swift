@@ -33,7 +33,7 @@ private func divider(
 ) -> UIView {
     let divider = DividerView()
     var vp = DividerView.ViewProperties()
-    DividerViewStyle(orientation: orientation, style: style).update(orientation: orientation, style: style, viewProperties: &vp)
+    DividerViewStyle(orientation: orientation, style: style).update( viewProperties: &vp)
     
     divider.update(with: vp)
     return divider

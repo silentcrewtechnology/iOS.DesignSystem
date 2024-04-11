@@ -117,10 +117,10 @@ public enum SegmentViewStyle {
             {
                 viewProperties.items[index].divider = .init()
             } else {
-                viewProperties.items[index].divider = DividerViewStyle.update(
+                DividerViewStyle(
                     orientation: .fixed(.init(width: 1, height: 24)),
-                    style: .main,
-                    viewProperties: viewProperties.items[index].divider)
+                    style: .main)
+                .update(viewProperties: &viewProperties.items[index].divider)
             }
         }
         return viewProperties
