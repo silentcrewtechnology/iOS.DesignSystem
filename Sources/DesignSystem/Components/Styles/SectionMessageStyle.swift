@@ -1,6 +1,7 @@
 import UIKit
-import ImagesService
 import Components
+import Colors
+import ImagesService
 
 public struct SectionMessageStyle {
     
