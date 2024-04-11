@@ -2,7 +2,7 @@ import UIKit
 import Components
 import Colors
 
-public enum DividerViewStyle {
+public struct DividerViewStyle {
     
     public typealias ViewProperties = DividerView.ViewProperties
     
@@ -18,18 +18,28 @@ public enum DividerViewStyle {
         case secondary
     }
     
-    public static func update(
+    private let orientation: Orientation
+    private let style: Style
+    
+    public init(
+        orientation: Orientation,
+        style: Style
+    ) {
+        self.style = style
+        self.orientation = orientation
+    }
+    
+    public  func update(
         orientation: Orientation,
         style: Style,
-        viewProperties: ViewProperties
-    ) -> ViewProperties {
+        viewProperties: inout ViewProperties
+    ) {
         var viewProperties = viewProperties
         viewProperties = update(orientation: orientation, viewProperties: viewProperties)
         viewProperties = update(style: style, viewProperties: viewProperties)
-        return viewProperties
     }
     
-    private static func update(
+    private func update(
         orientation: Orientation,
         viewProperties: ViewProperties
     ) -> ViewProperties {
@@ -45,7 +55,7 @@ public enum DividerViewStyle {
         return viewProperties
     }
     
-    private static func update(
+    private func update(
         style: Style,
         viewProperties: ViewProperties
     ) -> ViewProperties {
