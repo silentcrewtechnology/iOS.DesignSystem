@@ -1,7 +1,7 @@
 import UIKit
 import Components
 
-public enum RadioViewStyle {
+public struct RadioViewStyle {
     
     public enum Size {
         case small
@@ -18,11 +18,14 @@ public enum RadioViewStyle {
         case disabled
     }
     
-    public static func update(
+    public init() { }
+    
+    public func update(
         size: Size,
-        viewProperties: RadioView.ViewProperties
-    ) -> RadioView.ViewProperties {
-        var viewProperties = viewProperties
+        action: Action,
+        state: State,
+        viewProperties: inout RadioView.ViewProperties
+    ) {
         switch size {
         case .small:
             viewProperties.background.size = 16
@@ -33,15 +36,7 @@ public enum RadioViewStyle {
             viewProperties.offIndicator.size = 18
             viewProperties.onIndicator.size = 10
         }
-        return viewProperties
-    }
-    
-    public static func update(
-        state: State,
-        action: Action,
-        viewProperties: RadioView.ViewProperties
-    ) -> RadioView.ViewProperties {
-        var viewProperties = viewProperties
+        
         switch (state, action) {
         case (.default, .on):
             viewProperties.background.color = .backgroundAction
@@ -60,6 +55,5 @@ public enum RadioViewStyle {
             viewProperties.onIndicator.color = .clear
             viewProperties.offIndicator.color = .backgroundDisabled
         }
-        return viewProperties
     }
 }
