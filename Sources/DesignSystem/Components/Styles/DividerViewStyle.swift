@@ -2,7 +2,7 @@ import UIKit
 import Components
 import Colors
 
-public enum DividerViewStyle {
+public struct DividerViewStyle {
     
     public typealias ViewProperties = DividerView.ViewProperties
     
@@ -18,22 +18,28 @@ public enum DividerViewStyle {
         case secondary
     }
     
-    public static func update(
+    private let orientation: Orientation
+    private let style: Style
+    
+    public init(
         orientation: Orientation,
-        style: Style,
-        viewProperties: ViewProperties
-    ) -> ViewProperties {
-        var viewProperties = viewProperties
-        viewProperties = update(orientation: orientation, viewProperties: viewProperties)
-        viewProperties = update(style: style, viewProperties: viewProperties)
-        return viewProperties
+        style: Style
+    ) {
+        self.style = style
+        self.orientation = orientation
     }
     
-    private static func update(
+    public func update(
+        viewProperties: inout ViewProperties
+    ) {
+        update(orientation: orientation, viewProperties: &viewProperties)
+        update(style: style, viewProperties: &viewProperties)
+    }
+    
+    private func update(
         orientation: Orientation,
-        viewProperties: ViewProperties
-    ) -> ViewProperties {
-        var viewProperties = viewProperties
+        viewProperties: inout ViewProperties
+    ) {
         switch orientation {
         case .horizontal:
             viewProperties.size = .height(Constant.thickness)
@@ -42,14 +48,12 @@ public enum DividerViewStyle {
         case .fixed(let size):
             viewProperties.size = .size(size)
         }
-        return viewProperties
     }
     
-    private static func update(
+    private func update(
         style: Style,
-        viewProperties: ViewProperties
-    ) -> ViewProperties {
-        var viewProperties = viewProperties
+        viewProperties: inout ViewProperties
+    ) {
         switch style {
         case .action:
             viewProperties.backgroundColor = .borderAction
@@ -58,7 +62,6 @@ public enum DividerViewStyle {
         case .secondary:
             viewProperties.backgroundColor = .borderSecondary
         }
-        return viewProperties
     }
 }
 
