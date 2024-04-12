@@ -268,7 +268,7 @@ public extension ButtonViewStyle.Context {
     ) -> UIColor {
         switch state {
         case .default: .backgroundSecondary
-        case .pressed: .backgroundErrorPressed
+        case .pressed: .backgroundSecondaryPressed
         case .disabled: .backgroundDisabled
         case .loading: .backgroundDisabled
         }
