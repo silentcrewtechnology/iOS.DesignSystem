@@ -1,5 +1,6 @@
 import UIKit
 import Components
+import Colors
 
 public struct ButtonViewStyle {
     
@@ -29,14 +30,14 @@ public struct ButtonViewStyle {
         case sizeM
     }
     
-    private let style: Context
+    private let context: Context
     private let size: Size
 
     public init(
-        style: Context,
+        context: Context,
         size: Size
     ) {
-        self.style = style
+        self.context = context
         self.size = size
     }
     
@@ -46,10 +47,18 @@ public struct ButtonViewStyle {
         viewProperties: inout ButtonView.ViewProperties
     ) {
         viewProperties.isEnabled = state.isEnabled()
-        viewProperties.backgroundColor = style.backgroundColor(state: state)
+        viewProperties.backgroundColor = context.backgroundColor(state: state)
+        viewProperties.leftIcon = viewProperties.leftIcon?.tinted(with: context.tintColor(state: state))
+        viewProperties.rightIcon = viewProperties.rightIcon?.tinted(with: context.tintColor(state: state))
         viewProperties.insets = size.insets(isLoading: state.isLoading())
-        viewProperties.attributedText = viewProperties.attributedText.fontStyle(size.fontStyle())
-
+        viewProperties.activityIndicator = .init(
+            icon: .ic24SpinerLoader.tinted(with: context.loaderColor()),
+            size: size.indicatorSize(),
+            isAnimating: state.isLoading()
+        )
+        viewProperties.attributedText = viewProperties.attributedText
+            .fontStyle(size.fontStyle())
+            .foregroundColor(context.tintColor(state: state))
     }
 }
 
@@ -78,52 +87,49 @@ public extension ButtonViewStyle.Context {
         state: ButtonViewStyle.State
     ) -> UIColor {
         switch self {
-            
-        case .action(let variant):
-            switch variant {
-                
-            case .contained:
-               return actionBackgroundColor(state: state)
-            case .function:
-                return .clear
-            case .ghost:
-                return actionGhostBackgroundColor(state: state)
-            }
-            
-        case .warning(let variant):
-            switch variant {
-            case .contained:
-                return warningBackgroundColor(state: state)
-            case .function:
-                return .clear
-            case .ghost:
-                return  warningGhostBackgroundColor(state: state)
-            }
-            
-        case .error(let variant):
-            switch variant {
-            case .contained:
-                return errorBackgroundColor(state: state)
-            case .function:
-                return .clear
-            case .ghost:
-                return errorGhostBackgroundColor(state: state)
-            }
-            
-        case .secondary: return secondaryBackgroundColor(state: state)
-            
-        case .inverse(let variant):
-            switch variant {
-            case .contained:
-                return inverseBackgroundColor(state: state)
-            case .function:
-                return .clear
-            case .ghost:
-                return inverseGhostBackgroundColor(state: state)
-            }
+        case .action(.contained): actionBackgroundColor(state: state)
+        case .action(.function): .clear
+        case .action(.ghost): actionGhostBackgroundColor(state: state)
+        case .warning(.contained): warningBackgroundColor(state: state)
+        case .warning(.function): .clear
+        case .warning(.ghost): warningGhostBackgroundColor(state: state)
+        case .error(.contained): errorBackgroundColor(state: state)
+        case .error(.function): .clear
+        case .error(.ghost): errorGhostBackgroundColor(state: state)
+        case .secondary: secondaryBackgroundColor(state: state)
+        case .inverse(.contained): inverseBackgroundColor(state: state)
+        case .inverse(.function): .clear
+        case .inverse(.ghost): inverseGhostBackgroundColor(state: state)
+        }
+    }
+
+    func tintColor(
+        state: ButtonViewStyle.State
+    ) -> UIColor {
+        switch self {
+        case .action(.contained): actionTintColor(state: state)
+        case .action(.function): actionFunctionTintColor(state: state)
+        case .action(.ghost): actionGhostTintColor(state: state)
+        case .warning(.contained): actionTintColor(state: state)
+        case .warning(.function): warningFunctionTintColor(state: state)
+        case .warning(.ghost): warningGhostTintColor(state: state)
+        case .error(.contained): actionTintColor(state: state)
+        case .error(.function): errorFunctionTintColor(state: state)
+        case .error(.ghost): errorGhostTintColor(state: state)
+        case .secondary: secondaryTintColor(state: state)
+        case .inverse(.contained): secondaryTintColor(state: state)
+        case .inverse(.function): inverseTintColor(state: state)
+        case .inverse(.ghost): inverseTintColor(state: state)
         }
     }
     
+    func loaderColor() -> UIColor {
+        switch self {
+        case .inverse: .contentPrimaryInverse
+        default: .contentDisabled
+        }
+    }
+
     private func actionBackgroundColor(
         state: ButtonViewStyle.State
     ) -> UIColor {
@@ -132,6 +138,17 @@ public extension ButtonViewStyle.Context {
         case .pressed: .backgroundActionPressed
         case .disabled: .backgroundDisabled
         case .loading: .backgroundDisabled
+        }
+    }
+    
+    private func actionTintColor(
+        state: ButtonViewStyle.State
+    ) -> UIColor {
+        switch state {
+        case .default: .backgroundMain
+        case .pressed: .backgroundMain
+        case .disabled: .contentDisabled
+        case .loading: .contentDisabled
         }
     }
     
@@ -146,6 +163,28 @@ public extension ButtonViewStyle.Context {
         }
     }
     
+    private func actionGhostTintColor(
+        state: ButtonViewStyle.State
+    ) -> UIColor {
+        switch state {
+        case .default: .contentAction
+        case .pressed: .contentAction
+        case .disabled: .contentDisabled
+        case .loading: .contentDisabled
+        }
+    }
+    
+    private func actionFunctionTintColor(
+        state: ButtonViewStyle.State
+    ) -> UIColor {
+        switch state {
+        case .default: .contentAction
+        case .pressed: .contentActionPressed
+        case .disabled: .contentDisabled
+        case .loading: .contentDisabled
+        }
+    }
+    
     private func warningBackgroundColor(
         state: ButtonViewStyle.State
     ) -> UIColor {
@@ -154,6 +193,17 @@ public extension ButtonViewStyle.Context {
         case .pressed: .backgroundWarningPressed
         case .disabled: .backgroundDisabled
         case .loading: .backgroundDisabled
+        }
+    }
+    
+    private func warningGhostTintColor(
+        state: ButtonViewStyle.State
+    ) -> UIColor {
+        switch state {
+        case .default: .contentWarning
+        case .pressed: .contentWarning
+        case .disabled: .contentDisabled
+        case .loading: .contentDisabled
         }
     }
     
@@ -168,6 +218,17 @@ public extension ButtonViewStyle.Context {
         }
     }
     
+    private func warningFunctionTintColor(
+        state: ButtonViewStyle.State
+    ) -> UIColor {
+        switch state {
+        case .default: .contentWarning
+        case .pressed: .contentWarningPressed
+        case .disabled: .contentDisabled
+        case .loading: .contentDisabled
+        }
+    }
+    
     private func errorBackgroundColor(
         state: ButtonViewStyle.State
     ) -> UIColor {
@@ -176,6 +237,17 @@ public extension ButtonViewStyle.Context {
         case .pressed: .backgroundErrorPressed
         case .disabled: .backgroundDisabled
         case .loading: .backgroundDisabled
+        }
+    }
+    
+    private func errorFunctionTintColor(
+        state: ButtonViewStyle.State
+    ) -> UIColor {
+        switch state {
+        case .default: .contentError
+        case .pressed: .contentErrorPressed
+        case .disabled: .contentDisabled
+        case .loading: .contentDisabled
         }
     }
     
@@ -190,14 +262,36 @@ public extension ButtonViewStyle.Context {
         }
     }
     
+    private func errorGhostTintColor(
+        state: ButtonViewStyle.State
+    ) -> UIColor {
+        switch state {
+        case .default: .contentError
+        case .pressed: .contentError
+        case .disabled: .contentDisabled
+        case .loading: .contentDisabled
+        }
+    }
+    
     private func secondaryBackgroundColor(
         state: ButtonViewStyle.State
     ) -> UIColor {
         switch state {
         case .default: .backgroundSecondary
-        case .pressed: .backgroundErrorPressed
+        case .pressed: .backgroundSecondaryPressed
         case .disabled: .backgroundDisabled
         case .loading: .backgroundDisabled
+        }
+    }
+    
+    private func secondaryTintColor(
+        state: ButtonViewStyle.State
+    ) -> UIColor {
+        switch state {
+        case .default: .contentPrimary
+        case .pressed: .contentPrimary
+        case .disabled: .contentDisabled
+        case .loading: .contentDisabled
         }
     }
     
@@ -223,6 +317,16 @@ public extension ButtonViewStyle.Context {
         }
     }
     
+    private func inverseTintColor(
+        state: ButtonViewStyle.State
+    ) -> UIColor {
+        switch state {
+        case .default: .contentActionOn
+        case .pressed: .contentActionOn
+        case .disabled: .contentDisabled
+        case .loading: .contentDisabled
+        }
+    }
 }
 
 public extension ButtonViewStyle.Size {
@@ -231,6 +335,13 @@ public extension ButtonViewStyle.Size {
         switch self {
         case .sizeXS: .textS
         case .sizeM: .textM
+        }
+    }
+    
+    func indicatorSize() -> CGSize {
+        switch self {
+        case .sizeXS: .init(width: 16, height: 16)
+        case .sizeM: .init(width: 24, height: 24)
         }
     }
     
