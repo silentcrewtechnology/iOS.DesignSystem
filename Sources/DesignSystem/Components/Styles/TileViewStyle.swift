@@ -1,12 +1,8 @@
 import UIKit
 import Components
+import Colors
 
-public enum TileViewStyle {
-    
-    public enum Size {
-        case small
-        case large
-    }
+public struct TileViewStyle {
     
     public enum Style {
         case action
@@ -14,64 +10,98 @@ public enum TileViewStyle {
         case main
     }
     
-    public static func resize(
+    public enum Size {
+        case sizeS
+        case sizeL
+    }
+    
+    private let size: Size
+    private let style: Style
+    
+    public init(
         size: Size,
-        viewProperties: TileView.ViewProperties
-    ) -> TileView.ViewProperties {
-        var viewProperties = viewProperties
-        switch size {
-        case .small:
-            viewProperties.width = 80
-            viewProperties.textWidth = 72
-            viewProperties.text = viewProperties.text.fontStyle(.text2XS)
-        case .large:
-            viewProperties.width = 96
-            viewProperties.textWidth = 80
-            viewProperties.text = viewProperties.text.fontStyle(.textXS)
-        }
+        style: Style
+    ) {
+        self.size = size
+        self.style = style
+    }
+    
+    public func update(
+        viewProperties: inout TileView.ViewProperties
+    ) {
+        viewProperties.backgroundColor = style.backgroundColor()
+        viewProperties.width = size.width()
         viewProperties.cornerRadius = 12
-        return viewProperties
+        viewProperties.text = viewProperties.text
+            .fontStyle(size.fontStyle())
+            .foregroundColor(style.textColor())
+            .alignment(.center)
+        viewProperties.textWidth = size.textWidth()
     }
     
-    public static func restyle(
-        style: Style,
-        viewProperties: TileView.ViewProperties
-    ) -> TileView.ViewProperties {
-        var viewProperties = viewProperties
-        switch style {
-        case .action:
-            viewProperties.backgroundColor = .backgroundAction
-            viewProperties.text = viewProperties.text.foregroundColor(.contentActionOn)
-        case .primary:
-            viewProperties.backgroundColor = .backgroundPrimary
-            viewProperties.text = viewProperties.text.foregroundColor(.contentPrimary)
-        case .main:
-            viewProperties.backgroundColor = .backgroundMain
-            viewProperties.text = viewProperties.text.foregroundColor(.contentPrimary)
-        }
-        viewProperties.icon = restyleIcon(style: style, icon: viewProperties.icon)
-        return viewProperties
+    public func styledCenteredIcon(_ image: UIImage) -> UIImage {
+        image.tinted(with: .contentPrimary)
+            .centered(in: .circle(
+                backgroundColor: style.iconBackgroundColor(),
+                diameter: size.iconDiameter()))
     }
     
-    private static func restyleIcon(
-        style: Style,
-        icon: TileView.ViewProperties.Icon
-    ) -> TileView.ViewProperties.Icon {
-        var icon = icon
-        switch icon.variant {
-        case .icon(let image):
-            icon.variant = .icon(image.tinted(with: .contentPrimary))
-            switch style {
-            case .action:
-                icon.backgroundColor = .backgroundMain
-            case .primary:
-                icon.backgroundColor = .backgroundMain
-            case .main:
-                icon.backgroundColor = .backgroundPrimary
-            }
-        case .image:
-            icon.backgroundColor = .clear
+    public func centeredIcon(_ image: UIImage) -> UIImage {
+        image.centered(in: .circle(
+            backgroundColor: .clear,
+            diameter: size.iconDiameter()))
+    }
+}
+
+public extension TileViewStyle.Style {
+    
+    func backgroundColor() -> UIColor {
+        switch self {
+        case .action: .backgroundAction
+        case .primary: .backgroundPrimary
+        case .main: .backgroundMain
         }
-        return icon
+    }
+    
+    func iconBackgroundColor() -> UIColor {
+        switch self {
+        case .action: .backgroundMain
+        case .primary: .backgroundMain
+        case .main: .backgroundPrimary
+        }
+    }
+    
+    func textColor() -> UIColor {
+        switch self {
+        case .action: .contentActionOn
+        case .primary: .contentPrimary
+        case .main: .contentPrimary
+        }
+    }
+}
+
+public extension TileViewStyle.Size {
+    
+    func width() -> CGFloat {
+        switch self {
+        case .sizeS: 80
+        case .sizeL: 96
+        }
+    }
+    
+    func textWidth() -> CGFloat {
+        switch self {
+        case .sizeS: 72
+        case .sizeL: 80
+        }
+    }
+    
+    func iconDiameter() -> CGFloat { 48 }
+    
+    func fontStyle() -> FontStyle {
+        switch self {
+        case .sizeS: .text2XS
+        case .sizeL: .textXS
+        }
     }
 }
