@@ -18,7 +18,7 @@ private class Example {
             self.tabsView.update(with: self.viewProperties)
         }
         let initialSelectedIndex: Int = 2
-        var tabItems: [TabItemView.ViewProperties] = [
+        let tabItems: [TabItemView.ViewProperties] = [
             "123".attributed,
             "456".attributed,
             "789".attributed,

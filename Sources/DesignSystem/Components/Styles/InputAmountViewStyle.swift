@@ -2,19 +2,22 @@ import UIKit
 import Components
 import Colors
 
-public enum InputAmountViewStyle {
+public struct InputAmountViewStyle {
     
     public enum State {
         case `default`
-        case error(String)
+        case error(NSMutableAttributedString)
         case disabled
     }
     
-    public static func update(
+    public init() { }
+    
+    private let styleHint = HintViewStyle()
+    
+    public func update(
         state: State,
-        viewProperties: InputAmountView.ViewProperties
-    ) -> InputAmountView.ViewProperties {
-        var viewProperties = viewProperties
+        viewProperties: inout InputAmountView.ViewProperties
+    ) {
         viewProperties.title = viewProperties.title
             .fontStyle(.textS)
             .foregroundColor(.contentSecondary)
@@ -32,9 +35,8 @@ public enum InputAmountViewStyle {
             viewProperties.amountSymbol = viewProperties.amountSymbol
                 .fontStyle(Constant.defaultTextStyle)
                 .foregroundColor(.contentTertiary)
-            viewProperties.hint = viewProperties.hint
-                .fontStyle(Constant.defaultTitleHintStyle)
-                .foregroundColor(.contentSecondary)
+            styleHint.update(variant: .empty, 
+                             viewProperties: &viewProperties.hintViewProperties)
         case .error(let message):
             viewProperties.isUserInteractionEnabled = true
             viewProperties.textFieldProperties.textAttributes = Constant.defaultTextAttributes
@@ -47,9 +49,8 @@ public enum InputAmountViewStyle {
             viewProperties.amountSymbol = viewProperties.amountSymbol
                 .fontStyle(Constant.defaultTextStyle)
                 .foregroundColor(.contentTertiary)
-            viewProperties.hint = message.attributed
-                .fontStyle(Constant.defaultTitleHintStyle)
-                .foregroundColor(.contentError)
+            styleHint.update(variant: .left(message),
+                             viewProperties: &viewProperties.hintViewProperties)
         case .disabled:
             viewProperties.isUserInteractionEnabled = false
             viewProperties.textFieldProperties.textAttributes = Constant.disabledTextAttributes
@@ -62,17 +63,14 @@ public enum InputAmountViewStyle {
             viewProperties.amountSymbol = viewProperties.amountSymbol
                 .fontStyle(Constant.defaultTextStyle)
                 .foregroundColor(.contentDisabled)
-            viewProperties.hint = viewProperties.hint
-                .fontStyle(Constant.defaultTitleHintStyle)
-                .foregroundColor(.contentSecondary)
+            styleHint.update(variant: .empty,
+                             viewProperties: &viewProperties.hintViewProperties)
         }
-        return viewProperties
     }
 }
 
 private enum Constant {
     
-    static let defaultTitleHintStyle: FontStyle = .textS
     static let defaultTextStyle: FontStyle = .text4XL
     
     static let defaultTextAttributes: [NSAttributedString.Key: Any] = [

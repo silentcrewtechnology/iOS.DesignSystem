@@ -4,6 +4,7 @@ import Components
 private func example() {
     let view = InputAmountView()
     let delegate = CustomTextFieldDelegate()
+    let style = InputAmountViewStyle()
     var viewProperties = InputAmountView.ViewProperties(
         title: "Title".attributed,
         textFieldProperties: .init(
@@ -14,11 +15,16 @@ private func example() {
             }),
         amountSymbol: "₽".attributed,
         isUserInteractionEnabled: true)
-    viewProperties = InputAmountViewStyle.update(state: .default, viewProperties: viewProperties)
+    style.update(state: .default,
+                 viewProperties: &viewProperties)
     view.update(with: viewProperties)
-    viewProperties = InputAmountViewStyle.update(state: .error("Error"), viewProperties: viewProperties)
+    
+    style.update(state: .error("Error".attributed),
+                 viewProperties: &viewProperties)
     view.update(with: viewProperties)
-    viewProperties = InputAmountViewStyle.update(state: .disabled, viewProperties: viewProperties)
+    
+    style.update(state: .disabled,
+                 viewProperties: &viewProperties)
     view.update(with: viewProperties)
 }
 
