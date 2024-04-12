@@ -10,14 +10,15 @@ import Components
 
 private func example() {
     let view = AuthorizationButton()
-    var viewProperties = AuthorizationButtonStyle.update(
-        style: .gosuslugi,
-        isInversed: true,
-        viewProperties: .init(
-            image: .ic24Book,
-            title: "Войти через Госуслуги".attributed
-        )
+    let style = AuthorizationButtonStyle(
+        variant: .gosuslugi,
+        isInversed: true
     )
-    viewProperties.onTap = { print("tapped") }
+    var viewProperties = AuthorizationButton.ViewProperties(
+        image: .ic24Book,
+        title: "Войти через Госуслуги".attributed,
+        onTap: { print("tapped") }
+    )
+    style.update(viewProperties: &viewProperties)
     view.update(with: viewProperties)
 }
