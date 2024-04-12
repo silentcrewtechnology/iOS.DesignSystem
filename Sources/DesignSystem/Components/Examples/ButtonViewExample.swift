@@ -7,15 +7,11 @@ private func example() {
     let view = ButtonView()
     var viewProperties = ButtonView.ViewProperties()
 
-    var style = ButtonViewStyle(style: .action(.contained), size: .sizeM)
+    var style = ButtonViewStyle(context: .action(.contained), size: .sizeM)
 
     viewProperties.attributedText = "Example".attributed
     viewProperties.leftIcon = .ic24Book
     viewProperties.rightIcon = .ic24FilledBook
-    viewProperties.activityIndicator = .init(
-                    icon: .ic24SpinerLoader.tinted(with: .contentDisabled),
-                    size: .init(width: 24, height: 24),
-                    isAnimating: false)
     viewProperties.onHighlighted = {  isHighlighted in
         style.update(
             state: isHighlighted ? .pressed : .default,
