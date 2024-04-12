@@ -1,12 +1,13 @@
 import UIKit
-import Colors
 import Components
+import Colors
+import ImagesService
 
-public enum CheckboxViewStyle {
+public struct CheckboxViewStyle {
     
     public enum Size {
-        case small
-        case large
+        case sizeS
+        case sizeL
     }
     
     public enum Action {
@@ -19,48 +20,62 @@ public enum CheckboxViewStyle {
         case disabled
     }
     
-    public static func update(
-        size: Size,
-        viewProperties: CheckboxView.ViewProperties
-    ) -> CheckboxView.ViewProperties {
-        var viewProperties = viewProperties
-        switch size {
-        case .small:
-            viewProperties.background.size = 16
-            viewProperties.indicator.size = 14
-        case .large:
-            viewProperties.background.size = 20
-            viewProperties.indicator.size = 18
-        }
-        viewProperties.background.cornerRadius = 4
-        viewProperties.indicator.cornerRadius = 3
-        return viewProperties
+    private let size: Size
+    
+    public init(size: Size) {
+        self.size = size
     }
     
-    public static func update(
+    public func update(
         state: State,
         action: Action,
-        viewProperties: CheckboxView.ViewProperties
-    ) -> CheckboxView.ViewProperties {
-        var viewProperties = viewProperties
+        viewProperties: inout CheckboxView.ViewProperties
+    ) {
+        viewProperties.background.size = size.backgroundSize()
+        viewProperties.background.cornerRadius = 4
+        viewProperties.indicator.size = size.indicatorSize()
+        viewProperties.indicator.image = action.icon()
+        viewProperties.indicator.cornerRadius = 3
         switch (state, action) {
         case (.default, .on):
             viewProperties.background.color = .backgroundAction
-            viewProperties.indicator.image = .ic10Check.tinted(with: .contentActionOn)
             viewProperties.indicator.backgroundColor = .clear
         case (.default, .off):
             viewProperties.background.color = .borderMain
-            viewProperties.indicator.image = nil
             viewProperties.indicator.backgroundColor = .backgroundPrimary
         case (.disabled, .on):
             viewProperties.background.color = .backgroundActionActiveDisabled
-            viewProperties.indicator.image = .ic10Check.tinted(with: .contentActionOn)
             viewProperties.indicator.backgroundColor = .clear
         case (.disabled, .off):
             viewProperties.background.color = .borderDisabled
-            viewProperties.indicator.image = nil
             viewProperties.indicator.backgroundColor = .backgroundDisabled
         }
-        return viewProperties
+    }
+}
+
+public extension CheckboxViewStyle.Size {
+    
+    func backgroundSize() -> CGFloat {
+        switch self {
+        case .sizeS: 16
+        case .sizeL: 20
+        }
+    }
+    
+    func indicatorSize() -> CGFloat {
+        switch self {
+        case .sizeS: 14
+        case .sizeL: 18
+        }
+    }
+}
+
+public extension CheckboxViewStyle.Action {
+    
+    func icon() -> UIImage? {
+        switch self {
+        case .on: .ic10Check.tinted(with: .contentActionOn)
+        case .off: nil
+        }
     }
 }
