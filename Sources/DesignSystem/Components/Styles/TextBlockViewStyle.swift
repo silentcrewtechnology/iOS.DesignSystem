@@ -1,20 +1,26 @@
 import UIKit
 import Components
 
-public enum TextBlockViewStyle {
-    case plain
-    case marker
-    case plainWithBackground
-    case markerWithBackground
-    case icon(image: UIImage)
-    case iconWithBackground(image: UIImage)
-    case iconNumber(number: LimitedNumber)
-    case iconNumberWithBackground(number: LimitedNumber)
+public struct TextBlockViewStyle {
+    
+    public enum Variant {
+        case plain
+        case marker
+        case plainWithBackground
+        case markerWithBackground
+        case icon(image: UIImage)
+        case iconWithBackground(image: UIImage)
+        case iconNumber(number: LimitedNumber)
+        case iconNumberWithBackground(number: LimitedNumber)
+    }
+    
+    public init() { }
     
     public func update(
+        variant: Variant,
         viewProperties: inout TextBlockView.ViewProperties
     ) {
-        switch self {
+        switch variant {
         case .plain:
             viewProperties.text = viewProperties.text.string.textM(color: .contentPrimary)
             viewProperties.contentInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
