@@ -52,9 +52,9 @@ public struct PaperViewStyle {
         viewProperties: inout PaperView.ViewProperties
     ) {
         updateCornerMask(mask: mask, viewProperties: &viewProperties)
-        updateCornerRadius(viewProperties: &viewProperties)
-        updateBackgroundColor(viewProperties: &viewProperties)
-        updateShadow(viewProperties: &viewProperties)
+        updateCornerRadius(radius: radius, viewProperties: &viewProperties)
+        updateBackgroundColor(color: color, viewProperties: &viewProperties)
+        updateShadow(hasShadow: hasShadow, viewProperties: &viewProperties)
     }
     
     private func updateCornerMask(
@@ -63,7 +63,7 @@ public struct PaperViewStyle {
     ) {
         switch mask {
         case .none:
-            updateCornerRadius(viewProperties: &viewProperties)
+            updateCornerRadius(radius: .none, viewProperties: &viewProperties)
         case .top:
             viewProperties.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         case .bottom:
@@ -95,6 +95,7 @@ public struct PaperViewStyle {
     }
     
     private func updateCornerRadius(
+        radius: CornerRadius,
         viewProperties: inout PaperView.ViewProperties
     ) {
         switch radius {
@@ -110,6 +111,7 @@ public struct PaperViewStyle {
     }
     
     private func updateBackgroundColor(
+        color: BackgroundColor,
         viewProperties: inout PaperView.ViewProperties
     ) {
         switch color {
@@ -123,6 +125,7 @@ public struct PaperViewStyle {
     }
     
     private func updateShadow(
+        hasShadow: Bool,
         viewProperties: inout PaperView.ViewProperties
     ) {
         if hasShadow {
