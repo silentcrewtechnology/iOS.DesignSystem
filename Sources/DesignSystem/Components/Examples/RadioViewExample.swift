@@ -4,7 +4,7 @@ import Components
 private func example() {
     let view = RadioView()
     var viewProperties = RadioView.ViewProperties()
-    var style = RadioViewStyle()
+    let style = RadioViewStyle()
     style.update(size: .large,
                  action: .on,
                  state: .default,
