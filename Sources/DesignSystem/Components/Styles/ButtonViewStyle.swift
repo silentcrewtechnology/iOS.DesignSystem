@@ -1,5 +1,6 @@
 import UIKit
 import Components
+import Colors
 
 public struct ButtonViewStyle {
     
@@ -51,7 +52,7 @@ public struct ButtonViewStyle {
         viewProperties.rightIcon = viewProperties.rightIcon?.tinted(with: context.tintColor(state: state))
         viewProperties.insets = size.insets(isLoading: state.isLoading())
         viewProperties.activityIndicator = .init(
-            icon: .ic24SpinerLoader.tinted(with: context.loaderColor(state: state)),
+            icon: .ic24SpinerLoader.tinted(with: context.loaderColor()),
             size: size.indicatorSize(),
             isAnimating: state.isLoading()
         )
@@ -122,26 +123,13 @@ public extension ButtonViewStyle.Context {
         }
     }
     
-    func loaderColor(
-        state: ButtonViewStyle.State
-    ) -> UIColor {
+    func loaderColor() -> UIColor {
         switch self {
-        case .action(.contained): .contentDisabled
-        case .action(.function): .contentDisabled
-        case .action(.ghost): .contentDisabled
-        case .warning(.contained): .contentDisabled
-        case .warning(.function): .contentDisabled
-        case .warning(.ghost): .contentDisabled
-        case .error(.contained):.contentDisabled
-        case .error(.function): .contentDisabled
-        case .error(.ghost): .contentDisabled
-        case .secondary: .contentDisabled
-        case .inverse(.contained): .backgroundMain
-        case .inverse(.function): .backgroundMain
-        case .inverse(.ghost): .backgroundMain
+        case .inverse: .contentPrimaryInverse
+        default: .contentDisabled
         }
     }
-    
+
     private func actionBackgroundColor(
         state: ButtonViewStyle.State
     ) -> UIColor {
