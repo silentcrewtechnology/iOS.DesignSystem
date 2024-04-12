@@ -8,71 +8,75 @@
 import UIKit
 import Components
 
-public enum AuthorizationButtonStyle {
+public struct AuthorizationButtonStyle {
     
-    public enum Style {
+    public enum Variant {
         case standart
         case gosuslugi
     }
     
-    public static func update(
-        style: Style,
-        isInversed: Bool = false,
-        viewProperties: AuthorizationButton.ViewProperties
-    ) -> AuthorizationButton.ViewProperties {
-        var viewProperties = viewProperties
+    private let variant: Variant
+    private let isInversed: Bool
+    
+    public init(
+        variant: Variant,
+        isInversed: Bool = false
+    ) {
+        self.variant = variant
+        self.isInversed = isInversed
+    }
+    
+    public func update(
+        viewProperties: inout AuthorizationButton.ViewProperties
+    ) {
+        viewProperties.title = viewProperties.title
+            .fontStyle(.textM)
+            .foregroundColor(titleColor())
         
-        switch style {
+        viewProperties.backgroundColor = backgroundColor()
+        viewProperties.highlightedColor = highlightedColor()
+        viewProperties.spacing = spacing()
+        
+        if case .standart = variant {
+            viewProperties.image = viewProperties.image
+                .tinted(with: isInversed ? .contentAction : .contentActionOn)
+        }
+    }
+}
+
+public extension AuthorizationButtonStyle {
+    
+    func titleColor() -> UIColor {
+        switch variant {
         case .standart:
-            viewProperties = updateForStyleStandart(isInversed: isInversed, viewProperties: viewProperties)
+            return isInversed ? .contentPrimary : .contentActionOn
         case .gosuslugi:
-            viewProperties = updateForStyleGosuslugi(isInversed: isInversed, viewProperties: viewProperties)
+            return .gosuslugiButtonTitle
         }
-        
-        return viewProperties
     }
     
-    private static func updateForStyleStandart(
-        isInversed: Bool,
-        viewProperties: AuthorizationButton.ViewProperties
-    ) -> AuthorizationButton.ViewProperties {
-        var viewProperties = viewProperties
-        
-        if isInversed {
-            viewProperties.title = viewProperties.title.foregroundColor(.contentPrimary)
-            viewProperties.image = viewProperties.image.tinted(with: .contentAction)
-            viewProperties.backgroundColor = .backgroundMain
-            viewProperties.highlightedColor = .backgroundMainPressed
-        } else {
-            viewProperties.title = viewProperties.title.foregroundColor(.contentActionOn)
-            viewProperties.image = viewProperties.image.tinted(with: .contentActionOn)
-            viewProperties.backgroundColor = .backgroundAction
-            viewProperties.highlightedColor = .backgroundActionPressed
+    func backgroundColor() -> UIColor {
+        switch variant {
+        case .standart:
+            return isInversed ? .backgroundMain : .backgroundAction
+        case .gosuslugi:
+            return isInversed ? .backgroundMain : .backgroundInfoLight
         }
-        
-        viewProperties.title = viewProperties.title.fontStyle(.textM)
-        viewProperties.spacing = 16
-        
-        return viewProperties
     }
     
-    private static func updateForStyleGosuslugi(
-        isInversed: Bool,
-        viewProperties: AuthorizationButton.ViewProperties
-    ) -> AuthorizationButton.ViewProperties {
-        var viewProperties = viewProperties
-        
-        if isInversed {
-            viewProperties.backgroundColor = .backgroundMain
-            viewProperties.highlightedColor = .backgroundMainPressed
-        } else {
-            viewProperties.backgroundColor = .backgroundInfoLight
-            viewProperties.highlightedColor = .backgroundInfoLightPressed
+    func highlightedColor() -> UIColor {
+        switch variant {
+        case .standart:
+            return isInversed ? .backgroundMainPressed : .backgroundActionPressed
+        case .gosuslugi:
+            return isInversed ? .backgroundMainPressed : .backgroundInfoLightPressed
         }
-        
-        viewProperties.title = viewProperties.title.fontStyle(.textM).foregroundColor(.gosuslugiButtonTitle)
-        viewProperties.spacing = 8
-        
-        return viewProperties
+    }
+    
+    func spacing() -> CGFloat {
+        switch variant {
+        case .standart: 16
+        case .gosuslugi: 8
+        }
     }
 }
