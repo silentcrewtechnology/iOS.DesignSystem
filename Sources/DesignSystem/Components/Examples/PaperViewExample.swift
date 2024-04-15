@@ -13,23 +13,26 @@ private func example() {
     let view = PaperView()
     
     var viewProperties = PaperView.ViewProperties()
-    viewProperties = PaperViewStyle.update(
+    PaperViewStyle(
         mask: .top,
         radius: .large,
         color: .primary,
-        hasShadow: false,
-        viewProperties: viewProperties)
+        hasShadow: false)
+    .update(viewProperties: &viewProperties)
     
     view.update(with: viewProperties)
     
     let rowsInSection = 3
     let indexPath = IndexPath(row: 1, section: 0)
     
-    viewProperties = PaperViewStyle.updateCornerMask(
+    PaperViewStyle(
         mask: .automatic(
             rowsInSection: rowsInSection,
             indexPath: indexPath),
-        viewProperties: viewProperties)
+        radius: .large,
+        color: .primary,
+        hasShadow: false)
+    .update(viewProperties: &viewProperties)
     
     view.update(with: viewProperties)
 }
