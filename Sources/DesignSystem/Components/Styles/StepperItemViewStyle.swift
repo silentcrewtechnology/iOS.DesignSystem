@@ -1,24 +1,34 @@
 import Foundation
+import UIKit
 import Components
 
-public enum StepperItemViewStyle {
+public struct StepperItemViewStyle {
     
-    public enum Variant {
+    public enum State {
+        case success
         case active
-        case disabled
+        case next
     }
     
-    public static func reactivate(
-        variant: Variant,
-        viewProperties: StepperItemView.ViewProperties
-    ) -> StepperItemView.ViewProperties {
-        var viewProperties = viewProperties
-        switch variant {
-        case .active:
+    public init() { }
+    
+    public func update(
+        state: State,
+        viewProperties: inout StepperItemView.ViewProperties
+    ) {
+        switch state {
+        case .success:
+            viewProperties.progressViewWidth = 0
             viewProperties.backgroundColor = .contentAction
-        case .disabled:
+        case .active:
+            viewProperties.progressViewWidth = 12
+            viewProperties.backgroundColor = .backgroundSecondary
+        case .next:
+            viewProperties.progressViewWidth = 0
             viewProperties.backgroundColor = .backgroundSecondary
         }
-        return viewProperties
+        viewProperties.height = 4
+        viewProperties.cornerRadius = 2
+        viewProperties.progressViewBackgroundColor = .contentAction
     }
 }
