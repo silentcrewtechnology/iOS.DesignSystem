@@ -1,0 +1,83 @@
+//
+//  File.swift
+//  
+//
+//  Created by Ilnur Mugaev on 16.04.2024.
+//
+
+import UIKit
+import Components
+
+private class InputSelectViewExample: UIViewController {
+    
+    private lazy var hintViewViewProperties: HintView.ViewProperties = {
+        var viewProperties = HintView.ViewProperties()
+        let style = HintViewStyle()
+        style.update(
+            variant: .empty,
+            viewProperties: &viewProperties)
+        return viewProperties
+    }()
+    
+    private lazy var style: InputSelectViewStyle = .init(state: .default)
+    
+    private lazy var viewProperties: InputSelectView.ViewProperties = {
+        var viewProperties = InputSelectView.ViewProperties(
+            header: "Header".attributed,
+            placeholder: "Placeholder".attributed,
+            hintViewViewProperties: hintViewViewProperties
+        )
+        
+        viewProperties.inputTapAction = { [weak self] in
+            guard let self else { return }
+            self.selectText()
+        }
+        
+        viewProperties.clearButtonAction = { [weak self] in
+            guard let self else { return }
+            self.clearText()
+        }
+        
+        style = .init(state: .default)
+        style.update(viewProperties: &viewProperties)
+        
+        return viewProperties
+    }()
+    
+    private lazy var inputSelectView: InputSelectView = {
+        let view = InputSelectView()
+        view.update(with: viewProperties)
+        return view
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .white
+        
+        view.addSubview(inputSelectView)
+        inputSelectView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.topMargin.equalToSuperview().inset(20)
+        }
+    }
+    
+    private func clearText() {
+        viewProperties.text = "".attributed
+        style.update(viewProperties: &viewProperties)
+        inputSelectView.update(with: viewProperties)
+    }
+    
+    private func selectText() {
+        style = .init(state: .active)
+        style.update(viewProperties: &viewProperties)
+        inputSelectView.update(with: viewProperties)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
+            self.viewProperties.text = "Content".attributed
+            self.style = .init(state: .default)
+            self.style.update(viewProperties: &self.viewProperties)
+            self.inputSelectView.update(with: self.viewProperties)
+        }
+    }
+}
