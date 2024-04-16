@@ -10,17 +10,31 @@ private func example() {
     // 40% progress
     let activeCount40 = 2
     for (index, item) in viewProperties.items.enumerated() {
-        viewProperties.items[index] = StepperItemViewStyle.reactivate(
-            variant: index < activeCount40 ? .active : .disabled,
-            viewProperties: item)
+        viewProperties.items[index] = createItemViewProperty(activeCount: activeCount40, index: index)
     }
     view.update(with: viewProperties)
     // 60% progress
     let activeCount60 = 3
     for (index, item) in viewProperties.items.enumerated() {
-        viewProperties.items[index] = StepperItemViewStyle.reactivate(
-            variant: index < activeCount60 ? .active : .disabled,
-            viewProperties: item)
+        viewProperties.items[index] = createItemViewProperty(activeCount: activeCount60, index: index)
     }
     view.update(with: viewProperties)
+}
+
+private func createItemViewProperty(activeCount: Int, index: Int) -> StepperItemView.ViewProperties {
+        var itemViewProperties = StepperItemView.ViewProperties()
+        let style = StepperItemViewStyle()
+        let state: StepperItemViewStyle.State
+        
+        if index < activeCount {
+            state = .success
+        } else if index == activeCount {
+            state = .active
+        } else {
+            state = .next
+        }
+        
+        style.update(state: state,
+                     viewProperties: &itemViewProperties)
+        return itemViewProperties
 }
