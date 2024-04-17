@@ -26,10 +26,6 @@ public struct InputSelectViewStyle {
     public func update(
         viewProperties: inout InputSelectView.ViewProperties
     ) {
-        viewProperties.header = viewProperties.header?
-            .fontStyle(.textS)
-            .foregroundColor(.contentSecondary)
-        
         viewProperties.text = viewProperties.text
             .fontStyle(.textM)
             .foregroundColor(state.textColor())

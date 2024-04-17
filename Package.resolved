@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://gitlab.akbars.tech/abo/ios-resources-ui-components.git",
       "state" : {
-        "revision" : "cb9b213ab3b71bb782b9ab0f2977be4776c4d765",
-        "version" : "0.0.36"
+        "revision" : "9f0990547f037bcd9e52871bdc6b523dac04afb9",
+        "version" : "0.0.37"
       }
     },
     {

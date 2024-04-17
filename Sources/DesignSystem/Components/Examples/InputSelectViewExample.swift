@@ -10,7 +10,14 @@ import Components
 
 private class InputSelectViewExample: UIViewController {
     
-    private lazy var hintViewViewProperties: HintView.ViewProperties = {
+    private lazy var headerViewProperties: LabelView.ViewProperties = {
+        var viewProperties = LabelView.ViewProperties()
+        let style = LabelViewStyle(variant: .default("Header".attributed))
+        style.update(viewProperties: &viewProperties)
+        return viewProperties
+    }()
+    
+    private lazy var hintViewProperties: HintView.ViewProperties = {
         var viewProperties = HintView.ViewProperties()
         let style = HintViewStyle()
         style.update(
@@ -23,9 +30,9 @@ private class InputSelectViewExample: UIViewController {
     
     private lazy var viewProperties: InputSelectView.ViewProperties = {
         var viewProperties = InputSelectView.ViewProperties(
-            header: "Header".attributed,
+            header: headerViewProperties,
             placeholder: "Placeholder".attributed,
-            hintViewViewProperties: hintViewViewProperties
+            hint: hintViewProperties
         )
         
         viewProperties.inputTapAction = { [weak self] in

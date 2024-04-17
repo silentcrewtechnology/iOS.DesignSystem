@@ -5,8 +5,16 @@ private func example() {
     let view = InputAmountView()
     let delegate = CustomTextFieldDelegate()
     let style = InputAmountViewStyle()
+    
+    lazy var headerViewProperties: LabelView.ViewProperties = {
+        var viewProperties = LabelView.ViewProperties()
+        let style = LabelViewStyle(variant: .default("Header".attributed))
+        style.update(viewProperties: &viewProperties)
+        return viewProperties
+    }()
+    
     var viewProperties = InputAmountView.ViewProperties(
-        title: "Title".attributed,
+        header: headerViewProperties,
         textFieldProperties: .init(
             text: "123".attributed,
             placeholder: "0".attributed,

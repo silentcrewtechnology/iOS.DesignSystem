@@ -19,9 +19,6 @@ public struct InputTextViewStyle {
         state: State,
         viewProperties: inout InputTextView.ViewProperties
     ) {
-        viewProperties.title = viewProperties.title?
-            .fontStyle(.textS)
-            .foregroundColor(.contentSecondary)
         updateField(state: state, viewProperties: &viewProperties.textField)
         updateFieldContainer(state: state, viewProperties: &viewProperties)
         hintStyle.update(variant: state.hintVariant(), viewProperties: &viewProperties.hint)

@@ -26,7 +26,6 @@ public struct InputTextareaViewStyle {
     public func update(
         viewProperties: inout InputTextareaView.ViewProperties
     ) {
-        viewProperties.header = viewProperties.header?.fontStyle(.textS).foregroundColor(.contentSecondary)
         viewProperties.text = viewProperties.text?.fontStyle(.textM).foregroundColor(state.textColor())
         viewProperties.typingText = viewProperties.typingText.fontStyle(.textM).foregroundColor(state.textColor())
         viewProperties.placeholder = viewProperties.placeholder.fontStyle(.textM).foregroundColor(.contentTertiary)
