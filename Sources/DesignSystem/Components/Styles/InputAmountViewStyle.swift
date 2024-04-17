@@ -18,9 +18,6 @@ public struct InputAmountViewStyle {
         state: State,
         viewProperties: inout InputAmountView.ViewProperties
     ) {
-        viewProperties.title = viewProperties.title
-            .fontStyle(.textS)
-            .foregroundColor(.contentSecondary)
         viewProperties.textFieldProperties.cursorColor = .contentPrimary
         switch state {
         case .default:
@@ -36,7 +33,7 @@ public struct InputAmountViewStyle {
                 .fontStyle(Constant.defaultTextStyle)
                 .foregroundColor(.contentTertiary)
             styleHint.update(variant: .empty, 
-                             viewProperties: &viewProperties.hintViewProperties)
+                             viewProperties: &viewProperties.hint)
         case .error(let message):
             viewProperties.isUserInteractionEnabled = true
             viewProperties.textFieldProperties.textAttributes = Constant.defaultTextAttributes
@@ -50,7 +47,7 @@ public struct InputAmountViewStyle {
                 .fontStyle(Constant.defaultTextStyle)
                 .foregroundColor(.contentTertiary)
             styleHint.update(variant: .left(message),
-                             viewProperties: &viewProperties.hintViewProperties)
+                             viewProperties: &viewProperties.hint)
         case .disabled:
             viewProperties.isUserInteractionEnabled = false
             viewProperties.textFieldProperties.textAttributes = Constant.disabledTextAttributes
@@ -64,7 +61,7 @@ public struct InputAmountViewStyle {
                 .fontStyle(Constant.defaultTextStyle)
                 .foregroundColor(.contentDisabled)
             styleHint.update(variant: .empty,
-                             viewProperties: &viewProperties.hintViewProperties)
+                             viewProperties: &viewProperties.hint)
         }
     }
 }
