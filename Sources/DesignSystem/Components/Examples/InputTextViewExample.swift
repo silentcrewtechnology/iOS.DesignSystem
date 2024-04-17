@@ -40,6 +40,13 @@ private class InputTextFeature: NSObject, UITextFieldDelegate {
     private let style = InputTextViewStyle()
     var viewProperties: InputTextView.ViewProperties = .init()
     
+    private lazy var headerViewProperties: LabelView.ViewProperties = {
+        var viewProperties = LabelView.ViewProperties()
+        let style = LabelViewStyle(variant: .default("Header".attributed))
+        style.update(viewProperties: &viewProperties)
+        return viewProperties
+    }()
+    
     private var isEnabled = true
     
     public override init() {
@@ -48,7 +55,7 @@ private class InputTextFeature: NSObject, UITextFieldDelegate {
     }
     
     private func setupView() {
-        viewProperties.title = "Label".attributed
+        viewProperties.header = headerViewProperties
         viewProperties.textField.text = "Content".attributed
         viewProperties.textField.placeholder = "Placeholder".attributed
         viewProperties.rightViews = [
