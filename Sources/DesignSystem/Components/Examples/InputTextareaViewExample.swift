@@ -12,17 +12,24 @@ private class InputTextareaViewExample: UIViewController {
     
     private let maxCount = 15
     
-    private lazy var hintViewViewProperties: HintView.ViewProperties = {
+    private lazy var headerViewProperties: LabelView.ViewProperties = {
+        var viewProperties = LabelView.ViewProperties()
+        let style = LabelViewStyle(variant: .default("Header".attributed))
+        style.update(viewProperties: &viewProperties)
+        return viewProperties
+    }()
+    
+    private lazy var hintViewProperties: HintView.ViewProperties = {
         var viewProperties = HintView.ViewProperties()
         return viewProperties
     }()
     
     private lazy var viewProperties: InputTextareaView.ViewProperties = {
         var viewProperties = InputTextareaView.ViewProperties(
-            header: "Header".attributed,
+            header: headerViewProperties,
             text: "Content".attributed,
             placeholder: "Placeholder".attributed,
-            hintViewViewProperties: hintViewViewProperties,
+            hint: hintViewProperties,
             textViewHeight: .custom(lines: 4, autoResizeHeight: true)
         )
         
@@ -91,7 +98,7 @@ private class InputTextareaViewExample: UIViewController {
         )
         
         viewProperties.text = text?.attributed
-        viewProperties.hintViewViewProperties = hintViewViewProperties
+        viewProperties.hint = hintViewProperties
         
         let style = InputTextareaViewStyle(state: currentState)
         style.update(viewProperties: &viewProperties)
@@ -110,14 +117,14 @@ private class InputTextareaViewExample: UIViewController {
         case .default, .disabled:
             hintStyle.update(
                 variant: .empty,
-                viewProperties: &hintViewViewProperties
+                viewProperties: &hintViewProperties
             )
         case .active:
             hintStyle.update(
                 variant: .right(
                     "\(characterCount)/\(maxCount)".attributed.foregroundColor(.contentSecondary)
                 ),
-                viewProperties: &hintViewViewProperties
+                viewProperties: &hintViewProperties
             )
         case .error:
             hintStyle.update(
@@ -125,7 +132,7 @@ private class InputTextareaViewExample: UIViewController {
                     "Максимум \(maxCount) символов".attributed.foregroundColor(.contentError),
                     "\(characterCount)/\(maxCount)".attributed.foregroundColor(.contentError)
                 ),
-                viewProperties: &hintViewViewProperties
+                viewProperties: &hintViewProperties
             )
         }
     }
