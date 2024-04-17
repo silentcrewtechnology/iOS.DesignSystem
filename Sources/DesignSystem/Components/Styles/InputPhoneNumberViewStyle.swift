@@ -26,7 +26,6 @@ public struct InputPhoneNumberViewStyle {
     public func update(
         viewProperties: inout InputPhoneNumberView.ViewProperties
     ) {
-        viewProperties.header = viewProperties.header?.fontStyle(.textS).foregroundColor(.contentSecondary)
         viewProperties.text = viewProperties.text?.fontStyle(.textM).foregroundColor(state.textColor())
         viewProperties.defaultText = viewProperties.defaultText.fontStyle(.textM).foregroundColor(state.textColor())
         viewProperties.placeholder = viewProperties.placeholder?.fontStyle(.textM).foregroundColor(.contentTertiary)

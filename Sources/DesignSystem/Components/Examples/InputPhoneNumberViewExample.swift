@@ -10,7 +10,14 @@ import Components
 
 private class InputPhoneNumberViewExample: UIViewController {
     
-    private lazy var hintViewViewProperties: HintView.ViewProperties = {
+    private lazy var headerViewProperties: LabelView.ViewProperties = {
+        var viewProperties = LabelView.ViewProperties()
+        let style = LabelViewStyle(variant: .default("Header".attributed))
+        style.update(viewProperties: &viewProperties)
+        return viewProperties
+    }()
+    
+    private lazy var hintViewProperties: HintView.ViewProperties = {
         var viewProperties = HintView.ViewProperties()
         let style = HintViewStyle()
         style.update(
@@ -19,7 +26,7 @@ private class InputPhoneNumberViewExample: UIViewController {
         return viewProperties
     }()
     
-    private lazy var dividerViewViewProperties: DividerView.ViewProperties = {
+    private lazy var dividerViewProperties: DividerView.ViewProperties = {
         var viewProperties = DividerView.ViewProperties()
         let style = DividerViewStyle(
             orientation: .fixed(.init(width: 1, height: 20)),
@@ -32,11 +39,11 @@ private class InputPhoneNumberViewExample: UIViewController {
     
     private lazy var viewProperties: InputPhoneNumberView.ViewProperties = {
         var viewProperties = InputPhoneNumberView.ViewProperties(
-            header: "Header".attributed,
+            header: headerViewProperties,
             prefix: .icon(image: .ic24Call),
             placeholder: "Телефон или имя".attributed,
-            hintViewViewProperties: hintViewViewProperties,
-            dividerViewProperties: dividerViewViewProperties
+            hint: hintViewProperties,
+            divider: dividerViewProperties
         )
         
         viewProperties.delegateAssigningClosure = { [weak self] textField in
