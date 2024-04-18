@@ -9,13 +9,13 @@ private func example() {
         height: 4)
     // 40% progress
     let activeCount40 = 2
-    for (index, item) in viewProperties.items.enumerated() {
+    for index in viewProperties.items.indices {
         viewProperties.items[index] = createItemViewProperty(activeCount: activeCount40, index: index)
     }
     view.update(with: viewProperties)
     // 60% progress
     let activeCount60 = 3
-    for (index, item) in viewProperties.items.enumerated() {
+    for index in viewProperties.items.indices {
         viewProperties.items[index] = createItemViewProperty(activeCount: activeCount60, index: index)
     }
     view.update(with: viewProperties)
