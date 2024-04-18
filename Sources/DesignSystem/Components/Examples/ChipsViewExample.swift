@@ -86,7 +86,7 @@ private class ChipsViewLeftIconRightBadgeUpdater {
     
     private func tintLeftIcon() {
         let leftView = viewProperties.leftView as? UIImageView
-        leftView?.image = leftView?.image?.tinted(with: style.tintColor(state: state))
+        leftView?.image = leftView?.image?.withTintColor(style.tintColor(state: state))
     }
     
     private func updateState(state: ChipsViewStyle.State) {

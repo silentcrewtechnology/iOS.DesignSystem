@@ -1,23 +1,21 @@
-// swift-tools-version: 5.7
-// The swift-tools-version declares the minimum version of Swift required to build this package.
+// swift-tools-version: 5.9
 
 import PackageDescription
 
 let package = Package(
-    name: "ios.designsystem",
+    name: "DesignSystem",
     platforms: [
-        .iOS(.v12)
+        .iOS(.v13)
     ],
     products: [
         .library(
-            name: "ios.designsystem",
+            name: "DesignSystem",
             targets: [
                 "DesignSystem",
             ]
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/SnapKit/SnapKit.git", exact: "5.6.0"),
         .package(url: "https://gitlab.akbars.tech/abo/ios-resources-fonts.git", exact: "0.0.1"),
         .package(url: "https://gitlab.akbars.tech/abo/ios-resources-colors.git", exact: "0.0.3"),
         .package(url: "https://gitlab.akbars.tech/abo/ios-resources-icons.git", exact: "0.0.2"),
@@ -27,7 +25,6 @@ let package = Package(
         .target(
             name: "DesignSystem",
             dependencies: [
-                .product(name: "SnapKit", package: "SnapKit"),
                 .product(name: "iOS.Resources.Fonts", package: "ios-resources-fonts"),
                 .product(name: "iOS.Resources.Colors", package: "ios-resources-colors"),
                 .product(name: "iOS.Resources.Icons", package: "ios-resources-icons"),

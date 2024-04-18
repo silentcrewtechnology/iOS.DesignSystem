@@ -48,11 +48,11 @@ public struct ButtonViewStyle {
     ) {
         viewProperties.isEnabled = state.isEnabled()
         viewProperties.backgroundColor = context.backgroundColor(state: state)
-        viewProperties.leftIcon = viewProperties.leftIcon?.tinted(with: context.tintColor(state: state))
-        viewProperties.rightIcon = viewProperties.rightIcon?.tinted(with: context.tintColor(state: state))
+        viewProperties.leftIcon = viewProperties.leftIcon?.withTintColor(context.tintColor(state: state))
+        viewProperties.rightIcon = viewProperties.rightIcon?.withTintColor(context.tintColor(state: state))
         viewProperties.insets = size.insets(isLoading: state.isLoading())
         viewProperties.activityIndicator = .init(
-            icon: .ic24SpinerLoader.tinted(with: context.loaderColor()),
+            icon: .ic24SpinerLoader.withTintColor(context.loaderColor()),
             size: size.indicatorSize(),
             isAnimating: state.isLoading()
         )

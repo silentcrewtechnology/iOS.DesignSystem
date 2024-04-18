@@ -87,19 +87,19 @@ public extension InputSelectViewStyle.State {
     
     func clearButtonIcon() -> UIImage {
         switch self {
-        case .default: .ic24Close.tinted(with: .contentSecondary)
-        case .active: .ic24Close.tinted(with: .contentSecondary)
-        case .error: .ic24Close.tinted(with: .contentSecondary)
-        case .disabled: .ic24Close.tinted(with: .contentDisabled)
+        case .default: .ic24Close.withTintColor(.contentSecondary)
+        case .active: .ic24Close.withTintColor(.contentSecondary)
+        case .error: .ic24Close.withTintColor(.contentSecondary)
+        case .disabled: .ic24Close.withTintColor(.contentDisabled)
         }
     }
     
     func disclosureIcon() -> UIImage {
         switch self {
-        case .default: .ic24ChevronDown.tinted(with: .contentPrimary)
-        case .active: .ic24ChevronUp.tinted(with: .contentPrimary)
-        case .error: .ic24ChevronDown.tinted(with: .contentPrimary)
-        case .disabled: .ic24ChevronDown.tinted(with: .contentTertiary)
+        case .default: .ic24ChevronDown.withTintColor(.contentPrimary)
+        case .active: .ic24ChevronUp.withTintColor(.contentPrimary)
+        case .error: .ic24ChevronDown.withTintColor(.contentPrimary)
+        case .disabled: .ic24ChevronDown.withTintColor(.contentTertiary)
         }
     }
     

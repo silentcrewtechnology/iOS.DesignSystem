@@ -88,8 +88,8 @@ public extension SectionMessageStyle.Style {
         }
         
         switch size {
-        case .sizeS: return smallIcon().tinted(with: iconTintColor())
-        case .sizeM: return mediumIcon().tinted(with: iconTintColor())
+        case .sizeS: return smallIcon().withTintColor(iconTintColor())
+        case .sizeM: return mediumIcon().withTintColor(iconTintColor())
         }
     }
     

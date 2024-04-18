@@ -30,7 +30,7 @@ public struct BadgeStyle {
     ) {
         viewProperties.backgroundColor = state.backgroundColor()
         viewProperties.textColor = state.tintColor()
-        viewProperties.image = viewProperties.image?.tinted(with: state.tintColor())
+        viewProperties.image = viewProperties.image?.withTintColor(state.tintColor())
         
         viewProperties.cornerRadius = style.cornerRadius()
         

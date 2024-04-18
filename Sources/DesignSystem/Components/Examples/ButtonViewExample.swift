@@ -6,9 +6,9 @@ import Components
 private func example() {
     let view = ButtonView()
     var viewProperties = ButtonView.ViewProperties()
-
-    var style = ButtonViewStyle(context: .action(.contained), size: .sizeM)
-
+    
+    let style = ButtonViewStyle(context: .action(.contained), size: .sizeM)
+    
     viewProperties.attributedText = "Example".attributed
     viewProperties.leftIcon = .ic24Book
     viewProperties.rightIcon = .ic24FilledBook
@@ -20,7 +20,7 @@ private func example() {
         
     }
     viewProperties.onTap = ({ print("Example") })
- 
+    
     style.update(state: .disabled, viewProperties: &viewProperties)
     view.update(with: viewProperties)
     

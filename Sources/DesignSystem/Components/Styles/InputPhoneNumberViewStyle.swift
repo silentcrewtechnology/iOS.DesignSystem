@@ -29,7 +29,7 @@ public struct InputPhoneNumberViewStyle {
         viewProperties.text = viewProperties.text?.fontStyle(.textM).foregroundColor(state.textColor())
         viewProperties.defaultText = viewProperties.defaultText.fontStyle(.textM).foregroundColor(state.textColor())
         viewProperties.placeholder = viewProperties.placeholder?.fontStyle(.textM).foregroundColor(.contentTertiary)
-        viewProperties.clearButtonIcon = .ic24Close.tinted(with: state.imageTintColor())
+        viewProperties.clearButtonIcon = .ic24Close.withTintColor(state.imageTintColor())
         viewProperties.backgroundColor = state.backgroundColor()
         viewProperties.border = .init(color: state.borderColor(), width: 1, cornerRadius: 8)
         viewProperties.isUserInteractionEnabled = state.isEnabled()
@@ -42,7 +42,7 @@ public struct InputPhoneNumberViewStyle {
         switch viewProperties.prefix {
         case let .icon(image):
             viewProperties.prefix = .icon(
-                image: image.tinted(with: state.imageTintColor())
+                image: image.withTintColor(state.imageTintColor())
             )
         case let .country(flag, code):
             viewProperties.prefix = .country(

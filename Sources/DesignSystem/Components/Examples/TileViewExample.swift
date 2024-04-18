@@ -21,7 +21,7 @@ private class TileVC: UIViewController {
                 size: .sizeL,
                 style: .action)
             var viewProperties = TileView.ViewProperties(
-                icon: style.centeredIcon(.ic24Book.tinted(with: .contentPrimaryInverse)),
+                icon: style.centeredIcon(.ic24Book.withTintColor(.contentPrimaryInverse)),
                 text: .init(string: "Example"),
                 action: { print("Example") })
             style.update(viewProperties: &viewProperties)
