@@ -74,7 +74,7 @@ public extension CheckboxViewStyle.Action {
     
     func icon() -> UIImage? {
         switch self {
-        case .on: .ic10Check.tinted(with: .contentActionOn)
+        case .on: .ic10Check.withTintColor(.contentActionOn)
         case .off: nil
         }
     }

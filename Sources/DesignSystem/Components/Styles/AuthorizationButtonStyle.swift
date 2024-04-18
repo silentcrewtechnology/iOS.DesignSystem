@@ -39,7 +39,7 @@ public struct AuthorizationButtonStyle {
         
         if case .standart = variant {
             viewProperties.image = viewProperties.image
-                .tinted(with: isInversed ? .contentAction : .contentActionOn)
+                .withTintColor(isInversed ? .contentAction : .contentActionOn)
         }
     }
 }

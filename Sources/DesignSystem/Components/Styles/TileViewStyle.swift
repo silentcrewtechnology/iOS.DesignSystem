@@ -40,7 +40,7 @@ public struct TileViewStyle {
     }
     
     public func styledCenteredIcon(_ image: UIImage) -> UIImage {
-        image.tinted(with: .contentPrimary)
+        image.withTintColor(.contentPrimary)
             .centered(in: .circle(
                 backgroundColor: style.iconBackgroundColor(),
                 diameter: size.iconDiameter()))

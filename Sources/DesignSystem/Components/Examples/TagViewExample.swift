@@ -8,14 +8,14 @@ private func example() {
         leftProperties: .init(
             inner: .init(view: {
                 UIImageView(
-                    image: .ic16InfoCircleOutline.tinted(with: style.tintColor()))
+                    image: .ic16InfoCircleOutline.withTintColor(style.tintColor()))
             }()),
             onTap: { print("tapped left") }),
         text: "Label".attributed,
         rightProperties: .init(
             inner: .init(view: {
                 UIImageView(
-                    image: .ic16Close.tinted(with: style.tintColor()))
+                    image: .ic16Close.withTintColor(style.tintColor()))
             }()),
             onTap: { print("tapped right") }))
     style.update(with: &viewProperties)

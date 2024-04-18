@@ -43,7 +43,7 @@ public struct IconButtonStyle {
         viewProperties.size = size.size()
         viewProperties.cornerRadius = cornerRadius()
         viewProperties.backgroundColor = style.backgroundColor(state: state)
-        viewProperties.image = viewProperties.image.tinted(with: style.tintColor(state: state))
+        viewProperties.image = viewProperties.image.withTintColor(style.tintColor(state: state))
         viewProperties.isLoading = state.isLoading()
     }
     

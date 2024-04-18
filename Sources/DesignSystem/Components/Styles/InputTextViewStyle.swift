@@ -55,7 +55,7 @@ public struct InputTextViewStyle {
     ) {
         for view in viewProperties.rightViews {
             guard let view = view as? UIImageView else { continue }
-            view.image = view.image?.tinted(with: state.tintColor())
+            view.image = view.image?.withTintColor(state.tintColor())
         }
     }
 }
