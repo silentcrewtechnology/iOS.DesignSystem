@@ -1,16 +1,15 @@
-// swift-tools-version: 5.7
-// The swift-tools-version declares the minimum version of Swift required to build this package.
+// swift-tools-version: 5.9
 
 import PackageDescription
 
 let package = Package(
-    name: "ios.designsystem",
+    name: "DesignSystem",
     platforms: [
-        .iOS(.v12)
+        .iOS(.v13)
     ],
     products: [
         .library(
-            name: "ios.designsystem",
+            name: "DesignSystem",
             targets: [
                 "DesignSystem",
             ]
