@@ -2,7 +2,7 @@ import UIKit
 import Components
 import SnapKit
 
-class PageControlVC: UIViewController {
+private class PageControlVC: UIViewController {
     private lazy var stack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
