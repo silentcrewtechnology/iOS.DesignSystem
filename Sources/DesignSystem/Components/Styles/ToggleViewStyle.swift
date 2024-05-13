@@ -22,15 +22,8 @@ public struct ToggleViewStyle {
         state: State,
         viewProperties: inout ToggleView.ViewProperties
     ) {
-        switch state {
-        case .default:
-            viewProperties.isEnabled = true
-            viewProperties.offTintColor = .backgroundTertiary
-            viewProperties.onTintColor = .contentActionHover
-        case .disabled:
-            viewProperties.isEnabled = false
-            viewProperties.offTintColor = .backgroundTertiary
-            viewProperties.onTintColor = .contentActionHover
-        }
+        viewProperties.offTintColor = .backgroundTertiary
+        viewProperties.onTintColor = .contentActionHover
+        viewProperties.isEnabled = state == .default
     }
 }
