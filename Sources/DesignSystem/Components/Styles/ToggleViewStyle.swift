@@ -11,7 +11,7 @@ public struct ToggleViewStyle {
     
     // MARK: - Properties
     
-    public enum Variant {
+    public enum State {
         case `default`
         case disabled
     }
@@ -19,10 +19,10 @@ public struct ToggleViewStyle {
     // MARK: - Public methods
         
     public func update(
-        variant: Variant,
+        state: State,
         viewProperties: inout ToggleView.ViewProperties
     ) {
-        switch variant {
+        switch state {
         case .default:
             viewProperties.isEnabled = true
             viewProperties.offTintColor = .backgroundTertiary

@@ -15,11 +15,11 @@ private func example() {
     var viewProperties = ToggleView.ViewProperties() { isOn in
         print(isOn)
     }
-    toggleStyle.update(variant: .default, viewProperties: &viewProperties)
+    toggleStyle.update(state: .default, viewProperties: &viewProperties)
     toggleView.update(with: viewProperties)
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-        toggleStyle.update(variant: .disabled, viewProperties: &viewProperties)
+        toggleStyle.update(state: .disabled, viewProperties: &viewProperties)
         viewProperties.isChecked = true
         toggleView.update(with: viewProperties)
     }
