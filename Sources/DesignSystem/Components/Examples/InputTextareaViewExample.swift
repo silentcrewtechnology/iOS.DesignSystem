@@ -13,9 +13,9 @@ private class InputTextareaViewExample: UIViewController {
     private let maxCount = 15
     
     private lazy var headerViewProperties: LabelView.ViewProperties = {
-        var viewProperties = LabelView.ViewProperties()
-        let style = LabelViewStyle(variant: .default("Header".attributed))
-        style.update(viewProperties: &viewProperties)
+        var viewProperties = LabelView.ViewProperties(text: .init(string: "Header"))
+        let style = LabelViewStyle()
+        style.update(variant: .default, viewProperties: &viewProperties)
         return viewProperties
     }()
     
