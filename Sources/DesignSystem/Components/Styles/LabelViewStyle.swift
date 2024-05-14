@@ -9,40 +9,38 @@ import UIKit
 import Components
 
 public struct LabelViewStyle {
-    
     public enum Variant {
-        case `default`(NSMutableAttributedString)
-        case none
-    }
-    
-    private let variant: Variant
-    
-    public init(variant: Variant) {
-        self.variant = variant
+        case `default`
+        case title
+        case subtitle
+        case index
     }
     
     public func update(
-        viewProperties: inout LabelView.ViewProperties
+        variant: Variant,
+        viewProperties: inout LabelView .ViewProperties
     ) {
-        let fontStyle: FontStyle = .textS
+        var fontStyle: FontStyle = .textS
+        var foregroundColor: UIColor = .contentSecondary
+        var inset: UIEdgeInsets = .init(top: 4, left: 0, bottom: 4, right: 0)
+        switch variant {
+        case .title:
+            fontStyle = .textM
+            foregroundColor = .contentPrimary
+            inset = .zero
+        case .subtitle, .index:
+            inset = .zero
+        case .default:
+            /// Пока что выглядят одинаково с subtitle и index
+            break
+        }
         
-        viewProperties.text = variant.text()?
+        viewProperties.text = viewProperties.text
             .fontStyle(fontStyle)
-            .foregroundColor(.contentSecondary)
-        
+            .foregroundColor(foregroundColor)
         viewProperties.size = .init(
-            inset: .init(top: 4, left: 0, bottom: 4, right: 0),
+            inset: inset,
             lineHeight: fontStyle.lineHeight
         )
-    }
-}
-
-public extension LabelViewStyle.Variant {
-    
-    func text() -> NSMutableAttributedString? {
-        switch self {
-        case .default(let text): text
-        case .none: nil
-        }
     }
 }
