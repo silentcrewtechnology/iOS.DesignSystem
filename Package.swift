@@ -19,7 +19,7 @@ let package = Package(
         .package(url: "https://gitlab.akbars.tech/abo/ios-resources-fonts.git", exact: "0.0.1"),
         .package(url: "https://gitlab.akbars.tech/abo/ios-resources-colors.git", exact: "0.0.3"),
         .package(url: "https://gitlab.akbars.tech/abo/ios-resources-icons.git", exact: "0.0.2"),
-        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-ui-components.git", exact: "0.0.44")
+        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-ui-components.git", exact: "0.0.45")
     ],
     targets: [
         .target(

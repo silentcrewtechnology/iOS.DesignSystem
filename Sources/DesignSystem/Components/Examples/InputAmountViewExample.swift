@@ -7,9 +7,9 @@ private func example() {
     let style = InputAmountViewStyle()
     
     lazy var headerViewProperties: LabelView.ViewProperties = {
-        var viewProperties = LabelView.ViewProperties()
-        let style = LabelViewStyle(variant: .default("Header".attributed))
-        style.update(viewProperties: &viewProperties)
+        var viewProperties = LabelView.ViewProperties(text: .init(string: "Header"))
+        let style = LabelViewStyle()
+        style.update(variant: .default, viewProperties: &viewProperties)
         return viewProperties
     }()
     
