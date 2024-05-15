@@ -22,7 +22,7 @@ public struct LabelViewStyle {
     ) {
         var fontStyle: FontStyle = .textS
         var foregroundColor: UIColor = .contentSecondary
-        var inset: UIEdgeInsets = .init(top: 4, left: 0, bottom: 4, right: 0)
+        var inset: UIEdgeInsets = .init(top: 2, left: 0, bottom: 2, right: 0)
         switch variant {
         case .title:
             fontStyle = .textM
