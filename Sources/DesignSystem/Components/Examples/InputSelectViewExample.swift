@@ -12,8 +12,8 @@ private class InputSelectViewExample: UIViewController {
     
     private lazy var headerViewProperties: LabelView.ViewProperties = {
         var viewProperties = LabelView.ViewProperties(text: .init(string: "Header"))
-        let style = LabelViewStyle()
-        style.update(variant: .default, viewProperties: &viewProperties)
+        let style = LabelViewStyle(variant: .default)
+        style.update(viewProperties: &viewProperties)
         return viewProperties
     }()
     
@@ -22,7 +22,8 @@ private class InputSelectViewExample: UIViewController {
         let style = HintViewStyle()
         style.update(
             variant: .empty,
-            viewProperties: &viewProperties)
+            viewProperties: &viewProperties
+        )
         return viewProperties
     }()
     

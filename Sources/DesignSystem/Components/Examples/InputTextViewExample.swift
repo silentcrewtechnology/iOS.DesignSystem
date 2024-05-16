@@ -42,8 +42,8 @@ private class InputTextFeature: NSObject, UITextFieldDelegate {
     
     private lazy var headerViewProperties: LabelView.ViewProperties = {
         var viewProperties = LabelView.ViewProperties(text: .init(string: "Header"))
-        let style = LabelViewStyle()
-        style.update(variant: .default, viewProperties: &viewProperties)
+        let style = LabelViewStyle(variant: .default)
+        style.update(viewProperties: &viewProperties)
         return viewProperties
     }()
     

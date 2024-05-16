@@ -30,20 +30,22 @@ public struct ButtonViewStyle {
         case sizeM
     }
     
-    private let context: Context
-    private let size: Size
+    public var context: Context
+    public var state: State
+    public var size: Size
 
     public init(
         context: Context,
+        state: State,
         size: Size
     ) {
         self.context = context
+        self.state = state
         self.size = size
     }
     
     
     public func update(
-        state: State,
         viewProperties: inout ButtonView.ViewProperties
     ) {
         viewProperties.isEnabled = state.isEnabled()

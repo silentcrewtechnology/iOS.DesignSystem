@@ -20,15 +20,21 @@ public struct CheckboxViewStyle {
         case disabled
     }
     
-    private let size: Size
+    public var size: Size
+    public var state: State
+    public var action: Action
     
-    public init(size: Size) {
+    public init(
+        size: Size,
+        state: State,
+        action: Action
+    ) {
         self.size = size
+        self.state = state
+        self.action = action
     }
     
     public func update(
-        state: State,
-        action: Action,
         viewProperties: inout CheckboxView.ViewProperties
     ) {
         viewProperties.background.size = size.backgroundSize()

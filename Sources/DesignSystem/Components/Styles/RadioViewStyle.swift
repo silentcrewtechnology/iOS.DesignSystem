@@ -18,12 +18,21 @@ public struct RadioViewStyle {
         case disabled
     }
     
-    public init() { }
+    public var size: Size
+    public var action: Action
+    public var state: State
     
-    public func update(
+    public init(
         size: Size,
         action: Action,
-        state: State,
+        state: State
+    ) {
+        self.size = size
+        self.action = action
+        self.state = state
+    }
+    
+    public func update(
         viewProperties: inout RadioView.ViewProperties
     ) {
         switch size {

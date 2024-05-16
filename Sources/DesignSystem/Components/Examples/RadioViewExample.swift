@@ -4,16 +4,15 @@ import Components
 private func example() {
     let view = RadioView()
     var viewProperties = RadioView.ViewProperties()
-    let style = RadioViewStyle()
-    style.update(size: .large,
-                 action: .on,
-                 state: .default,
-                 viewProperties: &viewProperties)
+    var style = RadioViewStyle(
+        size: .large,
+        action: .on,
+        state: .default
+    )
+    style.update(viewProperties: &viewProperties)
     view.update(with: viewProperties)
     
-    style.update(size: .large,
-                 action: .off,
-                 state: .default,
-                 viewProperties: &viewProperties)
+    style.action = .off
+    style.update(viewProperties: &viewProperties)
     view.update(with: viewProperties)
 }
