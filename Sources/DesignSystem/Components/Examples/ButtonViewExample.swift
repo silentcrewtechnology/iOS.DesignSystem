@@ -7,21 +7,24 @@ private func example() {
     let view = ButtonView()
     var viewProperties = ButtonView.ViewProperties()
     
-    let style = ButtonViewStyle(context: .action(.contained), size: .sizeM)
+    var style = ButtonViewStyle(
+        context: .action(.contained),
+        state: .default,
+        size: .sizeM
+    )
     
     viewProperties.attributedText = "Example".attributed
     viewProperties.leftIcon = .ic24Book
     viewProperties.rightIcon = .ic24FilledBook
     viewProperties.onHighlighted = {  isHighlighted in
-        style.update(
-            state: isHighlighted ? .pressed : .default,
-            viewProperties: &viewProperties)
+        style.state = isHighlighted ? .pressed : .default
+        style.update(viewProperties: &viewProperties)
         view.update(with: viewProperties)
-        
     }
     viewProperties.onTap = ({ print("Example") })
     
-    style.update(state: .disabled, viewProperties: &viewProperties)
+    style.state = .disabled
+    style.update(viewProperties: &viewProperties)
     view.update(with: viewProperties)
     
     viewProperties.activityIndicator.isAnimating = true

@@ -17,7 +17,7 @@ private class ImageVC: UIViewController {
             hStack.addArrangedSubview({
                 let view = ImageView()
                 let style = ImageViewStyle(
-                    variant: .icon(.ic24Bill),
+                    variant: .icon24(.ic24Bill),
                     color: .primary)
                 var viewProperties = ImageView.ViewProperties()
                 style.update(viewProperties: &viewProperties)
@@ -52,7 +52,7 @@ private class ImageVC: UIViewController {
             hStack.addArrangedSubview({
                 let view = ImageView()
                 let style = ImageViewStyle(
-                    variant: .icon(.ic24Ban),
+                    variant: .icon24(.ic24Ban),
                     color: .main)
                 var viewProperties = ImageView.ViewProperties()
                 style.update(viewProperties: &viewProperties)
@@ -77,7 +77,7 @@ private class ImageVC: UIViewController {
             hStack.addArrangedSubview({
                 let view = ImageView()
                 let style = ImageViewStyle(
-                    variant: .icon(.ic24Globe),
+                    variant: .icon24(.ic24Globe),
                     color: .mainInverse)
                 var viewProperties = ImageView.ViewProperties()
                 style.update(viewProperties: &viewProperties)
@@ -102,7 +102,7 @@ private class ImageVC: UIViewController {
             vStack.addArrangedSubview({
                 let view = ImageView()
                 let style = ImageViewStyle(
-                    variant: .icon(.ic24Bill),
+                    variant: .icon24(.ic24Bill),
                     color: color)
                 var viewProperties = ImageView.ViewProperties()
                 style.update(viewProperties: &viewProperties)

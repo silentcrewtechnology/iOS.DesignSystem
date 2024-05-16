@@ -16,10 +16,15 @@ public struct ToggleViewStyle {
         case disabled
     }
     
+    public var state: State
+    
+    public init(state: State) {
+        self.state = state
+    }
+    
     // MARK: - Public methods
         
     public func update(
-        state: State,
         viewProperties: inout ToggleView.ViewProperties
     ) {
         viewProperties.offTintColor = .backgroundTertiary

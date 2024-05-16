@@ -4,9 +4,19 @@ import Components
 private func example() {
     let view = CheckboxView()
     var viewProperties = CheckboxView.ViewProperties()
-    let style = CheckboxViewStyle(size: .sizeS)
-    style.update(state: .default, action: .on, viewProperties: &viewProperties)
+    var style = CheckboxViewStyle(
+        size: .sizeS,
+        state: .default,
+        action: .on
+    )
+    style.update(viewProperties: &viewProperties)
     view.update(with: viewProperties)
-    style.update(state: .default, action: .off, viewProperties: &viewProperties)
+    
+    style = CheckboxViewStyle(
+        size: .sizeS,
+        state: .default,
+        action: .off
+    )
+    style.update(viewProperties: &viewProperties)
     view.update(with: viewProperties)
 }

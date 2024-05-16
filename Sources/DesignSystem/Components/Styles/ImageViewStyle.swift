@@ -5,9 +5,11 @@ import Colors
 public struct ImageViewStyle {
     
     public enum Variant {
-        /// Tinted icon
-        case icon(UIImage)
-        /// Tinted letters
+        /// Tinted icon 20x20
+        case icon20(UIImage)
+        /// Tinted icon 24x24
+        case icon24(UIImage)
+        /// Tinted letters 40x40
         case letters(NSMutableAttributedString)
         /// 40x40 image
         case image(UIImage)
@@ -29,9 +31,9 @@ public struct ImageViewStyle {
     public func update(
         viewProperties: inout ImageView.ViewProperties
     ) {
-        viewProperties.size = .init(width: 40, height: 40)
+        viewProperties.size = variant.size()
         viewProperties.backgroundColor = variables.backgroundColor()
-        viewProperties.cornerRadius = 20
+        viewProperties.cornerRadius = variant.radius()
         viewProperties.text = variant.text()?
             .fontStyle(.textM)
             .foregroundColor(variables.labelColor())
@@ -41,9 +43,36 @@ public struct ImageViewStyle {
 
 public extension ImageViewStyle.Variant {
     
+    func radius() -> CGFloat {
+        switch self {
+        case .icon20:
+            return 10
+        case .icon24:
+            return 12
+        case .letters:
+            return 20
+        case .image:
+            return 20
+        }
+    }
+    
+    func size() -> CGSize {
+        switch self {
+        case .icon20:
+            return .init(width: 20, height: 20)
+        case .icon24:
+            return .init(width: 24, height: 24)
+        case .letters:
+            return .init(width: 40, height: 40)
+        case .image:
+            return .init(width: 40, height: 40)
+        }
+    }
+    
     func image(tintColor: UIColor) -> UIImage? {
         switch self {
-        case .icon(let image): image.withTintColor(tintColor)
+        case .icon20(let image), .icon24(let image): 
+            image.withTintColor(tintColor)
         case .letters: nil
         case .image(let image): image
         }
@@ -51,7 +80,7 @@ public extension ImageViewStyle.Variant {
     
     func text() -> NSMutableAttributedString? {
         switch self {
-        case .icon: nil
+        case .icon20, .icon24: nil
         case .letters(let text): text
         case .image: nil
         }

@@ -14,11 +14,17 @@ public struct LabelViewStyle {
         case title
         case subtitle
         case index
+        case amount
+    }
+    
+    public var variant: Variant
+    
+    public init(variant: Variant) {
+        self.variant = variant
     }
     
     public func update(
-        variant: Variant,
-        viewProperties: inout LabelView .ViewProperties
+        viewProperties: inout LabelView.ViewProperties
     ) {
         var fontStyle: FontStyle = .textS
         var foregroundColor: UIColor = .contentSecondary
@@ -29,6 +35,10 @@ public struct LabelViewStyle {
             foregroundColor = .contentPrimary
             inset = .zero
         case .subtitle, .index:
+            inset = .zero
+        case .amount:
+            fontStyle = .textM_1
+            foregroundColor = .contentPrimary
             inset = .zero
         case .default:
             /// Пока что выглядят одинаково с subtitle и index
