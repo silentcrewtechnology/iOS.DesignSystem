@@ -4,64 +4,96 @@ import Colors
 
 public struct ChipsViewStyle {
     
-    public enum Style {
-        case primary
-        case secondary
-    }
+    public typealias Selection = ChipsVariables.Selection
+    public typealias State = ChipsVariables.State
     
     public enum Size {
         case small
         case large
     }
     
-    public enum State {
-        case `default`
-        case pressed(from: Toggle)
-        case active
-        case disabled
-        
-        public enum Toggle {
-            case inactive
-            case active
-        }
+    private var variables: ChipsVariables
+    public var selection: Selection {
+        get { variables.selection }
+        set { variables = .init(selection: newValue, state: state) }
     }
-    
-    private let style: Style
+    public var state: State {
+        get { variables.state }
+        set { variables = .init(selection: selection, state: newValue) }
+    }
     private let size: Size
     
     public init(
-        style: Style,
+        selection: Selection,
+        state: State,
         size: Size
     ) {
-        self.style = style
+        self.variables = .init(selection: selection, state: state)
         self.size = size
     }
     
     public func update(
-        with viewProperties: inout ChipsView.ViewProperties
+        viewProperties: inout ChipsView.ViewProperties
     ) {
+        viewProperties.height = size.height()
         viewProperties.insets = size.insets(
             hasLeftView: viewProperties.leftView != nil,
             hasRightView: viewProperties.rightView != nil)
-        viewProperties.text = viewProperties.text.fontStyle(size.fontStyle())
+        viewProperties.backgroundColor = variables.backgroundColor()
+        viewProperties.cornerRadius = viewProperties.height / 2
+        viewProperties.text = viewProperties.text
+            .fontStyle(size.fontStyle())
+            .foregroundColor(variables.labelColor())
+        viewProperties.isUserInteractionEnabled = state != .disabled
+        tintIcons(viewProperties: &viewProperties)
+        resizeIcons(viewProperties: &viewProperties)
     }
     
-    public func update(
-        state: State,
+    private func tintIcons(
         viewProperties: inout ChipsView.ViewProperties
     ) {
-        viewProperties.backgroundColor = style.backgroundColor(state: state)
-        viewProperties.text = viewProperties.text.foregroundColor(tintColor(state: state))
+        let iconColor = variables.iconColor()
+        if let view = viewProperties.leftView as? UIImageView {
+            view.image = view.image?.withTintColor(iconColor)
+        }
+        if let view = viewProperties.rightView as? UIImageView {
+            view.image = view.image?.withTintColor(iconColor)
+        }
     }
     
-    public func tintColor(
-        state: State
-    ) -> UIColor {
-        style.tintColor(state: state)
+    private func resizeIcons(
+        viewProperties: inout ChipsView.ViewProperties
+    ) {
+        if let view = viewProperties.leftView as? UIImageView {
+            view.contentMode = .center
+            view.snp.remakeConstraints { $0.size.equalTo(32) }
+        }
+        if let view = viewProperties.rightView as? UIImageView {
+            view.contentMode = .center
+            view.snp.remakeConstraints { $0.size.equalTo(32) }
+        }
     }
 }
 
-public extension ChipsViewStyle.Size {
+private extension ChipsViewStyle.Size {
+    
+    func insets(
+        hasLeftView: Bool,
+        hasRightView: Bool
+    ) -> UIEdgeInsets {
+        return .init(
+            top: 0,
+            left: hasLeftView ? 8 : 16,
+            bottom: 0,
+            right: hasRightView ? 8 : 16)
+    }
+    
+    func height() -> CGFloat {
+        switch self {
+        case .small: 32
+        case .large: 40
+        }
+    }
     
     func fontStyle() -> FontStyle {
         switch self {
@@ -69,92 +101,95 @@ public extension ChipsViewStyle.Size {
         case .large: .textM
         }
     }
-    
-    func insets(
-        hasLeftView: Bool,
-        hasRightView: Bool
-    ) -> UIEdgeInsets {
-        
-        func smallInsets() -> UIEdgeInsets {
-            switch (hasLeftView, hasRightView) {
-            case (false, false): .init(top: 6, left: 16, bottom: 6, right: 16)
-            case (false, true): .init(top: 6, left: 16, bottom: 6, right: 8)
-            case (true, false): .init(top: 6, left: 8, bottom: 6, right: 16)
-            case (true, true): .init(top: 6, left: 8, bottom: 6, right: 8)
-            }
-        }
-        
-        func largeInsets() -> UIEdgeInsets {
-            switch (hasLeftView, hasRightView) {
-            case (false, false): .init(top: 8, left: 20, bottom: 8, right: 20)
-            case (false, true): .init(top: 8, left: 20, bottom: 8, right: 8)
-            case (true, false): .init(top: 8, left: 8, bottom: 8, right: 20)
-            case (true, true): .init(top: 8, left: 8, bottom: 8, right: 8)
-            }
-        }
-        
-        switch self {
-        case .small: return smallInsets()
-        case .large: return largeInsets()
-        }
-    }
 }
 
-public extension ChipsViewStyle.Style {
+public struct ChipsVariables {
     
-    func backgroundColor(
-        state: ChipsViewStyle.State
-    ) -> UIColor {
-        
-        func primaryBackgroundColor() -> UIColor {
-            switch state {
-            case .default: .backgroundActionLight
-            case .pressed: .backgroundActionLightPressed
-            case .active: .backgroundAction
-            case .disabled: .backgroundDisabled
-            }
-        }
-
-        func secondaryBackgroundColor() -> UIColor {
-            switch state {
-            case .default: .backgroundSecondary
-            case .pressed: .backgroundTertiary
-            case .active: .backgroundAction
-            case .disabled: .backgroundDisabled
-            }
-        }
-        
-        switch self {
-        case .primary: return primaryBackgroundColor()
-        case .secondary: return secondaryBackgroundColor()
-        }
+    public enum Selection: String {
+        case `default`
+        case selected
     }
     
-    func tintColor(
-        state: ChipsViewStyle.State
-    ) -> UIColor {
-        
-        func primaryTintColor() -> UIColor {
-            switch state {
-            case .default: .contentActionDark
-            case .pressed: .contentActionDark
-            case .active: .contentActionOn
-            case .disabled: .contentDisabled
-            }
-        }
-
-        func secondaryTintColor() -> UIColor {
-            switch state {
-            case .default: .contentPrimary
-            case .pressed: .contentPrimary
-            case .active: .contentActionOn
-            case .disabled: .contentDisabled
-            }
-        }
-        
-        switch self {
-        case .primary: return primaryTintColor()
-        case .secondary: return secondaryTintColor()
-        }
+    public enum State: String {
+        case `default`
+        case pressed
+        case disabled
     }
+    
+    public var selection: Selection
+    public var state: State
+    
+    public init(
+        selection: Selection,
+        state: State
+    ) {
+        self.selection = selection
+        self.state = state
+    }
+    
+    public func backgroundColor() -> UIColor {
+        let hexString = chips[selection.rawValue]?["background"]?["color"]?[state.rawValue]?["value"] ?? ""
+        return UIColor(hexString: hexString)
+    }
+    
+    public func labelColor() -> UIColor {
+        let hexString = chips[selection.rawValue]?["label"]?["color"]?[state.rawValue]?["value"] ?? ""
+        return UIColor(hexString: hexString)
+    }
+    
+    public func iconColor() -> UIColor {
+        let hexString = chips[selection.rawValue]?["icon"]?["color"]?[state.rawValue]?["value"] ?? ""
+        return UIColor(hexString: hexString)
+    }
+    
+    // MARK: "AUTOGENERATED" FROM JSON
+    
+    private let chips: [String: [String: [String: [String: [String: String]]]]] = [
+        "default": [
+            "background": [
+                "color": [
+                    "default": ["value": "#F5F5F5"],
+                    "pressed": ["value": "#E0E0E0"],
+                    "disabled": ["value": "#E8E8E8"]
+                ]
+            ],
+            "label": [
+                "color": [
+                    "default": ["value": "#6E6D6D"],
+                    "pressed": ["value": "#6E6D6D"],
+                    "disabled": ["value": "#949494"]
+                ]
+            ],
+            "icon": [
+                "color": [
+                    "default": ["value": "#6E6D6D"],
+                    "pressed": ["value": "#6E6D6D"],
+                    "disabled": ["value": "#949494"]
+                ]
+            ]
+        ],
+        "selected": [
+            "background": [
+                "color": [
+                    "default": ["value": "#009B3A"],
+                    "pressed": ["value": "#006625"],
+                    "disabled": ["value": "#E8E8E8"]
+                ]
+            ],
+            "label": [
+                "color": [
+                    "default": ["value": "#FFFFFF"],
+                    "pressed": ["value": "#FFFFFF"],
+                    "disabled": ["value": "#949494"]
+                ]
+            ],
+            "icon": [
+                "color": [
+                    "default": ["value": "#FFFFFF"],
+                    "pressed": ["value": "#FFFFFF"],
+                    "disabled": ["value": "#949494"]
+                ]
+            ]
+        ]
+    ]
 }
