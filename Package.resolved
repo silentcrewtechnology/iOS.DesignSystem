@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://gitlab.akbars.tech/abo/ios-resources-icons.git",
       "state" : {
-        "revision" : "d6da23cff2c9b4c569cff3146e360057ef1a2445",
-        "version" : "0.0.2"
+        "revision" : "897bdd766c4136e337ae2305525f91d81b70ec23",
+        "version" : "0.0.3"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://gitlab.akbars.tech/abo/ios-resources-ui-components.git",
       "state" : {
-        "revision" : "2fbd4c3e36afeb048a56e4d10b2e46eda143b631",
-        "version" : "0.0.46"
+        "revision" : "90335a97dd156cabcff7197694ab03484c215ff8",
+        "version" : "0.0.47"
       }
     },
     {
