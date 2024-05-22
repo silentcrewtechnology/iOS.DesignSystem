@@ -1,4 +1,5 @@
 {
+  "originHash" : "0602434461a571b082f4bbb572a2ac1f06ddae9f876a63cd2a648f027921f8b8",
   "pins" : [
     {
       "identity" : "ios-resources-colors",
@@ -46,5 +47,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
