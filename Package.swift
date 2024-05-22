@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 5.10
 
 import PackageDescription
 
@@ -19,7 +19,7 @@ let package = Package(
         .package(url: "https://gitlab.akbars.tech/abo/ios-resources-fonts.git", .upToNextMinor(from: "0.0.1")),
         .package(url: "https://gitlab.akbars.tech/abo/ios-resources-colors.git", .upToNextMinor(from: "0.0.3")),
         .package(url: "https://gitlab.akbars.tech/abo/ios-resources-icons.git", .upToNextMinor(from: "0.0.3")),
-        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-ui-components.git", .upToNextMinor(from: "0.0.47")),
+        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-ui-components.git", .upToNextMinor(from: "0.1.0")),
     ],
     targets: [
         .target(
