@@ -4,7 +4,7 @@ public enum AtomDSElement {
     case title(String, LabelViewStyle?)
     case subtitle(String, LabelViewStyle?)
     case image40(UIImage, ImageViewStyle?)
-    case card(UIImage)
+    case card(UIImage, CardImageViewStyle?)
     case index(String, LabelViewStyle?)
     case icon24(UIImage, ImageViewStyle?)
     case icon20(UIImage, ImageViewStyle?)

@@ -4,6 +4,11 @@ import Components
 
 private class RowExampleVC: UIViewController {
     
+    private var scrollView: UIScrollView = {
+        let scroll = UIScrollView()
+        return scroll
+    }()
+    
     private var stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -14,15 +19,23 @@ private class RowExampleVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupScrollView()
         addStackView()
         createRows()
     }
     
+    private func setupScrollView() {
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints {
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    
     private func addStackView() {
-        view.addSubview(stackView)
+        scrollView.addSubview(stackView)
         stackView.snp.makeConstraints {
-            $0.trailing.leading.equalToSuperview()
-            $0.centerY.equalToSuperview()
+            $0.edges.equalToSuperview()
+            $0.width.equalToSuperview()
         }
     }
     
@@ -35,6 +48,7 @@ private class RowExampleVC: UIViewController {
         let row6 = createImageWithCheckboxRow()
         let row7 = createImageWithIndexRow()
         let row8 = createImageWithIndexIcons20Row()
+        let row9 = createCardWithTitleButtonRow()
         
         let row = createWithRowsService()
 
@@ -108,6 +122,14 @@ private class RowExampleVC: UIViewController {
             leading: .atom(.image40(.ic24UserFilled, nil)),
             center: .molecule(.subtitleWithTitle(("Subtitle", nil), ("Title", nil))),
             trailing: .molecule(.indexWithIcons20(("Index", nil), [(.ic24BoxFilled, nil), (.ic24BoxFilled, nil)]))
+        )
+    }
+    
+    private func createCardWithTitleButtonRow() -> UIView {
+        return DSCreationRowsViewService.createViewRowWithBloks(
+            leading: .atom(.card(.ic24CardMirLight, nil)),
+            center: .atom(.title("Title", nil)),
+            trailing: .atom(.button("Label", { }, nil))
         )
     }
     

@@ -10,9 +10,8 @@ public struct DSAtomStyleService {
             return createSubtitle(text, style)
         case .image40(let image, let style):
             return createImage40(image, style)
-        case .card(_):
-            //TODO: ждем элемент ДС - PCABO3-10607
-            return UIView()
+        case .card(let backgroundImage, let style):
+            return createCard(backgroundImage, style)
         case .index(let text, let style):
             return createIndex(text, style)
         case .icon24(let image, let style):
@@ -76,6 +75,21 @@ private extension DSAtomStyleService {
         
         let imageView = RowBlocksService.createRowBlock(.atom(.image40(viewProperties)))
         return imageView
+    }
+
+    private func createCard(
+        _ backgroundImage: UIImage,
+        _ style: CardImageViewStyle?
+    ) -> UIView? {
+        var viewProperties = CardImageView.ViewProperties()
+        
+        let newStyle = style ?? CardImageViewStyle(
+            paymentSystem: .Mir,
+            backgroundImage: backgroundImage)
+        newStyle.update(viewProperties: &viewProperties)
+        
+        let cardView = RowBlocksService.createRowBlock(.atom(.card(viewProperties)))
+        return cardView
     }
     
     private func createIndex(
