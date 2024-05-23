@@ -137,8 +137,7 @@ private class RowExampleVC: UIViewController {
     private func createWithRowsService() -> UIView {
         var radioViewProperties = RadioView.ViewProperties()
         let radioViewStyle = RadioViewStyle(
-            size: .large,
-            action: .on,
+            selection: .checked,
             state: .default
         )
         radioViewStyle.update(viewProperties: &radioViewProperties)

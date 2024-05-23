@@ -187,22 +187,42 @@ private extension DSAtomStyleService {
         return checkbox
     }
     
-    //TODO: прокинуть action - обсудить на pbr
     private func createRadio(
         isOn: Bool,
-        action: () -> Void,
-        style: RadioViewStyle?
+        action: @escaping () -> Void,
+        style: RadioViewStyle? = nil
     ) -> UIView? {
-        var viewProperties = RadioView.ViewProperties()
-        
-        let newStyle = style ?? RadioViewStyle(
-            size: .large,
-            action: isOn ? .on : .off,
+        var style = style ?? RadioViewStyle(
+            selection: isOn ? .checked : .default,
             state: .default
         )
-        newStyle.update(viewProperties: &viewProperties)
-        
+        // TODO: нужна сущность, чтобы хранить ссылки на View/ViewProperties
+        var updateView: (RadioViewStyle) -> Void = { _ in }
+        var viewProperties = RadioView.ViewProperties(
+            onPressChange: { state in
+                switch state {
+                case .pressed:
+                    style.state = .pressed
+                case .unpressed:
+                    switch style.selection {
+                    case .default:
+                        style.selection = .checked
+                        action()
+                    case .checked: break // already checked
+                    }
+                    style.state = .default
+                case .cancelled:
+                    style.state = .default
+                }
+                updateView(style)
+            }
+        )
+        style.update(viewProperties: &viewProperties)
         let radio = RowBlocksService.createRowBlock(.atom(.radio(viewProperties)))
+        updateView = { style in
+            style.update(viewProperties: &viewProperties)
+            (radio as? RadioView)?.update(with: viewProperties)
+        }
         return radio
     }
     
