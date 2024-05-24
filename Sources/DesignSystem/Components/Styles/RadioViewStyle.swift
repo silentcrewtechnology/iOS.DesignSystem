@@ -73,8 +73,8 @@ public struct RadioVariables {
     
     public func borderWidth() -> CGFloat {
         switch selection {
-        case .checked: 1
-        case .default: 0
+        case .checked: 0
+        case .default: 1
         }
     }
     

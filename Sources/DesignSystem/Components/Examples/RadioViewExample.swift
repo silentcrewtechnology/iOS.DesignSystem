@@ -154,8 +154,6 @@ private class RadioViewUpdater {
         style.selection = .default
         style.state = .default
         style.update(viewProperties: &viewProperties)
-        UIView.performWithoutAnimation { // иначе некрасиво
-            view.update(with: viewProperties)
-        }
+        view.update(with: viewProperties)
     }
 }
