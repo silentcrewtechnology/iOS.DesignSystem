@@ -2,7 +2,9 @@ import UIKit
 import Components
 
 public struct DSCreationRowsViewService {
-    public static func createCellRowWithBloks(
+    public init() { }
+    
+    public func createCellRowWithBlocks(
         tableView: UITableView,
         indexPath: IndexPath,
         leading: DSRowBlocks? = nil,
@@ -11,7 +13,7 @@ public struct DSCreationRowsViewService {
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DSRowCell", for: indexPath) as? RowCell
         
-        let rowView = createViewRowWithBloks(leading: leading,
+        let rowView = createViewRowWithBlocks(leading: leading,
                                              center: center,
                                              trailing: trailing)
         
@@ -20,7 +22,7 @@ public struct DSCreationRowsViewService {
         return cell ?? UITableViewCell()
     }
     
-    public static func createViewRowWithBloks(
+    public func createViewRowWithBlocks(
         leading: DSRowBlocks? = nil,
         center: DSRowBlocks? = nil,
         trailing: DSRowBlocks? = nil,
@@ -37,9 +39,9 @@ public struct DSCreationRowsViewService {
             spacing: 16
         )
         
-        let leadingView = DSRowBlocksService.createRowBlock(leading)
-        let centerView = DSRowBlocksService.createRowBlock(center)
-        let trailingView = DSRowBlocksService.createRowBlock(trailing)
+        let leadingView = DSRowBlocksService().createRowBlock(leading)
+        let centerView = DSRowBlocksService().createRowBlock(center)
+        let trailingView = DSRowBlocksService().createRowBlock(trailing)
         
         let containerViewProperty = RowBaseContainer.ViewProperties(
             leadingView: leadingView,

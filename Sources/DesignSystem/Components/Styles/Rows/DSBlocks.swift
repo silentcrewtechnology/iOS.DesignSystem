@@ -20,7 +20,7 @@ public enum DSMoleculeElement {
     case titleWithSubtitle((String, LabelViewStyle?), (String, LabelViewStyle?))
     case subtitleWithTitle((String, LabelViewStyle?), (String, LabelViewStyle?))
     case icons20([(UIImage, ImageViewStyle?)])
-    case indexWithcIcon24((String, LabelViewStyle?), (UIImage, ImageViewStyle?))
+    case indexWithIcon24((String, LabelViewStyle?), (UIImage, ImageViewStyle?))
     case indexWithIcons20((String, LabelViewStyle?), [(UIImage, ImageViewStyle?)])
     case indexWithToggle((String, LabelViewStyle?), (Bool, (Bool) -> Void, ToggleViewStyle?))
 }

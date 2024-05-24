@@ -12,8 +12,8 @@ public struct DSMoleculeStyleService {
             return createSubtitleWithTitle(subtitle, title)
         case .icons20(let icons):
             return createIcons20(icons)
-        case .indexWithcIcon24(let index, let icon):
-            return createIndexWithcIcon24(index, icon)
+        case .indexWithIcon24(let index, let icon):
+            return createIndexWithIcon24(index, icon)
         case .indexWithIcons20(let index, let icons):
             return createIndexWithIcons20(index, icons)
         case .indexWithToggle(let index, let style):
@@ -60,7 +60,7 @@ private extension DSMoleculeStyleService {
         return connect(horizontalyViews: atomsFromIcons)
     }
     
-    private func createIndexWithcIcon24(
+    private func createIndexWithIcon24(
         _ indexText: (String, LabelViewStyle?),
         _ icon: (UIImage, ImageViewStyle?),
         _ atomService: DSAtomStyleService = DSAtomStyleService()
