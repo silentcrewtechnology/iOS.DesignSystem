@@ -105,7 +105,7 @@ private class RowExampleVC: UIViewController {
         return DSCreationRowsViewService.createViewRowWithBloks(
             leading: .atom(.image40(.ic24UserFilled, nil)),
             center: .molecule(.subtitleWithTitle(("Subtitle", nil), ("Title", nil))),
-            trailing: .atom(.checkbox(true, { }, nil))
+            trailing: .atom(.checkbox(true, { _ in }, nil))
         )
     }
     

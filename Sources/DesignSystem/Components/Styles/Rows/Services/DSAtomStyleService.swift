@@ -168,22 +168,44 @@ private extension DSAtomStyleService {
         return amountText
     }
     
-    //TODO: прокинуть action - обсудить на pbr
     private func createCheckbox(
         isOn: Bool,
-        action: () -> Void,
+        action: @escaping (Bool) -> Void,
         style: CheckboxViewStyle?
     ) -> UIView? {
-        var viewProperties = CheckboxView.ViewProperties()
-        
-        let newStyle = style ?? CheckboxViewStyle(
-            size: .sizeL,
-            state: .default,
-            action: isOn ? .on : .off
+        var style = style ?? CheckboxViewStyle(
+            selection: isOn ? .checked : .default,
+            state: .default
         )
-        newStyle.update(viewProperties: &viewProperties)
+        // TODO: нужна сущность, чтобы хранить ссылки на View/ViewProperties
+        var updateView: (CheckboxViewStyle) -> Void = { _ in }
+        var viewProperties = CheckboxView.ViewProperties(
+            onPressChange: { state in
+                switch state {
+                case .pressed:
+                    style.state = .pressed
+                case .unpressed:
+                    switch style.selection {
+                    case .default:
+                        style.selection = .checked
+                        action(true)
+                    case .checked:
+                        style.selection = .default
+                        action(false)
+                    }
+                    style.state = .default
+                case .cancelled:
+                    style.state = .default
+                }
+                updateView(style)
+            })
+        style.update(viewProperties: &viewProperties)
         
         let checkbox = RowBlocksService.createRowBlock(.atom(.checkbox(viewProperties)))
+        updateView = { style in
+            style.update(viewProperties: &viewProperties)
+            (checkbox as? CheckboxView)?.update(with: viewProperties)
+        }
         return checkbox
     }
     

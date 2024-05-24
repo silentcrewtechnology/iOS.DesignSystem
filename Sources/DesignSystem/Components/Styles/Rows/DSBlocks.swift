@@ -10,7 +10,7 @@ public enum AtomDSElement {
     case icon20(UIImage, ImageViewStyle?)
     case toggle(Bool, (Bool) -> Void, ToggleViewStyle?)
     case amountText(String, LabelViewStyle?)
-    case checkbox(Bool, () -> Void, CheckboxViewStyle?)
+    case checkbox(Bool, (Bool) -> Void, CheckboxViewStyle?)
     case radio(Bool, () -> Void, RadioViewStyle?)
     case button(String, () -> Void, ButtonViewStyle?)
     case copyText(String, LabelViewStyle?)
