@@ -44,7 +44,7 @@ private extension DSAtomStyleService {
         let newStyle = style ?? LabelViewStyle(variant: .title)
         newStyle.update(viewProperties: &viewProperties)
         
-        let title = RowBlocksService.createRowBlock(.atom(.title(viewProperties)))
+        let title = RowBlocksService().createRowBlock(.atom(.title(viewProperties)))
         return title
     }
     
@@ -57,7 +57,7 @@ private extension DSAtomStyleService {
         let newStyle = style ?? LabelViewStyle(variant: .subtitle)
         newStyle.update(viewProperties: &viewProperties)
         
-        let subtitle = RowBlocksService.createRowBlock(.atom(.subtitle(viewProperties)))
+        let subtitle = RowBlocksService().createRowBlock(.atom(.subtitle(viewProperties)))
         return subtitle
     }
     
@@ -73,7 +73,7 @@ private extension DSAtomStyleService {
         )
         newStyle.update(viewProperties: &viewProperties)
         
-        let imageView = RowBlocksService.createRowBlock(.atom(.image40(viewProperties)))
+        let imageView = RowBlocksService().createRowBlock(.atom(.image40(viewProperties)))
         return imageView
     }
 
@@ -88,7 +88,7 @@ private extension DSAtomStyleService {
             backgroundImage: backgroundImage)
         newStyle.update(viewProperties: &viewProperties)
         
-        let cardView = RowBlocksService.createRowBlock(.atom(.card(viewProperties)))
+        let cardView = RowBlocksService().createRowBlock(.atom(.card(viewProperties)))
         return cardView
     }
     
@@ -102,7 +102,7 @@ private extension DSAtomStyleService {
         let newStyle = style ?? LabelViewStyle(variant: .index)
         newStyle.update(viewProperties: &viewProperties)
         
-        let index = RowBlocksService.createRowBlock(.atom(.index(viewProperties)))
+        let index = RowBlocksService().createRowBlock(.atom(.index(viewProperties)))
         return index
     }
     
@@ -118,7 +118,7 @@ private extension DSAtomStyleService {
         )
         newStyle.update(viewProperties: &viewProperties)
         
-        let imageView = RowBlocksService.createRowBlock(.atom(.image40(viewProperties)))
+        let imageView = RowBlocksService().createRowBlock(.atom(.image40(viewProperties)))
         return imageView
     }
     
@@ -134,7 +134,7 @@ private extension DSAtomStyleService {
         )
         newStyle.update(viewProperties: &viewProperties)
         
-        let imageView = RowBlocksService.createRowBlock(.atom(.image40(viewProperties)))
+        let imageView = RowBlocksService().createRowBlock(.atom(.image40(viewProperties)))
         return imageView
     }
     
@@ -151,7 +151,7 @@ private extension DSAtomStyleService {
         let newStyle = style ?? ToggleViewStyle(state: .default)
         newStyle.update(viewProperties: &viewProperties)
         
-        let toggle = RowBlocksService.createRowBlock(.atom(.toggle(viewProperties)))
+        let toggle = RowBlocksService().createRowBlock(.atom(.toggle(viewProperties)))
         return toggle
     }
     
@@ -164,7 +164,7 @@ private extension DSAtomStyleService {
         let newStyle = style ?? LabelViewStyle(variant: .amount)
         newStyle.update(viewProperties: &viewProperties)
         
-        let amountText = RowBlocksService.createRowBlock(.atom(.amountText(viewProperties)))
+        let amountText = RowBlocksService().createRowBlock(.atom(.amountText(viewProperties)))
         return amountText
     }
     
@@ -201,7 +201,7 @@ private extension DSAtomStyleService {
             })
         style.update(viewProperties: &viewProperties)
         
-        let checkbox = RowBlocksService.createRowBlock(.atom(.checkbox(viewProperties)))
+        let checkbox = RowBlocksService().createRowBlock(.atom(.checkbox(viewProperties)))
         updateView = { style in
             style.update(viewProperties: &viewProperties)
             (checkbox as? CheckboxView)?.update(with: viewProperties)
@@ -240,7 +240,7 @@ private extension DSAtomStyleService {
             }
         )
         style.update(viewProperties: &viewProperties)
-        let radio = RowBlocksService.createRowBlock(.atom(.radio(viewProperties)))
+        let radio = RowBlocksService().createRowBlock(.atom(.radio(viewProperties)))
         updateView = { style in
             style.update(viewProperties: &viewProperties)
             (radio as? RadioView)?.update(with: viewProperties)
@@ -263,7 +263,7 @@ private extension DSAtomStyleService {
         )
         newStyle.update(viewProperties: &viewProperties)
         
-        let button = RowBlocksService.createRowBlock(.atom(.button(viewProperties)))
+        let button = RowBlocksService().createRowBlock(.atom(.button(viewProperties)))
         return button
     }
     
@@ -277,7 +277,8 @@ private extension DSAtomStyleService {
         let newStyle = style ?? LabelViewStyle(variant: .default)
         newStyle.update(viewProperties: &viewProperties)
         
-        let copyText = RowBlocksService.createRowBlock(.atom(.copyText(viewProperties)))
+        let copyText = RowBlocksService().createRowBlock(.atom(.copyText(viewProperties)))
         return copyText
     }
 }
+

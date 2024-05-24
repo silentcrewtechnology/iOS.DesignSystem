@@ -60,33 +60,34 @@ private class RowExampleVC: UIViewController {
         stackView.addArrangedSubview(row6)
         stackView.addArrangedSubview(row7)
         stackView.addArrangedSubview(row8)
+        stackView.addArrangedSubview(row9)
         
         stackView.addArrangedSubview(row)
     }
     
     private func createTitleRow() -> UIView {
         let titleStyle = LabelViewStyle(variant: .title)
-        return DSCreationRowsViewService.createViewRowWithBloks(
+        return DSCreationRowsViewService().createViewRowWithBlocks(
             leading: .atom(.title("Title", titleStyle))
         )
     }
     
     private func createImageWithTitleRow() -> UIView {
-        return DSCreationRowsViewService.createViewRowWithBloks(
+        return DSCreationRowsViewService().createViewRowWithBlocks(
             leading: .atom(.image40(.ic24UserFilled, nil)),
             center: .atom(.title("Title", nil))
         )
     }
     
     private func createImageWithTitleSubtitleRow() -> UIView {
-        return DSCreationRowsViewService.createViewRowWithBloks(
+        return DSCreationRowsViewService().createViewRowWithBlocks(
             leading: .atom(.image40(.ic24UserFilled, nil)),
             center: .molecule(.titleWithSubtitle(("Title", nil), ("Subtitle", nil)))
         )
     }
     
     private func createImageWithButtonRow() -> UIView {
-        return DSCreationRowsViewService.createViewRowWithBloks(
+        return DSCreationRowsViewService().createViewRowWithBlocks(
             leading: .atom(.image40(.ic24UserFilled, nil)),
             center: .molecule(.subtitleWithTitle(("Subtitle", nil), ("Title", nil))),
             trailing: .atom(.button("Label", { }, nil))
@@ -94,7 +95,7 @@ private class RowExampleVC: UIViewController {
     }
     
     private func createImageWithToggleRow() -> UIView {
-        return DSCreationRowsViewService.createViewRowWithBloks(
+        return DSCreationRowsViewService().createViewRowWithBlocks(
             leading: .atom(.image40(.ic24UserFilled, nil)),
             center: .molecule(.subtitleWithTitle(("Subtitle", nil), ("Title", nil))),
             trailing: .atom(.toggle(true, { _ in }, nil))
@@ -102,7 +103,7 @@ private class RowExampleVC: UIViewController {
     }
     
     private func createImageWithCheckboxRow() -> UIView {
-        return DSCreationRowsViewService.createViewRowWithBloks(
+        return DSCreationRowsViewService().createViewRowWithBlocks(
             leading: .atom(.image40(.ic24UserFilled, nil)),
             center: .molecule(.subtitleWithTitle(("Subtitle", nil), ("Title", nil))),
             trailing: .atom(.checkbox(true, { _ in }, nil))
@@ -110,15 +111,15 @@ private class RowExampleVC: UIViewController {
     }
     
     private func createImageWithIndexRow() -> UIView {
-        return DSCreationRowsViewService.createViewRowWithBloks(
+        return DSCreationRowsViewService().createViewRowWithBlocks(
             leading: .atom(.image40(.ic24UserFilled, nil)),
             center: .molecule(.subtitleWithTitle(("Subtitle", nil), ("Title", nil))),
-            trailing: .molecule(.indexWithcIcon24(("Index", nil), (.ic24ChevronSmallRight, nil)))
+            trailing: .molecule(.indexWithIcon24(("Index", nil), (.ic24ChevronSmallRight, nil)))
         )
     }
     
     private func createImageWithIndexIcons20Row() -> UIView {
-        return DSCreationRowsViewService.createViewRowWithBloks(
+        return DSCreationRowsViewService().createViewRowWithBlocks(
             leading: .atom(.image40(.ic24UserFilled, nil)),
             center: .molecule(.subtitleWithTitle(("Subtitle", nil), ("Title", nil))),
             trailing: .molecule(.indexWithIcons20(("Index", nil), [(.ic24BoxFilled, nil), (.ic24BoxFilled, nil)]))
@@ -126,7 +127,7 @@ private class RowExampleVC: UIViewController {
     }
     
     private func createCardWithTitleButtonRow() -> UIView {
-        return DSCreationRowsViewService.createViewRowWithBloks(
+        return DSCreationRowsViewService().createViewRowWithBlocks(
             leading: .atom(.card(.ic24CardMirLight, nil)),
             center: .atom(.title("Title", nil)),
             trailing: .atom(.button("Label", { }, nil))
@@ -156,7 +157,7 @@ private class RowExampleVC: UIViewController {
         )
         buttonViewStyle.update(viewProperties: &buttonViewProperties)
         
-        let row = CreationRowsViewService.createViewRowWithBloks(
+        let row = CreationRowsViewService().createViewRowWithBlocks(
             leading: .atom(.radio(radioViewProperties)),
             center: .atom(.title(titleViewProperties)),
             trailing: .atom(.button(buttonViewProperties))
