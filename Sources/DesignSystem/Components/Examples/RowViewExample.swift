@@ -2,7 +2,7 @@ import UIKit
 import SnapKit
 import Components
 
-private class RowExampleVC: UIViewController {
+private class RowViewExampleVC: UIViewController {
     
     private var scrollView: UIScrollView = {
         let scroll = UIScrollView()
