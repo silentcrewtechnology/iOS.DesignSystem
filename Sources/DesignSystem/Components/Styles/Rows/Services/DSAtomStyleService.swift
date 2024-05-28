@@ -41,7 +41,7 @@ private extension DSAtomStyleService {
     ) -> UIView? {
         var viewProperties = LabelView.ViewProperties(text: text.attributed)
         
-        let newStyle = style ?? LabelViewStyle(variant: .title)
+        let newStyle = style ?? LabelViewStyle(variant: .title(isCopied: false))
         newStyle.update(viewProperties: &viewProperties)
         
         let title = RowBlocksService().createRowBlock(.atom(.title(viewProperties)))

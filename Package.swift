@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "DesignSystem",
     platforms: [
-        .iOS(.v13)
+        .iOS(.v15)
     ],
     products: [
         .library(
@@ -19,7 +19,7 @@ let package = Package(
         .package(url: "https://gitlab.akbars.tech/abo/ios-resources-fonts.git", .upToNextMinor(from: "0.0.1")),
         .package(url: "https://gitlab.akbars.tech/abo/ios-resources-colors.git", .upToNextMinor(from: "0.0.3")),
         .package(url: "https://gitlab.akbars.tech/abo/ios-resources-icons.git", .upToNextMinor(from: "0.0.3")),
-        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-ui-components.git", .upToNextMinor(from: "1.0.0")),
+        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-ui-components.git", .upToNextMinor(from: "3.0.0")),
     ],
     targets: [
         .target(

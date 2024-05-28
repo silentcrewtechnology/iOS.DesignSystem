@@ -49,6 +49,7 @@ private class RowExampleVC: UIViewController {
         let row7 = createImageWithIndexRow()
         let row8 = createImageWithIndexIcons20Row()
         let row9 = createCardWithTitleButtonRow()
+        let row10 = createCopiedTitleRow()
         
         let row = createWithRowsService()
 
@@ -61,12 +62,13 @@ private class RowExampleVC: UIViewController {
         stackView.addArrangedSubview(row7)
         stackView.addArrangedSubview(row8)
         stackView.addArrangedSubview(row9)
+        stackView.addArrangedSubview(row10)
         
         stackView.addArrangedSubview(row)
     }
     
     private func createTitleRow() -> UIView {
-        let titleStyle = LabelViewStyle(variant: .title)
+        let titleStyle = LabelViewStyle(variant: .title(isCopied: false))
         return DSCreationRowsViewService().createViewRowWithBlocks(
             leading: .atom(.title("Title", titleStyle))
         )
@@ -134,6 +136,13 @@ private class RowExampleVC: UIViewController {
         )
     }
     
+    private func createCopiedTitleRow() -> UIView {
+        let titleStyle = LabelViewStyle(variant: .title(isCopied: true))
+        return DSCreationRowsViewService().createViewRowWithBlocks(
+            leading: .atom(.title("Title", titleStyle))
+        )
+    }
+    
     // пример с ручной настройкой
     private func createWithRowsService() -> UIView {
         var radioViewProperties = RadioView.ViewProperties()
@@ -144,7 +153,7 @@ private class RowExampleVC: UIViewController {
         radioViewStyle.update(viewProperties: &radioViewProperties)
         
         var titleViewProperties = LabelView.ViewProperties(text: "Title".attributed)
-        let titleViewStyle = LabelViewStyle(variant: .title)
+        let titleViewStyle = LabelViewStyle(variant: .title(isCopied: false))
         titleViewStyle.update(viewProperties: &titleViewProperties)
         
         
