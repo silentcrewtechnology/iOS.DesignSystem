@@ -11,7 +11,7 @@ import Components
 public struct LabelViewStyle {
     public enum Variant {
         case `default`
-        case title
+        case title(isCopied: Bool)
         case subtitle
         case index
         case amount
@@ -30,18 +30,23 @@ public struct LabelViewStyle {
         var foregroundColor: UIColor = .contentSecondary
         var inset: UIEdgeInsets = .init(top: 2, left: 0, bottom: 2, right: 0)
         switch variant {
-        case .title:
+        case .title(let copied):
             fontStyle = .textM
             foregroundColor = .contentPrimary
             inset = .zero
+            viewProperties.isCopied = copied
+            /// Можем копировать только title
         case .subtitle, .index:
             inset = .zero
+            viewProperties.isCopied = false
         case .amount:
             fontStyle = .textM_1
             foregroundColor = .contentPrimary
             inset = .zero
+            viewProperties.isCopied = false
         case .default:
             /// Пока что выглядят одинаково с subtitle и index
+            viewProperties.isCopied = false
             break
         }
         
