@@ -54,7 +54,7 @@ private class RowCellExampleVC: UIViewController, UITableViewDataSource, UITable
     // MARK: - Row Creation Methods
     
     private func createTitleRow(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        let titleStyle = LabelViewStyle(variant: .title)
+        let titleStyle = LabelViewStyle(variant: .title(isCopied: false))
         return DSCreationRowsViewService().createCellRowWithBlocks(
             tableView: tableView,
             indexPath: indexPath,
