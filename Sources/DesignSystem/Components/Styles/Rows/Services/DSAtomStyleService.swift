@@ -30,6 +30,8 @@ public struct DSAtomStyleService {
             return createButton(text: text, action: action, style: style)
         case .copyText(let text, let style):
             return createCopyText(text, style)
+        case .subindex(let text, let style):
+            return createSubindex(text, style)
         }
     }
 }
@@ -248,13 +250,13 @@ private extension DSAtomStyleService {
         return radio
     }
     
-    //TODO: прокинуть action - обсудить на pbr
     private func createButton(
         text: String,
-        action: () -> Void,
+        action: @escaping () -> Void,
         style: ButtonViewStyle?
     ) -> UIView? {
         var viewProperties = ButtonView.ViewProperties(attributedText: text.attributed)
+        viewProperties.onTap = action
         
         let newStyle = style ?? ButtonViewStyle(
             context: .action(.contained),
@@ -280,5 +282,18 @@ private extension DSAtomStyleService {
         let copyText = RowBlocksService().createRowBlock(.atom(.copyText(viewProperties)))
         return copyText
     }
+    
+    private func createSubindex(
+        _ text: String,
+        _ style: LabelViewStyle?
+    ) -> UIView? {
+        let attributed = text.attributed.alignment(.right)
+        var viewProperties = LabelView.ViewProperties(text: attributed)
+        
+        let newStyle = style ?? LabelViewStyle(variant: .subindex)
+        newStyle.update(viewProperties: &viewProperties)
+        
+        let index = RowBlocksService().createRowBlock(.atom(.index(viewProperties)))
+        return index
+    }
 }
-

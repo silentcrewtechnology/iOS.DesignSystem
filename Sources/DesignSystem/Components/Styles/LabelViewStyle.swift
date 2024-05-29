@@ -15,6 +15,7 @@ public struct LabelViewStyle {
         case subtitle
         case index
         case amount
+        case subindex
     }
     
     public var variant: Variant
@@ -42,6 +43,10 @@ public struct LabelViewStyle {
         case .amount:
             fontStyle = .textM_1
             foregroundColor = .contentPrimary
+            inset = .zero
+            viewProperties.isCopied = false
+        case .subindex:
+            fontStyle = .text2XS
             inset = .zero
             viewProperties.isCopied = false
         case .default:
