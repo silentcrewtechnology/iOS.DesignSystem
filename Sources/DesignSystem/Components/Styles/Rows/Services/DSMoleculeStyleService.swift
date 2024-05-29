@@ -2,7 +2,16 @@ import Components
 import UIKit
 
 public struct DSMoleculeStyleService {
+    
+    // MARK: - Private properties
+    
+    private let atomService = DSAtomStyleService()
+    
+    // MARK: - Life cycle
+    
     public init() { }
+    
+    // MARK: - Methods
     
     public func createMolecule(_ dsMolecule: DSMoleculeElement) -> UIView? {
         switch dsMolecule {
@@ -18,6 +27,8 @@ public struct DSMoleculeStyleService {
             return createIndexWithIcons20(index, icons)
         case .indexWithToggle(let index, let style):
             return createIndexWithToggle(index, style)
+        case .buttonWithSubindex(let button, let subindex):
+            return createButtonWithSubindex(button, subindex)
         }
     }
 }
@@ -25,8 +36,7 @@ public struct DSMoleculeStyleService {
 private extension DSMoleculeStyleService {
     private func createTitleWithSubtitle(
         _ title: (String, LabelViewStyle?),
-        _ subtitle: (String, LabelViewStyle?),
-        _ atomService: DSAtomStyleService = DSAtomStyleService()
+        _ subtitle: (String, LabelViewStyle?)
     ) -> UIView? {
         let title = atomService.createAtom(.title(title.0, title.1))
         let subtitle = atomService.createAtom(.subtitle(subtitle.0, subtitle.1))
@@ -36,8 +46,7 @@ private extension DSMoleculeStyleService {
     
     private func createSubtitleWithTitle(
         _ subtitle: (String, LabelViewStyle?),
-        _ title: (String, LabelViewStyle?),
-        _ atomService: DSAtomStyleService = DSAtomStyleService()
+        _ title: (String, LabelViewStyle?)
     ) -> UIView? {
         let subtitle = atomService.createAtom(.subtitle(subtitle.0, subtitle.1))
         let title = atomService.createAtom(.title(title.0, title.1))
@@ -46,8 +55,7 @@ private extension DSMoleculeStyleService {
     }
     
     private func createIcons20(
-        _ icons: [(UIImage, ImageViewStyle?)],
-        _ atomService: DSAtomStyleService = DSAtomStyleService()
+        _ icons: [(UIImage, ImageViewStyle?)]
     ) -> UIView {
         var atomsFromIcons: [UIView] = []
         
@@ -62,8 +70,7 @@ private extension DSMoleculeStyleService {
     
     private func createIndexWithIcon24(
         _ indexText: (String, LabelViewStyle?),
-        _ icon: (UIImage, ImageViewStyle?),
-        _ atomService: DSAtomStyleService = DSAtomStyleService()
+        _ icon: (UIImage, ImageViewStyle?)
     ) -> UIView {
         let indexLabel = atomService.createAtom(.index(indexText.0, indexText.1))
         let icon = atomService.createAtom(.icon24(icon.0, icon.1))
@@ -73,8 +80,7 @@ private extension DSMoleculeStyleService {
     
     private func createIndexWithIcons20(
         _ indexText: (String, LabelViewStyle?),
-        _ icons: [(UIImage, ImageViewStyle?)],
-        _ atomService: DSAtomStyleService = DSAtomStyleService()
+        _ icons: [(UIImage, ImageViewStyle?)]
     ) -> UIView {
         let indexLabel = atomService.createAtom(.index(indexText.0, indexText.1))
         
@@ -91,13 +97,22 @@ private extension DSMoleculeStyleService {
     
     private func createIndexWithToggle(
         _ indexText: (String, LabelViewStyle?),
-        _ toggle: (Bool, (Bool) -> Void, ToggleViewStyle?),
-        _ atomService: DSAtomStyleService = DSAtomStyleService()
+        _ toggle: (Bool, (Bool) -> Void, ToggleViewStyle?)
     ) -> UIView {
         let indexLabel = atomService.createAtom(.index(indexText.0, indexText.1))
         let toggleView = atomService.createAtom(.toggle(toggle.0, toggle.1, toggle.2))
         
         return connect(left: indexLabel, right: toggleView)
+    }
+    
+    private func createButtonWithSubindex(
+        _ button: (String, () -> Void, ButtonViewStyle?),
+        _ subindexText: (String, LabelViewStyle?)
+    ) -> UIView {
+        let buttonView = atomService.createAtom(.button(button.0, button.1, button.2))
+        let subindexLabel = atomService.createAtom(.subindex(subindexText.0, subindexText.1))
+        
+        return connect(top: buttonView, bottom: subindexLabel)
     }
 }
 
