@@ -13,7 +13,7 @@ private class LabelViewExample: UIViewController {
     private lazy var labelView = {
         let view = LabelView()
         var viewProperties = LabelView.ViewProperties(text: .init(string: "Label"))
-        let style = LabelViewStyle(variant: .default)
+        let style = LabelViewStyle(variant: .default, alignment: .center)
         style.update(viewProperties: &viewProperties)
         view.update(with: viewProperties)
         return view

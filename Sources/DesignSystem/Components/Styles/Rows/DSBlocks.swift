@@ -19,6 +19,7 @@ public enum AtomDSElement {
 
 public enum DSMoleculeElement {
     case titleWithSubtitle((String, LabelViewStyle?), (String, LabelViewStyle?))
+    case titleWithSubtitles((String, LabelViewStyle?), [(String, LabelViewStyle?)])
     case subtitleWithTitle((String, LabelViewStyle?), (String, LabelViewStyle?))
     case icons20([(UIImage, ImageViewStyle?)])
     case indexWithIcon24((String, LabelViewStyle?), (UIImage, ImageViewStyle?))
