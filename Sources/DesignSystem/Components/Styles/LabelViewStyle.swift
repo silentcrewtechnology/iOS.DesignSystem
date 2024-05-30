@@ -19,9 +19,11 @@ public struct LabelViewStyle {
     }
     
     public var variant: Variant
+    public var alignment: NSTextAlignment
     
-    public init(variant: Variant) {
+    public init(variant: Variant, alignment: NSTextAlignment = .left) {
         self.variant = variant
+        self.alignment = alignment
     }
     
     public func update(
@@ -58,6 +60,7 @@ public struct LabelViewStyle {
         viewProperties.text = viewProperties.text
             .fontStyle(fontStyle)
             .foregroundColor(foregroundColor)
+            .alignment(alignment)
         viewProperties.size = .init(
             inset: inset,
             lineHeight: fontStyle.lineHeight
