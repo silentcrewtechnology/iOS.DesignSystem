@@ -4,7 +4,12 @@ import Components
 
 private class RowCellExampleVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    private var tableView = UITableView()
+    private var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.estimatedRowHeight = 44
+        tableView.rowHeight = UITableView.automaticDimension
+        return tableView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,8 +27,10 @@ private class RowCellExampleVC: UIViewController, UITableViewDataSource, UITable
     
     // MARK: - UITableViewDataSource
     
+    // MARK: - UITableViewDataSource
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 9 // Количество строк, которые вы хотите отобразить
+        return 14 // Количество строк, которые вы хотите отобразить
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -46,6 +53,16 @@ private class RowCellExampleVC: UIViewController, UITableViewDataSource, UITable
             return createImageWithIndexIcons20Row(tableView, indexPath: indexPath)
         case 8:
             return createCardWithTitleButtonRow(tableView, indexPath: indexPath)
+        case 9:
+            return createLongTitleRow(tableView, indexPath: indexPath)
+        case 10:
+            return createImageLongTextWithButtonRow(tableView, indexPath: indexPath)
+        case 11:
+            return createImageWithLongTitleSubtitleRow(tableView, indexPath: indexPath)
+        case 12:
+            return createImageLongTextWithRadioRow(tableView, indexPath: indexPath)
+        case 13:
+            return createImageWithLongTitleRow(tableView, indexPath: indexPath)
         default:
             return UITableViewCell()
         }
@@ -137,6 +154,54 @@ private class RowCellExampleVC: UIViewController, UITableViewDataSource, UITable
             leading: .atom(.card(.ic24CardMirLight, nil)),
             center: .atom(.title("Title", nil)),
             trailing: .atom(.button("Label", { }, nil))
+        )
+    }
+    
+    // примеры с текстом на несколько строк
+    private func createLongTitleRow(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        let titleStyle = LabelViewStyle(variant: .title(isCopied: false))
+        return DSCreationRowsViewService().createCellRowWithBlocks(
+            tableView: tableView,
+            indexPath: indexPath,
+            leading: .atom(.title("Передаем для тестирования очень длинный текст. Передаем для тестирования очень длинный текст. Передаем для тестирования очень длинный текст. Передаем для тестирования очень длинный текст. Передаем для тестирования очень длинный текст. Передаем для тестирования очень длинный текст. Передаем для тестирования очень длинный текст.", titleStyle))
+        )
+    }
+    
+    private func createImageLongTextWithButtonRow(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        return DSCreationRowsViewService().createCellRowWithBlocks(
+            tableView: tableView,
+            indexPath: indexPath,
+            leading: .atom(.image40(.ic24UserFilled, nil)),
+            center: .molecule(.subtitleWithTitle(("Передаем для тестирования очень длинный текст. Передаем для тестирования очень длинный текст.", nil), ("Title", nil))),
+            trailing: .atom(.button("Label", { }, nil))
+        )
+    }
+    
+    private func createImageLongTextWithRadioRow(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        return DSCreationRowsViewService().createCellRowWithBlocks(
+            tableView: tableView,
+            indexPath: indexPath,
+            leading: .atom(.image40(.ic24UserFilled, nil)),
+            center: .molecule(.subtitleWithTitle(("Передаем для тестирования очень длинный текст. Передаем для тестирования очень длинный текст.", nil), ("Title", nil))),
+            trailing: .atom(.radio(true, { }, nil))
+        )
+    }
+    
+    private func createImageWithLongTitleSubtitleRow(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        return DSCreationRowsViewService().createCellRowWithBlocks(
+            tableView: tableView,
+            indexPath: indexPath,
+            leading: .atom(.image40(.ic24UserFilled, nil)),
+            center: .molecule(.subtitleWithTitle(("Передаем для тестирования очень длинный текст. Передаем для тестирования очень длинный текст.", nil), ("Title", nil)))
+        )
+    }
+    
+    private func createImageWithLongTitleRow(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        return DSCreationRowsViewService().createCellRowWithBlocks(
+            tableView: tableView,
+            indexPath: indexPath,
+            leading: .atom(.image40(.ic24UserFilled, nil)),
+            trailing: .atom(.title("Передаем для тестирования очень длинный текст. Передаем для тестирования очень длинный текст.", nil))
         )
     }
 }
