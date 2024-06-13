@@ -1,5 +1,5 @@
 {
-  "originHash" : "4dce4f0bc6accc680e4f715ef05234a32478dbf5093b22a0a3c0d8ae33e124e8",
+  "originHash" : "025a4f371d3d25fa688dab543f477fd9e8691b80f49abf9b032937ed1c2c9bb3",
   "pins" : [
     {
       "identity" : "ios-resources-colors",
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://gitlab.akbars.tech/abo/ios-resources-ui-components.git",
       "state" : {
-        "revision" : "1e2b443793459406852ac09227d21f188ce18f67",
-        "version" : "3.4.0"
+        "revision" : "526f79b9486d77ee66ee330e0257891f9fc8ebe7",
+        "version" : "4.0.0"
       }
     },
     {
