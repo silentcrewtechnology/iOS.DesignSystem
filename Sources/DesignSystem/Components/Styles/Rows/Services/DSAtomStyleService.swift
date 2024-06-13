@@ -269,7 +269,6 @@ private extension DSAtomStyleService {
         return button
     }
     
-    //TODO: обсудить на pbr создание отдельного компонента ДС
     private func createCopyText(
         _ text: String,
         _ style: LabelViewStyle?

@@ -10,6 +10,7 @@ public struct DSCreationRowsViewService {
         leading: DSRowBlocks? = nil,
         center: DSRowBlocks? = nil,
         trailing: DSRowBlocks? = nil,
+        centralBlockAlignment: RowBaseContainer.ViewProperties.BlockAlignment = .leading,
         cellIdentifier: String = "RowCell"
     ) -> UITableViewCell {
         // Проверяем, зарегистрирована ли ячейка
@@ -21,7 +22,8 @@ public struct DSCreationRowsViewService {
         
         let rowView = createViewRowWithBlocks(leading: leading,
                                               center: center,
-                                              trailing: trailing)
+                                              trailing: trailing,
+                                              centralBlockAlignment: centralBlockAlignment)
         
         cell?.customView = rowView
         
@@ -32,8 +34,8 @@ public struct DSCreationRowsViewService {
         leading: DSRowBlocks? = nil,
         center: DSRowBlocks? = nil,
         trailing: DSRowBlocks? = nil,
-        margins: RowBaseContainer.ViewProperties.Margins? = nil,
-        viewsHeight: CGFloat = 44
+        centralBlockAlignment: RowBaseContainer.ViewProperties.BlockAlignment = .leading,
+        margins: RowBaseContainer.ViewProperties.Margins? = nil
     ) -> UIView {
         let container = RowBaseContainer()
         
@@ -53,7 +55,7 @@ public struct DSCreationRowsViewService {
             leadingView: leadingView,
             centerView: centerView,
             trailingView: trailingView,
-            viewsHeight: viewsHeight,
+            centralBlockAlignment: centralBlockAlignment,
             margins: newMargins)
         
         container.update(with: containerViewProperty)
