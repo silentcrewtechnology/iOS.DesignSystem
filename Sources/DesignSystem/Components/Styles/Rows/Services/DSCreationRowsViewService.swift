@@ -38,6 +38,7 @@ public struct DSCreationRowsViewService {
         margins: RowBaseContainer.ViewProperties.Margins? = nil
     ) -> UIView {
         let container = RowBaseContainer()
+        container.backgroundColor = .clear
         
         let newMargins = margins ?? RowBaseContainer.ViewProperties.Margins(
             leading: 16,
