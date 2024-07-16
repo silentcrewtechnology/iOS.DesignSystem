@@ -16,10 +16,10 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-fonts.git", .upToNextMinor(from: "0.0.1")),
-        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-colors.git", .upToNextMinor(from: "0.0.3")),
-        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-icons.git", .upToNextMinor(from: "0.0.3")),
-        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-ui-components.git", .upToNextMinor(from: "4.1.0")),
+        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-fonts.git", .upToNextMajor(from: "0.0.1")),
+        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-colors.git", .upToNextMajor(from: "0.0.3")),
+        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-icons.git", .upToNextMajor(from: "0.0.3")),
+        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-ui-components.git", .upToNextMajor(from: "4.0.0")),
     ],
     targets: [
         .target(
