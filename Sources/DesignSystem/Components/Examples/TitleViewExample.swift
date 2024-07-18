@@ -10,9 +10,13 @@ import Components
 
 private class TitleViewExample: UIViewController {
     
-    private lazy var iconButtonViewProperties: IconButton.ViewProperties = {
-        var viewProperties = IconButton.ViewProperties()
-        let style = IconButtonStyle(style: .tertiary, size: .size2XS)
+    private lazy var iconButtonViewProperties: ButtonIcon.ViewProperties = {
+        var viewProperties = ButtonIcon.ViewProperties()
+        var style = ButtonIconStyle(
+            variant: .primary,
+            size: .small,
+            state: .default,
+            color: .accent)
         
         let updateTitleView = { [weak self] in
             guard let self else { return }
