@@ -1,91 +1,157 @@
 import UIKit
 import Components
 
-public struct BadgeStyle {
+public class BadgeStyle {
     
-    public enum State {
-        case `default`
-        case action
+    public enum Color {
         case neutral
-        case disabled
+        case accent
+        case accentBrand
+        case accentInfo
     }
     
-    public enum Style {
-        case sText
-        case xsText
-        case icon
+    public enum Size {
+        case small
+        case large
     }
     
-    private let style: Style
+    public enum Set {
+        case simple
+        case basic
+        case full
+    }
+    
+    private var color: Color
+    private var size: Size
+    private var set: Set
     
     public init(
-        style: Style
+        color: Color,
+        size: Size,
+        set: Set
     ) {
-        self.style = style
+        self.color = color
+        self.size = size
+        self.set = set
     }
     
     public func update(
-        state: State,
+        newColor: Color? = nil,
+        newSize: Size? = nil,
+        newSet: Set? = nil,
         viewProperties: inout BadgeView.ViewProperties
     ) {
-        viewProperties.backgroundColor = state.backgroundColor()
-        viewProperties.textColor = state.tintColor()
-        viewProperties.image = viewProperties.image?.withTintColor(state.tintColor())
-        
-        viewProperties.cornerRadius = style.cornerRadius()
-        
-        if let font = style.fontStyle() {
-            viewProperties.text = viewProperties.text?.string.fontStyle(font)
+        if let newColor {
+            self.color = newColor
         }
         
-        viewProperties.height = style.height()
+        if let newSize {
+            self.size = newSize
+        }
+        
+        if let newSet {
+            self.set = newSet
+        }
+        
+        set.changePropertiesFromSet(properties: &viewProperties)
+        
+        viewProperties.backgroundColor = color.backgroundColor()
+        viewProperties.textColor = color.textTintColor()
+        viewProperties.image = viewProperties.image?.withTintColor(color.imageTintColor())
+        
+        viewProperties.margins = BadgeView.ViewProperties.Margins(
+            leading: 4,
+            trailing: 4,
+            top: 0,
+            bottom: 0,
+            spacing: 2
+        )
+        
+        viewProperties.margins.imageTop = size.imageMargins()
+        viewProperties.margins.imageBottom = size.imageMargins()
+        viewProperties.text = viewProperties.text?.string.fontStyle(size.fontStyle())
+        viewProperties.height = getHeight()
+        viewProperties.cornerRadius = cornerRadius()
+    }
+    
+    private func getHeight() -> CGFloat {
+        switch set {
+        case .basic, .full:
+            return size.height()
+        case .simple:
+            return 6
+        }
+    }
+    
+    func cornerRadius() -> CGFloat {
+        return getHeight()/2
     }
 }
 
-public extension BadgeStyle.State {
+public extension BadgeStyle.Set {
+    func changePropertiesFromSet(properties: inout BadgeView.ViewProperties) {
+        switch self {
+        case .simple:
+            properties.text = nil
+            properties.image = nil
+        case .basic:
+            properties.image = nil
+        case .full:
+            break
+        }
+    }
+}
+
+public extension BadgeStyle.Color {
     
     func backgroundColor() -> UIColor {
         switch self {
-        case .default: .contentError
-        case .action: .backgroundSuccess
-        case .neutral: .backgroundMainInverse
-        case .disabled: .backgroundDisabled
+        case .neutral: .Components.Badge.Neutral.Background.color
+        case .accent: .Components.Badge.Accent.Background.color
+        case .accentBrand: .Components.Badge.AccentBrand.Background.color
+        case .accentInfo: .Components.Badge.Info.Background.color
         }
     }
     
-    func tintColor() -> UIColor {
+    func textTintColor() -> UIColor {
         switch self {
-        case .default: .contentActionOn
-        case .action: .contentActionOn
-        case .neutral: .contentActionOn
-        case .disabled: .contentDisabled
+        case .neutral: .Components.Badge.Neutral.Label.color
+        case .accent: .Components.Badge.Accent.Label.color
+        case .accentBrand: .Components.Badge.AccentBrand.Label.color
+        case .accentInfo: .Components.Badge.Info.Label.color
+        }
+    }
+    
+    func imageTintColor() -> UIColor {
+        switch self {
+        case .neutral: .Components.Badge.Neutral.Icon.color
+        case .accent: .Components.Badge.Accent.Icon.color
+        case .accentBrand: .Components.Badge.AccentBrand.Icon.color
+        case .accentInfo: .Components.Badge.Info.Icon.color
         }
     }
 }
 
-public extension BadgeStyle.Style {
+public extension BadgeStyle.Size {
     
-    func cornerRadius() -> CGFloat {
+    func fontStyle() -> FontStyle {
         switch self {
-        case .sText: 10
-        case .xsText: 8
-        case .icon: 10
-        }
-    }
-    
-    func fontStyle() -> FontStyle? {
-        switch self {
-        case .sText: .textS_1
-        case .xsText: .text3XS_1
-        case .icon: nil
+        case .small: .textS_1
+        case .large: .textS_1
         }
     }
     
     func height() -> CGFloat {
         switch self {
-        case .sText: 20
-        case .xsText: 16
-        case .icon: 20
+        case .small: 16
+        case .large: 20
+        }
+    }
+    
+    func imageMargins() -> CGFloat {
+        switch self {
+        case .small: 0
+        case .large: 2
         }
     }
 }

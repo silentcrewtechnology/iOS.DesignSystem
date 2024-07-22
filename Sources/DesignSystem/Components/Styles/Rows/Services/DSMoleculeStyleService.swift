@@ -90,7 +90,7 @@ private extension DSMoleculeStyleService {
         _ indexText: (String, LabelViewStyle?),
         _ icons: [(UIImage, ImageViewStyle?)]
     ) -> UIView {
-        guard let indexLabel = atomService.createAtom(.index(indexText.0, indexText.1)) 
+        guard let indexLabel = atomService.createAtom(.index(indexText.0, indexText.1))
         else { return UIView() }
         
         var atomsFromIcons: [UIView] = []
