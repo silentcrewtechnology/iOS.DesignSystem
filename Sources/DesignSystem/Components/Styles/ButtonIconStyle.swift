@@ -105,28 +105,31 @@ extension ButtonIconStyle {
     
     private func backgroundAccentPrimaryStateColor() -> UIColor {
         switch state {
-        case .default: .backgroundAction
-        case .pressed: .backgroundActionPressed
-        case .disabled: .backgroundDisabled
-        case .loading: .backgroundAction
+        case .default: .Components.ButtonIcon.Accent.Primary.Background.Color.default
+        case .pressed: .Components.ButtonIcon.Accent.Primary.Background.Color.pressed
+        case .disabled: .Components.ButtonIcon.Accent.Primary.Background.Color.disabled
+            // TODO: в json от дизайнеров нет Color.loading
+        case .loading: .Components.ButtonIcon.Accent.Primary.Background.Color.default
         }
     }
     
     private func backgroundAccentSecondaryStateColor() -> UIColor {
         switch state {
-        case .default: .backgroundDisabled
-        case .pressed: .backgroundSecondaryPressed
-        case .disabled: .backgroundDisabled
-        case .loading: .backgroundDisabled
+        case .default: .Components.ButtonIcon.Accent.Secondary.Background.Color.default
+        case .pressed: .Components.ButtonIcon.Accent.Secondary.Background.Color.pressed
+        case .disabled: .Components.ButtonIcon.Accent.Secondary.Background.Color.disabled
+            // TODO: в json от дизайнеров нет Color.loading
+        case .loading: .Components.ButtonIcon.Accent.Secondary.Background.Color.default
         }
     }
     
     private func backgroundLightStateColor() -> UIColor {
         switch state {
-        case .default: .backgroundMain
-        case .pressed: .backgroundDisabled
-        case .disabled: .backgroundDisabled
-        case .loading: .backgroundMain
+        case .default: .Components.ButtonIcon.Light.Primary.Background.Color.default
+        case .pressed: .Components.ButtonIcon.Light.Primary.Background.Color.pressed
+        case .disabled: .Components.ButtonIcon.Light.Primary.Background.Color.disabled
+            // TODO: в json от дизайнеров нет Color.loading
+        case .loading: .Components.ButtonIcon.Light.Primary.Background.Color.default
         }
     }
 }
@@ -153,28 +156,44 @@ extension ButtonIconStyle {
     
     private func tintAccentPrimaryStyleColor() -> UIColor {
         switch state {
-        case .default, .pressed, .loading:
-            return .contentActionOn
+        case .default:
+            return .Components.ButtonIcon.Accent.Primary.Icon.Color.default
+        case .pressed:
+            return .Components.ButtonIcon.Accent.Primary.Icon.Color.pressed
         case .disabled:
-            return .contentDisabled
+            return .Components.ButtonIcon.Accent.Primary.Icon.Color.disabled
+            // TODO: в json от дизайнеров нет Color.loading
+        case .loading:
+            return .Components.ButtonIcon.Accent.Primary.Icon.Color.default
+        
         }
     }
     
     private func tintAccentSecondaryStyleColor() -> UIColor {
         switch state {
-        case .default, .pressed, .loading:
-            return .contentPrimary
+        case .default:
+            return .Components.ButtonIcon.Accent.Secondary.Icon.Color.default
+        case .pressed:
+            return .Components.ButtonIcon.Accent.Secondary.Icon.Color.pressed
         case .disabled:
-            return .contentDisabled
+            return .Components.ButtonIcon.Accent.Secondary.Icon.Color.disabled
+            // TODO: в json от дизайнеров нет Color.loading
+        case .loading:
+            return .Components.ButtonIcon.Accent.Secondary.Icon.Color.default
         }
     }
     
     private func tintLightStateColor() -> UIColor {
         switch state {
-        case .default, .pressed, .loading:
-            return .contentPrimary
+        case .default:
+            return .Components.ButtonIcon.Light.Primary.Icon.Color.default
+        case .pressed:
+            return .Components.ButtonIcon.Light.Primary.Icon.Color.pressed
         case .disabled:
-            return .contentDisabled
+            return .Components.ButtonIcon.Light.Primary.Icon.Color.disabled
+            // TODO: в json от дизайнеров нет Color.loading
+        case .loading:
+            return .Components.ButtonIcon.Light.Primary.Icon.Color.default
         }
     }
 }
