@@ -328,10 +328,10 @@ private extension DSAtomStyleService {
         var viewProperties = TitleView.ViewProperties()
         viewProperties.title = .init(string: title)
         
-        let newStyle = style ?? TitleViewStyle(variant: .default, size: .sizeL)
+        let newStyle = style ?? TitleViewStyle(size: .medium, color: .primary)
         newStyle.update(viewProperties: &viewProperties)
         
-        let buttonIcon = RowBlocksService().createRowBlock(.atom(.titleView(viewProperties)))
-        return buttonIcon
+        let titleView = RowBlocksService().createRowBlock(.atom(.titleView(viewProperties)))
+        return titleView
     }
 }
