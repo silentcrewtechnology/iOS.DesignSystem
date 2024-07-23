@@ -15,8 +15,8 @@ public enum AtomDSElement {
     case checkbox(Bool, (Bool) -> Void, CheckboxViewStyle?)
     case radio(Bool, () -> Void, RadioViewStyle?)
     case button(String, () -> Void, ButtonViewStyle?)
-    case buttonIcon(UIImage, ButtonIconStyle?)
-    case titleView(String, TitleViewStyle)
+    case buttonIcon(UIImage, () -> Void, ButtonIconStyle?)
+    case titleView(String, TitleViewStyle?)
 }
 
 public enum DSMoleculeElement {
