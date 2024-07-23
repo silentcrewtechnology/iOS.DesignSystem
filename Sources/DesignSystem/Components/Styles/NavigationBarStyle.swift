@@ -1,0 +1,242 @@
+//
+//  NavigationBarStyle.swift
+//  
+//
+//  Created by user on 22.07.2024.
+//
+
+import UIKit
+import Components
+import Extensions
+
+public struct NavigationBarStyle {
+    
+    // MARK: - Properties
+    
+    public enum Variant {
+        case basic(
+            title: String?,
+            subtitle: String?,
+            margins: RowBaseContainer.ViewProperties.Margins?
+        )
+        case collapsed(title: String?)
+        case mainScreen(
+            name: String,
+            margins: RowBaseContainer.ViewProperties.Margins?,
+            onProfile: () -> Void
+        )
+        case basicAmount(
+            title: String?,
+            subtitle: String?,
+            spacing: CGFloat?,
+            updateAction: Selector
+        )
+        case search(updater: UISearchResultsUpdating?)
+        case none
+    }
+    
+    public enum Color {
+        case main
+        case primary
+    }
+    
+    // MARK: - Private properties
+    
+    private let variant: Variant
+    private let color: Color
+    
+    // MARK: - Life cycle
+    
+    public init(variant: Variant, color: Color) {
+        self.variant = variant
+        self.color = color
+    }
+    
+    // MARK: - Methods
+    
+    public func update(
+        viewProperties: inout NavigationBar.ViewProperties,
+        backAction: Selector? = nil
+    ) {
+        let backButton = UIBarButtonItem(
+            image: .ic24ArrowLeft
+                .withTintColor(.Semantic.LightTheme.Content.Base.primary)
+                .withRenderingMode(.alwaysOriginal),
+            style: .plain,
+            target: self,
+            action: backAction
+        )
+        viewProperties.leftBarButtonItems = [backButton]
+        viewProperties.largeTitleDisplayMode = .never
+        
+        let otherBarAppearance = UINavigationBarAppearance()
+        otherBarAppearance.backgroundColor = backgroundColor(color: color)
+        otherBarAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.Semantic.LightTheme.Content.Base.primary,
+            .font: UIFont.textM_1
+        ]
+        otherBarAppearance.shadowColor = .clear
+        
+        let standartBarAppearance = UINavigationBarAppearance()
+        standartBarAppearance.backgroundColor = backgroundColor(color: color)
+        standartBarAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.Semantic.LightTheme.Content.Base.primary,
+            .font: UIFont.textM_1
+        ]
+        
+        switch variant {
+        case let .basic(title, subtitle, margins):
+            viewProperties.titleView = createBasicTitleView(
+                title: title,
+                subtitle: subtitle,
+                margins: margins
+            )
+        case .collapsed(let title):
+            standartBarAppearance.configureWithOpaqueBackground()
+            standartBarAppearance.backgroundColor = backgroundColor(color: color)
+            standartBarAppearance.largeTitleTextAttributes = [
+                .foregroundColor: UIColor.Semantic.LightTheme.Content.Base.primary,
+                .font: UIFont.text2XL_1
+            ]
+            
+            viewProperties.title = title
+            viewProperties.largeTitleDisplayMode = .always
+            viewProperties.prefersLargeTitles = true
+        case let .mainScreen(name, margins, onProfile):
+            let profileView = createProfileView(name: name, margins: margins)
+            profileView.addTapGesture(onProfile)
+            
+            viewProperties.leftBarButtonItems = [.init(customView: profileView)]
+        case let .basicAmount(title, subtitle, spacing, updateAction):
+            viewProperties.titleView = createBasicAmountTitleView(
+                title: title,
+                subtitle: subtitle,
+                spacing: spacing,
+                updateAction: updateAction
+            )
+        case .search(let updater):
+            viewProperties.searchController = createSearchController(updater: updater)
+            viewProperties.hidesSearchBarWhenScrolling = false
+        case .none:
+            viewProperties.isNavigationBarHidden = true
+        }
+        
+        viewProperties.standartAppearance = standartBarAppearance
+        viewProperties.scrollEdgeAppearance = otherBarAppearance
+        viewProperties.compactAppearance = otherBarAppearance
+    }
+    
+    // MARK: - Private methods
+    
+    private func createBasicTitleView(
+        title: String?,
+        subtitle: String?,
+        margins: RowBaseContainer.ViewProperties.Margins? = nil
+    ) -> UIView {
+        return DSCreationRowsViewService().createViewRowWithBlocks(
+            center: .molecule(
+                .titleWithSubtitle(
+                    (title ?? "", .init(variant: .title(isCopied: false), alignment: .center)),
+                    (subtitle ?? "", nil)
+                )),
+            margins: margins ?? .init(
+                leading: 16,
+                trailing: 16,
+                top: .zero,
+                bottom: .zero,
+                spacing: 16
+            )
+        )
+    }
+    
+    private func createProfileView(
+        name: String,
+        margins: RowBaseContainer.ViewProperties.Margins? = nil
+    ) -> UIView {
+        return DSCreationRowsViewService().createViewRowWithBlocks(
+            leading: .atom(
+                .image40(
+                    .ic24User
+                        .withTintColor(.Semantic.LightTheme.Content.Base.primary)
+                        .centered(in: .circle(
+                            backgroundColor: .white,
+                            diameter: 40))
+                        .withRenderingMode(.alwaysOriginal),
+                    nil)),
+            center: .molecule(
+                .indexWithIcon24(
+                    (name, .init(variant: .amount, alignment: .left)),
+                    (.ic24ChevronSmallRight
+                        .withTintColor(.Semantic.LightTheme.Content.Base.primary)
+                        .withRenderingMode(.alwaysOriginal),
+                     nil)
+                )),
+            margins: margins ?? .init(
+                leading: 16,
+                trailing: 16,
+                top: .zero,
+                bottom: .zero,
+                spacing: 16
+            )
+        )
+    }
+    
+    private func createBasicAmountTitleView(
+        title: String?,
+        subtitle: String?,
+        spacing: CGFloat?,
+        updateAction: Selector
+    ) -> UIView {
+        var titleVP = LabelView.ViewProperties(text: .init(string: title ?? ""))
+        let titleStyle = LabelViewStyle(variant: .amount, alignment: .center)
+        titleStyle.update(viewProperties: &titleVP)
+        let titleLabel = LabelView()
+        titleLabel.update(with: titleVP)
+        
+        let updateButton = UIButton()
+        updateButton.setImage(.ic16Reload.withTintColor(.Semantic.LightTheme.Content.Accent.hover), for: .normal)
+        updateButton.addTarget(self, action: updateAction, for: .touchUpInside)
+        
+        let horizontalStackView = UIStackView(arrangedSubviews: [titleLabel, updateButton])
+        horizontalStackView.axis = .horizontal
+        horizontalStackView.spacing = spacing ?? 8
+        
+        var subtitleVP = LabelView.ViewProperties(text: .init(string: subtitle ?? ""))
+        let subtitleStyle = LabelViewStyle(variant: .subtitle, alignment: .center)
+        subtitleStyle.update(viewProperties: &subtitleVP)
+        let subtitleLabel = LabelView()
+        subtitleLabel.update(with: subtitleVP)
+        
+        let verticalStackView = UIStackView(arrangedSubviews: [subtitleLabel, horizontalStackView])
+        verticalStackView.axis = .vertical
+        
+        return verticalStackView
+    }
+    
+    private func createSearchController(updater: UISearchResultsUpdating?) -> UISearchController {
+        let searchController = UISearchController()
+        searchController.searchResultsUpdater = updater
+        searchController.hidesNavigationBarDuringPresentation = true
+        let barButtonAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.Semantic.LightTheme.Content.Accent.hover,
+            .font: UIFont.textM
+        ]
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self])
+            .setTitleTextAttributes(barButtonAttributes, for: .normal)
+        
+        let textFieldAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.Semantic.LightTheme.Content.Base.primary,
+            .font: UIFont.textM
+        ]
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self])
+            .defaultTextAttributes = textFieldAttributes
+        
+        return searchController
+    }
+    
+    private func backgroundColor(color: Color) -> UIColor {
+        return color == .main
+            ? .Semantic.LightTheme.Background.Surface.main
+            : .Semantic.LightTheme.Background.Surface.primary
+    }
+}

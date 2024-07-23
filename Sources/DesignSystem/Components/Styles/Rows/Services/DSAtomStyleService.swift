@@ -32,6 +32,10 @@ public struct DSAtomStyleService {
             return createCopyText(text, style)
         case .subindex(let text, let style):
             return createSubindex(text, style)
+        case .buttonIcon(let image, let style):
+            return createButtonIcon(image, style)
+        case .titleView(let title, let style):
+            return createTitleView(title, style)
         }
     }
 }
@@ -294,5 +298,38 @@ private extension DSAtomStyleService {
         
         let index = RowBlocksService().createRowBlock(.atom(.index(viewProperties)))
         return index
+    }
+    
+    private func createButtonIcon(
+        _ image: UIImage,
+        _ style: ButtonIconStyle?
+    ) -> UIView? {
+        var viewProperties = ButtonIcon.ViewProperties()
+        viewProperties.image = image
+        
+        let newStyle = style ?? ButtonIconStyle(
+            variant: .primary,
+            size: .small,
+            state: .default,
+            color: .accent
+        )
+        newStyle.update(viewProperties: &viewProperties)
+        
+        let buttonIcon = RowBlocksService().createRowBlock(.atom(.buttonIcon(viewProperties)))
+        return buttonIcon
+    }
+    
+    private func createTitleView(
+        _ title: String,
+        _ style: TitleViewStyle?
+    ) -> UIView? {
+        var viewProperties = TitleView.ViewProperties()
+        viewProperties.title = .init(string: title)
+        
+        let newStyle = style ?? TitleViewStyle(variant: .default, size: .sizeM)
+        newStyle.update(viewProperties: &viewProperties)
+        
+        let buttonIcon = RowBlocksService().createRowBlock(.atom(.titleView(viewProperties)))
+        return buttonIcon
     }
 }
