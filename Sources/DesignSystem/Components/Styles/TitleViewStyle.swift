@@ -10,96 +10,57 @@ import Components
 
 public struct TitleViewStyle {
     
-    public enum Variant {
-        case `default`
-        case compressed
-    }
+    // MARK: - Properties
     
     public enum Size {
-        case size2XL
-        case sizeXL
-        case sizeL
-        case sizeM
-        case sizeS
+        case extraLarge
+        case large
+        case medium
+        case small
     }
     
-    private let variant: Variant
+    public enum Color {
+        case primary
+        case secondary
+    }
+    
+    // MARK: - Private properties
+    
     private let size: Size
+    private let color: Color
+    
+    // MARK: - Life cycle
     
     public init(
-        variant: Variant,
-        size: Size
+        size: Size,
+        color: Color
     ) {
-        self.variant = variant
         self.size = size
+        self.color = color
     }
+    
+    // MARK: - Methods
     
     public func update(
         viewProperties: inout TitleView.ViewProperties
     ) {
-        
         viewProperties.title = viewProperties.title
             .fontStyle(size.titleFontStyle())
-            .foregroundColor(.contentPrimary)
-        
-        viewProperties.description = viewProperties.description?
-            .fontStyle(.textM)
-            .foregroundColor(.contentSecondary)
-        
-        viewProperties.insets = variant.insets(size: size)
-        viewProperties.space = variant == .default ? 8 : 4
-    }
-}
-
-public extension TitleViewStyle.Variant {
-    
-    func insets(
-        size: TitleViewStyle.Size
-    ) -> UIEdgeInsets {
-        switch self {
-        case .default: defaultInsets(size: size)
-        case .compressed: compressedInsets(size: size)
-        }
-    }
-    
-    private func defaultInsets(
-        size: TitleViewStyle.Size
-    ) -> UIEdgeInsets {
-        switch size {
-        case .size2XL:
-            return .init(top: 24, left: 16, bottom: 16, right: 16)
-        case .sizeXL:
-            return .init(top: 20, left: 16, bottom: 12, right: 16)
-        case .sizeL, .sizeM, .sizeS:
-            return .init(top: 16, left: 16, bottom: 8, right: 16)
-        }
-    }
-    
-    private func compressedInsets(
-        size: TitleViewStyle.Size
-    ) -> UIEdgeInsets {
-        switch size {
-        case .size2XL:
-            return .init(top: 16, left: 16, bottom: 16, right: 16)
-        case .sizeXL:
-            return .init(top: 12, left: 16, bottom: 12, right: 16)
-        case .sizeL:
-            return .init(top: 8, left: 16, bottom: 8, right: 16)
-        case .sizeM, .sizeS:
-            return .init(top: 6, left: 16, bottom: 2, right: 16)
-        }
+            .foregroundColor(color == .primary
+                            ? .Semantic.LightTheme.Content.Base.primary
+                            : .Semantic.LightTheme.Content.Base.secondary
+            )
+        viewProperties.insets = .init(top: 16, left: 16, bottom: 8, right: 16)
     }
 }
 
 public extension TitleViewStyle.Size {
-    
-    func titleFontStyle() -> FontStyle {
+    func titleFontStyle() -> DesignSystem.FontStyle {
         switch self {
-        case .size2XL: .text2XL_1
-        case .sizeXL: .textXL_1
-        case .sizeL: .textL_1
-        case .sizeM: .textM_1
-        case .sizeS: .textS_1
+        case .extraLarge: .textXL_1
+        case .large: .textL_1
+        case .medium: .textM_1
+        case .small: .textS_1
         }
     }
 }
