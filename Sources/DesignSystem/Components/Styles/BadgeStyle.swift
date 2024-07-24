@@ -1,7 +1,7 @@
 import UIKit
 import Components
 
-public class BadgeStyle {
+public final class BadgeStyle {
     
     public enum Color {
         case neutral

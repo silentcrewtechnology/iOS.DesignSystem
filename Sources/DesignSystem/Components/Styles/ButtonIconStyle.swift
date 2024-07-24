@@ -1,7 +1,7 @@
 import UIKit
 import Components
 
-public class ButtonIconStyle {
+public final class ButtonIconStyle {
     
     public enum Variant {
         case primary
@@ -49,15 +49,9 @@ public class ButtonIconStyle {
         color: Color? = nil,
         viewProperties: inout ButtonIcon.ViewProperties
     ) {
-        if let state {
-            self.state = state
-            viewProperties.isEnabled = state.isEnabled()
-            viewProperties.isLoading = state.isLoading()
-        }
-        
         if let size {
             self.size = size
-            viewProperties.size = size.size()
+            viewProperties.margins = getMargins()
             viewProperties.cornerRadius = size.cornerRadius()
         }
         
@@ -69,41 +63,65 @@ public class ButtonIconStyle {
             self.color = color
         }
         
-        viewProperties.backgroundColor = backgroundColor()
-        viewProperties.image = viewProperties.image.withTintColor(tintColor())
-        
-        if let size = size,
-           let state = state {
-            viewProperties.activityIndicator = .init(
-                icon: .ic24SpinerLoader.withTintColor(tintColor()),
-                size: size.indicatorSize(),
-                isAnimating: state.isLoading()
-            )
+        if let state {
+            self.state = state
+            viewProperties.isEnabled = state.isEnabled()
         }
+        
+        viewProperties.backgroundColor = backgroundColor(variant: self.variant, state: self.state, color: self.color)
+        viewProperties.pressedBackgroundColor = backgroundColor(variant: self.variant, state: .pressed, color: self.color)
+        viewProperties.imageColor = tintColor(variant: self.variant, state: self.state, color: self.color)
+        viewProperties.pressedImageColor = tintColor(variant: self.variant, state: .pressed, color: self.color)
+        
+        viewProperties.activityIndicator = .init(
+            icon: .ic24SpinerLoader.withTintColor(tintColor(
+                variant: self.variant,
+                state: self.state,
+                color: self.color)),
+            size: self.size.indicatorSize(),
+            isAnimating: self.state.isLoading()
+        )
+    }
+    
+    private func getMargins() -> ButtonIcon.ViewProperties.Margins {
+        return .init(
+            imageTop: size.imageTop(),
+            imageBottom: size.imageBottom(),
+            imageLeading: size.imageLeading(),
+            imageTrailing: size.imageTrailing(),
+            size: size.imageSize()
+        )
     }
 }
 
 // MARK: Background Colors
 extension ButtonIconStyle {
-    private func backgroundColor() -> UIColor {
+    private func backgroundColor(
+        variant: Variant,
+        state: State,
+        color: Color
+    ) -> UIColor {
         switch color {
-        case .accent: backgroundAccentStyleColor()
-        case .light: backgroundLightStyleColor()
+        case .accent: backgroundAccentStyleColor(variant: variant, state: state)
+        case .light: backgroundLightStyleColor(state: state)
         }
     }
     
-    private func backgroundAccentStyleColor() -> UIColor {
+    private func backgroundAccentStyleColor(
+        variant: Variant,
+        state: State
+    ) -> UIColor {
         switch variant {
-        case .primary: backgroundAccentPrimaryStateColor()
-        case .secondary: backgroundAccentSecondaryStateColor()
+        case .primary: backgroundAccentPrimaryStateColor(state: state)
+        case .secondary: backgroundAccentSecondaryStateColor(state: state)
         }
     }
     
-    private func backgroundLightStyleColor() -> UIColor {
-        return backgroundLightStateColor()
+    private func backgroundLightStyleColor(state: State) -> UIColor {
+        return backgroundLightStateColor(state: state)
     }
     
-    private func backgroundAccentPrimaryStateColor() -> UIColor {
+    private func backgroundAccentPrimaryStateColor(state: State) -> UIColor {
         switch state {
         case .default: .Components.ButtonIcon.Accent.Primary.Background.Color.default
         case .pressed: .Components.ButtonIcon.Accent.Primary.Background.Color.pressed
@@ -113,7 +131,7 @@ extension ButtonIconStyle {
         }
     }
     
-    private func backgroundAccentSecondaryStateColor() -> UIColor {
+    private func backgroundAccentSecondaryStateColor(state: State) -> UIColor {
         switch state {
         case .default: .Components.ButtonIcon.Accent.Secondary.Background.Color.default
         case .pressed: .Components.ButtonIcon.Accent.Secondary.Background.Color.pressed
@@ -123,7 +141,7 @@ extension ButtonIconStyle {
         }
     }
     
-    private func backgroundLightStateColor() -> UIColor {
+    private func backgroundLightStateColor(state: State) -> UIColor {
         switch state {
         case .default: .Components.ButtonIcon.Light.Primary.Background.Color.default
         case .pressed: .Components.ButtonIcon.Light.Primary.Background.Color.pressed
@@ -136,25 +154,32 @@ extension ButtonIconStyle {
 
 // MARK: Tint Colors
 extension ButtonIconStyle {
-    private func tintColor() -> UIColor {
+    private func tintColor(
+        variant: Variant,
+        state: State,
+        color: Color
+    ) -> UIColor {
         switch color {
-        case .accent: tintAccentStyleColor()
-        case .light: tintLightStyleColor()
+        case .accent: tintAccentStyleColor(variant: variant, state: state)
+        case .light: tintLightStyleColor(state: state)
         }
     }
     
-    private func tintAccentStyleColor() -> UIColor {
+    private func tintAccentStyleColor(
+        variant: Variant,
+        state: State
+    ) -> UIColor {
         switch variant {
-        case .primary: tintAccentPrimaryStyleColor()
-        case .secondary: tintAccentSecondaryStyleColor()
+        case .primary: tintAccentPrimaryStyleColor(state: state)
+        case .secondary: tintAccentSecondaryStyleColor(state: state)
         }
     }
     
-    private func tintLightStyleColor() -> UIColor {
-        return tintLightStateColor()
+    private func tintLightStyleColor(state: State) -> UIColor {
+        return tintLightStateColor(state: state)
     }
     
-    private func tintAccentPrimaryStyleColor() -> UIColor {
+    private func tintAccentPrimaryStyleColor(state: State) -> UIColor {
         switch state {
         case .default:
             return .Components.ButtonIcon.Accent.Primary.Icon.Color.default
@@ -165,11 +190,11 @@ extension ButtonIconStyle {
             // TODO: в json от дизайнеров нет Color.loading
         case .loading:
             return .Components.ButtonIcon.Accent.Primary.Icon.Color.default
-        
+            
         }
     }
     
-    private func tintAccentSecondaryStyleColor() -> UIColor {
+    private func tintAccentSecondaryStyleColor(state: State) -> UIColor {
         switch state {
         case .default:
             return .Components.ButtonIcon.Accent.Secondary.Icon.Color.default
@@ -183,7 +208,7 @@ extension ButtonIconStyle {
         }
     }
     
-    private func tintLightStateColor() -> UIColor {
+    private func tintLightStateColor(state: State) -> UIColor {
         switch state {
         case .default:
             return .Components.ButtonIcon.Light.Primary.Icon.Color.default
@@ -214,6 +239,41 @@ public extension ButtonIconStyle.Size {
         switch self {
         case .small: .init(width: 16, height: 16)
         case .large: .init(width: 24, height: 24)
+        }
+    }
+    
+    func imageSize() -> CGSize {
+        switch self {
+        case .small: .init(width: 16, height: 16)
+        case .large: .init(width: 24, height: 24)
+        }
+    }
+    
+    func imageTop() -> CGFloat {
+        switch self {
+        case .small: 8
+        case .large: 16
+        }
+    }
+    
+    func imageLeading() -> CGFloat {
+        switch self {
+        case .small: 8
+        case .large: 16
+        }
+    }
+    
+    func imageTrailing() -> CGFloat {
+        switch self {
+        case .small: 8
+        case .large: 16
+        }
+    }
+    
+    func imageBottom() -> CGFloat {
+        switch self {
+        case .small: 8
+        case .large: 16
         }
     }
 }
