@@ -51,8 +51,6 @@ public final class ButtonIconStyle {
     ) {
         if let size {
             self.size = size
-            viewProperties.margins = getMargins()
-            viewProperties.cornerRadius = size.cornerRadius()
         }
         
         if let variant {
@@ -65,13 +63,15 @@ public final class ButtonIconStyle {
         
         if let state {
             self.state = state
-            viewProperties.isEnabled = state.isEnabled()
         }
         
         viewProperties.backgroundColor = backgroundColor(variant: self.variant, state: self.state, color: self.color)
         viewProperties.pressedBackgroundColor = backgroundColor(variant: self.variant, state: .pressed, color: self.color)
         viewProperties.imageColor = tintColor(variant: self.variant, state: self.state, color: self.color)
         viewProperties.pressedImageColor = tintColor(variant: self.variant, state: .pressed, color: self.color)
+        viewProperties.margins = getMargins()
+        viewProperties.cornerRadius = self.size.cornerRadius()
+        viewProperties.isEnabled = self.state.isEnabled()
         
         viewProperties.activityIndicator = .init(
             icon: .ic24SpinerLoader.withTintColor(tintColor(
