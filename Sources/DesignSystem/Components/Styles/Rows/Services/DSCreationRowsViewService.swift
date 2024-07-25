@@ -49,8 +49,11 @@ public struct DSCreationRowsViewService {
         )
         
         let leadingView = DSRowBlocksService().createRowBlock(leading)
+        leadingView?.isOpaque = true
         let centerView = DSRowBlocksService().createRowBlock(center)
+        centerView?.isOpaque = true
         let trailingView = DSRowBlocksService().createRowBlock(trailing)
+        trailingView?.isOpaque = true
         
         let containerViewProperty = RowBaseContainer.ViewProperties(
             leadingView: leadingView,
