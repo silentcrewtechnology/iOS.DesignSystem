@@ -17,7 +17,7 @@ private class ImageVC: UIViewController {
             hStack.addArrangedSubview({
                 let view = ImageView()
                 let style = ImageViewStyle(
-                    variant: .icon24(.ic24Bill),
+                    type: .custom(.ic24Bill, .init(width: 24, height: 24)),
                     color: .primary)
                 var viewProperties = ImageView.ViewProperties()
                 style.update(viewProperties: &viewProperties)
@@ -27,7 +27,7 @@ private class ImageVC: UIViewController {
             hStack.addArrangedSubview({
                 let view = ImageView()
                 let style = ImageViewStyle(
-                    variant: .letters("AB".attributed),
+                    type: .letter("AB".attributed),
                     color: .primary)
                 var viewProperties = ImageView.ViewProperties()
                 style.update(viewProperties: &viewProperties)
@@ -37,7 +37,7 @@ private class ImageVC: UIViewController {
             hStack.addArrangedSubview({
                 let view = ImageView()
                 let style = ImageViewStyle(
-                    variant: .image(.ic24Euro.withTintColor(.contentInfo).centered(in: .circle(backgroundColor: .backgroundInfoLight, diameter: 40))),
+                    type: .fillImage(.ic24Euro.withTintColor(.contentInfo).centered(in: .circle(backgroundColor: .backgroundInfoLight, diameter: 40))),
                     color: .primary)
                 var viewProperties = ImageView.ViewProperties()
                 style.update(viewProperties: &viewProperties)
@@ -52,7 +52,7 @@ private class ImageVC: UIViewController {
             hStack.addArrangedSubview({
                 let view = ImageView()
                 let style = ImageViewStyle(
-                    variant: .icon24(.ic24Ban),
+                    type: .icon(.ic24Ban),
                     color: .main)
                 var viewProperties = ImageView.ViewProperties()
                 style.update(viewProperties: &viewProperties)
@@ -62,7 +62,7 @@ private class ImageVC: UIViewController {
             hStack.addArrangedSubview({
                 let view = ImageView()
                 let style = ImageViewStyle(
-                    variant: .letters("CD".attributed),
+                    type: .letter("CD".attributed),
                     color: .main)
                 var viewProperties = ImageView.ViewProperties()
                 style.update(viewProperties: &viewProperties)
@@ -77,7 +77,7 @@ private class ImageVC: UIViewController {
             hStack.addArrangedSubview({
                 let view = ImageView()
                 let style = ImageViewStyle(
-                    variant: .icon24(.ic24Globe),
+                    type: .icon(.ic24Globe),
                     color: .mainInverse)
                 var viewProperties = ImageView.ViewProperties()
                 style.update(viewProperties: &viewProperties)
@@ -87,7 +87,7 @@ private class ImageVC: UIViewController {
             hStack.addArrangedSubview({
                 let view = ImageView()
                 let style = ImageViewStyle(
-                    variant: .letters("EF".attributed),
+                    type: .letter("EF".attributed),
                     color: .mainInverse)
                 var viewProperties = ImageView.ViewProperties()
                 style.update(viewProperties: &viewProperties)
@@ -97,12 +97,12 @@ private class ImageVC: UIViewController {
             return hStack
         }())
         
-        for color in [ImageVariables.Color.additional1, .additional2, .additional3, .additional4, .additional5, .additional6, .additional7, .additional8] {
+        for color in [ImageViewStyle.Color.additional1, .additional2, .additional3, .additional4, .additional5, .additional6, .additional7, .additional8] {
             
             vStack.addArrangedSubview({
                 let view = ImageView()
                 let style = ImageViewStyle(
-                    variant: .icon24(.ic24Bill),
+                    type: .icon(.ic24Bill),
                     color: color)
                 var viewProperties = ImageView.ViewProperties()
                 style.update(viewProperties: &viewProperties)

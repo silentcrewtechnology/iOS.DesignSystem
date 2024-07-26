@@ -1,170 +1,236 @@
 import UIKit
 import Components
-import Colors
 
-public struct ImageViewStyle {
-    
-    public enum Variant {
-        /// Tinted icon 20x20
-        case icon20(UIImage)
-        /// Tinted icon 24x24
-        case icon24(UIImage)
-        /// Tinted letters 40x40
-        case letters(NSMutableAttributedString)
-        /// 40x40 image
-        case image(UIImage)
+public final class ImageViewStyle {
+    public enum Types {
+        case icon(UIImage)
+        case letter(NSMutableAttributedString)
+        case fillImage(UIImage)
+        // TODO: Обсудить с Соней добавление всех атомов картинок
+        case custom(UIImage, CGSize)
     }
     
-    public typealias Color = ImageVariables.Color
+    public enum Color {
+        case primary
+        case main
+        case mainInverse
+        case additional1
+        case additional2
+        case additional3
+        case additional4
+        case additional5
+        case additional6
+        case additional7
+        case additional8
+    }
     
-    private let variant: Variant
-    private let variables: ImageVariables
+    private var type: Types
+    private var color: Color
     
     public init(
-        variant: Variant,
+        type: Types,
         color: Color
     ) {
-        self.variant = variant
-        self.variables = .init(color: color)
+        self.type = type
+        self.color = color
     }
     
     public func update(
+        type: Types? = nil,
+        color: Color? = nil,
         viewProperties: inout ImageView.ViewProperties
     ) {
-        viewProperties.size = variant.size()
-        viewProperties.backgroundColor = variables.backgroundColor()
-        viewProperties.cornerRadius = variant.radius()
-        viewProperties.text = variant.text()?
+        if let type {
+            self.type = type
+        }
+        viewProperties.size = self.type.size()
+        viewProperties.cornerRadius = self.type.cornerRadius()
+        viewProperties.margins = getMargins()
+        
+        if let color {
+            self.color = color
+        }
+        viewProperties.backgroundColor = backgroundColor()
+        
+        viewProperties.text = self.type.text()?
             .fontStyle(.textM)
-            .foregroundColor(variables.labelColor())
-        viewProperties.image = variant.image(tintColor: variables.iconColor())
+            .foregroundColor(self.color.textColor())
+        
+        viewProperties.image = self.type.image(tintColor: self.color.tintIconColor())
+    }
+    
+    private func getMargins() -> ImageView.ViewProperties.Margins {
+        return .init(
+            imageTop: type.imageTop(),
+            imageBottom: type.imageBottom(),
+            imageLeading: type.imageLeading(),
+            imageTrailing: type.imageTrailing(),
+            size: type.imageSize()
+        )
+    }
+    
+    private func backgroundColor() -> UIColor {
+        switch type {
+        case .icon: return color.backgroundIconColor()
+        case .letter: return color.backgroundLetterColor()
+        case .fillImage: return .clear
+        case .custom: return color.backgroundIconColor()
+        }
     }
 }
 
-public extension ImageViewStyle.Variant {
-    
-    func radius() -> CGFloat {
+public extension ImageViewStyle.Types {
+    func size() -> CGSize {
         switch self {
-        case .icon20:
-            return 10
-        case .icon24:
-            return 12
-        case .letters:
-            return 20
-        case .image:
-            return 20
+        case .custom(_ , let size): size
+        default: .init(width: 40, height: 40)
         }
     }
     
-    func size() -> CGSize {
-        switch self {
-        case .icon20:
-            return .init(width: 20, height: 20)
-        case .icon24:
-            return .init(width: 24, height: 24)
-        case .letters:
-            return .init(width: 40, height: 40)
-        case .image:
-            return .init(width: 40, height: 40)
-        }
+    func cornerRadius() -> CGFloat {
+        return self.size().height / 2
     }
     
     func image(tintColor: UIColor) -> UIImage? {
         switch self {
-        case .icon20(let image), .icon24(let image): 
-            image.withTintColor(tintColor)
-        case .letters: nil
-        case .image(let image): image
+        case .icon(let image): image.withTintColor(tintColor)
+        case .letter: nil
+        case .fillImage(let image): image
+        case .custom(let image, _): image
         }
     }
     
     func text() -> NSMutableAttributedString? {
         switch self {
-        case .icon20, .icon24: nil
-        case .letters(let text): text
-        case .image: nil
+        case .icon: nil
+        case .letter(let text): text
+        case .fillImage: nil
+        case .custom: nil
+        }
+    }
+    
+    func imageSize() -> CGSize {
+        switch self {
+        case .icon: .init(width: 24, height: 24)
+        case .letter: .init(width: 40, height: 40)
+        case .fillImage: .init(width: 40, height: 40)
+        case .custom( _, let size): size
+        }
+    }
+    
+    func imageTop() -> CGFloat {
+        switch self {
+        case .icon: 8
+        case .letter: 0
+        case .fillImage: 0
+        case .custom: 0
+        }
+    }
+    
+    func imageLeading() -> CGFloat {
+        switch self {
+        case .icon: 8
+        case .letter: 0
+        case .fillImage: 0
+        case .custom: 0
+        }
+    }
+    
+    func imageTrailing() -> CGFloat {
+        switch self {
+        case .icon: 8
+        case .letter: 0
+        case .fillImage: 0
+        case .custom: 0
+        }
+    }
+    
+    func imageBottom() -> CGFloat {
+        switch self {
+        case .icon: 8
+        case .letter: 0
+        case .fillImage: 0
+        case .custom: 0
         }
     }
 }
 
-// MARK: SHOULD BE AUTOGENERATED FROM TOKENS JSON
-
-public struct ImageVariables {
-    
-    public enum Color: String {
-        case primary
-        case main
-        case mainInverse
-        case additional1 = "add1"
-        case additional2 = "add2"
-        case additional3 = "add3"
-        case additional4 = "add4"
-        case additional5 = "add5"
-        case additional6 = "add6"
-        case additional7 = "add7"
-        case additional8 = "add8"
+public extension ImageViewStyle.Color {
+    func backgroundIconColor() -> UIColor {
+        switch self {
+        case .primary:
+                .Components.Image.Primary.Background.Color.value
+        case .main:
+                .Components.Image.Main.Background.Color.value
+        case .mainInverse:
+                .Components.Image.MainInverse.Background.Color.value
+        case .additional1:
+                .Components.Image.Add1.Background.Color.value
+        case .additional2:
+                .Components.Image.Add2.Background.Color.value
+        case .additional3:
+                .Components.Image.Add3.Background.Color.value
+        case .additional4:
+                .Components.Image.Add4.Background.Color.value
+        case .additional5:
+                .Components.Image.Add5.Background.Color.value
+        case .additional6:
+                .Components.Image.Add6.Background.Color.value
+        case .additional7:
+                .Components.Image.Add7.Background.Color.value
+        case .additional8:
+                .Components.Image.Add8.Background.Color.value
+        }
     }
     
-    private let color: Color
-    
-    public init(
-        color: Color
-    ) {
-        self.color = color
+    func backgroundLetterColor() -> UIColor {
+        switch self {
+        case .primary:
+                .Components.Image.Primary.Background.Color.value
+        case .main:
+                .Components.Image.Main.Background.Color.value
+        case .mainInverse:
+                .Components.Image.MainInverse.Background.Color.value
+        default: .Components.Image.Primary.Background.Color.value
+        }
     }
     
-    public func backgroundColor() -> UIColor {
-        let hexString = image[color.rawValue]?["background"]?["color"] ?? ""
-        return UIColor(hexString: hexString)
+    func tintIconColor() -> UIColor {
+        switch self {
+        case .primary:
+                .Components.Image.Primary.Icon.Color.value
+        case .main:
+                .Components.Image.Main.Icon.Color.value
+        case .mainInverse:
+                .Components.Image.MainInverse.Icon.Color.value
+        case .additional1:
+                .Components.Image.Add1.Icon.Color.value
+        case .additional2:
+                .Components.Image.Add2.Icon.Color.value
+        case .additional3:
+                .Components.Image.Add3.Icon.Color.value
+        case .additional4:
+                .Components.Image.Add4.Icon.Color.value
+        case .additional5:
+                .Components.Image.Add5.Icon.Color.value
+        case .additional6:
+                .Components.Image.Add6.Icon.Color.value
+        case .additional7:
+                .Components.Image.Add7.Icon.Color.value
+        case .additional8:
+                .Components.Image.Add8.Icon.Color.value
+        }
     }
     
-    public func iconColor() -> UIColor {
-        let hexString = image[color.rawValue]?["icon"]?["color"] ?? ""
-        return UIColor(hexString: hexString)
+    func textColor() -> UIColor {
+        switch self {
+        case .primary:
+                .Components.Image.Primary.Label.Color.value
+        case .main:
+                .Components.Image.Main.Label.Color.value
+        case .mainInverse:
+                .Components.Image.MainInverse.Label.Color.value
+        default: .Components.Image.Primary.Label.Color.value
+        }
     }
-    
-    public func labelColor() -> UIColor {
-        let hexString = image[color.rawValue]?["label"]?["color"] ?? ""
-        return UIColor(hexString: hexString)
-    }
-    
-    // заменится на общий token-json
-    private let image: [String: [String: [String: String]]] = [
-        "primary": [
-            "background": ["color": "#F5F5F5"],
-            "icon": ["color": "#6E6D6D"],
-            "label": ["color": "#6E6D6D"]],
-        "main": [
-            "background": ["color": "#FFFFFF"],
-            "icon": ["color": "#6E6D6D"],
-            "label": ["color": "#6E6D6D"]],
-        "mainInverse": [
-            "background": ["color": "#141414"],
-            "icon": ["color": "#FFFFFF"],
-            "label": ["color": "#FFFFFF"]],
-        "add1": [
-            "background": ["color": "#009B3A"],
-            "icon": ["color": "#FFFFFF"]],
-        "add2": [
-            "background": ["color": "#EC4661"],
-            "icon": ["color": "#FFFFFF"]],
-        "add3": [
-            "background": ["color": "#F3B925"],
-            "icon": ["color": "#FFFFFF"]],
-        "add4": [
-            "background": ["color": "#6693CB"],
-            "icon": ["color": "#FFFFFF"]],
-        "add5": [
-            "background": ["color": "#936EB9"],
-            "icon": ["color": "#FFFFFF"]],
-        "add6": [
-            "background": ["color": "#03B3A8"],
-            "icon": ["color": "#FFFFFF"]],
-        "add7": [
-            "background": ["color": "#16AE86"],
-            "icon": ["color": "#FFFFFF"]],
-        "add8": [
-            "background": ["color": "#BABABA"],
-            "icon": ["color": "#FFFFFF"]]
-    ]
 }

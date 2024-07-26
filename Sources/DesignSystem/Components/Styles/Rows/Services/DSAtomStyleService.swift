@@ -74,7 +74,7 @@ private extension DSAtomStyleService {
         var viewProperties = ImageView.ViewProperties(image: image)
         
         let newStyle = style ?? ImageViewStyle(
-            variant: .image(image),
+            type: .icon(image),
             color: .primary
         )
         newStyle.update(viewProperties: &viewProperties)
@@ -119,7 +119,7 @@ private extension DSAtomStyleService {
         var viewProperties = ImageView.ViewProperties(image: image)
         
         let newStyle = style ?? ImageViewStyle(
-            variant: .icon24(image),
+            type: .custom(image, .init(width: 24, height: 24)),
             color: .primary
         )
         newStyle.update(viewProperties: &viewProperties)
@@ -135,7 +135,7 @@ private extension DSAtomStyleService {
         var viewProperties = ImageView.ViewProperties(image: image)
         
         let newStyle = style ?? ImageViewStyle(
-            variant: .icon20(image),
+            type: .custom(image, .init(width: 20, height: 20)),
             color: .primary
         )
         newStyle.update(viewProperties: &viewProperties)
