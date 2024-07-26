@@ -9,7 +9,7 @@ import UIKit
 import Components
 import Extensions
 
-public struct NavigationBarStyle {
+public final class NavigationBarStyle {
     
     // MARK: - Properties
     
@@ -44,6 +44,7 @@ public struct NavigationBarStyle {
     
     private let variant: Variant
     private let color: Color
+    private var backAction: (() -> Void)?
     
     // MARK: - Life cycle
     
@@ -56,15 +57,17 @@ public struct NavigationBarStyle {
     
     public func update(
         viewProperties: inout NavigationBar.ViewProperties,
-        backAction: Selector? = nil
+        backAction: (() -> Void)? = nil
     ) {
+        self.backAction = backAction
+        
         let backButton = UIBarButtonItem(
             image: .ic24ArrowLeft
                 .withTintColor(.Semantic.LightTheme.Content.Base.primary)
                 .withRenderingMode(.alwaysOriginal),
             style: .plain,
             target: self,
-            action: backAction
+            action: #selector(backTapped)
         )
         viewProperties.leftBarButtonItems = [backButton]
         viewProperties.largeTitleDisplayMode = .never
@@ -238,5 +241,9 @@ public struct NavigationBarStyle {
         return color == .main
             ? .Semantic.LightTheme.Background.Surface.main
             : .Semantic.LightTheme.Background.Surface.primary
+    }
+    
+    @objc private func backTapped() {
+        backAction?()
     }
 }
