@@ -22,7 +22,7 @@ public struct InputOTPItemViewStyle {
         viewProperties.cornerRadius = 4
         viewProperties.text = viewProperties.text
             .fontStyle(.textM)
-            .foregroundColor(.contentPrimary)
+            .foregroundColor(state.textColor())
         viewProperties.borderColor = state.borderColor()
         viewProperties.borderWidth = state.borderWidth()
     }
@@ -30,21 +30,30 @@ public struct InputOTPItemViewStyle {
 
 public extension InputOTPItemViewStyle.State {
     
+    func textColor() -> UIColor {
+        switch self {
+        case .default: .Components.InputOTP.Content.Color.default
+        case .active: .Components.InputOTP.Content.Color.active
+        case .error: .Components.InputOTP.Content.Color.error
+        case .disabled: .Components.InputOTP.Content.Color.disabled
+        }
+    }
+    
     func backgroundColor() -> UIColor {
         switch self {
-        case .default: .backgroundPrimary
-        case .active: .backgroundMain
-        case .error: .backgroundPrimary
-        case .disabled: .backgroundDisabled
+        case .default: .Components.InputOTP.Background.Color.default
+        case .active: .Components.InputOTP.Background.Color.active
+        case .error: .Components.InputOTP.Background.Color.error
+        case .disabled: .Components.InputOTP.Background.Color.disabled
         }
     }
     
     func borderColor() -> UIColor {
         switch self {
-        case .default: .clear
-        case .active: .borderAction
-        case .error: .borderError
-        case .disabled: .clear
+        case .default: .Components.InputOTP.Border.Color.default
+        case .active: .Components.InputOTP.Border.Color.active
+        case .error: .Components.InputOTP.Border.Color.error
+        case .disabled: .Components.InputOTP.Border.Color.disabled
         }
     }
     

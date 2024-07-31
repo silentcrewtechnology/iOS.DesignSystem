@@ -2,7 +2,7 @@ import UIKit
 import Components
 import Colors
 
-public struct InputTextViewStyle {
+public struct InputViewStyle {
     
     public enum State {
         case `default`
@@ -17,14 +17,14 @@ public struct InputTextViewStyle {
     
     public func update(
         state: State,
-        viewProperties: inout InputTextView.ViewProperties
+        viewProperties: inout InputView.ViewProperties
     ) {
         updateField(state: state, viewProperties: &viewProperties.textField)
         updateFieldContainer(state: state, viewProperties: &viewProperties)
         hintStyle.update(variant: state.hintVariant(), viewProperties: &viewProperties.hint)
     }
     
-    public func updateField(
+    private func updateField(
         state: State,
         viewProperties: inout InputTextField.ViewProperties
     ) {
@@ -37,9 +37,9 @@ public struct InputTextViewStyle {
         viewProperties.cursorColor = state.tintColor()
     }
     
-    public func updateFieldContainer(
+    private func updateFieldContainer(
         state: State,
-        viewProperties: inout InputTextView.ViewProperties
+        viewProperties: inout InputView.ViewProperties
     ) {
         viewProperties.fieldBackgroundColor = state.fieldBackgroundColor()
         viewProperties.borderColor = state.borderColor()
@@ -49,9 +49,9 @@ public struct InputTextViewStyle {
         tintRightImages(state: state, viewProperties: &viewProperties)
     }
     
-    public func tintRightImages(
+    private func tintRightImages(
         state: State,
-        viewProperties: inout InputTextView.ViewProperties
+        viewProperties: inout InputView.ViewProperties
     ) {
         for view in viewProperties.rightViews {
             guard let view = view as? UIImageView else { continue }
@@ -60,8 +60,7 @@ public struct InputTextViewStyle {
     }
 }
 
-public extension InputTextViewStyle.State {
-    
+public extension InputViewStyle.State {
     func textColor() -> UIColor {
         switch self {
         case .default: .contentPrimary
