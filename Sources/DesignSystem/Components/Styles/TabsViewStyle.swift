@@ -11,7 +11,7 @@ public struct TabViewStyle {
     ) {
         viewProperties.height = 56
         updateItems(viewProperties: &viewProperties)
-        let dividerStyle = DividerViewStyle(orientation: .horizontal,style: .action)
+        let dividerStyle = DividerViewStyle(variant: .horizontal, style: .accent)
         dividerStyle.update(viewProperties: &viewProperties.divider)
         viewProperties.animationDuration = 0.3
     }

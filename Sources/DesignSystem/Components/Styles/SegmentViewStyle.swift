@@ -80,7 +80,7 @@ public struct SegmentViewStyle {
                 viewProperties.items[index].divider = .init()
             } else {
                 DividerViewStyle(
-                    orientation: .fixed(.init(width: 1, height: 24)),
+                    variant: .fixed(.init(width: 1, height: 24)),
                     style: .main)
                 .update(viewProperties: &viewProperties.items[index].divider)
             }
