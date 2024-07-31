@@ -6,41 +6,41 @@ public struct DividerViewStyle {
     
     public typealias ViewProperties = DividerView.ViewProperties
     
-    public enum Orientation {
+    public enum Variant {
         case horizontal
         case vertical
         case fixed(CGSize)
     }
     
     public enum Style {
-        case action
+        case accent
         case main
         case secondary
     }
     
-    private let orientation: Orientation
+    private let variant: Variant
     private let style: Style
     
     public init(
-        orientation: Orientation,
+        variant: Variant,
         style: Style
     ) {
         self.style = style
-        self.orientation = orientation
+        self.variant = variant
     }
     
     public func update(
         viewProperties: inout ViewProperties
     ) {
-        update(orientation: orientation, viewProperties: &viewProperties)
+        update(variant: variant, viewProperties: &viewProperties)
         update(style: style, viewProperties: &viewProperties)
     }
     
     private func update(
-        orientation: Orientation,
+        variant: Variant,
         viewProperties: inout ViewProperties
     ) {
-        switch orientation {
+        switch variant {
         case .horizontal:
             viewProperties.size = .height(Constant.thickness)
         case .vertical:
@@ -55,12 +55,9 @@ public struct DividerViewStyle {
         viewProperties: inout ViewProperties
     ) {
         switch style {
-        case .action:
-            viewProperties.backgroundColor = .borderAction
-        case .main:
-            viewProperties.backgroundColor = .borderMain
-        case .secondary:
-            viewProperties.backgroundColor = .borderSecondary
+        case .accent: viewProperties.backgroundColor = .Components.Divider.Accent.Color.color
+        case .main: viewProperties.backgroundColor = .Components.Divider.Main.Color.color
+        case .secondary: viewProperties.backgroundColor = .Components.Divider.Secondary.Color.color
         }
     }
 }
