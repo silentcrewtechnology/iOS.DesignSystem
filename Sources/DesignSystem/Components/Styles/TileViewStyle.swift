@@ -1,107 +1,93 @@
 import UIKit
 import Components
-import Colors
 
-public struct TileViewStyle {
+public final class TileViewStyle {
     
-    public enum Style {
-        case action
+    public enum Background {
         case primary
         case main
     }
     
-    public enum Size {
-        case sizeS
-        case sizeL
+    public enum WidthType {
+        case s
+        case m
     }
     
-    private let size: Size
-    private let style: Style
+    private var background: Background
+    private var widthType: WidthType
     
     public init(
-        size: Size,
-        style: Style
+        background: Background,
+        widthType: WidthType
     ) {
-        self.size = size
-        self.style = style
+        self.background = background
+        self.widthType = widthType
     }
     
     public func update(
+        background: Background? = nil,
+        widthType: WidthType? = nil,
         viewProperties: inout TileView.ViewProperties
     ) {
-        viewProperties.backgroundColor = style.backgroundColor()
-        viewProperties.width = size.width()
-        viewProperties.cornerRadius = 12
+        
+        if let background {
+            self.background = background
+        }
+        
+        if let widthType {
+            self.widthType = widthType
+        }
+        
+        viewProperties.backgroundColor = self.background.backgroundColor()
         viewProperties.text = viewProperties.text
-            .fontStyle(size.fontStyle())
-            .foregroundColor(style.textColor())
+            .fontStyle(.textXS)
+            .foregroundColor(self.background.textColor())
             .alignment(.center)
-        viewProperties.textWidth = size.textWidth()
+        viewProperties.cornerRadius = 12
+        viewProperties.numberOfLines = self.widthType.numberOfLines()
+        viewProperties.margins = getMargins()
     }
     
-    public func styledCenteredIcon(_ image: UIImage) -> UIImage {
-        image.withTintColor(.contentPrimary)
-            .centered(in: .circle(
-                backgroundColor: style.iconBackgroundColor(),
-                diameter: size.iconDiameter()))
-    }
-    
-    public func centeredIcon(_ image: UIImage) -> UIImage {
-        image.centered(in: .circle(
-            backgroundColor: .clear,
-            diameter: size.iconDiameter()))
+    private func getMargins() -> TileView.ViewProperties.Margins {
+        return .init(
+            imageTop: 16,
+            labelTop: 8,
+            labelBottom: 16,
+            labelLeading: 8,
+            labelTrailing: 8,
+            width: widthType.width()
+        )
     }
 }
 
-public extension TileViewStyle.Style {
-    
+public extension TileViewStyle.Background {
     func backgroundColor() -> UIColor {
         switch self {
-        case .action: .backgroundAction
-        case .primary: .backgroundPrimary
-        case .main: .backgroundMain
-        }
-    }
-    
-    func iconBackgroundColor() -> UIColor {
-        switch self {
-        case .action: .backgroundMain
-        case .primary: .backgroundMain
-        case .main: .backgroundPrimary
+        case .primary: .Components.Tile.Primary.Background.Color.default
+        case .main: .Components.Tile.Main.Background.Color.default
         }
     }
     
     func textColor() -> UIColor {
         switch self {
-        case .action: .contentActionOn
-        case .primary: .contentPrimary
-        case .main: .contentPrimary
+        case .primary: .Components.Tile.Primary.Label.Color.default
+        case .main: .Components.Tile.Main.Label.Color.default
         }
     }
 }
 
-public extension TileViewStyle.Size {
+public extension TileViewStyle.WidthType {
+    func numberOfLines() -> Int {
+        switch self {
+        case .s: return 1
+        case .m: return 2
+        }
+    }
     
     func width() -> CGFloat {
         switch self {
-        case .sizeS: 80
-        case .sizeL: 96
-        }
-    }
-    
-    func textWidth() -> CGFloat {
-        switch self {
-        case .sizeS: 72
-        case .sizeL: 80
-        }
-    }
-    
-    func iconDiameter() -> CGFloat { 48 }
-    
-    func fontStyle() -> FontStyle {
-        switch self {
-        case .sizeS: .text2XS
-        case .sizeL: .textXS
+        case .s: return 80
+        case .m: return 96
         }
     }
 }
