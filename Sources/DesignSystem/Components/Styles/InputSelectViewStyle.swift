@@ -41,8 +41,8 @@ public struct InputSelectViewStyle {
         )
         
         viewProperties.backgroundColor = state.backgroundColor()
-        viewProperties.clearButtonIcon = state.clearButtonIcon()
-        viewProperties.disclosureIcon = state.disclosureIcon()
+        viewProperties.clearButtonIcon = .ic24Close.withTintColor(state.iconColor())
+        viewProperties.disclosureIcon = .ic24ChevronDown.withTintColor(state.iconColor())
         viewProperties.isUserInteractionEnabled = state.isEnabled()
     }
 }
@@ -51,58 +51,49 @@ public extension InputSelectViewStyle.State {
     
     func textColor() -> UIColor {
         switch self {
-        case .default: .contentPrimary
-        case .active: .contentPrimary
-        case .error: .contentPrimary
-        case .disabled: .contentSecondary
+        case .default: .Components.InputSelect.Content.Color.default
+        case .active: .Components.InputSelect.Content.Color.active
+        case .error: .Components.InputSelect.Content.Color.error
+        case .disabled: .Components.InputSelect.Content.Color.disabled
         }
     }
     
     func placeholderColor() -> UIColor {
         switch self {
-        case .default: .contentTertiary
-        case .active: .contentTertiary
-        case .error: .contentTertiary
-        case .disabled: .contentDisabled
+        case .default: .Components.InputSelect.Placeholder.Color.default
+        case .active: .Components.InputSelect.Placeholder.Color.active
+        case .error: .Components.InputSelect.Placeholder.Color.error
+        case .disabled: .Components.InputSelect.Placeholder.Color.disabled
         }
     }
     
     func borderColor() -> UIColor {
         switch self {
-        case .default: .clear
-        case .active: .borderAction
-        case .error: .borderError
-        case .disabled: .clear
+        case .default: .Components.InputSelect.Border.Color.default
+        case .active: .Components.InputSelect.Border.Color.active
+        case .error: .Components.InputSelect.Border.Color.error
+        case .disabled: .Components.InputSelect.Border.Color.disabled
         }
     }
     
     func backgroundColor() -> UIColor {
         switch self {
-        case .default: .backgroundPrimary
-        case .active: .backgroundMain
-        case .error: .backgroundPrimary
-        case .disabled: .backgroundDisabled
+        case .default: .Components.InputSelect.Background.Color.default
+        case .active: .Components.InputSelect.Background.Color.active
+        case .error: .Components.InputSelect.Background.Color.error
+        case .disabled: .Components.InputSelect.Background.Color.disabled
         }
     }
     
-    func clearButtonIcon() -> UIImage {
+    func iconColor() -> UIColor {
         switch self {
-        case .default: .ic24Close.withTintColor(.contentSecondary)
-        case .active: .ic24Close.withTintColor(.contentSecondary)
-        case .error: .ic24Close.withTintColor(.contentSecondary)
-        case .disabled: .ic24Close.withTintColor(.contentDisabled)
+        case .default: .Components.InputSelect.Icon.Color.default
+        case .active: .Components.InputSelect.Icon.Color.active
+        case .error: .Components.InputSelect.Icon.Color.error
+        case .disabled: .Components.InputSelect.Icon.Color.disabled
         }
     }
-    
-    func disclosureIcon() -> UIImage {
-        switch self {
-        case .default: .ic24ChevronDown.withTintColor(.contentPrimary)
-        case .active: .ic24ChevronUp.withTintColor(.contentPrimary)
-        case .error: .ic24ChevronDown.withTintColor(.contentPrimary)
-        case .disabled: .ic24ChevronDown.withTintColor(.contentTertiary)
-        }
-    }
-    
+
     func isEnabled() -> Bool {
         switch self {
         case .default: true
