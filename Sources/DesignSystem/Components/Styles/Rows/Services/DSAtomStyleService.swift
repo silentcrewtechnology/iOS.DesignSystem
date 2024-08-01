@@ -221,8 +221,8 @@ private extension DSAtomStyleService {
         style: RadioViewStyle? = nil
     ) -> UIView? {
         var style = style ?? RadioViewStyle(
-            selection: isOn ? .checked : .default,
-            state: .default
+            state: .default,
+            selection: isOn ? .checked : .default
         )
         // TODO: нужна сущность, чтобы хранить ссылки на View/ViewProperties
         var updateView: (RadioViewStyle) -> Void = { _ in }
