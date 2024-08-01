@@ -61,6 +61,7 @@ public struct InputViewStyle {
 }
 
 public extension InputViewStyle.State {
+
     func textColor() -> UIColor {
         switch self {
         case .default: .contentPrimary
