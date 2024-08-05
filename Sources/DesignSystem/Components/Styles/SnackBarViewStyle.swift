@@ -10,16 +10,13 @@ import Components
 
 public struct SnackBarViewStyle {
     
+    // MARK: - Properties
+    
     public enum Variant {
-        case success
         case info
+        case success
         case warning
         case error
-    }
-    
-    public enum Color {
-        case light
-        case dark
     }
     
     public enum Delay {
@@ -27,55 +24,75 @@ public struct SnackBarViewStyle {
         case long
         case infinite
         case custom(TimeInterval)
+        
+        func showTime() -> TimeInterval {
+            switch self {
+            case .short: 3.0
+            case .long: 5.0
+            case .infinite: .infinity
+            case .custom(let interval): interval
+            }
+        }
     }
     
-    private let color: Color
+    // MARK: - Private proeprties
+    
     private let variant: Variant
     private let delay: Delay
     
+    // MARK: - Life cycle
+    
     public init(
-        color: Color,
         variant: Variant,
         delay: Delay
     ) {
-        self.color = color
         self.variant = variant
         self.delay = delay
     }
     
+    // MARK: - Methods
+    
     public func update(
         viewProperties: inout SnackBarView.ViewProperties
     ) {
-        let foregroundColors = color.foregroundColors()
-        
-        viewProperties.icon = variant.icon()
-        viewProperties.title = viewProperties.title?.fontStyle(.textM_1).foregroundColor(foregroundColors.title)
-        viewProperties.content = viewProperties.content?.fontStyle(.textS).foregroundColor(foregroundColors.content)
-        viewProperties.closeButton?.icon = .ic16Close.withTintColor(color.closeButtonIconTintColor())
-        viewProperties.backgroundColor = color.backgroundColor()
+        viewProperties.icon = .init(image: variant.icon(), size: .init(width: 24, height: 24))
+        viewProperties.title = viewProperties.title?.fontStyle(.textM_1).foregroundColor(variant.titleTintColor())
+        viewProperties.subtitle = viewProperties.subtitle?.fontStyle(.textS).foregroundColor(variant.subtitleTintColor())
+        viewProperties.closeButton?.icon = .ic16Close.withTintColor(variant.closeIconTintColor())
+        viewProperties.closeButton?.size = .init(width: 16, height: 24)
+        viewProperties.backgroundColor = variant.backgroundTintColor()
+        viewProperties.cornerRadius = 12
+        viewProperties.height = 100
+        viewProperties.stackViewInsets = .init(inset: 16)
+        viewProperties.containerViewInsets = .init(inset: 16)
+        viewProperties.spacerViewProperties = .init(size: .init(width: .zero, height: 8))
+        viewProperties.animationInsets = .zero
         
         updateBottomButton(to: &viewProperties)
         updateShadow(to: &viewProperties)
         updateAnimations(to: &viewProperties)
     }
     
+    // MARK: - Private methods
+    
     private func updateBottomButton(
         to viewProperties: inout SnackBarView.ViewProperties
     ) {
         guard let bottomButton = viewProperties.bottomButton else { return }
+        
         viewProperties.bottomButton?.title = bottomButton.title
             .fontStyle(.textXS)
-            .foregroundColor(color.foregroundColors().bottomButtonTitle)
+            .foregroundColor(variant.bottomButtonTintColor())
     }
     
     private func updateShadow(
         to viewProperties: inout SnackBarView.ViewProperties
     ) {
         viewProperties.shadow = .init(
-            color: UIColor.snackBarShadow.cgColor,
+            color: UIColor.Core.Brand.neutral1000.cgColor,
             offset: .init(width: 0, height: 4),
             radius: 20,
-            opacity: 1.0
+            opacity: 0.06
         )
     }
     
@@ -98,64 +115,61 @@ public struct SnackBarViewStyle {
     }
 }
 
-public extension SnackBarViewStyle.Color {
-    
-    func backgroundColor() -> UIColor {
-        switch self {
-        case .light: .backgroundMain
-        case .dark: .backgroundMainInverse
-        }
-    }
-    
-    func closeButtonIconTintColor() -> UIColor {
-        switch self {
-        case .light: .contentPrimary
-        case .dark: .contentPrimaryInverse
-        }
-    }
-    
-    func foregroundColors() -> (
-        title: UIColor,
-        content: UIColor,
-        bottomButtonTitle: UIColor
-    ) {
-        switch self {
-        case .light:
-            return (
-                title: .contentPrimary,
-                content: .contentSecondary,
-                bottomButtonTitle: .contentAction
-            )
-        case .dark:
-            return (
-                title: .contentPrimaryInverse,
-                content: .contentPrimaryInverse,
-                bottomButtonTitle: .contentAction
-            )
-        }
-    }
-}
+// MARK: - SnackBarViewStyle.Variant Extension
 
 public extension SnackBarViewStyle.Variant {
     
     func icon() -> UIImage {
         switch self {
-        case .success: .ic24CheckCircleFilled.withTintColor(.backgroundSuccess)
-        case .info: .ic24InfoCircleFilled.withTintColor(.contentInfo)
-        case .warning: .ic24WarningCircleFilled.withTintColor(.contentWarning)
-        case .error: .ic24WarningCircleFilled.withTintColor(.contentError)
+        case .info: .ic24InfoCircleFilled.withTintColor(.Components.Snackbar.Info.IconLeft.Color.default)
+        case .success: .ic24CheckCircleFilled.withTintColor(.Components.Snackbar.Success.IconLeft.Color.default)
+        case .warning: .ic24WarningTriangleFilled.withTintColor(.Components.Snackbar.Warning.IconLeft.Color.default)
+        case .error: .ic24WarningCircleFilled.withTintColor(.Components.Snackbar.Error.IconLeft.Color.default)
         }
     }
-}
-
-public extension SnackBarViewStyle.Delay {
     
-    func showTime() -> TimeInterval {
+    func titleTintColor() -> UIColor {
         switch self {
-        case .short: 3.0
-        case .long: 5.0
-        case .infinite: .infinity
-        case .custom(let interval): interval
+        case .info: .Components.Snackbar.Info.Title.Color.default
+        case .success: .Components.Snackbar.Success.Title.Color.default
+        case .warning: .Components.Snackbar.Warning.Title.Color.default
+        case .error: .Components.Snackbar.Error.Title.Color.default
+        }
+    }
+    
+    func subtitleTintColor() -> UIColor {
+        switch self {
+        case .info: .Components.Snackbar.Info.Subtitle.Color.default
+        case .success: .Components.Snackbar.Success.Subtitle.Color.default
+        case .warning: .Components.Snackbar.Warning.Subtitle.Color.default
+        case .error: .Components.Snackbar.Error.Subtitle.Color.default
+        }
+    }
+    
+    func bottomButtonTintColor() -> UIColor {
+        switch self {
+        case .info: .Components.Snackbar.Info.ButtonLabel.Color.default
+        case .success: .Components.Snackbar.Success.ButtonLabel.Color.default
+        case .warning: .Components.Snackbar.Warning.ButtonLabel.Color.default
+        case .error: .Components.Snackbar.Error.ButtonLabel.Color.default
+        }
+    }
+    
+    func closeIconTintColor() -> UIColor {
+        switch self {
+        case .info: .Components.Snackbar.Info.IconClose.Color.default
+        case .success: .Components.Snackbar.Success.IconClose.Color.default
+        case .warning: .Components.Snackbar.Warning.IconClose.Color.default
+        case .error: .Components.Snackbar.Error.IconClose.Color.default
+        }
+    }
+    
+    func backgroundTintColor() -> UIColor {
+        switch self {
+        case .info: .Components.Snackbar.Info.Background.Color.default
+        case .success: .Components.Snackbar.Success.Background.Color.default
+        case .warning: .Components.Snackbar.Warning.Background.Color.default
+        case .error: .Components.Snackbar.Error.Background.Color.default
         }
     }
 }
