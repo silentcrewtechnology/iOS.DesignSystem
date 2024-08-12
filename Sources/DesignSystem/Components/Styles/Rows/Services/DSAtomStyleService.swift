@@ -85,14 +85,16 @@ private extension DSAtomStyleService {
 
     private func createCard(
         _ backgroundImage: UIImage,
-        _ style: CardImageViewStyle?
+        _ style: CardViewStyle?
     ) -> UIView? {
-        var viewProperties = CardImageView.ViewProperties()
+        var viewProperties = CardView.ViewProperties()
         
-        let newStyle = style ?? CardImageViewStyle(
-            paymentSystem: .Mir,
-            backgroundImage: backgroundImage)
-        newStyle.update(viewProperties: &viewProperties)
+        let newStyle = style ?? CardViewStyle(
+            set: .mir,
+            size: .small,
+            stack: .false
+        )
+        newStyle.update(viewProperties: &viewProperties, backgroundImage: backgroundImage)
         
         let cardView = RowBlocksService().createRowBlock(.atom(.card(viewProperties)))
         return cardView
