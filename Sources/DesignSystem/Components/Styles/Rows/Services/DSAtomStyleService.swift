@@ -263,9 +263,11 @@ private extension DSAtomStyleService {
         viewProperties.onTap = action
         
         let newStyle = style ?? ButtonViewStyle(
-            context: .action(.contained),
+            size: .small,
+            color: .accent,
+            variant: .primary,
             state: .default,
-            size: .sizeXS
+            icon: .without
         )
         newStyle.update(viewProperties: &viewProperties)
         
