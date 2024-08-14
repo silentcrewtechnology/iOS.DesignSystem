@@ -11,7 +11,7 @@ public struct InputViewStyle {
         case disabled
     }
     
-    private let hintStyle = HintViewStyle()
+    private let hintStyle = OldHintViewStyle()
     
     public init() { }
     
@@ -114,7 +114,7 @@ public extension InputViewStyle.State {
         }
     }
     
-    func hintVariant() -> HintViewStyle.Variant {
+    func hintVariant() -> OldHintViewStyle.Variant {
         switch self {
         case .default: .empty
         case .active: .empty
