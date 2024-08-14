@@ -1,7 +1,7 @@
 import UIKit
 import Components
 
-public final class AuthorizationButtonStyle {
+public final class ButtonAuthStyle {
     
     public enum Variant {
         case gosuslugi
@@ -36,7 +36,7 @@ public final class AuthorizationButtonStyle {
         variant: Variant? = nil,
         state: State? = nil,
         color: Color? = nil,
-        viewProperties: inout AuthorizationButton.ViewProperties
+        viewProperties: inout ButtonAuth.ViewProperties
     ) {
         
         if let variant {
@@ -69,7 +69,7 @@ public final class AuthorizationButtonStyle {
 }
 
 // MARK: Background Colors
-extension AuthorizationButtonStyle {
+extension ButtonAuthStyle {
     private func backgroundColor() -> UIColor {
         switch variant {
         case .akbars: backgroundAkbarsColor()
@@ -121,7 +121,7 @@ extension AuthorizationButtonStyle {
 }
 
 // MARK: Text Colors
-extension AuthorizationButtonStyle {
+extension ButtonAuthStyle {
     private func titleColor() -> UIColor {
         switch variant {
         case .akbars: titleAkbarsColor()
@@ -173,7 +173,7 @@ extension AuthorizationButtonStyle {
 }
 
 // MARK: Icon Tint Colors
-extension AuthorizationButtonStyle {
+extension ButtonAuthStyle {
     private func iconTintColor() -> UIColor? {
         switch variant {
         case .akbars: iconAkbarsTintColor()
@@ -204,7 +204,7 @@ extension AuthorizationButtonStyle {
 }
 
 // MARK: Spacing
-extension AuthorizationButtonStyle {
+extension ButtonAuthStyle {
     private func spacing() -> CGFloat {
         switch variant {
         case .akbars: 16
