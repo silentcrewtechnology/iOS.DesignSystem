@@ -1,12 +1,11 @@
 import UIKit
 
 public enum AtomDSElement {
-    case title(String, LabelViewStyle?)
+    case title(String, LabelViewStyle?, UILongPressGestureRecognizer?)
     case subtitle(String, LabelViewStyle?)
     case index(String, LabelViewStyle?)
     case amountText(String, LabelViewStyle?)
-    case copyText(String, LabelViewStyle?)
-    case subindex(String, LabelViewStyle?)
+    case label(String, LabelViewStyle?)
     case image40(UIImage, ImageViewStyle?)
     case icon24(UIImage, ImageViewStyle?)
     case icon20(UIImage, ImageViewStyle?)
@@ -20,14 +19,14 @@ public enum AtomDSElement {
 }
 
 public enum DSMoleculeElement {
-    case titleWithSubtitle((String, LabelViewStyle?), (String, LabelViewStyle?))
-    case titleWithSubtitles((String, LabelViewStyle?), [(String, LabelViewStyle?)])
-    case subtitleWithTitle((String, LabelViewStyle?), (String, LabelViewStyle?))
+    case titleWithSubtitle((String, LabelViewStyle?, UILongPressGestureRecognizer?), (String, LabelViewStyle?))
+    case titleWithSubtitles((String, LabelViewStyle?, UILongPressGestureRecognizer?), [(String, LabelViewStyle?)])
+    case subtitleWithTitle((String, LabelViewStyle?), (String, LabelViewStyle?, UILongPressGestureRecognizer?))
     case icons20([(UIImage, ImageViewStyle?)])
     case indexWithIcon24((String, LabelViewStyle?), (UIImage, ImageViewStyle?))
     case indexWithIcons20((String, LabelViewStyle?), [(UIImage, ImageViewStyle?)])
     case indexWithToggle((String, LabelViewStyle?), (Bool, (Bool) -> Void, ToggleViewStyle?))
-    case buttonWithSubindex((String, () -> Void, ButtonViewStyle?), (String, LabelViewStyle?))
+    case buttonWithSubtitle((String, () -> Void, ButtonViewStyle?), (String, LabelViewStyle?))
 }
 
 public enum DSRowBlocks {

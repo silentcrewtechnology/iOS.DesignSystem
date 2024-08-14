@@ -139,15 +139,15 @@ public final class NavigationBarStyle {
     ) -> UIView {
         var centerView: DSRowBlocks = .molecule(
             .titleWithSubtitle(
-                (title ?? "", .init(variant: .amount, alignment: .center)),
-                (subtitle ?? "", .init(variant: .subtitle, alignment: .center))
+                (title ?? "", .init(variant: .rowAmount, alignment: .center), nil),
+                (subtitle ?? "", .init(variant: .rowSubtitle, alignment: .center))
             )
         )
         
         if title == nil {
-            centerView = .atom(.subtitle(subtitle ?? "", .init(variant: .subtitle, alignment: .center)))
+            centerView = .atom(.subtitle(subtitle ?? "", .init(variant: .rowSubtitle, alignment: .center)))
         } else if subtitle == nil {
-            centerView = .atom(.title(title ?? "", .init(variant: .amount, alignment: .center)))
+            centerView = .atom(.title(title ?? "", .init(variant: .rowAmount, alignment: .center), nil))
         }
         
         return DSCreationRowsViewService().createViewRowWithBlocks(
@@ -178,7 +178,7 @@ public final class NavigationBarStyle {
                     nil)),
             center: .molecule(
                 .indexWithIcon24(
-                    (name, .init(variant: .amount, alignment: .left)),
+                    (name, .init(variant: .rowAmount, alignment: .left)),
                     (.ic24ChevronSmallRight
                         .withTintColor(.Semantic.LightTheme.Content.Base.primary)
                         .withRenderingMode(.alwaysOriginal),
@@ -203,7 +203,7 @@ public final class NavigationBarStyle {
         self.updateAction = updateAction
         
         var titleVP = LabelView.ViewProperties(text: .init(string: title ?? ""))
-        let titleStyle = LabelViewStyle(variant: .amount, alignment: .center)
+        let titleStyle = LabelViewStyle(variant: .rowAmount, alignment: .center)
         titleStyle.update(viewProperties: &titleVP)
         let titleLabel = LabelView()
         titleLabel.update(with: titleVP)
@@ -221,7 +221,7 @@ public final class NavigationBarStyle {
         }
         
         var subtitleVP = LabelView.ViewProperties(text: .init(string: subtitle ?? ""))
-        let subtitleStyle = LabelViewStyle(variant: .subtitle, alignment: .center)
+        let subtitleStyle = LabelViewStyle(variant: .rowSubtitle, alignment: .center)
         subtitleStyle.update(viewProperties: &subtitleVP)
         let subtitleLabel = LabelView()
         subtitleLabel.update(with: subtitleVP)

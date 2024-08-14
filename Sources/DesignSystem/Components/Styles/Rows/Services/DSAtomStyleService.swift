@@ -4,8 +4,8 @@ import UIKit
 public struct DSAtomStyleService {
     public func createAtom(_ dsAtom: AtomDSElement) -> UIView? {
         switch dsAtom {
-        case .title(let text, let style):
-            return createTitle(text, style)
+        case .title(let text, let style, let recognizer):
+            return createTitle(text, style, recognizer)
         case .subtitle(let text, let style):
             return createSubtitle(text, style)
         case .image40(let image, let style):
@@ -28,10 +28,8 @@ public struct DSAtomStyleService {
             return createRadio(isOn: isOn, action: action, style: style)
         case .button(let text, let action, let style):
             return createButton(text: text, action: action, style: style)
-        case .copyText(let text, let style):
-            return createCopyText(text, style)
-        case .subindex(let text, let style):
-            return createSubindex(text, style)
+        case .label(let text, let style):
+            return createLabel(text, style)
         case .buttonIcon(let image, let onTap, let style):
             return createButtonIcon(image, onTap, style)
         case .titleView(let title, let style):
@@ -43,11 +41,12 @@ public struct DSAtomStyleService {
 private extension DSAtomStyleService {
     private func createTitle(
         _ text: String,
-        _ style: LabelViewStyle?
+        _ style: LabelViewStyle?,
+        _ recognizer: UILongPressGestureRecognizer?
     ) -> UIView? {
         var viewProperties = LabelView.ViewProperties(text: text.attributed)
         
-        let newStyle = style ?? LabelViewStyle(variant: .title(isCopied: false))
+        let newStyle = style ?? LabelViewStyle(variant: .rowTitle(recognizer: recognizer))
         newStyle.update(viewProperties: &viewProperties)
         
         let title = RowBlocksService().createRowBlock(.atom(.title(viewProperties)))
@@ -60,7 +59,7 @@ private extension DSAtomStyleService {
     ) -> UIView? {
         var viewProperties = LabelView.ViewProperties(text: text.attributed)
         
-        let newStyle = style ?? LabelViewStyle(variant: .subtitle)
+        let newStyle = style ?? LabelViewStyle(variant: .rowSubtitle)
         newStyle.update(viewProperties: &viewProperties)
         
         let subtitle = RowBlocksService().createRowBlock(.atom(.subtitle(viewProperties)))
@@ -107,7 +106,7 @@ private extension DSAtomStyleService {
         let attributed = text.attributed.alignment(.right)
         var viewProperties = LabelView.ViewProperties(text: attributed)
         
-        let newStyle = style ?? LabelViewStyle(variant: .index)
+        let newStyle = style ?? LabelViewStyle(variant: .rowIndex)
         newStyle.update(viewProperties: &viewProperties)
         
         let index = RowBlocksService().createRowBlock(.atom(.index(viewProperties)))
@@ -169,7 +168,7 @@ private extension DSAtomStyleService {
     ) -> UIView? {
         var viewProperties = LabelView.ViewProperties(text: text.attributed)
         
-        let newStyle = style ?? LabelViewStyle(variant: .amount)
+        let newStyle = style ?? LabelViewStyle(variant: .rowAmount)
         newStyle.update(viewProperties: &viewProperties)
         
         let amountText = RowBlocksService().createRowBlock(.atom(.amountText(viewProperties)))
@@ -222,7 +221,7 @@ private extension DSAtomStyleService {
         action: @escaping () -> Void,
         style: RadioViewStyle? = nil
     ) -> UIView? {
-        var style = style ?? RadioViewStyle(
+        let style = style ?? RadioViewStyle(
             state: .default,
             selection: isOn ? .checked : .default
         )
@@ -277,31 +276,17 @@ private extension DSAtomStyleService {
         return button
     }
     
-    private func createCopyText(
+    private func createLabel(
         _ text: String,
         _ style: LabelViewStyle?
     ) -> UIView? {
         var viewProperties = LabelView.ViewProperties(text: text.attributed)
         
-        let newStyle = style ?? LabelViewStyle(variant: .default)
+        let newStyle = style ?? LabelViewStyle(variant: .rowSubtitle)
         newStyle.update(viewProperties: &viewProperties)
         
-        let copyText = RowBlocksService().createRowBlock(.atom(.copyText(viewProperties)))
-        return copyText
-    }
-    
-    private func createSubindex(
-        _ text: String,
-        _ style: LabelViewStyle?
-    ) -> UIView? {
-        let attributed = text.attributed.alignment(.right)
-        var viewProperties = LabelView.ViewProperties(text: attributed)
-        
-        let newStyle = style ?? LabelViewStyle(variant: .subindex)
-        newStyle.update(viewProperties: &viewProperties)
-        
-        let index = RowBlocksService().createRowBlock(.atom(.index(viewProperties)))
-        return index
+        let label = RowBlocksService().createRowBlock(.atom(.label(viewProperties)))
+        return label
     }
     
     private func createButtonIcon(

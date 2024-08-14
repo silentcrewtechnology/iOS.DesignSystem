@@ -9,61 +9,107 @@ import UIKit
 import Components
 
 public struct LabelViewStyle {
+    
+    // MARK: - Properties
+    
     public enum Variant {
-        case `default`
-        case title(isCopied: Bool)
-        case subtitle
-        case index
-        case amount
-        case subindex
+        case `default`(customColor: UIColor?)
+        case disabled(customColor: UIColor?)
+        case rowTitle(recognizer: UILongPressGestureRecognizer?)
+        case rowSubtitle
+        case rowIndex
+        case rowAmount
+        case rowStatusCard(statusCardVariant: StatusCardVariant)
+        
+        public enum StatusCardVariant {
+            case blocked
+            case rerelease
+            case expires
+            case readiness
+        }
     }
     
     public var variant: Variant
     public var alignment: NSTextAlignment
+    
+    // MARK: - Life cycle
     
     public init(variant: Variant, alignment: NSTextAlignment = .left) {
         self.variant = variant
         self.alignment = alignment
     }
     
+    // MARK: - Public methods
+    
     public func update(
         viewProperties: inout LabelView.ViewProperties
     ) {
-        var fontStyle: FontStyle = .textS
-        var foregroundColor: UIColor = .contentSecondary
-        var inset: UIEdgeInsets = .init(top: 2, left: 0, bottom: 2, right: 0)
-        switch variant {
-        case .title(let copied):
-            fontStyle = .textM
-            foregroundColor = .contentPrimary
-            inset = .zero
-            viewProperties.isCopied = copied
-            /// Можем копировать только title
-        case .subtitle, .index:
-            inset = .zero
-            viewProperties.isCopied = false
-        case .amount:
-            fontStyle = .textM_1
-            foregroundColor = .contentPrimary
-            inset = .zero
-            viewProperties.isCopied = false
-        case .subindex:
-            fontStyle = .text2XS
-            inset = .zero
-            viewProperties.isCopied = false
-        case .default:
-            /// Пока что выглядят одинаково с subtitle и index
-            viewProperties.isCopied = false
-            break
-        }
-        
-        viewProperties.text = viewProperties.text
-            .fontStyle(fontStyle)
-            .foregroundColor(foregroundColor)
-            .alignment(alignment)
+        viewProperties.longPressGestureRecognizer = variant.gestureRecognizer()
         viewProperties.size = .init(
-            inset: inset,
-            lineHeight: fontStyle.lineHeight
+            inset: variant.insets(),
+            lineHeight: variant.lineHeight()
         )
+        viewProperties.text = viewProperties.text
+            .fontStyle(variant.fontStyle())
+            .foregroundColor(variant.foregroundColor())
+            .alignment(alignment)
+    }
+}
+
+// MARK: - LabelViewStyle.Variant Extension
+
+public extension LabelViewStyle.Variant {
+    func gestureRecognizer() -> UILongPressGestureRecognizer? {
+        switch self {
+        case .rowTitle(let recognizer): return recognizer ?? nil
+        default: return nil
+        }
+    }
+    
+    func insets() -> UIEdgeInsets {
+        switch self {
+        case .default(_), .disabled(_): .init(top: 2, left: .zero, bottom: 2, right: .zero)
+        default: .zero
+        }
+    }
+    
+    func lineHeight() -> CGFloat {
+        switch self {
+        case .rowSubtitle, .rowIndex: 20
+        case .rowStatusCard: 16
+        default: 24
+        }
+    }
+    
+    func fontStyle() -> FontStyle {
+        switch self {
+        case .rowTitle(_): .textM
+        case .rowAmount: .textM_1
+        case .rowStatusCard: .text2XS
+        default: .textS
+        }
+    }
+    
+    func foregroundColor() -> UIColor {
+        switch self {
+        case .default(let customColor): customColor ?? .Components.Label.Color.color
+        case .disabled(let customColor): customColor ?? .Core.Brand.neutral300
+        case .rowTitle(_), .rowAmount: .Components.Row.Title.Color.value
+        case .rowSubtitle: .Components.Row.Subtitle.Color.value
+        case .rowIndex: .Components.Row.Index.Color.value
+        case .rowStatusCard(let statusCardVariant): statusCardVariant.foregroundColor()
+        }
+    }
+}
+
+// MARK: - LabelViewStyle.Variant.StatusCardVariant Extension
+
+public extension LabelViewStyle.Variant.StatusCardVariant {
+    func foregroundColor() -> UIColor {
+        switch self {
+        case .blocked: .Semantic.LightTheme.Content.Error.default
+        case .rerelease, .expires: .Semantic.LightTheme.Content.Warning.default
+        case .readiness: .Semantic.LightTheme.Content.Accent.default
+        }
     }
 }
