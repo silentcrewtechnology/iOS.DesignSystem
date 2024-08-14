@@ -2,92 +2,194 @@ import UIKit
 import Components
 import Colors
 
-public struct ChipsViewStyle {
+public class ChipsViewStyle {
     
-    public typealias Selection = ChipsVariables.Selection
-    public typealias State = ChipsVariables.State
+    public enum Set {
+        case rightIcon
+        case leftIcon
+    }
     
     public enum Size {
-        case small
         case large
+        case small
     }
     
-    private var variables: ChipsVariables
-    public var selection: Selection {
-        get { variables.selection }
-        set { variables = .init(selection: newValue, state: state) }
+    public enum State {
+        case `default`
+        case pressed
+        case disbled
     }
-    public var state: State {
-        get { variables.state }
-        set { variables = .init(selection: selection, state: newValue) }
+    
+    public enum Selected {
+        case on
+        case off
     }
-    private let size: Size
+    
+    public enum Label {
+        case `true`
+        case `false`
+    }
+    
+    public enum Icon {
+        case `true`
+        case `false`
+    }
+    
+    private var set: Set
+    private var size: Size
+    private var state: State
+    private var selected: Selected
+    private var label: Label
+    private var icon: Icon
     
     public init(
-        selection: Selection,
-        state: State,
-        size: Size
+        set: Set = .leftIcon,
+        size: Size = .large,
+        state: State = .default,
+        selected: Selected = .off,
+        label: Label = .true,
+        icon: Icon = .true
     ) {
-        self.variables = .init(selection: selection, state: state)
+        self.set = set
         self.size = size
+        self.state = state
+        self.selected = selected
+        self.label = label
+        self.icon = icon
     }
     
     public func update(
+        set: Set? = .leftIcon,
+        size: Size? = .large,
+        state: State? = .default,
+        selected: Selected? = .off,
+        label: Label? = .true,
+        icon: Icon? = .true,
         viewProperties: inout ChipsView.ViewProperties
     ) {
-        viewProperties.height = size.height()
-        viewProperties.insets = size.insets(
-            hasLeftView: viewProperties.leftView != nil,
-            hasRightView: viewProperties.rightView != nil)
-        viewProperties.backgroundColor = variables.backgroundColor()
-        viewProperties.cornerRadius = viewProperties.height / 2
-        viewProperties.text = viewProperties.text
-            .fontStyle(size.fontStyle())
-            .foregroundColor(variables.labelColor())
-        viewProperties.isUserInteractionEnabled = state != .disabled
-        tintIcons(viewProperties: &viewProperties)
-        resizeIcons(viewProperties: &viewProperties)
+        if let set {
+            self.set = set
+        }
+        if let size {
+            self.size = size
+        }
+        if let state {
+            self.state = state
+        }
+        if let selected {
+            self.selected = selected
+        }
+        if let label {
+            self.label = label
+        }
+        if let icon {
+            self.icon = icon
+        }
+        
+        viewProperties.defaultBackgroundColor = backgroundColor(state: .default,
+                                                                selected: .off)
+        viewProperties.selectedBackgroundColor = backgroundColor(state: .default,
+                                                                 selected: .on)
+        let isSelected: Selected = viewProperties.isSelected ? .on : .off
+        viewProperties.pressedBackgroundColor = backgroundColor(state: .pressed,
+                                                                selected: isSelected)
+        
+        viewProperties.cornerRadius = self.size.cornerRadius()
+        viewProperties.leftImageColor = tintColor(state: self.state,
+                                                selected: self.selected)
+        viewProperties.text = viewProperties.text.string.fontStyle(self.size.fontStyle())
+        viewProperties.textColor = tintColor(state: self.state,
+                                             selected: self.selected)
+        viewProperties.rightImageColor = tintColor(state: self.state,
+                                                  selected: self.selected)
+        
+        switch self.state {
+        case .default:
+            viewProperties.isUserInteractionEnabled = true
+        case .disbled:
+            viewProperties.isUserInteractionEnabled = false
+        case .pressed:
+            viewProperties.isUserInteractionEnabled = true
+        }
+        viewProperties.margins = getMargins()
     }
     
-    private func tintIcons(
-        viewProperties: inout ChipsView.ViewProperties
-    ) {
-        let iconColor = variables.iconColor()
-        if let view = viewProperties.leftView as? UIImageView {
-            view.image = view.image?.withTintColor(iconColor)
-        }
-        if let view = viewProperties.rightView as? UIImageView {
-            view.image = view.image?.withTintColor(iconColor)
+    private func getMargins() -> ChipsView.ViewProperties.Margins {
+        return .init(
+            spacing: size.spacing(),
+            top: size.top(),
+            leading: size.leading(),
+            trailing: size.trailing(),
+            bottom: size.bottom(),
+            height: size.height())
+    }
+}
+
+extension ChipsViewStyle {
+    private func backgroundColor(
+        state: State,
+        selected: Selected
+    ) -> UIColor {
+        switch selected {
+        case .on: backgroundSelectedOnStyleColor(state: state)
+        case .off: backgroundSelectedOffStyleColor(state: state)
         }
     }
     
-    private func resizeIcons(
-        viewProperties: inout ChipsView.ViewProperties
-    ) {
-        if let view = viewProperties.leftView as? UIImageView {
-            view.contentMode = .center
-            view.snp.remakeConstraints { $0.size.equalTo(32) }
+    private func backgroundSelectedOnStyleColor(
+        state: State
+    ) -> UIColor {
+        switch state {
+        case .default: .Components.Chips.Selected.Background.Color.default
+        case .disbled: .Components.Chips.Selected.Background.Color.disabled
+        case .pressed: .Components.Chips.Selected.Background.Color.pressed
         }
-        if let view = viewProperties.rightView as? UIImageView {
-            view.contentMode = .center
-            view.snp.remakeConstraints { $0.size.equalTo(32) }
+    }
+    
+    private func backgroundSelectedOffStyleColor(
+        state: State
+    ) -> UIColor {
+        switch state {
+        case .default: .Components.Chips.Default.Background.Color.default
+        case .disbled: .Components.Chips.Default.Background.Color.disabled
+        case .pressed: .Components.Chips.Default.Background.Color.pressed
         }
     }
 }
 
-private extension ChipsViewStyle.Size {
-    
-    func insets(
-        hasLeftView: Bool,
-        hasRightView: Bool
-    ) -> UIEdgeInsets {
-        return .init(
-            top: 0,
-            left: hasLeftView ? 8 : 16,
-            bottom: 0,
-            right: hasRightView ? 8 : 16)
+extension ChipsViewStyle {
+    private func tintColor(
+        state: State,
+        selected: Selected
+    ) -> UIColor {
+        switch selected {
+        case .on: tintSelectedOnStyleColor(state: state)
+        case .off: tintSelectedOffStyleColor(state: state)
+        }
     }
     
+    private func tintSelectedOnStyleColor(
+        state: State
+    ) -> UIColor {
+        switch state {
+        case .default: .Components.Chips.Selected.Label.Color.default
+        case .disbled: .Components.Chips.Selected.Label.Color.disabled
+        case .pressed: .Components.Chips.Selected.Label.Color.pressed
+        }
+    }
+    
+    private func tintSelectedOffStyleColor(
+        state: State
+    ) -> UIColor {
+        switch state {
+        case .default: .Components.Chips.Default.Label.Color.default
+        case .disbled: .Components.Chips.Default.Label.Color.disabled
+        case .pressed: .Components.Chips.Default.Label.Color.pressed
+        }
+    }
+}
+    
+extension ChipsViewStyle.Size {
     func height() -> CGFloat {
         switch self {
         case .small: 32
@@ -101,98 +203,43 @@ private extension ChipsViewStyle.Size {
         case .large: .textM
         }
     }
-}
-
-public struct ChipsVariables {
     
-    public enum Selection: String {
-        case `default`
-        case selected
+    func cornerRadius() -> CGFloat {
+        return self.height() / 2
     }
     
-    public enum State: String {
-        case `default`
-        case pressed
-        case disabled
-    }
-    
-    public var selection: Selection
-    public var state: State
-    
-    public init(
-        selection: Selection,
-        state: State
-    ) {
-        self.selection = selection
-        self.state = state
-    }
-    
-    public func backgroundColor() -> UIColor {
-        switch selection {
-        case .default: backgroundDefaultColor()
-        case .selected: backgroundSelectedColor()
+    func spacing() -> CGFloat {
+        switch self {
+        case .small: 8
+        case .large: 8
         }
     }
     
-    public func labelColor() -> UIColor {
-        switch selection {
-        case .default: labelDefaultColor()
-        case .selected: labelSelectedColor()
+    func top() -> CGFloat {
+        switch self {
+        case .small: 6
+        case .large: 8
         }
     }
     
-    public func iconColor() -> UIColor {
-        switch selection {
-        case .default: iconDefaultColor()
-        case .selected: iconSelectedColor()
+    func leading() -> CGFloat {
+        switch self {
+        case .small: 16
+        case .large: 16
         }
     }
     
-    private func backgroundDefaultColor() -> UIColor {
-        switch state {
-        case .default: .Components.Chips.Default.Background.Color.default
-        case .pressed: .Components.Chips.Default.Background.Color.pressed
-        case .disabled: .Components.Chips.Default.Background.Color.disabled
+    func trailing() -> CGFloat {
+        switch self {
+        case .small: 16
+        case .large: 16
         }
     }
     
-    private func backgroundSelectedColor() -> UIColor {
-        switch state {
-        case .default: .Components.Chips.Selected.Background.Color.default
-        case .pressed: .Components.Chips.Selected.Background.Color.pressed
-        case .disabled: .Components.Chips.Selected.Background.Color.disabled
-        }
-    }
-    
-    private func labelDefaultColor() -> UIColor {
-        switch state {
-        case .default: .Components.Chips.Default.Label.Color.default
-        case .pressed: .Components.Chips.Default.Label.Color.pressed
-        case .disabled: .Components.Chips.Default.Label.Color.disabled
-        }
-    }
-    
-    private func labelSelectedColor() -> UIColor {
-        switch state {
-        case .default: .Components.Chips.Selected.Label.Color.default
-        case .pressed: .Components.Chips.Selected.Label.Color.pressed
-        case .disabled: .Components.Chips.Selected.Label.Color.disabled
-        }
-    }
-    
-    private func iconDefaultColor() -> UIColor {
-        switch state {
-        case .default: .Components.Chips.Default.Icon.Color.default
-        case .pressed: .Components.Chips.Default.Icon.Color.pressed
-        case .disabled: .Components.Chips.Default.Icon.Color.disabled
-        }
-    }
-    
-    private func iconSelectedColor() -> UIColor {
-        switch state {
-        case .default: .Components.Chips.Selected.Icon.Color.default
-        case .pressed: .Components.Chips.Selected.Icon.Color.pressed
-        case .disabled: .Components.Chips.Selected.Icon.Color.disabled
+    func bottom() -> CGFloat {
+        switch self {
+        case .small: 6
+        case .large: 8
         }
     }
 }

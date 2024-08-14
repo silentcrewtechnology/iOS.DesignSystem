@@ -1,4 +1,5 @@
 import UIKit
+import Components
 
 public enum AtomDSElement {
     case title(String, LabelViewStyle?)
@@ -17,6 +18,11 @@ public enum AtomDSElement {
     case button(String, () -> Void, ButtonViewStyle?)
     case buttonIcon(UIImage, () -> Void, ButtonIconStyle?)
     case titleView(String, TitleViewStyle?)
+    
+    // Элементы Дизайн Системы
+    case badgeView(BadgeView.ViewProperties, BadgeStyle?)
+    case inputView(InputView.ViewProperties, InputViewStyle?)
+    case chipsView(ChipsView.ViewProperties, ChipsViewStyle?)
 }
 
 public enum DSMoleculeElement {
@@ -28,6 +34,7 @@ public enum DSMoleculeElement {
     case indexWithIcons20((String, LabelViewStyle?), [(UIImage, ImageViewStyle?)])
     case indexWithToggle((String, LabelViewStyle?), (Bool, (Bool) -> Void, ToggleViewStyle?))
     case buttonWithSubindex((String, () -> Void, ButtonViewStyle?), (String, LabelViewStyle?))
+    case horizontalChipses([(ChipsView.ViewProperties, ChipsViewStyle?)])
 }
 
 public enum DSRowBlocks {

@@ -11,14 +11,17 @@ public struct DSCreationRowsViewService {
         center: DSRowBlocks? = nil,
         trailing: DSRowBlocks? = nil,
         centralBlockAlignment: RowBaseContainer.ViewProperties.BlockAlignment = .leading,
-        cellIdentifier: String = "RowCell"
+        cellIdentifier: String = "RowCell",
+        cellSelectionStyle: UITableViewCell.SelectionStyle = .gray
     ) -> UITableViewCell {
-        // Проверяем, зарегистрирована ли ячейка
+        // Проверяем, зарегистрирована ли ячейк а
         if tableView.dequeueReusableCell(withIdentifier: cellIdentifier) == nil {
             tableView.register(RowCell.self, forCellReuseIdentifier: cellIdentifier)
         }
         
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? RowCell
+        cell?.selectionStyle = cellSelectionStyle
         
         let rowView = createViewRowWithBlocks(leading: leading,
                                               center: center,

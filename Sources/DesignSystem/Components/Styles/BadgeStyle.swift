@@ -70,7 +70,7 @@ public final class BadgeStyle {
         viewProperties.margins.imageTop = size.imageMargins()
         viewProperties.margins.imageBottom = size.imageMargins()
         viewProperties.text = viewProperties.text?.string.fontStyle(size.fontStyle())
-        viewProperties.height = getHeight()
+        viewProperties.margins.height = getHeight()
         viewProperties.cornerRadius = cornerRadius()
     }
     
