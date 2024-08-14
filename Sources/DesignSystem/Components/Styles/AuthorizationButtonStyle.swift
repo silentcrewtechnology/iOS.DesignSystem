@@ -181,11 +181,24 @@ extension AuthorizationButtonStyle {
         }
     }
     
-    // TODO: Когда Лена добавит в json, заменить цвета
     private func iconAkbarsTintColor() -> UIColor {
         switch color {
-        case .accent: .Components.ButtonAuth.Light.Akbars.Background.default
-        case .light: .Components.ButtonAuth.Accent.Akbars.Background.default
+        case .accent: iconAkbarsTintAccentColor()
+        case .light: iconAkbarsTintLightColor()
+        }
+    }
+    
+    private func iconAkbarsTintAccentColor() -> UIColor {
+        switch state {
+        case .default: .Components.ButtonAuth.Accent.Akbars.Logo.default
+        case .pressed: .Components.ButtonAuth.Accent.Akbars.Logo.pressed
+        }
+    }
+    
+    private func iconAkbarsTintLightColor() -> UIColor {
+        switch state {
+        case .default: .Components.ButtonAuth.Light.Akbars.Logo.default
+        case .pressed: .Components.ButtonAuth.Light.Akbars.Logo.pressed
         }
     }
 }
