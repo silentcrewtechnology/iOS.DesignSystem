@@ -61,6 +61,8 @@ public struct InputViewStyle {
         case .prefix(let text):
             let label = UILabel()
             label.attributedText = text
+                .fontStyle(.textM)
+                .foregroundColor(state.prefixColor())
             rightView = label
         }
         
