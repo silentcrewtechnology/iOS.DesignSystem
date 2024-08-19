@@ -34,6 +34,13 @@ public struct DSAtomStyleService {
             return createButtonIcon(image, onTap, style)
         case .titleView(let title, let style):
             return createTitleView(title, style)
+            
+        // Элементы Дизайн Системы
+        case .inputView(let viewProperty, let style):
+            return createInputView(viewProperty, style)
+            
+        case .view(let view):
+            return view
         }
     }
 }
@@ -322,5 +329,23 @@ private extension DSAtomStyleService {
         
         let titleView = RowBlocksService().createRowBlock(.atom(.titleView(viewProperties)))
         return titleView
+    }
+}
+
+// Элементы Дизайн Системы
+
+private extension DSAtomStyleService {
+    
+    //TODO: УБрать из update - state: по дефолту
+    private func createInputView(
+        _ viewProperty: InputView.ViewProperties,
+        _ style: InputViewStyle?
+    ) -> UIView? {
+        var viewProperties = viewProperty
+        let newStyle = style ?? InputViewStyle(state: .default, set: .simple)
+        newStyle.update(viewProperties: &viewProperties)
+        
+        let input = RowBlocksService().createRowBlock(.atom(.inputView(viewProperties)))
+        return input
     }
 }

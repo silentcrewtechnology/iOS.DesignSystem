@@ -32,6 +32,8 @@ public struct DSMoleculeStyleService {
             return createIndexWithToggle(index, style)
         case .buttonWithSubtitle(let button, let subindex):
             return createButtonWithSubtitle(button, subindex)
+        case .horizontalChipseViews(let chipsViews):
+            return createHorizontalChips(views: chipsViews)
         }
     }
 }
@@ -143,3 +145,19 @@ private extension DSMoleculeStyleService {
         return connectionService.connect(topView: titleLabel, bottomView: subtitlesResult)
     }
 }
+
+// MARK: - Creation
+
+private extension DSMoleculeStyleService {
+    private func createHorizontalChips(
+        views: [ChipsView]
+    ) -> UIView {
+        
+        var atomsFromChips: [UIView] = []
+        for view in views {
+            atomsFromChips.append(view)
+        }
+        return connectionService.connectOnScroll(horizontalyViews: atomsFromChips, spacing: 6)
+    }
+}
+

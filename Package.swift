@@ -19,7 +19,7 @@ let package = Package(
         .package(url: "https://gitlab.akbars.tech/abo/ios-resources-fonts.git", .upToNextMajor(from: "0.0.1")),
         .package(url: "https://gitlab.akbars.tech/abo/ios-resources-colors.git", .upToNextMajor(from: "0.2.0")),
         .package(url: "https://gitlab.akbars.tech/abo/ios-resources-icons.git", .upToNextMajor(from: "0.0.3")),
-        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-ui-components.git", .upToNextMajor(from: "19.0.0")),
+        .package(url: "https://gitlab.akbars.tech/abo/ios-resources-ui-components.git", .upToNextMajor(from: "20.0.0")),
         .package(url: "https://gitlab.akbars.tech/abo/ios-extensions.git", .upToNextMajor(from: "0.1.0"))
     ],
     targets: [

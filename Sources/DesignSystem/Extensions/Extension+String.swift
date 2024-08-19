@@ -8,17 +8,6 @@
 import UIKit
 
 public extension String {
-    
-    func fullRange() -> NSRange {
-        let range = (self as NSString).range(of: self)
-        return range
-    }
-    
-    var attributed: NSMutableAttributedString {
-        let attributedString = NSMutableAttributedString(string: self)
-        return attributedString
-    }
-    
     func fontStyle(_ style: FontStyle) -> NSMutableAttributedString {
         let styledString = attributed.fontStyle(style)
         return styledString

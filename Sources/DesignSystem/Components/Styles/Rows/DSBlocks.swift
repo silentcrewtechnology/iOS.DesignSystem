@@ -1,4 +1,5 @@
 import UIKit
+import Components
 
 public enum AtomDSElement {
     case title(String, LabelViewStyle?, UILongPressGestureRecognizer?)
@@ -16,6 +17,12 @@ public enum AtomDSElement {
     case button(String, () -> Void, ButtonViewStyle?)
     case buttonIcon(UIImage, () -> Void, ButtonIconStyle?)
     case titleView(String, TitleViewStyle?)
+    
+    // Элементы Дизайн Системы
+    case inputView(InputView.ViewProperties, InputViewStyle?)
+    
+    // Элементы Дизайн Системы with Updaters
+    case view(UIView)
 }
 
 public enum DSMoleculeElement {
@@ -27,6 +34,9 @@ public enum DSMoleculeElement {
     case indexWithIcons20((String, LabelViewStyle?), [(UIImage, ImageViewStyle?)])
     case indexWithToggle((String, LabelViewStyle?), (Bool, (Bool) -> Void, ToggleViewStyle?))
     case buttonWithSubtitle((String, () -> Void, ButtonViewStyle?), (String, LabelViewStyle?))
+    
+    // Элементы Дизайн Системы
+    case horizontalChipseViews([ChipsView])
 }
 
 public enum DSRowBlocks {
