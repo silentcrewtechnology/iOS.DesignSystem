@@ -92,12 +92,14 @@ public extension BadgeStyle.Set {
     func changePropertiesFromSet(properties: inout BadgeView.ViewProperties) {
         switch self {
         case .simple:
-            properties.text = nil
-            properties.image = nil
+            properties.isTextHidden = true
+            properties.isImageHidden = true
         case .basic:
-            properties.image = nil
+            properties.isTextHidden = false
+            properties.isImageHidden = true
         case .full:
-            break
+            properties.isTextHidden = false
+            properties.isImageHidden = false
         }
     }
 }

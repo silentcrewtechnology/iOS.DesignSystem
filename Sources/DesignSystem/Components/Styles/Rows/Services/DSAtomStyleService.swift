@@ -38,12 +38,11 @@ public struct DSAtomStyleService {
             return createTitleView(title, style)
             
         // Элементы Дизайн Системы
-        case .badgeView(let viewProperty, let style):
-            return createBadgeView(viewProperty, style)
         case .inputView(let viewProperty, let style):
             return createInputView(viewProperty, style)
-        case .chipsView(let viewProperty, let style):
-            return createChipsView(viewProperty, style)
+            
+        case .view(let view):
+            return view
         }
     }
 }
@@ -347,20 +346,6 @@ private extension DSAtomStyleService {
 // Элементы Дизайн Системы
 
 private extension DSAtomStyleService {
-    private func createBadgeView(
-        _ viewProperty: BadgeView.ViewProperties,
-        _ style: BadgeStyle?
-    ) -> UIView? {
-        var viewProperties = viewProperty
-        let newStyle = style ?? BadgeStyle(
-            color: .neutral,
-            size: .large,
-            set: .basic)
-        newStyle.update(viewProperties: &viewProperties)
-        
-        let badge = RowBlocksService().createRowBlock(.atom(.badgeView(viewProperties)))
-        return badge
-    }
     
     //TODO: УБрать из update - state: по дефолту
     private func createInputView(
@@ -373,19 +358,5 @@ private extension DSAtomStyleService {
         
         let input = RowBlocksService().createRowBlock(.atom(.inputView(viewProperties)))
         return input
-    }
-    
-    
-    //TODO: УБрать из update - state: по дефолту
-    private func createChipsView(
-        _ viewProperty: ChipsView.ViewProperties,
-        _ style: ChipsViewStyle?
-    ) -> UIView? {
-        var viewProperties = viewProperty
-        let newStyle = style ?? ChipsViewStyle()
-        
-        newStyle.update(viewProperties: &viewProperties)
-        let chips = RowBlocksService().createRowBlock(.atom(.chipsView(viewProperties)))
-        return chips
     }
 }

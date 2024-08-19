@@ -32,8 +32,8 @@ public struct DSMoleculeStyleService {
             return createIndexWithToggle(index, style)
         case .buttonWithSubindex(let button, let subindex):
             return createButtonWithSubindex(button, subindex)
-        case .horizontalChipses(let chipsModels):
-            return createHorizontalChips(chipsModels)
+        case .horizontalChipseViews(let chipsViews):
+            return createHorizontalChips(views: chipsViews)
         }
     }
 }
@@ -150,14 +150,12 @@ private extension DSMoleculeStyleService {
 
 private extension DSMoleculeStyleService {
     private func createHorizontalChips(
-        _ models: [(ChipsView.ViewProperties, ChipsViewStyle?)]
+        views: [ChipsView]
     ) -> UIView {
         
         var atomsFromChips: [UIView] = []
-        for model in models {
-            if let chipsView = atomService.createAtom(.chipsView(model.0, model.1)) {
-                atomsFromChips.append(chipsView)
-            }
+        for view in views {
+            atomsFromChips.append(view)
         }
         return connectionService.connectOnScroll(horizontalyViews: atomsFromChips, spacing: 6)
     }

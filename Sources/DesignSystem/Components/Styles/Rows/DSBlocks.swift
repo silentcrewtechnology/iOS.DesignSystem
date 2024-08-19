@@ -20,9 +20,10 @@ public enum AtomDSElement {
     case titleView(String, TitleViewStyle?)
     
     // Элементы Дизайн Системы
-    case badgeView(BadgeView.ViewProperties, BadgeStyle?)
     case inputView(InputView.ViewProperties, InputViewStyle?)
-    case chipsView(ChipsView.ViewProperties, ChipsViewStyle?)
+    
+    // Элементы Дизайн Системы with Updaters
+    case view(UIView)
 }
 
 public enum DSMoleculeElement {
@@ -34,7 +35,9 @@ public enum DSMoleculeElement {
     case indexWithIcons20((String, LabelViewStyle?), [(UIImage, ImageViewStyle?)])
     case indexWithToggle((String, LabelViewStyle?), (Bool, (Bool) -> Void, ToggleViewStyle?))
     case buttonWithSubindex((String, () -> Void, ButtonViewStyle?), (String, LabelViewStyle?))
-    case horizontalChipses([(ChipsView.ViewProperties, ChipsViewStyle?)])
+    
+    // Элементы Дизайн Системы
+    case horizontalChipseViews([ChipsView])
 }
 
 public enum DSRowBlocks {

@@ -59,12 +59,12 @@ public class ChipsViewStyle {
     }
     
     public func update(
-        set: Set? = .leftIcon,
-        size: Size? = .large,
-        state: State? = .default,
-        selected: Selected? = .off,
-        label: Label? = .true,
-        icon: Icon? = .true,
+        set: Set? = nil,
+        size: Size? = nil,
+        state: State? = nil,
+        selected: Selected? = nil,
+        label: Label? = nil,
+        icon: Icon? = nil,
         viewProperties: inout ChipsView.ViewProperties
     ) {
         if let set {
@@ -85,14 +85,7 @@ public class ChipsViewStyle {
         if let icon {
             self.icon = icon
         }
-        
-        viewProperties.defaultBackgroundColor = backgroundColor(state: .default,
-                                                                selected: .off)
-        viewProperties.selectedBackgroundColor = backgroundColor(state: .default,
-                                                                 selected: .on)
-        let isSelected: Selected = viewProperties.isSelected ? .on : .off
-        viewProperties.pressedBackgroundColor = backgroundColor(state: .pressed,
-                                                                selected: isSelected)
+        viewProperties.backgroundColor = backgroundColor(state: self.state, selected: self.selected)
         
         viewProperties.cornerRadius = self.size.cornerRadius()
         viewProperties.leftImageColor = tintColor(state: self.state,
