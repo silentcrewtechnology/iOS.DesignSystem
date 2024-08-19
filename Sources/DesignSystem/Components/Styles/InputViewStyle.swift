@@ -42,6 +42,7 @@ public struct InputViewStyle {
         viewProperties.textFieldBorderColor = state.borderColor()
         viewProperties.textFieldBorderWidth = state.borderWidth()
         viewProperties.isEnabled = state.isEnabled()
+        viewProperties.hintViewProperties = state.hintViewProperties()
         viewProperties.textFieldCornerRadius = 8
         viewProperties.textFieldHeight = 56
         viewProperties.minHeight = 80
@@ -61,6 +62,8 @@ public struct InputViewStyle {
         case .prefix(let text):
             let label = UILabel()
             label.attributedText = text
+                .fontStyle(.textM)
+                .foregroundColor(state.prefixColor())
             rightView = label
         }
         
@@ -170,6 +173,13 @@ public extension InputViewStyle.State {
         switch self {
         case .disabled: false
         default: true
+        }
+    }
+    
+    func hintViewProperties() -> HintView.ViewProperties {
+        switch self {
+        case .error(let viewProperties): viewProperties
+        default: .init()
         }
     }
 }
