@@ -30,8 +30,8 @@ public struct DSMoleculeStyleService {
             return createIndexWithIcons20(index, icons)
         case .indexWithToggle(let index, let style):
             return createIndexWithToggle(index, style)
-        case .buttonWithSubindex(let button, let subindex):
-            return createButtonWithSubindex(button, subindex)
+        case .buttonWithSubtitle(let button, let subindex):
+            return createButtonWithSubtitle(button, subindex)
         case .horizontalChipseViews(let chipsViews):
             return createHorizontalChips(views: chipsViews)
         }
@@ -42,10 +42,10 @@ public struct DSMoleculeStyleService {
 
 private extension DSMoleculeStyleService {
     private func createTitleWithSubtitle(
-        _ title: (String, LabelViewStyle?),
+        _ title: (String, LabelViewStyle?, UILongPressGestureRecognizer?),
         _ subtitle: (String, LabelViewStyle?)
     ) -> UIView? {
-        guard let title = atomService.createAtom(.title(title.0, title.1)),
+        guard let title = atomService.createAtom(.title(title.0, title.1, title.2)),
               let subtitle = atomService.createAtom(.subtitle(subtitle.0, subtitle.1))
         else { return nil }
         
@@ -54,10 +54,10 @@ private extension DSMoleculeStyleService {
     
     private func createSubtitleWithTitle(
         _ subtitle: (String, LabelViewStyle?),
-        _ title: (String, LabelViewStyle?)
+        _ title: (String, LabelViewStyle?, UILongPressGestureRecognizer?)
     ) -> UIView? {
         guard let subtitle = atomService.createAtom(.subtitle(subtitle.0, subtitle.1)),
-              let title = atomService.createAtom(.title(title.0, title.1))
+              let title = atomService.createAtom(.title(title.0, title.1, title.2))
         else { return nil }
         
         return connectionService.connect(topView: subtitle, bottomView: title)
@@ -117,22 +117,22 @@ private extension DSMoleculeStyleService {
         return connectionService.connect(leftView: indexLabel, rightView: toggleView)
     }
     
-    private func createButtonWithSubindex(
+    private func createButtonWithSubtitle(
         _ button: (String, () -> Void, ButtonViewStyle?),
-        _ subindexText: (String, LabelViewStyle?)
+        _ subtileText: (String, LabelViewStyle?)
     ) -> UIView {
         guard let buttonView = atomService.createAtom(.button(button.0, button.1, button.2)),
-              let subindexLabel = atomService.createAtom(.subindex(subindexText.0, subindexText.1))
+              let subtitleLabel = atomService.createAtom(.subtitle(subtileText.0, subtileText.1))
         else { return UIView() }
         
-        return connectionService.connect(topView: buttonView, bottomView: subindexLabel)
+        return connectionService.connect(topView: buttonView, bottomView: subtitleLabel)
     }
     
     private func createTitleWithSubtitles(
-        _ titleText: (String, LabelViewStyle?),
+        _ titleText: (String, LabelViewStyle?, UILongPressGestureRecognizer?),
         _ subtitlesText: [(String, LabelViewStyle?)]
     ) -> UIView {
-        guard let titleLabel = atomService.createAtom(.title(titleText.0, titleText.1)) else { return UIView() }
+        guard let titleLabel = atomService.createAtom(.title(titleText.0, titleText.1, titleText.2)) else { return UIView() }
         
         var atomsFromSubtitles: [UIView] = []
         for subtitle in subtitlesText {

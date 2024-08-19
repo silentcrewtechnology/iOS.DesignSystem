@@ -29,7 +29,7 @@ public final class NavigationBarStyle {
             title: String?,
             subtitle: String?,
             spacing: CGFloat?,
-            updateAction: Selector
+            updateAction: (() -> Void)?
         )
         case search(updater: UISearchResultsUpdating?)
         case none
@@ -45,6 +45,7 @@ public final class NavigationBarStyle {
     private let variant: Variant
     private let color: Color
     private var backAction: (() -> Void)?
+    private var updateAction: (() -> Void)?
     
     // MARK: - Life cycle
     
@@ -136,12 +137,21 @@ public final class NavigationBarStyle {
         subtitle: String?,
         margins: RowBaseContainer.ViewProperties.Margins? = nil
     ) -> UIView {
+        var centerView: DSRowBlocks = .molecule(
+            .titleWithSubtitle(
+                (title ?? "", .init(variant: .rowAmount, alignment: .center), nil),
+                (subtitle ?? "", .init(variant: .rowSubtitle, alignment: .center))
+            )
+        )
+        
+        if title == nil {
+            centerView = .atom(.subtitle(subtitle ?? "", .init(variant: .rowSubtitle, alignment: .center)))
+        } else if subtitle == nil {
+            centerView = .atom(.title(title ?? "", .init(variant: .rowAmount, alignment: .center), nil))
+        }
+        
         return DSCreationRowsViewService().createViewRowWithBlocks(
-            center: .molecule(
-                .titleWithSubtitle(
-                    (title ?? "", .init(variant: .title(isCopied: false), alignment: .center)),
-                    (subtitle ?? "", nil)
-                )),
+            center: centerView,
             margins: margins ?? .init(
                 leading: 16,
                 trailing: 16,
@@ -168,7 +178,7 @@ public final class NavigationBarStyle {
                     nil)),
             center: .molecule(
                 .indexWithIcon24(
-                    (name, .init(variant: .amount, alignment: .left)),
+                    (name, .init(variant: .rowAmount, alignment: .left)),
                     (.ic24ChevronSmallRight
                         .withTintColor(.Semantic.LightTheme.Content.Base.primary)
                         .withRenderingMode(.alwaysOriginal),
@@ -188,27 +198,37 @@ public final class NavigationBarStyle {
         title: String?,
         subtitle: String?,
         spacing: CGFloat?,
-        updateAction: Selector
+        updateAction: (() -> Void)?
     ) -> UIView {
+        self.updateAction = updateAction
+        
         var titleVP = LabelView.ViewProperties(text: .init(string: title ?? ""))
-        let titleStyle = LabelViewStyle(variant: .amount, alignment: .center)
+        let titleStyle = LabelViewStyle(variant: .rowAmount, alignment: .center)
         titleStyle.update(viewProperties: &titleVP)
         let titleLabel = LabelView()
         titleLabel.update(with: titleVP)
         
         let updateButton = UIButton()
         updateButton.setImage(.ic16Reload.withTintColor(.Semantic.LightTheme.Content.Accent.hover), for: .normal)
-        updateButton.addTarget(self, action: updateAction, for: .touchUpInside)
+        updateButton.addTarget(self, action: #selector(updateTapped), for: .touchUpInside)
         
         let horizontalStackView = UIStackView(arrangedSubviews: [titleLabel, updateButton])
         horizontalStackView.axis = .horizontal
         horizontalStackView.spacing = spacing ?? 8
         
+        if subtitle == nil {
+            return horizontalStackView
+        }
+        
         var subtitleVP = LabelView.ViewProperties(text: .init(string: subtitle ?? ""))
-        let subtitleStyle = LabelViewStyle(variant: .subtitle, alignment: .center)
+        let subtitleStyle = LabelViewStyle(variant: .rowSubtitle, alignment: .center)
         subtitleStyle.update(viewProperties: &subtitleVP)
         let subtitleLabel = LabelView()
         subtitleLabel.update(with: subtitleVP)
+        
+        if title == nil {
+            return subtitleLabel
+        }
         
         let verticalStackView = UIStackView(arrangedSubviews: [subtitleLabel, horizontalStackView])
         verticalStackView.axis = .vertical
@@ -245,5 +265,9 @@ public final class NavigationBarStyle {
     
     @objc private func backTapped() {
         backAction?()
+    }
+    
+    @objc private func updateTapped() {
+        updateAction?()
     }
 }

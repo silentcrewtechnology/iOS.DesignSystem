@@ -12,7 +12,7 @@ public struct InputAmountViewStyle {
     
     public init() { }
     
-    private let styleHint = HintViewStyle()
+    private let styleHint = OldHintViewStyle()
     
     public func update(
         state: State,
