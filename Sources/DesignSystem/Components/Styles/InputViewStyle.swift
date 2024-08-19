@@ -73,7 +73,7 @@ public class InputViewStyle {
             let label = UILabel()
             label.attributedText = text
                 .fontStyle(.textM)
-                .foregroundColor(state.prefixColor())
+                .foregroundColor(self.state.prefixColor())
             rightView = label
         }
         
