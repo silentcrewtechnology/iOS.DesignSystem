@@ -342,8 +342,8 @@ private extension DSAtomStyleService {
         _ style: InputViewStyle?
     ) -> UIView? {
         var viewProperties = viewProperty
-        let newStyle = style ?? InputViewStyle()
-        newStyle.update(state: .default, viewProperties: &viewProperties)
+        let newStyle = style ?? InputViewStyle(state: .default, set: .simple)
+        newStyle.update(viewProperties: &viewProperties)
         
         let input = RowBlocksService().createRowBlock(.atom(.inputView(viewProperties)))
         return input

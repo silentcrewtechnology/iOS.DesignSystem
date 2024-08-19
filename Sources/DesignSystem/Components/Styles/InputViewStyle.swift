@@ -2,7 +2,7 @@ import UIKit
 import Components
 import Colors
 
-public struct InputViewStyle {
+public class InputViewStyle {
     
     // MARK: - Properties
     
@@ -21,8 +21,8 @@ public struct InputViewStyle {
     
     // MARK: - Private properties
     
-    private let state: State
-    private let set: Set
+    private var state: State
+    private var set: Set
     
     // MARK: - Life cycle
     
@@ -34,14 +34,24 @@ public struct InputViewStyle {
     // MARK: - Public methods
     
     public func update(
+        state: State? = nil,
+        set: Set? = nil,
         viewProperties: inout InputView.ViewProperties
     ) {
+        if let state {
+            self.state = state
+        }
+        
+        if let set {
+            self.set = set
+        }
+        
         updateTextFieldViewProperties(viewProperties: &viewProperties.textFieldViewProperties)
         
-        viewProperties.textFieldBackgroundColor = state.fieldBackgroundColor()
-        viewProperties.textFieldBorderColor = state.borderColor()
-        viewProperties.textFieldBorderWidth = state.borderWidth()
-        viewProperties.isEnabled = state.isEnabled()
+        viewProperties.textFieldBackgroundColor = self.state.fieldBackgroundColor()
+        viewProperties.textFieldBorderColor = self.state.borderColor()
+        viewProperties.textFieldBorderWidth = self.state.borderWidth()
+        viewProperties.isEnabled = self.state.isEnabled()
         viewProperties.textFieldCornerRadius = 8
         viewProperties.textFieldHeight = 56
         viewProperties.minHeight = 80
@@ -53,11 +63,11 @@ public struct InputViewStyle {
         }
         
         var rightView = UIView()
-        switch set {
+        switch self.set {
         case .simple:
             break
         case .icon(let image):
-            rightView = UIImageView(image: image.withTintColor(state.iconColor()))
+            rightView = UIImageView(image: image.withTintColor(self.state.iconColor()))
         case .prefix(let text):
             let label = UILabel()
             label.attributedText = text
