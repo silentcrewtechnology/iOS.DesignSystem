@@ -17,7 +17,7 @@ public class ChipsViewStyle {
     public enum State {
         case `default`
         case pressed
-        case disbled
+        case disabled
     }
     
     public enum Selected {
@@ -99,7 +99,7 @@ public class ChipsViewStyle {
         switch self.state {
         case .default:
             viewProperties.isUserInteractionEnabled = true
-        case .disbled:
+        case .disabled:
             viewProperties.isUserInteractionEnabled = false
         case .pressed:
             viewProperties.isUserInteractionEnabled = true
@@ -134,7 +134,7 @@ extension ChipsViewStyle {
     ) -> UIColor {
         switch state {
         case .default: .Components.Chips.Selected.Background.Color.default
-        case .disbled: .Components.Chips.Selected.Background.Color.disabled
+        case .disabled: .Components.Chips.Selected.Background.Color.disabled
         case .pressed: .Components.Chips.Selected.Background.Color.pressed
         }
     }
@@ -144,7 +144,7 @@ extension ChipsViewStyle {
     ) -> UIColor {
         switch state {
         case .default: .Components.Chips.Default.Background.Color.default
-        case .disbled: .Components.Chips.Default.Background.Color.disabled
+        case .disabled: .Components.Chips.Default.Background.Color.disabled
         case .pressed: .Components.Chips.Default.Background.Color.pressed
         }
     }
@@ -166,7 +166,7 @@ extension ChipsViewStyle {
     ) -> UIColor {
         switch state {
         case .default: .Components.Chips.Selected.Label.Color.default
-        case .disbled: .Components.Chips.Selected.Label.Color.disabled
+        case .disabled: .Components.Chips.Selected.Label.Color.disabled
         case .pressed: .Components.Chips.Selected.Label.Color.pressed
         }
     }
@@ -176,7 +176,7 @@ extension ChipsViewStyle {
     ) -> UIColor {
         switch state {
         case .default: .Components.Chips.Default.Label.Color.default
-        case .disbled: .Components.Chips.Default.Label.Color.disabled
+        case .disabled: .Components.Chips.Default.Label.Color.disabled
         case .pressed: .Components.Chips.Default.Label.Color.pressed
         }
     }

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CryptoKit
 
 public extension String {
     func fontStyle(_ style: FontStyle) -> NSMutableAttributedString {
