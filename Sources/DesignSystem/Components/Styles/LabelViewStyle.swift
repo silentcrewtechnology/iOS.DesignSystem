@@ -7,6 +7,7 @@
 
 import UIKit
 import Components
+import Colors
 
 public struct LabelViewStyle {
     

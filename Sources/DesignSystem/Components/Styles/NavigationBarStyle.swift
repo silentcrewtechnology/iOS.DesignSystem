@@ -8,6 +8,7 @@
 import UIKit
 import Components
 import Extensions
+import Colors
 
 public final class NavigationBarStyle {
     
