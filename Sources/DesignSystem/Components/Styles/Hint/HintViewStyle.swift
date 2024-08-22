@@ -42,8 +42,6 @@ public final class HintViewStyle {
             self.color = color
         }
 
-        viewProperties.minHeight = 24
-        
         switch self.variant {
         case .both:
             let text = viewProperties.text?.string

@@ -1,15 +1,8 @@
-//
-//  LabelViewStyle.swift
-//
-//
-//  Created by Ilnur Mugaev on 17.04.2024.
-//
-
 import UIKit
 import Components
 import Colors
 
-public struct LabelViewStyle {
+public final class LabelViewStyle {
     
     // MARK: - Properties
     
@@ -30,12 +23,15 @@ public struct LabelViewStyle {
         }
     }
     
-    public var variant: Variant
-    public var alignment: NSTextAlignment
+    private var variant: Variant
+    private var alignment: NSTextAlignment
     
     // MARK: - Life cycle
     
-    public init(variant: Variant, alignment: NSTextAlignment = .left) {
+    public init(
+        variant: Variant,
+        alignment: NSTextAlignment = .left
+    ) {
         self.variant = variant
         self.alignment = alignment
     }
@@ -43,17 +39,22 @@ public struct LabelViewStyle {
     // MARK: - Public methods
     
     public func update(
+        variant: Variant? = nil,
         viewProperties: inout LabelView.ViewProperties
     ) {
-        viewProperties.longPressGestureRecognizer = variant.gestureRecognizer()
+        if let variant {
+            self.variant = variant
+        }
+        
+        viewProperties.longPressGestureRecognizer = self.variant.gestureRecognizer()
         viewProperties.size = .init(
-            inset: variant.insets(),
-            lineHeight: variant.lineHeight()
+            inset: self.variant.insets(),
+            lineHeight: self.variant.lineHeight()
         )
         viewProperties.text = viewProperties.text
-            .fontStyle(variant.fontStyle())
-            .foregroundColor(variant.foregroundColor())
-            .alignment(alignment)
+            .fontStyle(self.variant.fontStyle())
+            .foregroundColor(self.variant.foregroundColor())
+            .alignment(self.alignment)
     }
 }
 
