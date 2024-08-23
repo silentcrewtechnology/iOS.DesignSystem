@@ -2,7 +2,7 @@ import UIKit
 import Components
 import Colors
 
-public struct DividerViewStyle {
+public class DividerViewStyle {
     
     public typealias ViewProperties = DividerView.ViewProperties
     
@@ -18,8 +18,8 @@ public struct DividerViewStyle {
         case secondary
     }
     
-    private let variant: Variant
-    private let style: Style
+    private var variant: Variant
+    private var style: Style
     
     public init(
         variant: Variant,
@@ -30,13 +30,23 @@ public struct DividerViewStyle {
     }
     
     public func update(
+        variant: Variant? = nil,
+        style: Style? = nil,
         viewProperties: inout ViewProperties
     ) {
-        update(variant: variant, viewProperties: &viewProperties)
-        update(style: style, viewProperties: &viewProperties)
+        if let variant {
+            self.variant = variant
+        }
+        
+        if let style {
+            self.style = style
+        }
+        
+        updateVariant(variant: self.variant, viewProperties: &viewProperties)
+        updateStyle(style: self.style, viewProperties: &viewProperties)
     }
     
-    private func update(
+    private func updateVariant(
         variant: Variant,
         viewProperties: inout ViewProperties
     ) {
@@ -50,7 +60,7 @@ public struct DividerViewStyle {
         }
     }
     
-    private func update(
+    private func updateStyle(
         style: Style,
         viewProperties: inout ViewProperties
     ) {
