@@ -1,5 +1,6 @@
 import UIKit
 import Components
+import Colors
 
 public final class BadgeStyle {
     
@@ -138,7 +139,7 @@ public extension BadgeStyle.Size {
     
     func fontStyle() -> FontStyle {
         switch self {
-        case .small: .textS_1
+        case .small: .text2XS_1
         case .large: .textS_1
         }
     }
