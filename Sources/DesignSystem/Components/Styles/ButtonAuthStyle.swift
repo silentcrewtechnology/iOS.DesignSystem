@@ -5,7 +5,7 @@ public final class ButtonAuthStyle {
     
     public enum Variant {
         case gosuslugi
-        case akbars
+        case abb
     }
     
     public enum State {
@@ -58,7 +58,7 @@ public final class ButtonAuthStyle {
             .fontStyle(.textM)
             .foregroundColor(titleColor())
         
-        if case .akbars = self.variant,
+        if case .abb = self.variant,
            let iconTintColor = iconTintColor() {
             viewProperties.image = viewProperties.image
                 .withTintColor(iconTintColor)
@@ -72,15 +72,15 @@ public final class ButtonAuthStyle {
 extension ButtonAuthStyle {
     private func backgroundColor() -> UIColor {
         switch variant {
-        case .akbars: backgroundAkbarsColor()
+        case .abb: backgroundAbbColor()
         case .gosuslugi: backgroundGosuslugiColor()
         }
     }
     
-    private func backgroundAkbarsColor() -> UIColor {
+    private func backgroundAbbColor() -> UIColor {
         switch color {
-        case .accent: backgroundAkbarsAccentColor()
-        case .light: backgroundAkbarsLightColor()
+        case .accent: backgroundAbbAccentColor()
+        case .light: backgroundAbbLightColor()
         }
     }
     
@@ -91,17 +91,17 @@ extension ButtonAuthStyle {
         }
     }
     
-    private func backgroundAkbarsAccentColor() -> UIColor {
+    private func backgroundAbbAccentColor() -> UIColor {
         switch state {
-        case .default: .Components.ButtonAuth.Accent.Akbars.Background.default
-        case .pressed: .Components.ButtonAuth.Accent.Akbars.Background.pressed
+        case .default: .Components.ButtonAuth.Accent.Abb.Background.default
+        case .pressed: .Components.ButtonAuth.Accent.Abb.Background.pressed
         }
     }
     
-    private func backgroundAkbarsLightColor() -> UIColor {
+    private func backgroundAbbLightColor() -> UIColor {
         switch state {
-        case .default: .Components.ButtonAuth.Light.Akbars.Background.default
-        case .pressed: .Components.ButtonAuth.Light.Akbars.Background.pressed
+        case .default: .Components.ButtonAuth.Light.Abb.Background.default
+        case .pressed: .Components.ButtonAuth.Light.Abb.Background.pressed
         }
     }
     
@@ -124,15 +124,15 @@ extension ButtonAuthStyle {
 extension ButtonAuthStyle {
     private func titleColor() -> UIColor {
         switch variant {
-        case .akbars: titleAkbarsColor()
+        case .abb: titleAbbColor()
         case .gosuslugi: titleGosuslugiColor()
         }
     }
     
-    private func titleAkbarsColor() -> UIColor {
+    private func titleAbbColor() -> UIColor {
         switch color {
-        case .accent: titleAkbarsAccentColor()
-        case .light: titleAkbarsLightColor()
+        case .accent: titleAbbAccentColor()
+        case .light: titleAbbLightColor()
         }
     }
     
@@ -143,17 +143,17 @@ extension ButtonAuthStyle {
         }
     }
     
-    private func titleAkbarsAccentColor() -> UIColor {
+    private func titleAbbAccentColor() -> UIColor {
         switch state {
-        case .default: .Components.ButtonAuth.Accent.Akbars.Label.default
-        case .pressed: .Components.ButtonAuth.Accent.Akbars.Label.pressed
+        case .default: .Components.ButtonAuth.Accent.Abb.Label.default
+        case .pressed: .Components.ButtonAuth.Accent.Abb.Label.pressed
         }
     }
     
-    private func titleAkbarsLightColor() -> UIColor {
+    private func titleAbbLightColor() -> UIColor {
         switch state {
-        case .default: .Components.ButtonAuth.Light.Akbars.Label.default
-        case .pressed: .Components.ButtonAuth.Light.Akbars.Label.pressed
+        case .default: .Components.ButtonAuth.Light.Abb.Label.default
+        case .pressed: .Components.ButtonAuth.Light.Abb.Label.pressed
         }
     }
     
@@ -176,29 +176,29 @@ extension ButtonAuthStyle {
 extension ButtonAuthStyle {
     private func iconTintColor() -> UIColor? {
         switch variant {
-        case .akbars: iconAkbarsTintColor()
+        case .abb: iconAbbTintColor()
         case .gosuslugi: nil
         }
     }
     
-    private func iconAkbarsTintColor() -> UIColor {
+    private func iconAbbTintColor() -> UIColor {
         switch color {
-        case .accent: iconAkbarsTintAccentColor()
-        case .light: iconAkbarsTintLightColor()
+        case .accent: iconAbbTintAccentColor()
+        case .light: iconAbbTintLightColor()
         }
     }
     
-    private func iconAkbarsTintAccentColor() -> UIColor {
+    private func iconAbbTintAccentColor() -> UIColor {
         switch state {
-        case .default: .Components.ButtonAuth.Accent.Akbars.Logo.default
-        case .pressed: .Components.ButtonAuth.Accent.Akbars.Logo.pressed
+        case .default: .Components.ButtonAuth.Accent.Abb.Logo.default
+        case .pressed: .Components.ButtonAuth.Accent.Abb.Logo.pressed
         }
     }
     
-    private func iconAkbarsTintLightColor() -> UIColor {
+    private func iconAbbTintLightColor() -> UIColor {
         switch state {
-        case .default: .Components.ButtonAuth.Light.Akbars.Logo.default
-        case .pressed: .Components.ButtonAuth.Light.Akbars.Logo.pressed
+        case .default: .Components.ButtonAuth.Light.Abb.Logo.default
+        case .pressed: .Components.ButtonAuth.Light.Abb.Logo.pressed
         }
     }
 }
@@ -207,7 +207,7 @@ extension ButtonAuthStyle {
 extension ButtonAuthStyle {
     private func spacing() -> CGFloat {
         switch variant {
-        case .akbars: 16
+        case .abb: 16
         case .gosuslugi: 8
         }
     }
