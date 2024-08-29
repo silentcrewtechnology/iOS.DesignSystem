@@ -9,11 +9,13 @@ public final class LabelViewStyle {
     public enum Variant {
         case `default`(customColor: UIColor?)
         case disabled(customColor: UIColor?)
-        case rowTitle(customColor: UIColor?, recognizer: UILongPressGestureRecognizer?)
+        @available(*, deprecated, message: "Use rowCustomTitle")
+        case rowTitle(recognizer: UILongPressGestureRecognizer?)
         case rowSubtitle
         case rowIndex
         case rowAmount
         case rowStatusCard(statusCardVariant: StatusCardVariant)
+        case rowCustomTitle(customColor: UIColor?, recognizer: UILongPressGestureRecognizer?)
         
         public enum StatusCardVariant {
             case blocked
@@ -63,7 +65,8 @@ public final class LabelViewStyle {
 public extension LabelViewStyle.Variant {
     func gestureRecognizer() -> UILongPressGestureRecognizer? {
         switch self {
-        case .rowTitle(_, let recognizer): return recognizer ?? nil
+        case .rowTitle(let recognizer): return recognizer ?? nil
+        case .rowCustomTitle(_, let recognizer): return recognizer ?? nil
         default: return nil
         }
     }
@@ -85,7 +88,7 @@ public extension LabelViewStyle.Variant {
     
     func fontStyle() -> FontStyle {
         switch self {
-        case .rowTitle(_, _): .textM
+        case .rowTitle(_), .rowCustomTitle(_, _): .textM
         case .rowAmount: .textM_1
         case .rowStatusCard: .text2XS
         default: .textS
@@ -96,11 +99,12 @@ public extension LabelViewStyle.Variant {
         switch self {
         case .default(let customColor): customColor ?? .Components.Label.Color.color
         case .disabled(let customColor): customColor ?? .Core.Brand.neutral300
-        case .rowTitle(let customColor, _): customColor ?? .Components.Row.Title.Color.value
+        case .rowTitle(_): .Components.Row.Title.Color.value
         case .rowAmount: .Components.Row.Title.Color.value
         case .rowSubtitle: .Components.Row.Subtitle.Color.value
         case .rowIndex: .Components.Row.Index.Color.value
         case .rowStatusCard(let statusCardVariant): statusCardVariant.foregroundColor()
+        case .rowCustomTitle(let customColor, _): customColor ?? .Components.Row.Title.Color.value
         }
     }
 }
