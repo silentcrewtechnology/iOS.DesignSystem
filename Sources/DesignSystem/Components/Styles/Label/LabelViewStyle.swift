@@ -11,11 +11,13 @@ public final class LabelViewStyle {
         case disabled(customColor: UIColor?)
         @available(*, deprecated, message: "Use rowCustomTitle")
         case rowTitle(recognizer: UILongPressGestureRecognizer?)
+        @available(*, deprecated, message: "Use rowCustomSubtitle")
         case rowSubtitle
         case rowIndex
         case rowAmount
         case rowStatusCard(statusCardVariant: StatusCardVariant)
         case rowCustomTitle(customColor: UIColor?, recognizer: UILongPressGestureRecognizer?)
+        case rowCustomSubtitle(customColor: UIColor?)
         
         public enum StatusCardVariant {
             case blocked
@@ -80,7 +82,7 @@ public extension LabelViewStyle.Variant {
     
     func lineHeight() -> CGFloat {
         switch self {
-        case .rowSubtitle, .rowIndex: 20
+        case .rowSubtitle, .rowCustomSubtitle, .rowIndex: 20
         case .rowStatusCard: 16
         default: 24
         }
@@ -105,6 +107,8 @@ public extension LabelViewStyle.Variant {
         case .rowIndex: .Components.Row.Index.Color.value
         case .rowStatusCard(let statusCardVariant): statusCardVariant.foregroundColor()
         case .rowCustomTitle(let customColor, _): customColor ?? .Components.Row.Title.Color.value
+        case .rowCustomSubtitle(let customColor):
+            customColor ?? .Components.Row.Subtitle.Color.value
         }
     }
 }
