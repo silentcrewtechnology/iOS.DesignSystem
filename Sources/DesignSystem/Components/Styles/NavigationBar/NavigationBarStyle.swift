@@ -186,10 +186,10 @@ public final class NavigationBarStyle {
                      nil)
                 )),
             margins: margins ?? .init(
-                leading: 16,
+                leading: .zero,
                 trailing: 16,
-                top: .zero,
-                bottom: .zero,
+                top: 2,
+                bottom: 2,
                 spacing: 16
             )
         )
