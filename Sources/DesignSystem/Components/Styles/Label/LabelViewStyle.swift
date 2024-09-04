@@ -99,8 +99,8 @@ public extension LabelViewStyle.Variant {
     
     func foregroundColor() -> UIColor {
         switch self {
-        case .default(let customColor): customColor ?? .Components.Label.Color.color
-        case .disabled(let customColor): customColor ?? .Core.Brand.neutral300
+        case .default(let customColor): customColor ?? .Components.Label.Color.default
+        case .disabled(let customColor): customColor ?? .Components.Label.Color.disabled
         case .rowTitle(_): .Components.Row.Title.Color.value
         case .rowAmount: .Components.Row.Title.Color.value
         case .rowSubtitle: .Components.Row.Subtitle.Color.value
@@ -118,9 +118,10 @@ public extension LabelViewStyle.Variant {
 public extension LabelViewStyle.Variant.StatusCardVariant {
     func foregroundColor() -> UIColor {
         switch self {
-        case .blocked: .Semantic.LightTheme.Content.Error.default
-        case .rerelease, .expires: .Semantic.LightTheme.Content.Warning.default
-        case .readiness: .Semantic.LightTheme.Content.Accent.default
+        case .blocked: .Components.Row.StatusCard.Color.blocked
+        case .rerelease: .Components.Row.StatusCard.Color.reRelease
+        case .expires: .Components.Row.StatusCard.Color.expires
+        case .readiness: .Components.Row.StatusCard.Color.readiness
         }
     }
 }
