@@ -1,10 +1,3 @@
-//
-//  NavigationBarStyle.swift
-//  
-//
-//  Created by user on 22.07.2024.
-//
-
 import UIKit
 import Components
 import Extensions
@@ -63,15 +56,20 @@ public final class NavigationBarStyle {
     ) {
         self.backAction = backAction
         
-        let backButton = UIBarButtonItem(
-            image: .ic24ArrowLeft
-                .withTintColor(.Semantic.LightTheme.Content.Base.primary)
-                .withRenderingMode(.alwaysOriginal),
-            style: .plain,
-            target: self,
-            action: #selector(backTapped)
-        )
-        viewProperties.leftBarButtonItems = [backButton]
+        if self.backAction != nil {
+            let backButton = UIBarButtonItem(
+                image: .ic24ArrowLeft
+                    .withTintColor(.Semantic.LightTheme.Content.Base.primary)
+                    .withRenderingMode(.alwaysOriginal),
+                style: .plain,
+                target: self,
+                action: #selector(backTapped)
+            )
+            viewProperties.leftBarButtonItems = [backButton]
+        } else {
+            viewProperties.leftBarButtonItems = nil
+        }
+        
         viewProperties.largeTitleDisplayMode = .never
         
         let otherBarAppearance = UINavigationBarAppearance()
