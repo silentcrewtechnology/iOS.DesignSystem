@@ -141,12 +141,15 @@ public final class NavigationBarStyle {
         var centerView: DSRowBlocks = .molecule(
             .titleWithSubtitle(
                 (title ?? "", .init(variant: .rowAmount, alignment: .center), nil),
-                (subtitle ?? "", .init(variant: .rowSubtitle, alignment: .center))
+                (subtitle ?? "", .init(variant: .rowCustomSubtitle(customColor: nil), alignment: .center))
             )
         )
         
         if title == nil {
-            centerView = .atom(.subtitle(subtitle ?? "", .init(variant: .rowSubtitle, alignment: .center)))
+            centerView = .atom(.subtitle(subtitle ?? "", .init(
+                variant: .rowCustomSubtitle(customColor: nil),
+                alignment: .center
+            )))
         } else if subtitle == nil {
             centerView = .atom(.title(title ?? "", .init(variant: .rowAmount, alignment: .center), nil))
         }
@@ -168,15 +171,7 @@ public final class NavigationBarStyle {
         margins: RowBaseContainer.ViewProperties.Margins? = nil
     ) -> UIView {
         return DSCreationRowsViewService().createViewRowWithBlocks(
-            leading: .atom(
-                .image40(
-                    .ic24User
-                        .withTintColor(.Semantic.LightTheme.Content.Base.primary)
-                        .centered(in: .circle(
-                            backgroundColor: .white,
-                            diameter: 40))
-                        .withRenderingMode(.alwaysOriginal),
-                    nil)),
+            leading: .atom(.image40(.ic24User, .init(type: .icon(.ic24User), color: .main))),
             center: .molecule(
                 .indexWithIcon24(
                     (name, .init(variant: .rowAmount, alignment: .left)),
