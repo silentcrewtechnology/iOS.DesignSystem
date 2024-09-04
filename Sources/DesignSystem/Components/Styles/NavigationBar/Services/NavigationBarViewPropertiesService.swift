@@ -1,10 +1,3 @@
-//
-//  NavigationBarViewPropertiesService.swift
-//
-//
-//  Created by user on 28.08.2024.
-//
-
 import UIKit
 import Components
 
