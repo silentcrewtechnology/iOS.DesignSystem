@@ -10,13 +10,15 @@ public enum AtomDSElement {
     case image40(UIImage, ImageViewStyle?)
     case icon24(UIImage, ImageViewStyle?)
     case icon20(UIImage, ImageViewStyle?)
-    case card(UIImage, CardViewStyle?)
+    @available(*, deprecated, message: "Use cardWithMaskedNumber")
+    case card(UIImage?, CardViewStyle?)
     case toggle(Bool, (Bool) -> Void, ToggleViewStyle?)
     case checkbox(Bool, (Bool) -> Void, CheckboxViewStyle?)
     case radio(Bool, () -> Void, RadioViewStyle?)
     case button(String, () -> Void, ButtonViewStyle?)
     case buttonIcon(UIImage, () -> Void, ButtonIconStyle?)
     case titleView(String, TitleViewStyle?)
+    case cardWithMaskedNumber(UIImage?, NSMutableAttributedString?, CardViewStyle?)
     
     // Элементы Дизайн Системы
     case inputView(InputView.ViewProperties, InputViewStyle?)
