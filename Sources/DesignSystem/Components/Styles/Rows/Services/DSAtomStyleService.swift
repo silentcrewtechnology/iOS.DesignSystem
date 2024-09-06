@@ -34,6 +34,8 @@ public struct DSAtomStyleService {
             return createButtonIcon(image, onTap, style)
         case .titleView(let title, let style):
             return createTitleView(title, style)
+        case .cardWithMaskedNumber(let backgroundImage, let maskedNumber, let style):
+            return createCardWithMaskedNumber(backgroundImage, maskedNumber, style)
             
         // Элементы Дизайн Системы
         case .inputView(let viewProperty, let style):
@@ -90,7 +92,7 @@ private extension DSAtomStyleService {
     }
 
     private func createCard(
-        _ backgroundImage: UIImage,
+        _ backgroundImage: UIImage?,
         _ style: CardViewStyle?
     ) -> UIView? {
         var viewProperties = CardView.ViewProperties()
@@ -100,7 +102,32 @@ private extension DSAtomStyleService {
             size: .small,
             stack: .false
         )
-        newStyle.update(viewProperties: &viewProperties, backgroundImage: backgroundImage)
+        newStyle.update(
+            viewProperties: &viewProperties,
+            backgroundImage: backgroundImage
+        )
+        
+        let cardView = RowBlocksService().createRowBlock(.atom(.card(viewProperties)))
+        return cardView
+    }
+    
+    private func createCardWithMaskedNumber(
+        _ backgroundImage: UIImage?,
+        _ maskedCardNumber: NSMutableAttributedString?,
+        _ style: CardViewStyle?
+    ) -> UIView? {
+        var viewProperties = CardView.ViewProperties()
+        
+        let newStyle = style ?? CardViewStyle(
+            set: .mir,
+            size: .small,
+            stack: .false
+        )
+        newStyle.update(
+            viewProperties: &viewProperties,
+            backgroundImage: backgroundImage,
+            maskedCardNumber: maskedCardNumber
+        )
         
         let cardView = RowBlocksService().createRowBlock(.atom(.card(viewProperties)))
         return cardView

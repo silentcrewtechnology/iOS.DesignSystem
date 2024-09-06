@@ -12,6 +12,7 @@ final public class DSRowModel {
     /// Для разной высоты ячеек в одной секции.
     /// Если нужна одинаковая высота у всех ячеек в секции - использовать rowsHeight у SectionRowModelService
     public let height: CGFloat?
+    public let backgroundColor: UIColor?
     public let didTap: ((UITableView, IndexPath) -> Void)?
     
     public init(
@@ -23,6 +24,7 @@ final public class DSRowModel {
         cellIdentifier: String = "RowCell",
         cellSelectionStyle: UITableViewCell.SelectionStyle = .gray,
         height: CGFloat? = nil,
+        backgroundColor: UIColor? = nil,
         didTap: ((UITableView, IndexPath) -> Void)? = nil
     ) {
         self.leading = leading
@@ -33,6 +35,7 @@ final public class DSRowModel {
         self.cellIdentifier = cellIdentifier
         self.cellSelectionStyle = cellSelectionStyle
         self.height = height
+        self.backgroundColor = backgroundColor
         self.didTap = didTap
     }
 }
