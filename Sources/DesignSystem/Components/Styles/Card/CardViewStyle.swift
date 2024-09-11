@@ -3,7 +3,7 @@ import Components
 import Colors
 import ImagesService
 
-public struct CardViewStyle {
+public final class CardViewStyle {
     
     // MARK: - Properties
     
@@ -27,9 +27,9 @@ public struct CardViewStyle {
     
     // MARK: - Private properties
     
-    private let set: Set
-    private let size: Size
-    private let stack: Stack
+    private var set: Set
+    private var size: Size
+    private var stack: Stack
     
     // MARK: - Life cycle
     
@@ -48,8 +48,23 @@ public struct CardViewStyle {
     public func update(
         viewProperties: inout CardView.ViewProperties,
         backgroundImage: UIImage? = nil,
-        maskedCardNumber: NSMutableAttributedString? = nil
+        maskedCardNumber: NSMutableAttributedString? = nil,
+        newSet: Set? = nil,
+        newSize: Size? = nil,
+        newStack: Stack? = nil
     ) {
+        if let newSet {
+            self.set = newSet
+        }
+        
+        if let newSize {
+            self.size = newSize
+        }
+        
+        if let newStack {
+            self.stack = newStack
+        }
+        
         viewProperties.size = size.size()
         viewProperties.cornerRadius = size.cornerRadius()
         viewProperties.containerInsets = size.insets()
