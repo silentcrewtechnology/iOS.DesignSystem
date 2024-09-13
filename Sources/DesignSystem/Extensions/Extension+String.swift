@@ -215,7 +215,6 @@ public extension String {
             .attributed
             .foregroundColor(color)
             .fontStyle(.caption3XS)
-            .kern(0.3)
         return attributedString
     }
     
@@ -225,7 +224,6 @@ public extension String {
             .attributed
             .foregroundColor(color)
             .fontStyle(.caption3XS_1)
-            .kern(0.3)
         return attributedString
     }
 }

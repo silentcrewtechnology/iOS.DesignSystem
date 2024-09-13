@@ -1,11 +1,5 @@
-//
-//  FontStyle.swift
-//  
-//
-//  Created by firdavs on 01.06.2023.
-//
-import FontService
 import UIKit
+import FontService
 
 public struct FontStyle {
     /// Шрифт
@@ -13,19 +7,32 @@ public struct FontStyle {
     /// Высота строки
     public let lineHeight: CGFloat
     /// Отступ снизу для центрирования текста по вертикали
-    public var baselineOffset: CGFloat {
-        let offset = (lineHeight - font.capHeight) / 2 + font.descender
-        if #available(iOS 16.4, *) {
-            return offset
-        } else {
-            return offset / 2
-        }
+    public let baselineOffset: CGFloat
+    /// Интервал между буквами
+    public let kern: CGFloat
+    
+    public init(
+        font: UIFont,
+        lineHeight: CGFloat,
+        kern: CGFloat = 0
+    ) {
+        self.font = font
+        self.lineHeight = lineHeight
+        self.baselineOffset = {
+            let offset = (lineHeight - font.capHeight) / 2 + font.descender
+            if #available(iOS 16.4, *) {
+                return offset
+            } else {
+                return offset / 2
+            }
+        }()
+        self.kern = kern
     }
 }
 
 public extension FontStyle {
     
-    // MARK: Heading
+    // MARK: - Heading
     
     static let heading4XL = Self(
         font: .heading4XL,
@@ -43,7 +50,7 @@ public extension FontStyle {
         font: .headingXL,
         lineHeight: 32)
     
-    // MARK: Text
+    // MARK: - Text
     
     static let text4XL = Self(
         font: .text4XL,
@@ -125,13 +132,15 @@ public extension FontStyle {
         font: .text3XS_1,
         lineHeight: 16)
     
-    // MARK: Caption
+    // MARK: - Caption
     
     static let caption3XS = Self(
         font: .caption3XS,
-        lineHeight: 16)
+        lineHeight: 16,
+        kern: 0.3)
     
     static let caption3XS_1 = Self(
         font: .caption3XS_1,
-        lineHeight: 16)
+        lineHeight: 16,
+        kern: 0.3)
 }
