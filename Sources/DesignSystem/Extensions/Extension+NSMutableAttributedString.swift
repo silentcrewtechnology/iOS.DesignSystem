@@ -74,5 +74,6 @@ public extension NSMutableAttributedString {
             .font(style.font)
             .lineHeight(style.lineHeight)
             .baselineOffset(style.baselineOffset)
+            .kern(style.kern)
     }
 }
