@@ -14,6 +14,7 @@ public extension String {
     }
 }
 
+@available(*, deprecated, message: "Use .fontStyle(FontStyle).foregroundColor(UIColor) instead")
 public extension String {
 
     func heading4XL(color: UIColor) -> NSMutableAttributedString {
