@@ -16,6 +16,7 @@ public final class NavigationBarStyle {
         case collapsed(title: String?)
         case mainScreen(
             name: String,
+            icon: UIImage,
             margins: RowBaseContainer.ViewProperties.Margins?,
             onProfile: () -> Void
         )
@@ -26,6 +27,12 @@ public final class NavigationBarStyle {
             updateAction: (() -> Void)?
         )
         case search(updater: UISearchResultsUpdating?)
+        case customLeftView(
+            leading: DSRowBlocks?,
+            center: DSRowBlocks?,
+            trailing: DSRowBlocks?,
+            margins: RowBaseContainer.ViewProperties.Margins?
+        )
         case none
     }
     
@@ -36,8 +43,8 @@ public final class NavigationBarStyle {
     
     // MARK: - Private properties
     
-    private let variant: Variant
-    private let color: Color
+    private var variant: Variant
+    private var color: Color
     private var backAction: (() -> Void)?
     private var updateAction: (() -> Void)?
     
@@ -52,9 +59,19 @@ public final class NavigationBarStyle {
     
     public func update(
         viewProperties: inout NavigationBar.ViewProperties,
+        newVariant: Variant? = nil,
+        newColor: Color? = nil,
         backAction: (() -> Void)? = nil
     ) {
         self.backAction = backAction
+        
+        if let newVariant {
+            variant = newVariant
+        }
+        
+        if let newColor {
+            color = newColor
+        }
         
         if self.backAction != nil {
             let backButton = UIBarButtonItem(
@@ -105,8 +122,8 @@ public final class NavigationBarStyle {
             viewProperties.title = title
             viewProperties.largeTitleDisplayMode = .always
             viewProperties.prefersLargeTitles = true
-        case let .mainScreen(name, margins, onProfile):
-            let profileView = createProfileView(name: name, margins: margins)
+        case let .mainScreen(name, icon, margins, onProfile):
+            let profileView = createProfileView(name: name, icon: icon, margins: margins)
             profileView.addTapGesture(onProfile)
             
             viewProperties.leftBarButtonItems = [.init(customView: profileView)]
@@ -120,6 +137,14 @@ public final class NavigationBarStyle {
         case .search(let updater):
             viewProperties.searchController = createSearchController(updater: updater)
             viewProperties.hidesSearchBarWhenScrolling = false
+        case let .customLeftView(leading, center, trailing, margins):
+            let customLeftView = DSCreationRowsViewService().createViewRowWithBlocks(
+                leading: leading,
+                center: center,
+                trailing: trailing,
+                margins: margins
+            )
+            viewProperties.leftBarButtonItems = [.init(customView: customLeftView)]
         case .none:
             viewProperties.isNavigationBarHidden = true
         }
@@ -166,10 +191,11 @@ public final class NavigationBarStyle {
     
     private func createProfileView(
         name: String,
+        icon: UIImage,
         margins: RowBaseContainer.ViewProperties.Margins? = nil
     ) -> UIView {
         return DSCreationRowsViewService().createViewRowWithBlocks(
-            leading: .atom(.image40(.ic24User, .init(type: .icon(.ic24User), color: .main))),
+            leading: .atom(.image40(icon, .init(type: .fillImage(icon), color: .main))),
             center: .molecule(
                 .indexWithIcon24(
                     (name, .init(variant: .rowAmount, alignment: .left)),
@@ -215,7 +241,10 @@ public final class NavigationBarStyle {
         }
         
         var subtitleVP = LabelView.ViewProperties(text: .init(string: subtitle ?? ""))
-        let subtitleStyle = LabelViewStyle(variant: .rowSubtitle, alignment: .center)
+        let subtitleStyle = LabelViewStyle(
+            variant: .rowCustomSubtitle(customColor: nil),
+            alignment: .center
+        )
         subtitleStyle.update(viewProperties: &subtitleVP)
         let subtitleLabel = LabelView()
         subtitleLabel.update(with: subtitleVP)

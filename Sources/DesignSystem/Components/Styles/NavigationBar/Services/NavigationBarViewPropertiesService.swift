@@ -21,16 +21,17 @@ public final class NavigationBarViewPropertiesService {
         backAction: (() -> Void)? = nil
     ) -> NavigationBar.ViewProperties {
         var navigationBarVP = NavigationBar.ViewProperties()
-        navigationBarStyle = NavigationBarStyle(
-            variant: .basic(
+        navigationBarStyle.update(
+            viewProperties: &navigationBarVP,
+            newVariant: .basic(
                 title: title,
                 subtitle: subtitle,
                 margins: margins
             ),
-            color: color
+            newColor: color,
+            backAction: backAction
         )
-        navigationBarStyle.update(viewProperties: &navigationBarVP, backAction: backAction)
+        
         return navigationBarVP
     }
 }
-
