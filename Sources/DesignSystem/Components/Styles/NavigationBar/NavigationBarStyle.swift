@@ -104,6 +104,7 @@ public final class NavigationBarStyle {
             .font: UIFont.textM_1
         ]
         
+        viewProperties.isNavigationBarHidden = false
         switch variant {
         case let .basic(title, subtitle, margins):
             viewProperties.titleView = createBasicTitleView(
