@@ -1,5 +1,6 @@
 import UIKit
 import Components
+import AccessibilityIds
 
 public final class KeyboardPinViewService {
     
@@ -7,13 +8,16 @@ public final class KeyboardPinViewService {
     
     public private(set) var view: V
     public private(set) var viewProperties: V.ViewProperties
-    public private(set) lazy var digitServices: [KeyPinViewService] = "1234567890".map { digit in
-        let digit = "\(digit)"
+    public private(set) lazy var digitServices: [KeyPinViewService] = "1234567890".enumerated().map { index, digit in
+        let digitString = "\(digit)"
         return .init(
-            viewProperties: .init(digit: digit.attributed),
+            viewProperties: .init(
+                digit: digitString.attributed,
+                accessibilityId: "\(DesignSystemAccessibilityIDs.KeyPinView.id)\(digitString)"
+            ),
             onTap: { [weak self] in
                 guard let self else { return }
-                onDigitTap(digit)
+                onDigitTap(digitString)
             }
         )
     }
