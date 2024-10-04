@@ -2,7 +2,7 @@ import UIKit
 import Components
 import Colors
 
-public class DividerViewStyle {
+public final class DividerViewStyle {
     
     public typealias ViewProperties = DividerView.ViewProperties
     

@@ -2,7 +2,7 @@ import UIKit
 import Components
 import Colors
 
-public class InputViewStyle {
+public final class InputViewStyle {
     
     // MARK: - Properties
     
