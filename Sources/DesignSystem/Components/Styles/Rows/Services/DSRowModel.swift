@@ -1,7 +1,7 @@
 import Components
 import UIKit
 
-final public class DSRowModel {
+public final class DSRowModel {
     public let leading: DSRowBlocks?
     public let center: DSRowBlocks?
     public let trailing: DSRowBlocks?

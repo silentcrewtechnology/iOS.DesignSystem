@@ -2,7 +2,7 @@ import UIKit
 import Components
 import Colors
 
-public class ChipsViewStyle {
+public final class ChipsViewStyle {
     
     public enum Set {
         case rightIcon

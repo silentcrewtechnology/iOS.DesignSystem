@@ -2,7 +2,7 @@ import UIKit
 import Colors
 import Components
 
-public class SegmentControlViewStyle {
+public final class SegmentControlViewStyle {
     
     private typealias ViewProperties = SegmentControlView.ViewProperties
     
