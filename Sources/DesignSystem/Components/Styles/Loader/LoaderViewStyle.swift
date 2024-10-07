@@ -15,7 +15,7 @@ public final class LoaderViewStyle {
     
     public enum Color {
         case main
-        case action
+        case accent
         case disabled
     }
     
@@ -111,9 +111,9 @@ public extension LoaderViewStyle.Size {
 public extension LoaderViewStyle.Color {
     func strokeColor() -> UIColor {
         switch self {
-        case .main: .Semantic.LightTheme.Content.Accent.default
-        case .action: .Semantic.LightTheme.Content.Base.accentOn
-        case .disabled: .Semantic.LightTheme.Content.Base.disabled
+        case .main: .Components.Loader.Main.Background.color
+        case .accent: .Components.Loader.Accent.Background.color
+        case .disabled: .Components.Loader.Disabled.Background.color
         }
     }
 }
