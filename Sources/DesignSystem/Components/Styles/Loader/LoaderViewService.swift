@@ -22,7 +22,7 @@ public final class LoaderViewService {
         view: LoaderView = .init(),
         viewProperties: LoaderView.ViewProperties = .init(),
         style: LoaderViewStyle,
-        isHidden: Bool = false
+        isHidden: Bool = true
     ) {
         self.view = view
         self.viewProperties = viewProperties
@@ -35,7 +35,7 @@ public final class LoaderViewService {
     public func update(
         newColor: LoaderViewStyle.Color? = nil,
         newSize: LoaderViewStyle.Size? = nil,
-        isHidden: Bool = false
+        isHidden: Bool = true
     ) {
         style.update(
             newColor: newColor,
