@@ -21,26 +21,28 @@ public final class LoaderViewService {
     public init(
         view: LoaderView = .init(),
         viewProperties: LoaderView.ViewProperties = .init(),
-        style: LoaderViewStyle
+        style: LoaderViewStyle,
+        isHidden: Bool = true
     ) {
         self.view = view
         self.viewProperties = viewProperties
         self.style = style
-        
-        update()
+        self.viewProperties.isHidden = isHidden
     }
     
     // MARK: - Methods
     
     public func update(
         newColor: LoaderViewStyle.Color? = nil,
-        newSize: LoaderViewStyle.Size? = nil
+        newSize: LoaderViewStyle.Size? = nil,
+        isHidden: Bool = true
     ) {
         style.update(
             newColor: newColor,
             newSize: newSize,
             viewProperties: &viewProperties
         )
+        viewProperties.isHidden = isHidden
         view.update(with: viewProperties)
     }
 }
