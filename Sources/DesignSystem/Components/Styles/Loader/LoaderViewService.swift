@@ -35,8 +35,13 @@ public final class LoaderViewService {
     public func update(
         newColor: LoaderViewStyle.Color? = nil,
         newSize: LoaderViewStyle.Size? = nil,
+        newStyle: LoaderViewStyle? = nil,
         isHidden: Bool = true
     ) {
+        if let newStyle {
+            style = newStyle
+        }
+        
         style.update(
             newColor: newColor,
             newSize: newSize,

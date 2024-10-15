@@ -17,6 +17,7 @@ public final class LoaderViewStyle {
         case main
         case accent
         case disabled
+        case primary
     }
     
     public enum Size {
@@ -114,6 +115,7 @@ public extension LoaderViewStyle.Color {
         case .main: .Components.Loader.Main.Background.color
         case .accent: .Components.Loader.Accent.Background.color
         case .disabled: .Components.Loader.Disabled.Background.color
+        case .primary: .Semantic.LightTheme.Static.black
         }
     }
 }
