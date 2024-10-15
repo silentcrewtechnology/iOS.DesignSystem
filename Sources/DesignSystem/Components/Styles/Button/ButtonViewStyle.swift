@@ -61,7 +61,6 @@ public final class ButtonViewStyle {
         icon: Icon? = nil,
         viewProperties: inout ButtonView.ViewProperties
     ) {
-        
         if let size {
             self.size = size
         }
@@ -86,30 +85,24 @@ public final class ButtonViewStyle {
         viewProperties.attributedText = viewProperties.attributedText?
             .fontStyle(self.size.fontStyle())
             .foregroundColor(tintColor())
-        
+            .alignment(.center)
+    
         if case .loading = self.state {
             viewProperties.leftIcon = nil
-            viewProperties.activityIndicator = .init(
-                icon: .ic24SpinerLoader.withTintColor(loaderColor()),
-                size: self.size.indicatorSize(),
-                isAnimating: self.state.isLoading())
         } else {
-            viewProperties.activityIndicator = .init()
+            if case .with(let icon) = self.icon {
+                viewProperties.leftIcon = icon.withTintColor(tintColor())
+            }
         }
-        
-        if case .with(let icon) = self.icon,
-           self.state != .loading {
-            viewProperties.leftIcon = icon.withTintColor(tintColor())
-        }
-        
+
         viewProperties.isEnabled = self.state.isEnabled()
         viewProperties.cornerRadius = self.size.cornerRadius()
-
         viewProperties.margins = self.size.getMargins(isLoading: self.state.isLoading())
     }
 }
 
-// MARK: Background colors
+// MARK: - Background colors
+
 extension ButtonViewStyle {
     private func backgroundColor() -> UIColor {
         switch color {
@@ -199,8 +192,10 @@ extension ButtonViewStyle {
     }
 }
 
-// MARK: Tint text colors
+// MARK: - Tint text colors
+
 extension ButtonViewStyle {
+    
     private func tintColor() -> UIColor {
         switch color {
         case .accent: tintAccentColor()
@@ -299,8 +294,10 @@ extension ButtonViewStyle {
     }
 }
 
-// MARK: Tint icon colors
+// MARK: - Tint icon colors
+
 extension ButtonViewStyle {
+    
     private func tintIconColor() -> UIColor {
         switch color {
         case .accent: tintIconAccentColor()
@@ -399,8 +396,10 @@ extension ButtonViewStyle {
     }
 }
 
-// MARK: Activity indicator colors
+// MARK: - Loader colors
+
 extension ButtonViewStyle {
+    
     private func loaderColor() -> UIColor {
         switch color {
         case .accent: loaderAccentColor()
@@ -483,7 +482,59 @@ extension ButtonViewStyle {
     }
 }
 
+// MARK: - Loader styles
+
+public extension ButtonViewStyle {
+    
+    func loaderStyle() -> LoaderViewStyle {
+        switch variant {
+        case .primary: .init(color: loaderPrimaryColor(), size: loaderSize())
+        case .secondary: .init(color: loaderSecondaryColor(), size: loaderSize())
+        case .tertiary: .init(color: loaderTertiaryColor(), size: loaderSize())
+        case .function: .init(color: loaderFunctionColor(), size: loaderSize())
+        }
+    }
+    
+    private func loaderPrimaryColor() -> LoaderViewStyle.Color {
+        switch color {
+        case .light: .primary
+        case .accent: .main
+        }
+    }
+    
+    private func loaderSecondaryColor() -> LoaderViewStyle.Color {
+        switch color {
+        case .light: .main
+        case .accent: .primary
+        }
+    }
+    
+    private func loaderTertiaryColor() -> LoaderViewStyle.Color {
+        switch color {
+        case .light: .main
+        case .accent: .accent
+        }
+    }
+    
+    private func loaderFunctionColor() -> LoaderViewStyle.Color {
+        switch color {
+        case .light: .main
+        case .accent: .accent
+        }
+    }
+    
+    private func loaderSize() -> LoaderViewStyle.Size {
+        switch size {
+        case .large: .m
+        case .small: .s
+        }
+    }
+}
+
+// MARK: - ButtonViewStyle.Size Extension
+
 public extension ButtonViewStyle.Size {
+
     func fontStyle() -> FontStyle {
         switch self {
         case .large: .textM
@@ -505,56 +556,63 @@ public extension ButtonViewStyle.Size {
         }
     }
     
-    func indicatorSize() -> CGSize {
+    func indicatorFrame() -> CGRect {
         switch self {
-        case .large: .init(width: 24, height: 24)
-        case .small: .init(width: 16, height: 16)
+        case .large: .init(x: .zero, y: .zero, width: 24, height: 24)
+        case .small: .init(x: .zero, y: .zero, width: 16, height: 16)
         }
     }
     
     func getMargins(
         isLoading: Bool
     ) -> ButtonView.ViewProperties.Margins {
-        
         func large() -> ButtonView.ViewProperties.Margins {
             switch isLoading {
-            case false: .init(imageTop: 16,
-                              imageBottom: 16,
-                              top: 16,
-                              bottom: 16,
-                              leading: 16,
-                              trailing: 16,
-                              spacing: 8,
-                              height: height())
-            case true: .init(imageTop: 16,
-                             imageBottom: 16,
-                             top: 16,
-                             bottom: 16,
-                             leading: 16,
-                             trailing: 16,
-                             spacing: 0,
-                             height: height())
+            case false: .init(
+                imageTop: 16,
+                imageBottom: 16,
+                top: 16,
+                bottom: 16,
+                leading: 16,
+                trailing: 16,
+                spacing: 8,
+                height: height()
+            )
+            case true: .init(
+                imageTop: 16,
+                imageBottom: 16,
+                top: 16,
+                bottom: 16,
+                leading: 16,
+                trailing: 16,
+                spacing: 0,
+                height: height()
+            )
             }
         }
         
         func small() -> ButtonView.ViewProperties.Margins {
             switch isLoading {
-            case false: .init(imageTop: 6,
-                              imageBottom: 6,
-                              top: 6,
-                              bottom: 6,
-                              leading: 16,
-                              trailing: 16,
-                              spacing: 8,
-                              height: height())
-            case true: .init(imageTop: 8,
-                             imageBottom: 8,
-                             top: 8,
-                             bottom: 8,
-                             leading: 16,
-                             trailing: 16,
-                             spacing: 0,
-                             height: height())
+            case false: .init(
+                imageTop: 6,
+                imageBottom: 6,
+                top: 6,
+                bottom: 6,
+                leading: 16,
+                trailing: 16,
+                spacing: 8,
+                height: height()
+            )
+            case true: .init(
+                imageTop: 8,
+                imageBottom: 8,
+                top: 8,
+                bottom: 8,
+                leading: 16,
+                trailing: 16,
+                spacing: 0,
+                height: height()
+            )
             }
         }
         
@@ -565,7 +623,10 @@ public extension ButtonViewStyle.Size {
     }
 }
 
+// MARK: - ButtonViewStyle.State Extension
+
 public extension ButtonViewStyle.State {
+    
     func isLoading() -> Bool {
         switch self {
         case .loading: true
