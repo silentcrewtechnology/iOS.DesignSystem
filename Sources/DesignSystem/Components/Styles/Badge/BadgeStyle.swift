@@ -109,28 +109,28 @@ public extension BadgeStyle.Color {
     
     func backgroundColor() -> UIColor {
         switch self {
-        case .neutral: .Components.Badge.Neutral.Background.color
-        case .accent: .Components.Badge.Accent.Background.color
-        case .accentBrand: .Components.Badge.AccentBrand.Background.color
-        case .accentInfo: .Components.Badge.Info.Background.color
+        case .neutral: .Components.Badge.Neutral.Background.Color.color
+        case .accent: .Components.Badge.Accent.Background.Color.color
+        case .accentBrand: .Components.Badge.AccentBrand.Background.Color.color
+        case .accentInfo: .Components.Badge.Info.Background.Color.color
         }
     }
     
     func textTintColor() -> UIColor {
         switch self {
-        case .neutral: .Components.Badge.Neutral.Label.color
-        case .accent: .Components.Badge.Accent.Label.color
-        case .accentBrand: .Components.Badge.AccentBrand.Label.color
-        case .accentInfo: .Components.Badge.Info.Label.color
+        case .neutral: .Components.Badge.Neutral.Label.Color.color
+        case .accent: .Components.Badge.Accent.Label.Color.color
+        case .accentBrand: .Components.Badge.AccentBrand.Label.Color.color
+        case .accentInfo: .Components.Badge.Info.Label.Color.color
         }
     }
     
     func imageTintColor() -> UIColor {
         switch self {
-        case .neutral: .Components.Badge.Neutral.Icon.color
-        case .accent: .Components.Badge.Accent.Icon.color
-        case .accentBrand: .Components.Badge.AccentBrand.Icon.color
-        case .accentInfo: .Components.Badge.Info.Icon.color
+        case .neutral: .Components.Badge.Neutral.Icon.Color.color
+        case .accent: .Components.Badge.Accent.Icon.Color.color
+        case .accentBrand: .Components.Badge.AccentBrand.Icon.Color.color
+        case .accentInfo: .Components.Badge.Info.Icon.Color.color
         }
     }
 }
