@@ -122,28 +122,28 @@ extension ButtonViewStyle {
     
     private func backgroundAccentPrimaryColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Accent.Primary.Background.default
-        case .pressed: .Components.Button.Accent.Primary.Background.pressed
-        case .disabled: .Components.Button.Accent.Primary.Background.disabled
-        case .loading: .Components.Button.Accent.Primary.Background.loading
+        case .default: .Components.Button.Accent.Primary.Background.Color.default
+        case .pressed: .Components.Button.Accent.Primary.Background.Color.pressed
+        case .disabled: .Components.Button.Accent.Primary.Background.Color.disabled
+        case .loading: .Components.Button.Accent.Primary.Background.Color.loading
         }
     }
     
     private func backgroundAccentSecondaryColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Accent.Secondary.Background.default
-        case .pressed: .Components.Button.Accent.Secondary.Background.pressed
-        case .disabled: .Components.Button.Accent.Secondary.Background.disabled
-        case .loading: .Components.Button.Accent.Secondary.Background.loading
+        case .default: .Components.Button.Accent.Secondary.Background.Color.default
+        case .pressed: .Components.Button.Accent.Secondary.Background.Color.pressed
+        case .disabled: .Components.Button.Accent.Secondary.Background.Color.disabled
+        case .loading: .Components.Button.Accent.Secondary.Background.Color.loading
         }
     }
     
     private func backgroundAccentTertiaryColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Accent.Tertiary.Background.default
-        case .pressed: .Components.Button.Accent.Tertiary.Background.pressed
-        case .disabled: .Components.Button.Accent.Tertiary.Background.disabled
-        case .loading: .Components.Button.Accent.Tertiary.Background.loading
+        case .default: .Components.Button.Accent.Tertiary.Background.Color.default
+        case .pressed: .Components.Button.Accent.Tertiary.Background.Color.pressed
+        case .disabled: .Components.Button.Accent.Tertiary.Background.Color.disabled
+        case .loading: .Components.Button.Accent.Tertiary.Background.Color.loading
         }
     }
     
@@ -162,28 +162,28 @@ extension ButtonViewStyle {
     
     private func backgroundLightPrimaryColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Light.Primary.Background.default
-        case .pressed: .Components.Button.Light.Primary.Background.pressed
-        case .disabled: .Components.Button.Light.Primary.Background.disabled
-        case .loading: .Components.Button.Light.Primary.Background.loading
+        case .default: .Components.Button.Light.Primary.Background.Color.default
+        case .pressed: .Components.Button.Light.Primary.Background.Color.pressed
+        case .disabled: .Components.Button.Light.Primary.Background.Color.disabled
+        case .loading: .Components.Button.Light.Primary.Background.Color.loading
         }
     }
     
     private func backgroundLightSecondaryColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Light.Secondary.Background.default
-        case .pressed: .Components.Button.Light.Secondary.Background.pressed
-        case .disabled: .Components.Button.Light.Secondary.Background.disabled
-        case .loading: .Components.Button.Light.Secondary.Background.loading
+        case .default: .Components.Button.Light.Secondary.Background.Color.default
+        case .pressed: .Components.Button.Light.Secondary.Background.Color.pressed
+        case .disabled: .Components.Button.Light.Secondary.Background.Color.disabled
+        case .loading: .Components.Button.Light.Secondary.Background.Color.loading
         }
     }
     
     private func backgroundLightTertiaryColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Light.Tertiary.Background.default
-        case .pressed: .Components.Button.Light.Tertiary.Background.pressed
-        case .disabled: .Components.Button.Light.Tertiary.Background.disabled
-        case .loading: .Components.Button.Light.Tertiary.Background.loading
+        case .default: .Components.Button.Light.Tertiary.Background.Color.default
+        case .pressed: .Components.Button.Light.Tertiary.Background.Color.pressed
+        case .disabled: .Components.Button.Light.Tertiary.Background.Color.disabled
+        case .loading: .Components.Button.Light.Tertiary.Background.Color.loading
         }
     }
     
@@ -214,36 +214,36 @@ extension ButtonViewStyle {
     
     private func tintAccentPrimaryColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Accent.Primary.Label.default
-        case .pressed: .Components.Button.Accent.Primary.Label.pressed
-        case .disabled: .Components.Button.Accent.Primary.Label.disabled
+        case .default: .Components.Button.Accent.Primary.Label.Color.default
+        case .pressed: .Components.Button.Accent.Primary.Label.Color.pressed
+        case .disabled: .Components.Button.Accent.Primary.Label.Color.disabled
         case .loading: .clear
         }
     }
     
     private func tintAccentSecondaryColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Accent.Secondary.Label.default
-        case .pressed: .Components.Button.Accent.Secondary.Label.pressed
-        case .disabled: .Components.Button.Accent.Secondary.Label.disabled
+        case .default: .Components.Button.Accent.Secondary.Label.Color.default
+        case .pressed: .Components.Button.Accent.Secondary.Label.Color.pressed
+        case .disabled: .Components.Button.Accent.Secondary.Label.Color.disabled
         case .loading: .clear
         }
     }
     
     private func tintAccentTertiaryColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Accent.Tertiary.Label.default
-        case .pressed: .Components.Button.Accent.Tertiary.Label.pressed
-        case .disabled: .Components.Button.Accent.Tertiary.Label.disabled
+        case .default: .Components.Button.Accent.Tertiary.Label.Color.default
+        case .pressed: .Components.Button.Accent.Tertiary.Label.Color.pressed
+        case .disabled: .Components.Button.Accent.Tertiary.Label.Color.disabled
         case .loading: .clear
         }
     }
     
     private func tintAccentFunctionColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Accent.Function.Label.default
-        case .pressed: .Components.Button.Accent.Function.Label.pressed
-        case .disabled: .Components.Button.Accent.Function.Label.disabled
+        case .default: .Components.Button.Accent.Function.Label.Color.default
+        case .pressed: .Components.Button.Accent.Function.Label.Color.pressed
+        case .disabled: .Components.Button.Accent.Function.Label.Color.disabled
         case .loading: .clear
         }
     }
@@ -259,36 +259,36 @@ extension ButtonViewStyle {
     
     private func tintLightPrimaryColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Light.Primary.Label.default
-        case .pressed: .Components.Button.Light.Primary.Label.pressed
-        case .disabled: .Components.Button.Light.Primary.Label.disabled
+        case .default: .Components.Button.Light.Primary.Label.Color.default
+        case .pressed: .Components.Button.Light.Primary.Label.Color.pressed
+        case .disabled: .Components.Button.Light.Primary.Label.Color.disabled
         case .loading: .clear
         }
     }
     
     private func tintLightSecondaryColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Light.Secondary.Label.default
-        case .pressed: .Components.Button.Light.Secondary.Label.pressed
-        case .disabled: .Components.Button.Light.Secondary.Label.disabled
+        case .default: .Components.Button.Light.Secondary.Label.Color.default
+        case .pressed: .Components.Button.Light.Secondary.Label.Color.pressed
+        case .disabled: .Components.Button.Light.Secondary.Label.Color.disabled
         case .loading: .clear
         }
     }
     
     private func tintLightTertiaryColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Light.Tertiary.Label.default
-        case .pressed: .Components.Button.Light.Tertiary.Label.pressed
-        case .disabled: .Components.Button.Light.Tertiary.Label.disabled
+        case .default: .Components.Button.Light.Tertiary.Label.Color.default
+        case .pressed: .Components.Button.Light.Tertiary.Label.Color.pressed
+        case .disabled: .Components.Button.Light.Tertiary.Label.Color.disabled
         case .loading: .clear
         }
     }
     
     private func tintLightFunctionColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Light.Function.Label.default
-        case .pressed: .Components.Button.Light.Function.Label.pressed
-        case .disabled: .Components.Button.Light.Function.Label.disabled
+        case .default: .Components.Button.Light.Function.Label.Color.default
+        case .pressed: .Components.Button.Light.Function.Label.Color.pressed
+        case .disabled: .Components.Button.Light.Function.Label.Color.disabled
         case .loading: .clear
         }
     }
@@ -316,37 +316,37 @@ extension ButtonViewStyle {
     
     private func tintIconAccentPrimaryColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Accent.Primary.Icon.default
-        case .pressed: .Components.Button.Accent.Primary.Icon.pressed
-        case .disabled: .Components.Button.Accent.Primary.Icon.disabled
-        case .loading: .Components.Button.Accent.Primary.Icon.loading
+        case .default: .Components.Button.Accent.Primary.Icon.Color.default
+        case .pressed: .Components.Button.Accent.Primary.Icon.Color.pressed
+        case .disabled: .Components.Button.Accent.Primary.Icon.Color.disabled
+        case .loading: .Components.Button.Accent.Primary.Icon.Color.loading
         }
     }
     
     private func tintIconAccentSecondaryColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Accent.Secondary.Icon.default
-        case .pressed: .Components.Button.Accent.Secondary.Icon.pressed
-        case .disabled: .Components.Button.Accent.Secondary.Icon.disabled
-        case .loading: .Components.Button.Accent.Secondary.Icon.loading
+        case .default: .Components.Button.Accent.Secondary.Icon.Color.default
+        case .pressed: .Components.Button.Accent.Secondary.Icon.Color.pressed
+        case .disabled: .Components.Button.Accent.Secondary.Icon.Color.disabled
+        case .loading: .Components.Button.Accent.Secondary.Icon.Color.loading
         }
     }
     
     private func tintIconAccentTertiaryColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Accent.Tertiary.Icon.default
-        case .pressed: .Components.Button.Accent.Tertiary.Icon.pressed
-        case .disabled: .Components.Button.Accent.Tertiary.Icon.disabled
-        case .loading: .Components.Button.Accent.Tertiary.Icon.loading
+        case .default: .Components.Button.Accent.Tertiary.Icon.Color.default
+        case .pressed: .Components.Button.Accent.Tertiary.Icon.Color.pressed
+        case .disabled: .Components.Button.Accent.Tertiary.Icon.Color.disabled
+        case .loading: .Components.Button.Accent.Tertiary.Icon.Color.loading
         }
     }
     
     private func tintIconAccentFunctionColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Accent.Function.Icon.default
-        case .pressed: .Components.Button.Accent.Function.Icon.pressed
-        case .disabled: .Components.Button.Accent.Function.Icon.disabled
-        case .loading: .Components.Button.Accent.Function.Icon.loading
+        case .default: .Components.Button.Accent.Function.Icon.Color.default
+        case .pressed: .Components.Button.Accent.Function.Icon.Color.pressed
+        case .disabled: .Components.Button.Accent.Function.Icon.Color.disabled
+        case .loading: .Components.Button.Accent.Function.Icon.Color.loading
         }
     }
     
@@ -361,123 +361,37 @@ extension ButtonViewStyle {
     
     private func tintIconLightPrimaryColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Light.Primary.Icon.default
-        case .pressed: .Components.Button.Light.Primary.Icon.pressed
-        case .disabled: .Components.Button.Light.Primary.Icon.disabled
-        case .loading: .Components.Button.Light.Primary.Icon.loading
+        case .default: .Components.Button.Light.Primary.Icon.Color.default
+        case .pressed: .Components.Button.Light.Primary.Icon.Color.pressed
+        case .disabled: .Components.Button.Light.Primary.Icon.Color.disabled
+        case .loading: .Components.Button.Light.Primary.Icon.Color.loading
         }
     }
     
     private func tintIconLightSecondaryColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Light.Secondary.Icon.default
-        case .pressed: .Components.Button.Light.Secondary.Icon.pressed
-        case .disabled: .Components.Button.Light.Secondary.Icon.disabled
-        case .loading: .Components.Button.Light.Secondary.Icon.loading
+        case .default: .Components.Button.Light.Secondary.Icon.Color.default
+        case .pressed: .Components.Button.Light.Secondary.Icon.Color.pressed
+        case .disabled: .Components.Button.Light.Secondary.Icon.Color.disabled
+        case .loading: .Components.Button.Light.Secondary.Icon.Color.loading
         }
     }
     
     private func tintIconLightTertiaryColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Light.Tertiary.Icon.default
-        case .pressed: .Components.Button.Light.Tertiary.Icon.pressed
-        case .disabled: .Components.Button.Light.Tertiary.Icon.disabled
-        case .loading: .Components.Button.Light.Tertiary.Icon.loading
+        case .default: .Components.Button.Light.Tertiary.Icon.Color.default
+        case .pressed: .Components.Button.Light.Tertiary.Icon.Color.pressed
+        case .disabled: .Components.Button.Light.Tertiary.Icon.Color.disabled
+        case .loading: .Components.Button.Light.Tertiary.Icon.Color.loading
         }
     }
     
     private func tintIconLightFunctionColor() -> UIColor {
         switch state {
-        case .default: .Components.Button.Light.Function.Icon.default
-        case .pressed: .Components.Button.Light.Function.Icon.pressed
-        case .disabled: .Components.Button.Light.Function.Icon.disabled
-        case .loading: .Components.Button.Light.Function.Icon.loading
-        }
-    }
-}
-
-// MARK: - Loader colors
-
-extension ButtonViewStyle {
-    
-    private func loaderColor() -> UIColor {
-        switch color {
-        case .accent: loaderAccentColor()
-        case .light: loaderLightColor()
-        }
-    }
-    
-    private func loaderAccentColor() -> UIColor {
-        switch variant {
-        case .primary: loaderAccentPrimaryColor()
-        case .secondary: loaderAccentSecondaryColor()
-        case .tertiary: loaderAccentTertiaryColor()
-        case .function: loaderAccentFunctionColor()
-        }
-    }
-    
-    private func loaderAccentPrimaryColor() -> UIColor {
-        switch state {
-        case .default, .pressed, .disabled: .clear
-        case .loading: .Components.Button.Accent.Primary.Icon.loading
-        }
-    }
-    
-    private func loaderAccentSecondaryColor() -> UIColor {
-        switch state {
-        case .default, .pressed, .disabled: .clear
-        case .loading: .Components.Button.Accent.Secondary.Icon.loading
-        }
-    }
-    
-    private func loaderAccentTertiaryColor() -> UIColor {
-        switch state {
-        case .default, .pressed, .disabled: .clear
-        case .loading: .Components.Button.Accent.Tertiary.Icon.loading
-        }
-    }
-    
-    private func loaderAccentFunctionColor() -> UIColor {
-        switch state {
-        case .default, .pressed, .disabled: .clear
-        case .loading: .Components.Button.Accent.Function.Icon.loading
-        }
-    }
-    
-    private func loaderLightColor() -> UIColor {
-        switch variant {
-        case .primary: loaderLightPrimaryColor()
-        case .secondary: loaderLightSecondaryColor()
-        case .tertiary: loaderLightTertiaryColor()
-        case .function: loaderLightFunctionColor()
-        }
-    }
-    
-    private func loaderLightPrimaryColor() -> UIColor {
-        switch state {
-        case .default, .pressed, .disabled: .clear
-        case .loading: .Components.Button.Light.Primary.Icon.loading
-        }
-    }
-    
-    private func loaderLightSecondaryColor() -> UIColor {
-        switch state {
-        case .default, .pressed, .disabled: .clear
-        case .loading: .Components.Button.Light.Secondary.Icon.loading
-        }
-    }
-    
-    private func loaderLightTertiaryColor() -> UIColor {
-        switch state {
-        case .default, .pressed, .disabled: .clear
-        case .loading: .Components.Button.Light.Tertiary.Icon.loading
-        }
-    }
-    
-    private func loaderLightFunctionColor() -> UIColor {
-        switch state {
-        case .default, .pressed, .disabled: .clear
-        case .loading: .Components.Button.Light.Function.Icon.loading
+        case .default: .Components.Button.Light.Function.Icon.Color.default
+        case .pressed: .Components.Button.Light.Function.Icon.Color.pressed
+        case .disabled: .Components.Button.Light.Function.Icon.Color.disabled
+        case .loading: .Components.Button.Light.Function.Icon.Color.loading
         }
     }
 }
@@ -488,38 +402,38 @@ public extension ButtonViewStyle {
     
     func loaderStyle() -> LoaderViewStyle {
         switch variant {
-        case .primary: .init(color: loaderPrimaryColor(), size: loaderSize())
-        case .secondary: .init(color: loaderSecondaryColor(), size: loaderSize())
-        case .tertiary: .init(color: loaderTertiaryColor(), size: loaderSize())
-        case .function: .init(color: loaderFunctionColor(), size: loaderSize())
+        case .primary: .init(color: .custom(loaderPrimaryColor()), size: loaderSize())
+        case .secondary: .init(color: .custom(loaderSecondaryColor()), size: loaderSize())
+        case .tertiary: .init(color: .custom(loaderTertiaryColor()), size: loaderSize())
+        case .function: .init(color: .custom(loaderFunctionColor()), size: loaderSize())
         }
     }
     
-    private func loaderPrimaryColor() -> LoaderViewStyle.Color {
+    private func loaderPrimaryColor() -> UIColor {
         switch color {
-        case .light: .primary
-        case .accent: .main
+        case .light: .Components.Button.Light.Primary.Loader.Color.loading
+        case .accent: .Components.Button.Accent.Primary.Loader.Color.loading
         }
     }
     
-    private func loaderSecondaryColor() -> LoaderViewStyle.Color {
+    private func loaderSecondaryColor() -> UIColor {
         switch color {
-        case .light: .main
-        case .accent: .primary
+        case .light: .Components.Button.Light.Secondary.Loader.Color.loading
+        case .accent: .Components.Button.Accent.Secondary.Loader.Color.loading
         }
     }
     
-    private func loaderTertiaryColor() -> LoaderViewStyle.Color {
+    private func loaderTertiaryColor() -> UIColor {
         switch color {
-        case .light: .main
-        case .accent: .accent
+        case .light: .Components.Button.Light.Tertiary.Loader.Color.loading
+        case .accent: .Components.Button.Accent.Tertiary.Loader.Color.loading
         }
     }
     
-    private func loaderFunctionColor() -> LoaderViewStyle.Color {
+    private func loaderFunctionColor() -> UIColor {
         switch color {
-        case .light: .main
-        case .accent: .accent
+        case .light: .Components.Button.Light.Function.Loader.Color.loading
+        case .accent: .Components.Button.Accent.Function.Loader.Color.loading
         }
     }
     

@@ -68,7 +68,8 @@ public final class ButtonAuthStyle {
     }
 }
 
-// MARK: Background Colors
+// MARK: - Background Colors
+
 extension ButtonAuthStyle {
     private func backgroundColor() -> UIColor {
         switch variant {
@@ -93,34 +94,35 @@ extension ButtonAuthStyle {
     
     private func backgroundAbbAccentColor() -> UIColor {
         switch state {
-        case .default: .Components.ButtonAuth.Accent.Abb.Background.default
-        case .pressed: .Components.ButtonAuth.Accent.Abb.Background.pressed
+        case .default: .Components.ButtonAuth.Accent.Abb.Background.Color.default
+        case .pressed: .Components.ButtonAuth.Accent.Abb.Background.Color.pressed
         }
     }
     
     private func backgroundAbbLightColor() -> UIColor {
         switch state {
-        case .default: .Components.ButtonAuth.Light.Abb.Background.default
-        case .pressed: .Components.ButtonAuth.Light.Abb.Background.pressed
+        case .default: .Components.ButtonAuth.Light.Abb.Background.Color.default
+        case .pressed: .Components.ButtonAuth.Light.Abb.Background.Color.pressed
         }
     }
     
     private func backgroundGosuslugiAccentColor() -> UIColor {
         switch state {
-        case .default: .Components.ButtonAuth.Accent.Gosuslugi.Background.default
-        case .pressed: .Components.ButtonAuth.Accent.Gosuslugi.Background.pressed
+        case .default: .Components.ButtonAuth.Accent.Gosuslugi.Background.Color.default
+        case .pressed: .Components.ButtonAuth.Accent.Gosuslugi.Background.Color.pressed
         }
     }
     
     private func backgroundGosuslugiLightColor() -> UIColor {
         switch state {
-        case .default: .Components.ButtonAuth.Light.Gosuslugi.Background.default
-        case .pressed: .Components.ButtonAuth.Light.Gosuslugi.Background.pressed
+        case .default: .Components.ButtonAuth.Light.Gosuslugi.Background.Color.default
+        case .pressed: .Components.ButtonAuth.Light.Gosuslugi.Background.Color.pressed
         }
     }
 }
 
-// MARK: Text Colors
+// MARK: - Text Colors
+
 extension ButtonAuthStyle {
     private func titleColor() -> UIColor {
         switch variant {
@@ -145,34 +147,35 @@ extension ButtonAuthStyle {
     
     private func titleAbbAccentColor() -> UIColor {
         switch state {
-        case .default: .Components.ButtonAuth.Accent.Abb.Label.default
-        case .pressed: .Components.ButtonAuth.Accent.Abb.Label.pressed
+        case .default: .Components.ButtonAuth.Accent.Abb.Label.Color.default
+        case .pressed: .Components.ButtonAuth.Accent.Abb.Label.Color.pressed
         }
     }
     
     private func titleAbbLightColor() -> UIColor {
         switch state {
-        case .default: .Components.ButtonAuth.Light.Abb.Label.default
-        case .pressed: .Components.ButtonAuth.Light.Abb.Label.pressed
+        case .default: .Components.ButtonAuth.Light.Abb.Label.Color.default
+        case .pressed: .Components.ButtonAuth.Light.Abb.Label.Color.pressed
         }
     }
     
     private func titleGosuslugiAccentColor() -> UIColor {
         switch state {
-        case .default: .Components.ButtonAuth.Accent.Gosuslugi.Label.default
-        case .pressed: .Components.ButtonAuth.Accent.Gosuslugi.Label.pressed
+        case .default: .Components.ButtonAuth.Accent.Gosuslugi.Label.Color.default
+        case .pressed: .Components.ButtonAuth.Accent.Gosuslugi.Label.Color.pressed
         }
     }
     
     private func titleGosuslugiLightColor() -> UIColor {
         switch state {
-        case .default: .Components.ButtonAuth.Light.Gosuslugi.Label.default
-        case .pressed: .Components.ButtonAuth.Light.Gosuslugi.Label.pressed
+        case .default: .Components.ButtonAuth.Light.Gosuslugi.Label.Color.default
+        case .pressed: .Components.ButtonAuth.Light.Gosuslugi.Label.Color.pressed
         }
     }
 }
 
-// MARK: Icon Tint Colors
+// MARK: - Icon Tint Colors
+
 extension ButtonAuthStyle {
     private func iconTintColor() -> UIColor? {
         switch variant {
@@ -190,20 +193,21 @@ extension ButtonAuthStyle {
     
     private func iconAbbTintAccentColor() -> UIColor {
         switch state {
-        case .default: .Components.ButtonAuth.Accent.Abb.Logo.default
-        case .pressed: .Components.ButtonAuth.Accent.Abb.Logo.pressed
+        case .default: .Components.ButtonAuth.Accent.Abb.Logo.Color.default
+        case .pressed: .Components.ButtonAuth.Accent.Abb.Logo.Color.pressed
         }
     }
     
     private func iconAbbTintLightColor() -> UIColor {
         switch state {
-        case .default: .Components.ButtonAuth.Light.Abb.Logo.default
-        case .pressed: .Components.ButtonAuth.Light.Abb.Logo.pressed
+        case .default: .Components.ButtonAuth.Light.Abb.Logo.Color.default
+        case .pressed: .Components.ButtonAuth.Light.Abb.Logo.Color.pressed
         }
     }
 }
 
-// MARK: Spacing
+// MARK: - Spacing
+
 extension ButtonAuthStyle {
     private func spacing() -> CGFloat {
         switch variant {
@@ -212,4 +216,3 @@ extension ButtonAuthStyle {
         }
     }
 }
-

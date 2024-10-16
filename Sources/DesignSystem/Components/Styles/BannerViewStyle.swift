@@ -70,10 +70,10 @@ public extension BannerViewStyle.Variant {
         
         func imageViewTintColor() -> UIColor {
             switch self {
-            case .neutral: .Components.Banner.Neutral.Icon.color
-            case .warning: .Components.Banner.Warning.Icon.color
-            case .error: .Components.Banner.Error.Icon.color
-            case .success: .Components.Banner.Success.Icon.color
+            case .neutral: .Components.Banner.Neutral.Icon.Color.color
+            case .warning: .Components.Banner.Warning.Icon.Color.color
+            case .error: .Components.Banner.Error.Icon.Color.color
+            case .success: .Components.Banner.Success.Icon.Color.color
             }
         }
         
@@ -82,37 +82,37 @@ public extension BannerViewStyle.Variant {
     
     func titleTintColor() -> UIColor {
         switch self {
-        case .neutral: .Components.Banner.Neutral.Title.color
-        case .warning: .Components.Banner.Warning.Title.color
-        case .error: .Components.Banner.Error.Title.color
-        case .success: .Components.Banner.Success.Title.color
+        case .neutral: .Components.Banner.Neutral.Title.Color.color
+        case .warning: .Components.Banner.Warning.Title.Color.color
+        case .error: .Components.Banner.Error.Title.Color.color
+        case .success: .Components.Banner.Success.Title.Color.color
         }
     }
     
     func subtitleTintColor() -> UIColor {
         switch self {
-        case .neutral: .Components.Banner.Neutral.Subtitle.color
-        case .warning: .Components.Banner.Warning.Subtitle.color
-        case .error: .Components.Banner.Error.Subtitle.color
-        case .success: .Components.Banner.Success.Subtitle.color
+        case .neutral: .Components.Banner.Neutral.Subtitle.Color.color
+        case .warning: .Components.Banner.Warning.Subtitle.Color.color
+        case .error: .Components.Banner.Error.Subtitle.Color.color
+        case .success: .Components.Banner.Success.Subtitle.Color.color
         }
     }
     
     func bottomButtonTintColor() -> UIColor {
         switch self {
-        case .neutral: .Components.Banner.Neutral.ButtonLabel.color
-        case .warning: .Components.Banner.Warning.ButtonLabel.color
-        case .error: .Components.Banner.Error.ButtonLabel.color
-        case .success: .Components.Banner.Success.ButtonLabel.color
+        case .neutral: .Components.Banner.Neutral.ButtonLabel.Color.color
+        case .warning: .Components.Banner.Warning.ButtonLabel.Color.color
+        case .error: .Components.Banner.Error.ButtonLabel.Color.color
+        case .success: .Components.Banner.Success.ButtonLabel.Color.color
         }
     }
     
     func backgroundColor() -> UIColor {
         switch self {
-        case .neutral: .Components.Banner.Neutral.Background.color
-        case .warning: .Components.Banner.Warning.Background.color
-        case .error: .Components.Banner.Error.Background.color
-        case .success: .Components.Banner.Success.Background.color
+        case .neutral: .Components.Banner.Neutral.Background.Color.color
+        case .warning: .Components.Banner.Warning.Background.Color.color
+        case .error: .Components.Banner.Error.Background.Color.color
+        case .success: .Components.Banner.Success.Background.Color.color
         }
     }
 }

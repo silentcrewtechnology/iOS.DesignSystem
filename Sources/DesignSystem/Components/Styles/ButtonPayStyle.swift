@@ -36,7 +36,7 @@ public struct ButtonPayStyle {
     }
     
     public func update(viewProperties: inout ButtonPay.ViewProperties) {
-        viewProperties.backgroundColor = .Components.ButtonPay.Background.color
+        viewProperties.backgroundColor = .Components.ButtonPay.Background.Color.color
         viewProperties.image = type.logoImage()
         viewProperties.height = 56
         viewProperties.maxWidth = 257
@@ -45,6 +45,6 @@ public struct ButtonPayStyle {
         viewProperties.stackViewInsets = .init(top: .zero, left: 16, bottom: .zero, right: 16)
         viewProperties.text = .init(string: "Добавить в")
             .fontStyle(.textM)
-            .foregroundColor(.Components.ButtonPay.Label.color)
+            .foregroundColor(.Components.ButtonPay.Label.Color.color)
     }
 }
