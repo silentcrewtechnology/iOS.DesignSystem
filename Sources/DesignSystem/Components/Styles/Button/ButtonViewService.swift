@@ -32,6 +32,7 @@ public final class ButtonViewService {
         self.style = style
         
         self.viewProperties.loader = self.loaderService.view
+        update()
     }
     
     // MARK: - Methods
@@ -47,7 +48,7 @@ public final class ButtonViewService {
         if let newText {
             viewProperties.attributedText = newText
         }
-        
+
         style.update(
             size: newSize,
             color: newColor,
