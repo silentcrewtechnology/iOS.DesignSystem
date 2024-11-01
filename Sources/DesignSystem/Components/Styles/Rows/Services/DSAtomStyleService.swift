@@ -1,5 +1,6 @@
 import Components
 import UIKit
+import AccessibilityIds
 
 public struct DSAtomStyleService {
     public func createAtom(_ dsAtom: AtomDSElement) -> UIView? {
@@ -53,7 +54,13 @@ private extension DSAtomStyleService {
         _ style: LabelViewStyle?,
         _ recognizer: UILongPressGestureRecognizer?
     ) -> UIView? {
-        var viewProperties = LabelView.ViewProperties(text: text.attributed)
+        let accessibilityIds = LabelView.ViewProperties.AccessibilityIds(
+            id: DesignSystemAccessibilityIDs.RowAtoms.title
+        )
+        var viewProperties = LabelView.ViewProperties(
+            text: text.attributed,
+            accessibilityIds: accessibilityIds
+        )
         
         let newStyle = style ?? LabelViewStyle(variant: .rowTitle(recognizer: recognizer))
         newStyle.update(viewProperties: &viewProperties)
@@ -66,7 +73,13 @@ private extension DSAtomStyleService {
         _ text: String,
         _ style: LabelViewStyle?
     ) -> UIView? {
-        var viewProperties = LabelView.ViewProperties(text: text.attributed)
+        let accessibilityIds = LabelView.ViewProperties.AccessibilityIds(
+            id: DesignSystemAccessibilityIDs.RowAtoms.subtitle
+        )
+        var viewProperties = LabelView.ViewProperties(
+            text: text.attributed,
+            accessibilityIds: accessibilityIds
+        )
         
         let newStyle = style ?? LabelViewStyle(variant: .rowSubtitle)
         newStyle.update(viewProperties: &viewProperties)
@@ -79,7 +92,13 @@ private extension DSAtomStyleService {
         _ image: UIImage,
         _ style: ImageViewStyle?
     ) -> UIView? {
-        var viewProperties = ImageView.ViewProperties(image: image)
+        let accessibilityIds = ImageView.ViewProperties.AccessibilityIds(
+            id: DesignSystemAccessibilityIDs.RowAtoms.image40
+        )
+        var viewProperties = ImageView.ViewProperties(
+            image: image,
+            accessibilityIds: accessibilityIds
+        )
         
         let newStyle = style ?? ImageViewStyle(
             type: .icon(image),
@@ -95,7 +114,12 @@ private extension DSAtomStyleService {
         _ backgroundImage: UIImage?,
         _ style: CardViewStyle?
     ) -> UIView? {
-        var viewProperties = CardView.ViewProperties()
+        let accessibilityIds = CardView.ViewProperties.AccessibilityIds(
+            id: DesignSystemAccessibilityIDs.RowAtoms.card
+        )
+        var viewProperties = CardView.ViewProperties(
+            accessibilityIds: accessibilityIds
+        )
         
         let newStyle = style ?? CardViewStyle(
             set: .mir,
@@ -116,7 +140,12 @@ private extension DSAtomStyleService {
         _ maskedCardNumber: NSMutableAttributedString?,
         _ style: CardViewStyle?
     ) -> UIView? {
-        var viewProperties = CardView.ViewProperties()
+        let accessibilityIds = CardView.ViewProperties.AccessibilityIds(
+            id: DesignSystemAccessibilityIDs.RowAtoms.card
+        )
+        var viewProperties = CardView.ViewProperties(
+            accessibilityIds: accessibilityIds
+        )
         
         let newStyle = style ?? CardViewStyle(
             set: .mir,
@@ -137,8 +166,14 @@ private extension DSAtomStyleService {
         _ text: String,
         _ style: LabelViewStyle?
     ) -> UIView? {
+        let accessibilityIds = LabelView.ViewProperties.AccessibilityIds(
+            id: DesignSystemAccessibilityIDs.RowAtoms.index
+        )
         let attributed = text.attributed.alignment(.right)
-        var viewProperties = LabelView.ViewProperties(text: attributed)
+        var viewProperties = LabelView.ViewProperties(
+            text: attributed,
+            accessibilityIds: accessibilityIds
+        )
         
         let newStyle = style ?? LabelViewStyle(variant: .rowIndex)
         newStyle.update(viewProperties: &viewProperties)
@@ -151,7 +186,13 @@ private extension DSAtomStyleService {
         _ image: UIImage,
         _ style: ImageViewStyle?
     ) -> UIView? {
-        var viewProperties = ImageView.ViewProperties(image: image)
+        let accessibilityIds = ImageView.ViewProperties.AccessibilityIds(
+            id: DesignSystemAccessibilityIDs.RowAtoms.icon24
+        )
+        var viewProperties = ImageView.ViewProperties(
+            image: image,
+            accessibilityIds: accessibilityIds
+        )
         
         let newStyle = style ?? ImageViewStyle(
             type: .custom(image, .init(width: 24, height: 24)),
@@ -167,7 +208,13 @@ private extension DSAtomStyleService {
         _ image: UIImage,
         _ style: ImageViewStyle?
     ) -> UIView? {
-        var viewProperties = ImageView.ViewProperties(image: image)
+        let accessibilityIds = ImageView.ViewProperties.AccessibilityIds(
+            id: DesignSystemAccessibilityIDs.RowAtoms.icon20
+        )
+        var viewProperties = ImageView.ViewProperties(
+            image: image,
+            accessibilityIds: accessibilityIds
+        )
         
         let newStyle = style ?? ImageViewStyle(
             type: .custom(image, .init(width: 20, height: 20)),
@@ -184,8 +231,12 @@ private extension DSAtomStyleService {
         action: @escaping (Bool) -> Void,
         style: ToggleViewStyle?
     ) -> UIView? {
+        let accessibilityIds = ToggleView.ViewProperties.AccessibilityIds(
+            id: DesignSystemAccessibilityIDs.RowAtoms.toggle
+        )
         var viewProperties = ToggleView.ViewProperties(
             isChecked: isOn,
+            accessibilityIds: accessibilityIds,
             checkAction: action
         )
         
@@ -200,7 +251,13 @@ private extension DSAtomStyleService {
         _ text: String,
         _ style: LabelViewStyle?
     ) -> UIView? {
-        var viewProperties = LabelView.ViewProperties(text: text.attributed)
+        let accessibilityIds = LabelView.ViewProperties.AccessibilityIds(
+            id: DesignSystemAccessibilityIDs.RowAtoms.amountText
+        )
+        var viewProperties = LabelView.ViewProperties(
+            text: text.attributed,
+            accessibilityIds: accessibilityIds
+        )
         
         let newStyle = style ?? LabelViewStyle(variant: .rowAmount)
         newStyle.update(viewProperties: &viewProperties)
@@ -220,7 +277,11 @@ private extension DSAtomStyleService {
         )
         // TODO: нужна сущность, чтобы хранить ссылки на View/ViewProperties
         var updateView: (CheckboxViewStyle) -> Void = { _ in }
+        let accessibilityIds = CheckboxView.ViewProperties.AccessibilityIds(
+            id: DesignSystemAccessibilityIDs.RowAtoms.checkbox
+        )
         var viewProperties = CheckboxView.ViewProperties(
+            accessibilityIds: accessibilityIds,
             onPressChange: { state in
                 switch state {
                 case .pressed:
@@ -261,7 +322,11 @@ private extension DSAtomStyleService {
         )
         // TODO: нужна сущность, чтобы хранить ссылки на View/ViewProperties
         var updateView: (RadioViewStyle) -> Void = { _ in }
+        let accessibilityIds = RadioView.ViewProperties.AccessibilityIds(
+            id: DesignSystemAccessibilityIDs.RowAtoms.radio
+        )
         var viewProperties = RadioView.ViewProperties(
+            accessibilityIds: accessibilityIds,
             onPressChange: { state in
                 switch state {
                 case .pressed:
@@ -294,7 +359,13 @@ private extension DSAtomStyleService {
         action: @escaping () -> Void,
         style: ButtonViewStyle?
     ) -> UIView? {
-        var viewProperties = ButtonView.ViewProperties(attributedText: text.attributed)
+        let accessibilityIds = ButtonView.ViewProperties.AccessibilityIds(
+            id: DesignSystemAccessibilityIDs.RowAtoms.button
+        )
+        var viewProperties = ButtonView.ViewProperties(
+            attributedText: text.attributed,
+            accessibilityIds: accessibilityIds
+        )
         viewProperties.onTap = action
         
         let newStyle = style ?? ButtonViewStyle(
@@ -314,7 +385,13 @@ private extension DSAtomStyleService {
         _ text: String,
         _ style: LabelViewStyle?
     ) -> UIView? {
-        var viewProperties = LabelView.ViewProperties(text: text.attributed)
+        let accessibilityIds = LabelView.ViewProperties.AccessibilityIds(
+            id: DesignSystemAccessibilityIDs.RowAtoms.label
+        )
+        var viewProperties = LabelView.ViewProperties(
+            text: text.attributed,
+            accessibilityIds: accessibilityIds
+        )
         
         let newStyle = style ?? LabelViewStyle(variant: .rowSubtitle)
         newStyle.update(viewProperties: &viewProperties)
@@ -328,7 +405,12 @@ private extension DSAtomStyleService {
         _ onTap: @escaping () -> Void,
         _ style: ButtonIconStyle?
     ) -> UIView? {
-        var viewProperties = ButtonIcon.ViewProperties()
+        let accessibilityIds = ButtonIcon.ViewProperties.AccessibilityIds(
+            id: DesignSystemAccessibilityIDs.RowAtoms.buttonIcon
+        )
+        var viewProperties = ButtonIcon.ViewProperties(
+            accessibilityIds: accessibilityIds
+        )
         viewProperties.image = image
         viewProperties.onTap = onTap
         
@@ -348,7 +430,12 @@ private extension DSAtomStyleService {
         _ title: String,
         _ style: TitleViewStyle?
     ) -> UIView? {
-        var viewProperties = TitleView.ViewProperties()
+        let accessibilityIds = TitleView.ViewProperties.AccessibilityIds(
+            id: DesignSystemAccessibilityIDs.RowAtoms.titleView
+        )
+        var viewProperties = TitleView.ViewProperties(
+            accessibilityIds: accessibilityIds
+        )
         viewProperties.title = .init(string: title)
         
         let newStyle = style ?? TitleViewStyle(size: .medium, color: .primary)

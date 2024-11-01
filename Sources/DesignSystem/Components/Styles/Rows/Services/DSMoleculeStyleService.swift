@@ -68,8 +68,9 @@ private extension DSMoleculeStyleService {
     ) -> UIView {
         var atomsFromIcons: [UIView] = []
         
-        for icon in icons {
+        for (index, icon) in icons.enumerated() {
             if let iconAtom = atomService.createAtom(.icon20(icon.0, icon.1)) {
+                iconAtom.accessibilityIdentifier = "\(String(describing: iconAtom.accessibilityIdentifier ?? ""))_\(String(describing: index))"
                 atomsFromIcons.append(iconAtom)
             }
         }
@@ -96,8 +97,9 @@ private extension DSMoleculeStyleService {
         else { return UIView() }
         
         var atomsFromIcons: [UIView] = []
-        for icon in icons {
+        for (index, icon) in icons.enumerated() {
             if let iconAtom = atomService.createAtom(.icon20(icon.0, icon.1)) {
+                iconAtom.accessibilityIdentifier = "\(String(describing: iconAtom.accessibilityIdentifier ?? ""))_\(String(describing: index))"
                 atomsFromIcons.append(iconAtom)
             }
         }
@@ -135,8 +137,9 @@ private extension DSMoleculeStyleService {
         guard let titleLabel = atomService.createAtom(.title(titleText.0, titleText.1, titleText.2)) else { return UIView() }
         
         var atomsFromSubtitles: [UIView] = []
-        for subtitle in subtitlesText {
+        for (index, subtitle) in subtitlesText.enumerated() {
             if let subtitleText = atomService.createAtom(.subtitle(subtitle.0, subtitle.1)) {
+                subtitleText.accessibilityIdentifier = "\(String(describing: subtitleText.accessibilityIdentifier ?? ""))_\(String(describing: index))"
                 atomsFromSubtitles.append(subtitleText)
             }
         }
@@ -154,7 +157,8 @@ private extension DSMoleculeStyleService {
     ) -> UIView {
         
         var atomsFromChips: [UIView] = []
-        for view in views {
+        for (index, view) in views.enumerated() {
+            view.accessibilityIdentifier = "\(String(describing: view.accessibilityIdentifier ?? ""))_\(String(describing: index))"
             atomsFromChips.append(view)
         }
         return connectionService.connectOnScroll(horizontalyViews: atomsFromChips, spacing: 6)
