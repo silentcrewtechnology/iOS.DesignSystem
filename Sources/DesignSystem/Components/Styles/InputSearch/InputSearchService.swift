@@ -34,11 +34,13 @@ public final class InputSearchService {
     
     public func update(
         newState: InputSearchStyle.State? = nil,
+        newPlaceholder: NSMutableAttributedString? = nil,
         newTextDidChange: ((String) -> Void)? = nil,
         newCancelButtonClicked: (() -> Void)? = nil,
         newTextDidBeginEditing: (() -> Void)? = nil,
         newTextDidEndEditing: (() -> Void)? = nil
     ) {
+        viewProperties.textField.placeholder = newPlaceholder ?? viewProperties.textField.placeholder
         style.update(
             newState: newState,
             viewProperties: &viewProperties,

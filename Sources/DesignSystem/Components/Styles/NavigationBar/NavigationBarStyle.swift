@@ -9,29 +9,37 @@ public final class NavigationBarStyle {
     
     public enum Variant {
         case basic(
-            title: String?,
-            subtitle: String?,
-            margins: RowBaseContainer.ViewProperties.Margins?
+            title: String? = nil,
+            subtitle: String? = nil,
+            margins: RowBaseContainer.ViewProperties.Margins? = nil
         )
-        case collapsed(title: String?)
+        case collapsed(title: String? = nil)
         case mainScreen(
             name: String,
             icon: UIImage,
-            margins: RowBaseContainer.ViewProperties.Margins?,
+            margins: RowBaseContainer.ViewProperties.Margins? = nil,
             onProfile: () -> Void
         )
         case basicAmount(
-            title: String?,
-            subtitle: String?,
-            spacing: CGFloat?,
-            updateAction: (() -> Void)?
+            title: String? = nil,
+            subtitle: String? = nil,
+            spacing: CGFloat? = nil,
+            updateAction: (() -> Void)? = nil
         )
-        case search(updater: UISearchResultsUpdating?)
+        case search(
+            title: String? = nil,
+            subtitle: String? = nil,
+            margins: RowBaseContainer.ViewProperties.Margins? = nil,
+            onTextDidChange: ((String) -> Void)? = nil,
+            cancelButtonClicked: (() -> Void)? = nil,
+            textDidBeginEditing: (() -> Void)? = nil,
+            textDidEndEditing: (() -> Void)? = nil
+        )
         case customLeftView(
-            leading: DSRowBlocks?,
-            center: DSRowBlocks?,
-            trailing: DSRowBlocks?,
-            margins: RowBaseContainer.ViewProperties.Margins?
+            leading: DSRowBlocks? = nil,
+            center: DSRowBlocks? = nil,
+            trailing: DSRowBlocks? = nil,
+            margins: RowBaseContainer.ViewProperties.Margins? = nil
         )
         case none
     }
@@ -135,8 +143,26 @@ public final class NavigationBarStyle {
                 spacing: spacing,
                 updateAction: updateAction
             )
-        case .search(let updater):
-            viewProperties.searchController = createSearchController(updater: updater)
+        case let .search(
+            title,
+            subtitle,
+            margins,
+            onTextDidChange,
+            cancelButtonClicked,
+            textDidBeginEditing,
+            textDidEndEditing
+        ):
+            viewProperties.titleView = createBasicTitleView(
+                title: title,
+                subtitle: subtitle,
+                margins: margins
+            )
+            viewProperties.searchController = createSearchController(
+                onTextDidChange: onTextDidChange,
+                cancelButtonClicked: cancelButtonClicked,
+                textDidBeginEditing: textDidBeginEditing,
+                textDidEndEditing: textDidEndEditing
+            )
             viewProperties.hidesSearchBarWhenScrolling = false
         case let .customLeftView(leading, center, trailing, margins):
             let customLeftView = DSCreationRowsViewService().createViewRowWithBlocks(
@@ -260,25 +286,28 @@ public final class NavigationBarStyle {
         return verticalStackView
     }
     
-    private func createSearchController(updater: UISearchResultsUpdating?) -> UISearchController {
-        let searchController = UISearchController()
-        searchController.searchResultsUpdater = updater
-        searchController.hidesNavigationBarDuringPresentation = true
-        let barButtonAttributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.Semantic.LightTheme.Content.Accent.hover,
-            .font: UIFont.textM
-        ]
-        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self])
-            .setTitleTextAttributes(barButtonAttributes, for: .normal)
-        
-        let textFieldAttributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.Semantic.LightTheme.Content.Base.primary,
-            .font: UIFont.textM
-        ]
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self])
-            .defaultTextAttributes = textFieldAttributes
-        
-        return searchController
+    private func createSearchController(
+        onTextDidChange: ((String) -> Void)?,
+        cancelButtonClicked: (() -> Void)?,
+        textDidBeginEditing: (() -> Void)?,
+        textDidEndEditing: (() -> Void)?
+    ) -> UISearchController {
+        let searchControllerService = InputSearchViewControllerService()
+        searchControllerService.inputSearchService.update(
+            newPlaceholder: .init(string: "Поиск"),
+            newTextDidChange: onTextDidChange,
+            newCancelButtonClicked: cancelButtonClicked,
+            newTextDidBeginEditing: {
+                searchControllerService.inputSearchService.update(newState: .active)
+                textDidBeginEditing?()
+            },
+            newTextDidEndEditing: {
+                searchControllerService.inputSearchService.update(newState: .default)
+                textDidEndEditing?()
+            }
+        )
+
+        return searchControllerService.view
     }
     
     private func backgroundColor(color: Color) -> UIColor {
