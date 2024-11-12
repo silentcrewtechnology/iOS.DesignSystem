@@ -48,6 +48,7 @@ public final class LoaderViewStyle {
     public func update(
         newColor: Color? = nil,
         newSize: Size? = nil,
+        newLoaderAnimation: LoaderAnimation? = nil,
         viewProperties: inout LoaderView.ViewProperties
     ) {
         if let newColor {
@@ -58,31 +59,24 @@ public final class LoaderViewStyle {
             size = newSize
         }
         
-        viewProperties.frame = size.frame()
-        viewProperties.rotatingAnimation = .init(animation: createRotatingAnimation())
-        viewProperties.circleLayer = .init(
-            strokeColor: color.strokeColor(),
-            lineWidth: size.lineWidth(),
-            actions: [
-                "strokeEnd": NSNull(),
-                "strokeStart": NSNull(),
-                "transform": NSNull(),
-                "strokeColor": NSNull()
-            ]
+        viewProperties.size = size.frame().size
+        newLoaderAnimation?.update(
+            with: .init(
+                duration: Constants.duration,
+                speedMultiplier: Constants.speedMultiplier,
+                minArcLength: Constants.minArcLength,
+                maxArcLength: Constants.maxArcLength,
+                rotationAngle: Constants.rotationAngle
+            )
         )
-    }
-    
-    // MARK: - Private methods
-    
-    private func createRotatingAnimation() -> CABasicAnimation {
-        let animation = CABasicAnimation(keyPath: "transform.rotation.z")
-        animation.toValue = Double.pi * 2
-        animation.duration = 2.2
-        animation.isCumulative = true
-        animation.isAdditive = true
-        animation.repeatCount = Float.infinity
-        
-        return animation
+        viewProperties.animationLayer.update(
+            with: .init(
+                frame: size.frame(),
+                strokeColor: color.strokeColor().cgColor,
+                lineWidth: size.lineWidth(),
+                animation: newLoaderAnimation
+            )
+        )
     }
 }
 
@@ -120,4 +114,13 @@ public extension LoaderViewStyle.Color {
         case .custom(let color): color
         }
     }
+}
+
+private enum Constants {
+    
+    static let duration: CFTimeInterval = 1.4
+    static let speedMultiplier: Float = 1 // уменьшить для замедления
+    static let minArcLength: CGFloat = 15 / 360
+    static let maxArcLength: CGFloat = 270 / 360
+    static let rotationAngle: CGFloat = .pi * 2 * (2 - Constants.maxArcLength)
 }
