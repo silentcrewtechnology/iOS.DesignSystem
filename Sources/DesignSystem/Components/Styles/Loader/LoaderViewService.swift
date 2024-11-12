@@ -15,6 +15,7 @@ public final class LoaderViewService {
     public private(set) var view: LoaderView
     public private(set) var viewProperties: LoaderView.ViewProperties
     public private(set) var style: LoaderViewStyle
+    public private(set) var loaderAnimation: LoaderAnimation?
     
     // MARK: - Init
     
@@ -27,7 +28,8 @@ public final class LoaderViewService {
         self.view = view
         self.viewProperties = viewProperties
         self.style = style
-        self.viewProperties.isHidden = isHidden
+        
+        update(isHidden: isHidden)
     }
     
     // MARK: - Methods
@@ -41,10 +43,15 @@ public final class LoaderViewService {
         if let newStyle {
             style = newStyle
         }
-        
+        if isHidden {
+            loaderAnimation = nil
+        } else if loaderAnimation == nil {
+            loaderAnimation = .init()
+        }
         style.update(
             newColor: newColor,
             newSize: newSize,
+            newLoaderAnimation: loaderAnimation,
             viewProperties: &viewProperties
         )
         viewProperties.isHidden = isHidden
