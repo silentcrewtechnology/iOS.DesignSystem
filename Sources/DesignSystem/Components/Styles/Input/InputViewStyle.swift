@@ -88,9 +88,11 @@ public final class InputViewStyle {
         viewProperties.text = viewProperties.text
             .fontStyle(.textM)
             .foregroundColor(state.textColor())
+            .alignment(.left)
         viewProperties.placeholder = viewProperties.placeholder
             .fontStyle(.textM)
             .foregroundColor(state.placeholderColor())
+            .alignment(.left)
         viewProperties.cursorColor = state.cursorColor()
     }
     
