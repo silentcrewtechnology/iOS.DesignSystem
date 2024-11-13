@@ -60,7 +60,7 @@ public final class InputViewStyle {
         viewProperties.stackViewInsets = .init(top: .zero, left: 16, bottom: .zero, right: 16)
         
         if var labelViewProperties = viewProperties.labelViewProperties {
-            updatewLabelViewProperties(viewProperties: &labelViewProperties)
+            updateLabelViewProperties(viewProperties: &labelViewProperties)
         }
         
         var rightView = UIView()
@@ -88,16 +88,19 @@ public final class InputViewStyle {
         viewProperties.text = viewProperties.text
             .fontStyle(.textM)
             .foregroundColor(state.textColor())
+            .alignment(.left)
         viewProperties.placeholder = viewProperties.placeholder
             .fontStyle(.textM)
             .foregroundColor(state.placeholderColor())
+            .alignment(.left)
         viewProperties.cursorColor = state.cursorColor()
     }
     
-    private func updatewLabelViewProperties(
+    private func updateLabelViewProperties(
         viewProperties: inout LabelView.ViewProperties
     ) {
         viewProperties.text = viewProperties.text
+            .fontStyle(.textS)
             .foregroundColor(state.labelColor())
     }
 }
