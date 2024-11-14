@@ -33,8 +33,11 @@ public final class ButtonIconService {
         newSize: ButtonIconStyle.Size? = nil,
         newColor: ButtonIconStyle.Color? = nil,
         newVariant: ButtonIconStyle.Variant? = nil,
-        newState: ButtonIconStyle.State? = nil
+        newState: ButtonIconStyle.State? = nil,
+        newImage: UIImage? = nil
     ) {
+        if let newImage { viewProperties.image = newImage }
+        
         style.update(
             variant: newVariant,
             size: newSize,
