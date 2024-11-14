@@ -90,8 +90,11 @@ public final class ButtonViewStyle {
         if case .loading = self.state {
             viewProperties.leftIcon = nil
         } else {
-            if case .with(let icon) = self.icon {
+            switch self.icon {
+            case .with(let icon):
                 viewProperties.leftIcon = icon.withTintColor(tintColor())
+            case .without:
+                viewProperties.leftIcon = nil
             }
         }
 

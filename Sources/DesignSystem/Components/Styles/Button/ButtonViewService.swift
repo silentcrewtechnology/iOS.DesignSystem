@@ -57,7 +57,11 @@ public final class ButtonViewService {
             icon: newIcon,
             viewProperties: &viewProperties
         )
-        loaderService.update(newStyle: style.loaderStyle(), isHidden: newState != .loading)
+        let isHidden: Bool = {
+            guard let newState else { return loaderService.viewProperties.isHidden }
+            return newState != .loading
+        }()
+        loaderService.update(newStyle: style.loaderStyle(), isHidden: isHidden)
         view.update(with: viewProperties)
     }
 }
