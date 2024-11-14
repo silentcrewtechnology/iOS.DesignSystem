@@ -1,5 +1,6 @@
 import UIKit
 import Components
+import Colors
 
 public final class ButtonIconStyle {
     
@@ -222,6 +223,43 @@ extension ButtonIconStyle {
         }
     }
 }
+
+// MARK: - Loader styles
+
+extension ButtonIconStyle {
+    
+    public func loaderStyle() -> LoaderViewStyle {
+        switch variant {
+        case .primary: .init(color: .custom(loaderPrimaryColor()), size: loaderSize())
+        case .secondary: .init(color: .custom(loaderSecondaryColor()), size: loaderSize())
+        }
+    }
+    
+    private func loaderPrimaryColor() -> UIColor {
+        switch color {
+        case .light: .Components.ButtonIcon.Light.Primary.Loader.Color.color
+        // TODO: Заменить на ButtonIcon.Accent при появлении PCABO3-11972
+        case .accent: .Components.Button.Accent.Primary.Loader.Color.loading
+        }
+    }
+    
+    private func loaderSecondaryColor() -> UIColor {
+        switch color {
+        // TODO: Заменить на ButtonIcon.Light при появлении PCABO3-11972
+        case .light: .Components.Button.Light.Secondary.Loader.Color.loading
+        case .accent: .Components.ButtonIcon.Accent.Secondary.Loader.Color.color
+        }
+    }
+    
+    private func loaderSize() -> LoaderViewStyle.Size {
+        switch size {
+        case .large: .m
+        case .small: .s
+        }
+    }
+}
+
+// MARK: - Size
 
 public extension ButtonIconStyle.Size {
     func size() -> CGFloat {
