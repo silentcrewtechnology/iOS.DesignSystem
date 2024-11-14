@@ -4,6 +4,8 @@ import Colors
 
 public final class BadgeStyle {
     
+    // MARK: - Properties
+    
     public enum Color {
         case neutral
         case accent
@@ -22,9 +24,13 @@ public final class BadgeStyle {
         case full
     }
     
+    // MARK: - Private properties
+    
     private var color: Color
     private var size: Size
     private var set: Set
+    
+    // MARK: - Init
     
     public init(
         color: Color,
@@ -35,6 +41,8 @@ public final class BadgeStyle {
         self.size = size
         self.set = set
     }
+    
+    // MARK: - Methods
     
     public func update(
         newColor: Color? = nil,
@@ -59,21 +67,21 @@ public final class BadgeStyle {
         viewProperties.backgroundColor = color.backgroundColor()
         viewProperties.textColor = color.textTintColor()
         viewProperties.image = viewProperties.image?.withTintColor(color.imageTintColor())
-        
+        viewProperties.text = viewProperties.text?.string.fontStyle(size.fontStyle())
+        viewProperties.cornerRadius = cornerRadius()
         viewProperties.margins = BadgeView.ViewProperties.Margins(
+            imageTop: size.imageMargins(),
+            imageBottom: size.imageMargins(),
             leading: 4,
             trailing: 4,
             top: 0,
             bottom: 0,
-            spacing: 2
+            spacing: 2,
+            height: getHeight()
         )
-        
-        viewProperties.margins.imageTop = size.imageMargins()
-        viewProperties.margins.imageBottom = size.imageMargins()
-        viewProperties.text = viewProperties.text?.string.fontStyle(size.fontStyle())
-        viewProperties.margins.height = getHeight()
-        viewProperties.cornerRadius = cornerRadius()
     }
+    
+    // MARK: - Private methods
     
     private func getHeight() -> CGFloat {
         switch set {
@@ -84,12 +92,15 @@ public final class BadgeStyle {
         }
     }
     
-    func cornerRadius() -> CGFloat {
-        return getHeight()/2
+    private func cornerRadius() -> CGFloat {
+        return getHeight() / 2
     }
 }
 
+// MARK: - BadgeStyle.Set Extension
+
 public extension BadgeStyle.Set {
+    
     func changePropertiesFromSet(properties: inout BadgeView.ViewProperties) {
         switch self {
         case .simple:
@@ -104,6 +115,8 @@ public extension BadgeStyle.Set {
         }
     }
 }
+
+// MARK: - BadgeStyle.Color Extension
 
 public extension BadgeStyle.Color {
     
@@ -134,6 +147,8 @@ public extension BadgeStyle.Color {
         }
     }
 }
+
+// MARK: - BadgeStyle.Size Extension
 
 public extension BadgeStyle.Size {
     

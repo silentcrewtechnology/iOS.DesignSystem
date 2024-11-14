@@ -23,10 +23,12 @@ public final class BadgeViewService {
         newSize: BadgeStyle.Size? = nil,
         newSet: BadgeStyle.Set? = nil
     ) {
-        style.update(newColor: newColor,
-                     newSize: newSize,
-                     newSet: newSet,
-                     viewProperties: &viewProperties)
+        style.update(
+            newColor: newColor,
+            newSize: newSize,
+            newSet: newSet,
+            viewProperties: &viewProperties
+        )
         view.update(with: viewProperties)
     }
 }
