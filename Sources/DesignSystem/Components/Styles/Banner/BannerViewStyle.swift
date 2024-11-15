@@ -3,7 +3,7 @@ import Components
 import Colors
 import ImagesService
 
-public struct BannerViewStyle {
+public final class BannerViewStyle {
     
     // MARK: - Properties
 
@@ -16,7 +16,7 @@ public struct BannerViewStyle {
     
     // MARK: - Private properties
     
-    private let variant: Variant
+    private var variant: Variant
     
     // MARK: - Life cycle
     
@@ -27,8 +27,13 @@ public struct BannerViewStyle {
     // MARK: - Methods
     
     public func update(
+        newVariant: Variant? = nil,
         with viewProperties: inout BannerView.ViewProperties
     ) {
+        if let newVariant {
+            variant = newVariant
+        }
+        
         viewProperties.backgroundColor = variant.backgroundColor()
         viewProperties.cornerRadius = 8
         viewProperties.stackViewInsets = .init(top: 12, left: 16, bottom: 12, right: 16)

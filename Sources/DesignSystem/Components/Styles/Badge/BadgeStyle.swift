@@ -51,15 +51,15 @@ public final class BadgeStyle {
         viewProperties: inout BadgeView.ViewProperties
     ) {
         if let newColor {
-            self.color = newColor
+            color = newColor
         }
         
         if let newSize {
-            self.size = newSize
+            size = newSize
         }
         
         if let newSet {
-            self.set = newSet
+            set = newSet
         }
         
         set.changePropertiesFromSet(properties: &viewProperties)

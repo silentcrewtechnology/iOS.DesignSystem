@@ -32,7 +32,7 @@ public struct DSMoleculeStyleService {
             return createIndexWithToggle(index, style)
         case .buttonWithSubtitle(let button, let subindex):
             return createButtonWithSubtitle(button, subindex)
-        case .horizontalChipseViews(let chipsViews):
+        case .horizontalChipsViews(let chipsViews):
             return createHorizontalChips(views: chipsViews)
         }
     }
