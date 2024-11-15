@@ -38,7 +38,7 @@ public enum DSMoleculeElement {
     case buttonWithSubtitle((String, () -> Void, ButtonViewStyle?), (String, LabelViewStyle?))
     
     // Элементы Дизайн Системы
-    case horizontalChipseViews([ChipsView])
+    case horizontalChipsViews([ChipsView])
 }
 
 public enum DSRowBlocks {

@@ -2,9 +2,14 @@ import UIKit
 import Components
 
 public final class BadgeViewService {
+    
+    // MARK: - Properties
+    
     public private(set) var view: BadgeView
     public private(set) var viewProperties: BadgeView.ViewProperties
     public private(set) var style: BadgeStyle
+    
+    // MARK: - Init
     
     public init(
         view: BadgeView = .init(),
@@ -18,11 +23,18 @@ public final class BadgeViewService {
         update()
     }
     
+    // MARK: - Methods
+    
     public func update(
         newColor: BadgeStyle.Color? = nil,
         newSize: BadgeStyle.Size? = nil,
-        newSet: BadgeStyle.Set? = nil
+        newSet: BadgeStyle.Set? = nil,
+        newText: NSMutableAttributedString? = nil
     ) {
+        if let newText {
+            viewProperties.text = newText
+        }
+        
         style.update(
             newColor: newColor,
             newSize: newSize,
