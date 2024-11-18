@@ -96,8 +96,8 @@ private extension TitleViewStyle.Color {
     
     func descriptionColor() -> UIColor {
         switch self {
-        case .primary: .Semantic.LightTheme.Content.Base.primary
-        case .secondary: .Semantic.LightTheme.Content.Base.secondary
+        case .primary: .Semantic.LightTheme.Content.Base.secondary
+        case .secondary: .Semantic.LightTheme.Content.Base.tertiary
         }
     }
 }
