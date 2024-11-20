@@ -4,6 +4,8 @@ import Colors
 
 public final class DividerViewStyle {
     
+    // MARK: - Properties
+    
     public typealias ViewProperties = DividerView.ViewProperties
     
     public enum Variant {
@@ -18,8 +20,12 @@ public final class DividerViewStyle {
         case secondary
     }
     
+    // MARK: - Private properties
+    
     private var variant: Variant
     private var style: Style
+    
+    // MARK: - Init
     
     public init(
         variant: Variant,
@@ -28,6 +34,8 @@ public final class DividerViewStyle {
         self.style = style
         self.variant = variant
     }
+    
+    // MARK: - Methods
     
     public func update(
         variant: Variant? = nil,
@@ -46,15 +54,17 @@ public final class DividerViewStyle {
         updateStyle(style: self.style, viewProperties: &viewProperties)
     }
     
+    // MARK: - Private methods
+    
     private func updateVariant(
         variant: Variant,
         viewProperties: inout ViewProperties
     ) {
         switch variant {
         case .horizontal:
-            viewProperties.size = .height(Constant.thickness)
+            viewProperties.size = .height(Constants.thickness)
         case .vertical:
-            viewProperties.size = .width(Constant.thickness)
+            viewProperties.size = .width(Constants.thickness)
         case .fixed(let size):
             viewProperties.size = .size(size)
         }
@@ -72,6 +82,8 @@ public final class DividerViewStyle {
     }
 }
 
-private enum Constant {
+// MARK: - Constants
+
+private enum Constants {
     static let thickness: CGFloat = 1
 }
