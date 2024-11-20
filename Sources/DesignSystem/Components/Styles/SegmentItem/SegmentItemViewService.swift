@@ -2,76 +2,61 @@ import UIKit
 import Components
 
 public final class SegmentItemViewService {
+    
+    // MARK: - Properties
+    
     public private(set) var view: SegmentItemView
     public private(set) var viewProperties: SegmentItemView.ViewProperties
     public private(set) var style: SegmentItemViewStyle
-    public private(set) var isSelected: Bool
+    public private(set) var dividerService = DividerViewService(
+        style: .init(variant: .vertical, style: .main)
+    )
     
-    public init(view: SegmentItemView = .init(),
-                viewProperties: SegmentItemView.ViewProperties = .init(),
-                size: SegmentItemViewStyle.Size = .sizeS,
-                selected: SegmentItemViewStyle.Selected = .false,
-                showDivider: SegmentItemViewStyle.ShowDivider = .true) {
+    // MARK: - Init
+    
+    public init(
+        view: SegmentItemView = .init(),
+        viewProperties: SegmentItemView.ViewProperties = .init(),
+        style: SegmentItemViewStyle
+    ) {
         self.view = view
         self.viewProperties = viewProperties
-        self.style = SegmentItemViewStyle(
-            size: size,
-            state: .default,
-            selected: selected,
-            showDivider: showDivider)
+        self.style = style
         
-        switch selected {
-        case .true:
-            isSelected = true
-        case .false:
-            isSelected = false
-        }
-        
-        configureAction()
-        update(size: size,
-               selected: selected,
-               showDivider: showDivider)
+        self.viewProperties.divider = dividerService.view
+        update()
     }
     
-    private func configureAction() {
-        viewProperties.handleTap = { [weak self] state in
-            guard let self else { return }
-            switch state {
-            case .pressed:
-                update(state: .pressed)
-            case .unpressed:
-                isSelected = !isSelected
-                let selected: SegmentItemViewStyle.Selected = isSelected ? .true : .false
-                
-                update(state: .default,
-                       selected: selected)
-                viewProperties.onItemTap(isSelected)
-                
-            case .cancelled:
-                let selected: SegmentItemViewStyle.Selected = isSelected ? .true : .false
-                update(state: .default,
-                       selected: selected)
-                viewProperties.onItemTap(isSelected)
-                break
-            }
-        }
-    }
+    // MARK: - Methods
     
     public func update(
-        size: SegmentItemViewStyle.Size? = nil,
-        state: SegmentItemViewStyle.State? = nil,
-        selected: SegmentItemViewStyle.Selected? = nil,
-        showDivider: SegmentItemViewStyle.ShowDivider? = nil
+        newSize: SegmentItemViewStyle.Size? = nil,
+        newState: SegmentItemViewStyle.State? = nil,
+        newSelected: SegmentItemViewStyle.Selected? = nil,
+        newShowDivider: SegmentItemViewStyle.ShowDivider? = nil,
+        newText: NSMutableAttributedString? = nil,
+        newOnItemTap: ((Bool) -> Void)? = nil,
+        newHandlePress: ((PressableView.State) -> Void)? = nil
     ) {
-        if let selected {
-            self.isSelected = selected == .true ? true : false
+        if let newText {
+            viewProperties.text = newText
         }
         
-        style.update(size: size,
-                     state: state,
-                     selected: selected,
-                     showDivider: showDivider,
-                     viewProperties: &viewProperties)
+        if let newOnItemTap {
+            viewProperties.onItemTap = newOnItemTap
+        }
+        
+        if let newHandlePress {
+            viewProperties.handlePress = newHandlePress
+        }
+        
+        style.update(
+            size: newSize,
+            state: newState,
+            selected: newSelected,
+            showDivider: newShowDivider,
+            viewProperties: &viewProperties
+        )
         view.update(with: viewProperties)
     }
 }

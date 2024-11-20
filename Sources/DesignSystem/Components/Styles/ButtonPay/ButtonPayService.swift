@@ -1,20 +1,20 @@
 import UIKit
 import Components
 
-public final class LabelViewService {
+public final class ButtonPayService {
     
     // MARK: - Properties
     
-    public private(set) var view: LabelView
-    public private(set) var viewProperties: LabelView.ViewProperties
-    public private(set) var style: LabelViewStyle
+    public private(set) var view: ButtonPay
+    public private(set) var viewProperties: ButtonPay.ViewProperties
+    public private(set) var style: ButtonPayStyle
     
     // MARK: - Init
     
     public init(
-        view: LabelView = .init(),
-        viewProperties: LabelView.ViewProperties = .init(),
-        style: LabelViewStyle
+        view: ButtonPay = .init(),
+        viewProperties: ButtonPay.ViewProperties = .init(),
+        style: ButtonPayStyle
     ) {
         self.view = view
         self.viewProperties = viewProperties
@@ -26,7 +26,7 @@ public final class LabelViewService {
     // MARK: - Methods
     
     public func update(
-        newVariant: LabelViewStyle.Variant? = nil,
+        newType: ButtonPayStyle.`Type`? = nil,
         newText: NSMutableAttributedString? = nil
     ) {
         if let newText {
@@ -34,7 +34,7 @@ public final class LabelViewService {
         }
         
         style.update(
-            variant: newVariant,
+            newType: newType,
             viewProperties: &viewProperties
         )
         view.update(with: viewProperties)

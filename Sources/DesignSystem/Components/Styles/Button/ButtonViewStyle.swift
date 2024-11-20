@@ -107,6 +107,7 @@ public final class ButtonViewStyle {
 // MARK: - Background colors
 
 extension ButtonViewStyle {
+    
     private func backgroundColor() -> UIColor {
         switch color {
         case .accent: backgroundAccentColor()

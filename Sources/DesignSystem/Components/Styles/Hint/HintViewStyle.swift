@@ -3,6 +3,8 @@ import Components
 
 public final class HintViewStyle {
     
+    // MARK: - Properties
+    
     public enum Variant {
         case both
         case center
@@ -18,8 +20,12 @@ public final class HintViewStyle {
         case disabled
     }
     
+    // MARK: - Private properties
+    
     private var variant: Variant
     private var color: Color
+    
+    // MARK: - Init
     
     public init(
         variant: Variant,
@@ -28,6 +34,8 @@ public final class HintViewStyle {
         self.variant = variant
         self.color = color
     }
+    
+    // MARK: - Methods
     
     public func update(
         variant: Variant? = nil,
@@ -41,38 +49,42 @@ public final class HintViewStyle {
         if let color {
             self.color = color
         }
-
+        
+        var textAlignment: NSTextAlignment = .left
         switch self.variant {
         case .both:
-            let text = viewProperties.text?.string
-            viewProperties.text = text?.fontStyle(.text2XS).alignment(.left).foregroundColor(textColor())
-            let additionalText = viewProperties.additionalText?.string
-            viewProperties.additionalText = additionalText?.fontStyle(.text2XS).alignment(.right).foregroundColor(textColor())
             viewProperties.textIsHidden = false
             viewProperties.additionalTextIsHidden = false
         case .center:
-            let text = viewProperties.text?.string
-            viewProperties.text = text?.fontStyle(.text2XS).alignment(.center).foregroundColor(textColor())
+            textAlignment = .center
             viewProperties.textIsHidden = false
             viewProperties.additionalTextIsHidden = true
         case .left:
-            let text = viewProperties.text?.string
-            viewProperties.text = text?.fontStyle(.text2XS).alignment(.left).foregroundColor(textColor())
             viewProperties.textIsHidden = false
             viewProperties.additionalTextIsHidden = true
         case .right:
-            let text = viewProperties.text?.string
-            viewProperties.text = text?.fontStyle(.text2XS).alignment(.right).foregroundColor(textColor())
-            viewProperties.textIsHidden = false
-            viewProperties.additionalTextIsHidden = true
+            viewProperties.textIsHidden = true
+            viewProperties.additionalTextIsHidden = false
         case .empty:
             viewProperties.textIsHidden = true
             viewProperties.additionalTextIsHidden = true
         }
+        
+        viewProperties.text = viewProperties.text?
+            .fontStyle(.text2XS)
+            .alignment(textAlignment)
+            .foregroundColor(textColor())
+        viewProperties.additionalText = viewProperties.additionalText?
+            .fontStyle(.text2XS)
+            .alignment(.right)
+            .foregroundColor(textColor())
     }
 }
 
+// MARK: - HintViewStyle Extension
+
 extension HintViewStyle {
+    
    private func textColor() -> UIColor {
         switch color {
         case .default: .Components.Hint.Color.default

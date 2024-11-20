@@ -4,6 +4,8 @@ import Components
 
 public final class SegmentControlViewStyle {
     
+    // MARK: - Properties
+    
     private typealias ViewProperties = SegmentControlView.ViewProperties
     
     public enum Size {
@@ -16,19 +18,22 @@ public final class SegmentControlViewStyle {
         case secondary
     }
     
+    // MARK: - Private properties
+    
     private var background: Background
     private var size: Size
-    private var segmentItemStyle: SegmentItemViewStyle
+    
+    // MARK: - Init
     
     public init(
         background: Background,
-        size: Size,
-        segmentItemStyle: SegmentItemViewStyle = .init()
+        size: Size
     ) {
         self.background = background
         self.size = size
-        self.segmentItemStyle = segmentItemStyle
     }
+    
+    // MARK: - Methods
     
     public func update(
         background: Background? = nil,
@@ -44,21 +49,24 @@ public final class SegmentControlViewStyle {
         }
         
         viewProperties.backgroundColor = self.background.color()
-        viewProperties.margins = getMargins()
         viewProperties.cornerRadius = self.size.cornerRadius()
+        viewProperties.margins = getMargins()
     }
+    
+    // MARK: - Private properties
     
     private func getMargins() -> SegmentControlView.ViewProperties.Margins {
         return .init(
-            top: size.top(),
-            bottom: size.bottom(),
-            leading: size.leading(),
-            trailing: size.trailing(),
-            height: size.height())
+            insets: size.insets(),
+            height: size.height()
+        )
     }
 }
 
+// MARK: - SegmentControlViewStyle.Background Extension
+
 public extension SegmentControlViewStyle.Background {
+    
     func color() -> UIColor {
         switch self {
         case .primary: .Components.Segment.Primary.Background.Color.default
@@ -68,31 +76,10 @@ public extension SegmentControlViewStyle.Background {
 }
 
 public extension SegmentControlViewStyle.Size {
-    func top() -> CGFloat {
-        switch self {
-        case .small: 4
-        case .large: 4
-        }
-    }
     
-    func bottom() -> CGFloat {
+    func insets() -> UIEdgeInsets {
         switch self {
-        case .small: 4
-        case .large: 4
-        }
-    }
-    
-    func leading() -> CGFloat {
-        switch self {
-        case .small: 4
-        case .large: 4
-        }
-    }
-    
-    func trailing() -> CGFloat {
-        switch self {
-        case .small: 4
-        case .large: 4
+        case .small, .large: .init(top: 4, left: 4, bottom: 4, right: 4)
         }
     }
     

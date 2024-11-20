@@ -81,6 +81,10 @@ public final class NavigationBarStyle {
             color = newColor
         }
         
+        let rightBarButtonItems = viewProperties.rightBarButtonItems
+        viewProperties = .init()
+        viewProperties.rightBarButtonItems = rightBarButtonItems
+        
         if self.backAction != nil {
             let backButton = UIBarButtonItem(
                 image: .ic24ArrowLeft
@@ -94,8 +98,6 @@ public final class NavigationBarStyle {
         } else {
             viewProperties.leftBarButtonItems = nil
         }
-        
-        viewProperties.largeTitleDisplayMode = .never
         
         let otherBarAppearance = UINavigationBarAppearance()
         otherBarAppearance.backgroundColor = backgroundColor(color: color)
@@ -112,6 +114,7 @@ public final class NavigationBarStyle {
             .font: UIFont.textM_1
         ]
         
+        viewProperties.largeTitleDisplayMode = .never
         viewProperties.isNavigationBarHidden = false
         switch variant {
         case let .basic(title, subtitle, margins):
@@ -134,7 +137,6 @@ public final class NavigationBarStyle {
         case let .mainScreen(name, icon, margins, onProfile):
             let profileView = createProfileView(name: name, icon: icon, margins: margins)
             profileView.addTapGesture(onProfile)
-            
             viewProperties.leftBarButtonItems = [.init(customView: profileView)]
         case let .basicAmount(title, subtitle, spacing, updateAction):
             viewProperties.titleView = createBasicAmountTitleView(

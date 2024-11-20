@@ -3,6 +3,8 @@ import Components
 
 public final class InputAmountViewStyle {
     
+    // MARK: - Properties
+    
     public enum State {
         case `default`
         case active
@@ -10,129 +12,42 @@ public final class InputAmountViewStyle {
         case disabled
     }
     
+    // MARK: - Private properties
+    
     private var state: State
-    private var hintStyle: HintViewStyle?
-    private var headerStyle: LabelViewStyle?
+    
+    // MARK: - Init
     
     public init(
-        state: State,
-        hintStyle: HintViewStyle? = nil,
-        headerStyle: LabelViewStyle? = nil
+        state: State
     ) {
         self.state = state
-        self.hintStyle = hintStyle
-        self.headerStyle = headerStyle
     }
+    
+    // MARK: - Methods
     
     public func update(
         state: State? = nil,
-        hintVariant: HintViewStyle.Variant? = nil,
-        headerVariant: LabelViewStyle.Variant? = nil,
         viewProperties: inout InputAmountView.ViewProperties
     ) {
         if let state {
             self.state = state
         }
         
-        //TODO: заменить когда Лена добавит в json
+        // TODO: - Заменить, когда будет в json
         viewProperties.textFieldProperties.cursorColor = .Components.InputAmount.Content.Color.default
-        
-        if viewProperties.hintViewProperties != nil {
-            updateHintStyle(state: self.state,
-                            variant: hintVariant,
-                            viewProperties: &viewProperties.hintViewProperties!)
-        }
-        
-        if viewProperties.headerViewProperties != nil {
-            updateHeaderStyle(variant: headerVariant,
-                              viewProperties: &viewProperties.headerViewProperties!)
-        }
-        
-        switch self.state {
-        case .default:
-            viewProperties.isUserInteractionEnabled = true
-            viewProperties.textFieldProperties.textAttributes = textFieldAttributes()
-            viewProperties.textFieldProperties.text = viewProperties.textFieldProperties.text
-                .fontStyle(Constant.defaultTextStyle)
-                .foregroundColor(textFieldTextColor())
-            viewProperties.textFieldProperties.placeholder = viewProperties.textFieldProperties.placeholder
-                .fontStyle(Constant.defaultTextStyle)
-                .foregroundColor(textFieldPlaceholderColor())
-            viewProperties.amountSymbol = viewProperties.amountSymbol
-                .fontStyle(Constant.defaultTextStyle)
-                .foregroundColor(textFieldPrefixColor())
-            
-        case .active:
-            viewProperties.isUserInteractionEnabled = true
-            viewProperties.textFieldProperties.textAttributes = textFieldAttributes()
-            viewProperties.textFieldProperties.text = viewProperties.textFieldProperties.text
-                .fontStyle(Constant.defaultTextStyle)
-                .foregroundColor(textFieldTextColor())
-            viewProperties.textFieldProperties.placeholder = viewProperties.textFieldProperties.placeholder
-                .fontStyle(Constant.defaultTextStyle)
-                .foregroundColor(textFieldPlaceholderColor())
-            
-        case .error:
-            viewProperties.isUserInteractionEnabled = true
-            viewProperties.textFieldProperties.textAttributes = textFieldAttributes()
-            viewProperties.textFieldProperties.text = viewProperties.textFieldProperties.text
-                .fontStyle(Constant.defaultTextStyle)
-                .foregroundColor(textFieldTextColor())
-            viewProperties.textFieldProperties.placeholder = viewProperties.textFieldProperties.placeholder
-                .fontStyle(Constant.defaultTextStyle)
-                .foregroundColor(textFieldPlaceholderColor())
-            viewProperties.amountSymbol = viewProperties.amountSymbol
-                .fontStyle(Constant.defaultTextStyle)
-                .foregroundColor(textFieldPrefixColor())
-       
-        case .disabled:
-            viewProperties.isUserInteractionEnabled = false
-            viewProperties.textFieldProperties.textAttributes = textFieldAttributes()
-            viewProperties.textFieldProperties.text = viewProperties.textFieldProperties.text
-                .fontStyle(Constant.defaultTextStyle)
-                .foregroundColor(textFieldTextColor())
-            viewProperties.textFieldProperties.placeholder = viewProperties.textFieldProperties.placeholder
-                .fontStyle(Constant.defaultTextStyle)
-                .foregroundColor(textFieldPlaceholderColor())
-            viewProperties.amountSymbol = viewProperties.amountSymbol
-                .fontStyle(Constant.defaultTextStyle)
-                .foregroundColor(textFieldPrefixColor())
-            
-        }
-        
+        viewProperties.isUserInteractionEnabled = self.state.isUserInteractionEnabled()
         viewProperties.margins = getMargins()
-    }
-    
-    private func updateHintStyle(
-        state: State,
-        variant: HintViewStyle.Variant?,
-        viewProperties: inout HintView.ViewProperties
-    ) {
-        let color: HintViewStyle.Color
-        switch state {
-        case .active:
-            color = .active
-        case .default:
-            color = .default
-        case .disabled:
-            color = .disabled
-        case .error:
-            color = .error
-        }
-        
-        hintStyle?.update(
-            variant: variant,
-            color: color,
-            viewProperties: &viewProperties)
-    }
-    
-    private func updateHeaderStyle(
-        variant: LabelViewStyle.Variant? = nil,
-        viewProperties: inout LabelView.ViewProperties
-    ) {
-        headerStyle?.update(
-            variant: variant,
-            viewProperties: &viewProperties)
+        viewProperties.textFieldProperties.textAttributes = textFieldAttributes()
+        viewProperties.textFieldProperties.text = viewProperties.textFieldProperties.text
+            .fontStyle(Constants.defaultTextStyle)
+            .foregroundColor(textFieldTextColor())
+        viewProperties.textFieldProperties.placeholder = viewProperties.textFieldProperties.placeholder
+            .fontStyle(Constants.defaultTextStyle)
+            .foregroundColor(textFieldPlaceholderColor())
+        viewProperties.amountSymbol = viewProperties.amountSymbol
+            .fontStyle(Constants.defaultTextStyle)
+            .foregroundColor(textFieldPrefixColor())
     }
     
     private func getMargins() -> InputAmountView.ViewProperties.Margins {
@@ -145,60 +60,63 @@ public final class InputAmountViewStyle {
     }
 }
 
+// MARK: - InputAmountViewStyle Extension
+
 extension InputAmountViewStyle {
+    
     private func textFieldAttributes() -> [NSAttributedString.Key: Any] {
         switch state {
         case .default:
             return [
-                .font: Constant.defaultTextStyle.font,
+                .font: Constants.defaultTextStyle.font,
                 .foregroundColor: UIColor.Components.InputAmount.Content.Color.default,
                 .paragraphStyle: {
                     let style = NSMutableParagraphStyle()
-                    style.minimumLineHeight = Constant.defaultTextStyle.lineHeight
-                    style.maximumLineHeight = Constant.defaultTextStyle.lineHeight
+                    style.minimumLineHeight = Constants.defaultTextStyle.lineHeight
+                    style.maximumLineHeight = Constants.defaultTextStyle.lineHeight
                     return style
                 }(),
                 // почему-то нужен двойной отступ для Roboto
-                .baselineOffset: Constant.defaultTextStyle.baselineOffset * 2
+                .baselineOffset: Constants.defaultTextStyle.baselineOffset * 2
             ]
         case .active:
             return [
-                .font: Constant.defaultTextStyle.font,
+                .font: Constants.defaultTextStyle.font,
                 .foregroundColor: UIColor.Components.InputAmount.Content.Color.active,
                 .paragraphStyle: {
                     let style = NSMutableParagraphStyle()
-                    style.minimumLineHeight = Constant.defaultTextStyle.lineHeight
-                    style.maximumLineHeight = Constant.defaultTextStyle.lineHeight
+                    style.minimumLineHeight = Constants.defaultTextStyle.lineHeight
+                    style.maximumLineHeight = Constants.defaultTextStyle.lineHeight
                     return style
                 }(),
                 // почему-то нужен двойной отступ для Roboto
-                .baselineOffset: Constant.defaultTextStyle.baselineOffset * 2
+                .baselineOffset: Constants.defaultTextStyle.baselineOffset * 2
             ]
         case .error:
             return [
-                .font: Constant.defaultTextStyle.font,
+                .font: Constants.defaultTextStyle.font,
                 .foregroundColor: UIColor.Components.InputAmount.Content.Color.error,
                 .paragraphStyle: {
                     let style = NSMutableParagraphStyle()
-                    style.minimumLineHeight = Constant.defaultTextStyle.lineHeight
-                    style.maximumLineHeight = Constant.defaultTextStyle.lineHeight
+                    style.minimumLineHeight = Constants.defaultTextStyle.lineHeight
+                    style.maximumLineHeight = Constants.defaultTextStyle.lineHeight
                     return style
                 }(),
                 // почему-то нужен двойной отступ для Roboto
-                .baselineOffset: Constant.defaultTextStyle.baselineOffset * 2
+                .baselineOffset: Constants.defaultTextStyle.baselineOffset * 2
             ]
         case .disabled:
             return [
-                .font: Constant.defaultTextStyle.font,
+                .font: Constants.defaultTextStyle.font,
                 .foregroundColor: UIColor.Components.InputAmount.Content.Color.disabled,
                 .paragraphStyle: {
                     let style = NSMutableParagraphStyle()
-                    style.minimumLineHeight = Constant.defaultTextStyle.lineHeight
-                    style.maximumLineHeight = Constant.defaultTextStyle.lineHeight
+                    style.minimumLineHeight = Constants.defaultTextStyle.lineHeight
+                    style.maximumLineHeight = Constants.defaultTextStyle.lineHeight
                     return style
                 }(),
                 // почему-то нужен двойной отступ для Roboto
-                .baselineOffset: Constant.defaultTextStyle.baselineOffset * 2
+                .baselineOffset: Constants.defaultTextStyle.baselineOffset * 2
             ]
         }
     }
@@ -231,6 +149,20 @@ extension InputAmountViewStyle {
     }
 }
 
-private enum Constant {
+// MARK: - InputAmountViewStyle.State Extension
+
+public extension InputAmountViewStyle.State {
+    
+    func isUserInteractionEnabled() -> Bool {
+        switch self {
+        case .disabled: false
+        default: true
+        }
+    }
+}
+
+// MARK: - Constants
+
+private enum Constants {
     static let defaultTextStyle: FontStyle = .text4XL
 }

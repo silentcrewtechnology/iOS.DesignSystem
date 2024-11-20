@@ -20,10 +20,16 @@ public final class NavigationBarService {
     
     public init(
         rootVC: UIViewController,
+        view: NavigationBar? = nil,
         viewProperties: NavigationBar.ViewProperties = .init(),
         style: NavigationBarStyle
     ) {
-        self.view = .init(rootViewController: rootVC)
+        if let view {
+            self.view = view
+        } else {
+            self.view = .init(rootViewController: rootVC)
+        }
+        
         self.viewProperties = viewProperties
         self.style = style
         
@@ -35,8 +41,13 @@ public final class NavigationBarService {
     public func update(
         newVariant: NavigationBarStyle.Variant? = nil,
         newColor: NavigationBarStyle.Color? = nil,
+        newRightBarButtonItems: [UIBarButtonItem]? = nil,
         newBackAction: (() -> Void)? = nil
     ) {
+        if let newRightBarButtonItems {
+            viewProperties.rightBarButtonItems = newRightBarButtonItems
+        }
+    
         style.update(
             viewProperties: &viewProperties,
             newVariant: newVariant,

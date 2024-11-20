@@ -2,12 +2,20 @@ import UIKit
 import Components
 
 public final class InputAmountViewService {
-    public private(set) var view: InputAmountView
-    public var viewProperties: InputAmountView.ViewProperties
-    public private(set) var style: InputAmountViewStyle
     
-    public private(set) var headerStyle: LabelViewStyle
-    public private(set) var hintStyle: HintViewStyle
+    // MARK: - Properties
+    
+    public private(set) var view: InputAmountView
+    public private(set) var viewProperties: InputAmountView.ViewProperties
+    public private(set) var style: InputAmountViewStyle
+    public private(set) var labelService = LabelViewService(
+        style: .init(variant: .default(customColor: nil))
+    )
+    public private(set) var hintService = HintViewService(
+        style: .init(variant: .left, color: .default)
+    )
+    
+    // MARK: - Private properties
     
     private var onBeginEditing: (String?) -> Void
     private var onEndEditing: (String?) -> Void
@@ -15,14 +23,8 @@ public final class InputAmountViewService {
     
     private lazy var delegate: InputAmountViewTextFieldDelegate = {
         let delegate = InputAmountViewTextFieldDelegate(
-            onBeginEditing: { [weak self] text in
-                guard let self else { return }
-                self.onBeginEditing(text)
-            },
-            onEndEditing: { [weak self] text in
-                guard let self else { return }
-                self.onEndEditing(text)
-            },
+            onBeginEditing: { [weak self] text in self?.onBeginEditing(text) },
+            onEndEditing: { [weak self] text in self?.onEndEditing(text) },
             onShouldChangeCharacters: { [weak self] textField, range, string in
                 guard let self else { return true }
                 let currentText = textField.text ?? ""
@@ -31,34 +33,29 @@ public final class InputAmountViewService {
                 return self.onShouldChangeCharacters(textField, range, string)
             }
         )
+        
         return delegate
     }()
+    
+    // MARK: - Init
     
     public init(
         view: InputAmountView = .init(),
         viewProperties: InputAmountView.ViewProperties = .init(),
-        state: InputAmountViewStyle.State = .default,
-        headerStyle: LabelViewStyle = .init(variant: .default(customColor: nil)),
-        hintStyle: HintViewStyle = .init(variant: .left, color: .default),
+        style: InputAmountViewStyle,
         onBeginEditing: @escaping (String?) -> Void = { _ in },
         onEndEditing: @escaping (String?) -> Void = { _ in },
         onShouldChangeCharacters: @escaping (UITextField, NSRange, String) -> Bool = { _,_,_  in true}
     ) {
         self.view = view
         self.viewProperties = viewProperties
-        
-        self.headerStyle = headerStyle
-        self.hintStyle = hintStyle
-        
+        self.style = style
         self.onBeginEditing = onBeginEditing
         self.onEndEditing = onEndEditing
         self.onShouldChangeCharacters = onShouldChangeCharacters
         
-        self.style = InputAmountViewStyle(
-            state: state,
-            hintStyle: hintStyle,
-            headerStyle: headerStyle)
-        
+        self.viewProperties.headerView = labelService.view
+        self.viewProperties.hintView = hintService.view
         self.viewProperties.textFieldProperties.delegateAssigningClosure = { textField in
             textField.delegate = self.delegate
         }
@@ -66,63 +63,30 @@ public final class InputAmountViewService {
         update()
     }
     
-    public func update(
-        state: InputAmountViewStyle.State? = nil,
-        hintVariant: HintViewStyle.Variant? = nil,
-        headerVariant: LabelViewStyle.Variant? = nil
-    ) {
-        style.update(
-            state: state,
-            hintVariant: hintVariant,
-            headerVariant: headerVariant,
-            viewProperties: &viewProperties)
-        view.update(with: viewProperties)
-    }
-}
-
-// MARK: - InputAmountViewTextFieldDelegate
-
-private class InputAmountViewTextFieldDelegate: NSObject, UITextFieldDelegate {
-    
-    // MARK: - Private properties
-    
-    private let onBeginEditing: (String?) -> Void
-    private let onEndEditing: (String?) -> Void
-    private let onShouldChangeCharacters: (UITextField, NSRange, String) -> Bool
-    
-    // MARK: - Life cycle
-    
-    public init(
-        onBeginEditing: @escaping (String?) -> Void,
-        onEndEditing: @escaping (String?) -> Void,
-        onShouldChangeCharacters: @escaping (UITextField, NSRange, String) -> Bool
-    ) {
-        self.onBeginEditing = onBeginEditing
-        self.onEndEditing = onEndEditing
-        self.onShouldChangeCharacters = onShouldChangeCharacters
-        super.init()
-    }
-    
     // MARK: - Methods
     
-    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+    public func update(
+        newState: InputAmountViewStyle.State? = nil
+    ) {
+        if let newState {
+            changeHintColor(with: newState)
+        }
+        
+        style.update(
+            state: newState,
+            viewProperties: &viewProperties
+        )
+        view.update(with: viewProperties)
     }
     
-    public func textFieldDidBeginEditing(_ textField: UITextField) {
-        onBeginEditing(textField.text)
-    }
+    // MARK: - Private methods
     
-    public func textFieldDidEndEditing(_ textField: UITextField) {
-        onEndEditing(textField.text)
-    }
-    
-    public func textField(
-        _ textField: UITextField,
-        shouldChangeCharactersIn range: NSRange,
-        replacementString string: String
-    ) -> Bool {
-        return onShouldChangeCharacters(textField, range, string)
+    private func changeHintColor(with state: InputAmountViewStyle.State) {
+        switch state {
+        case .default: hintService.update(newColor: .default)
+        case .active: hintService.update(newColor: .active)
+        case .error: hintService.update(newColor: .error)
+        case .disabled: hintService.update(newColor: .disabled)
+        }
     }
 }
