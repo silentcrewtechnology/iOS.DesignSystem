@@ -61,6 +61,7 @@ public final class ButtonAuthStyle {
         
         viewProperties.cornerRadius = 8
         viewProperties.height = 56
+        viewProperties.minWidth = 339
         viewProperties.backgroundColor = backgroundColor()
         viewProperties.horizontalStackSpacing = spacing()
         viewProperties.text = viewProperties.text
