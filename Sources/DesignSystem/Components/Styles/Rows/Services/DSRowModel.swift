@@ -6,6 +6,7 @@ public final class DSRowModel {
     public let center: DSRowBlocks?
     public let trailing: DSRowBlocks?
     public let centralBlockAlignment: RowBaseContainer.ViewProperties.BlockAlignment
+    public let verticalAlignment: RowBaseContainer.ViewProperties.VerticalAlignment
     public let margings: RowBaseContainer.ViewProperties.Margins?
     public let cellIdentifier: String
     public let cellSelectionStyle: UITableViewCell.SelectionStyle
@@ -20,6 +21,7 @@ public final class DSRowModel {
         center: DSRowBlocks? = nil,
         trailing: DSRowBlocks? = nil,
         centralBlockAlignment: RowBaseContainer.ViewProperties.BlockAlignment = .leading,
+        verticalAlignment: RowBaseContainer.ViewProperties.VerticalAlignment = .center,
         margings: RowBaseContainer.ViewProperties.Margins? = nil,
         cellIdentifier: String = "RowCell",
         cellSelectionStyle: UITableViewCell.SelectionStyle = .gray,
@@ -31,6 +33,7 @@ public final class DSRowModel {
         self.center = center
         self.trailing = trailing
         self.centralBlockAlignment = centralBlockAlignment
+        self.verticalAlignment = verticalAlignment
         self.margings = margings
         self.cellIdentifier = cellIdentifier
         self.cellSelectionStyle = cellSelectionStyle
