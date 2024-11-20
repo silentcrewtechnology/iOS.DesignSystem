@@ -12,6 +12,7 @@ public struct DSCreationRowsViewService {
         center: DSRowBlocks? = nil,
         trailing: DSRowBlocks? = nil,
         centralBlockAlignment: RowBaseContainer.ViewProperties.BlockAlignment = .leading,
+        verticalAlignment: RowBaseContainer.ViewProperties.VerticalAlignment = .center,
         cellIdentifier: String = "RowCell",
         cellSelectionStyle: UITableViewCell.SelectionStyle = .gray
     ) -> UITableViewCell {
@@ -28,7 +29,8 @@ public struct DSCreationRowsViewService {
             leading: leading,
             center: center,
             trailing: trailing,
-            centralBlockAlignment: centralBlockAlignment
+            centralBlockAlignment: centralBlockAlignment,
+            verticalAlignment: verticalAlignment
         )
         
         cell?.customView = rowView
@@ -41,6 +43,7 @@ public struct DSCreationRowsViewService {
         center: DSRowBlocks? = nil,
         trailing: DSRowBlocks? = nil,
         centralBlockAlignment: RowBaseContainer.ViewProperties.BlockAlignment = .leading,
+        verticalAlignment: RowBaseContainer.ViewProperties.VerticalAlignment = .center,
         margins: RowBaseContainer.ViewProperties.Margins? = nil
     ) -> UIView {
         let container = RowBaseContainer()
@@ -72,6 +75,7 @@ public struct DSCreationRowsViewService {
             centerView: centerView,
             trailingView: trailingView,
             centralBlockAlignment: centralBlockAlignment,
+            verticalAlignment: verticalAlignment,
             margins: newMargins,
             accessibilityIds: .init(
                 id: DesignSystemAccessibilityIDs.RowView.rowCellContainer

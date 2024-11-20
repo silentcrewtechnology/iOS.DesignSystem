@@ -208,6 +208,7 @@ public final class NavigationBarStyle {
         
         return DSCreationRowsViewService().createViewRowWithBlocks(
             center: centerView,
+            centralBlockAlignment: .center,
             margins: margins ?? .init(
                 leading: 16,
                 trailing: 16,
