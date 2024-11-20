@@ -2,7 +2,9 @@ import UIKit
 import Colors
 import Components
 
-public class SegmentItemViewStyle {
+public final class SegmentItemViewStyle {
+    
+    // MARK: - Properties
     
     private typealias ViewProperties = SegmentItemView.ViewProperties
     
@@ -26,25 +28,28 @@ public class SegmentItemViewStyle {
         case `false`
     }
     
+    // MARK: - Private properties
+    
     private var size: Size
     private var state: State
     private var selected: Selected
     private var showDivider: ShowDivider
-    private var dividerStyle: DividerViewStyle
+    
+    // MARK: - Init
     
     public init(
         size: Size = .sizeS,
         state: State = .default,
         selected: Selected = .false,
-        showDivider: ShowDivider = .true,
-        dividerStyle: DividerViewStyle = .init(variant: .vertical, style: .main)
+        showDivider: ShowDivider = .false
     ) {
         self.size = size
         self.state = state
         self.selected = selected
         self.showDivider = showDivider
-        self.dividerStyle = dividerStyle
     }
+    
+    // MARK: - Methods
     
     public func update(
         size: Size? = nil,
@@ -69,94 +74,79 @@ public class SegmentItemViewStyle {
             self.showDivider = showDivider
         }
         
-        viewProperties.backgroundColor = backgroundColor(state: self.state, selected: self.selected)
-        viewProperties.cornerRadius = self.size.cornerRadius()
-        viewProperties.text = viewProperties.text.string.fontStyle(self.size.fontStyle())
-        viewProperties.textColor = tintColor(state: self.state,
-                                             selected: self.selected)
-        dividerStyle.update(viewProperties: &viewProperties.divider)
+        viewProperties.text = viewProperties.text
+            .fontStyle(self.size.fontStyle())
+            .alignment(.center)
+            .foregroundColor(tintColor())
         viewProperties.isDividerHidden = self.showDivider.isDividerHidden()
         viewProperties.margins = getMargins()
+        viewProperties.cornerRadius = self.size.cornerRadius()
+        viewProperties.backgroundColor = backgroundColor()
     }
+    
+    // MARK: - Private methods
     
     private func getMargins() -> SegmentItemView.ViewProperties.Margins {
         return .init(
             height: size.height(),
-            textLeading: size.textLeading(),
-            textTrailing: size.textTrailing(),
-            textTop: size.textTop(),
-            textBottom: size.textBottom(),
-            dividerTop: size.dividerTop(),
-            dividerTrailing: size.dividerTrailing(),
-            dividerBottom: size.dividerBottom())
+            textInsets: size.textInsets(),
+            dividerInsets: size.dividerInsets(),
+            dividerHeight: size.dividerHeight()
+        )
     }
-}
-
-extension SegmentItemViewStyle {
-    private func tintColor(
-        state: State,
-        selected: Selected
-    ) -> UIColor {
+    
+    private func tintColor() -> UIColor {
         switch selected {
-        case .true: tintSelectedOnStyleColor(state: state)
-        case .false: tintSelectedOffStyleColor(state: state)
+        case .true: state.tintSelectedOnStyleColor()
+        case .false: state.tintSelectedOffStyleColor()
         }
     }
     
-    private func tintSelectedOnStyleColor(
-        state: State
-    ) -> UIColor {
-        switch state {
-        case .default:
-                .Components.SegmentItem.Selected.Label.Color.default
-        case .pressed:
-                .Components.SegmentItem.Selected.Label.Color.pressed
-        }
-    }
-    
-    private func tintSelectedOffStyleColor(
-        state: State
-    ) -> UIColor {
-        switch state {
-        case .default:
-                .Components.SegmentItem.Default.Label.Color.default
-        case .pressed:
-                .Components.SegmentItem.Default.Label.Color.pressed
+    private func backgroundColor() -> UIColor {
+        switch selected {
+        case .true: state.backgroundSelectedOnStyleColor()
+        case .false: state.backgroundSelectedOffStyleColor()
         }
     }
 }
 
-extension SegmentItemViewStyle {
-    private func backgroundColor(
-        state: State,
-        selected: Selected
-    ) -> UIColor {
-        switch selected {
-        case .true: backgroundSelectedOnStyleColor(state: state)
-        case .false: backgroundSelectedOffStyleColor(state: state)
+// MARK: - SegmentItemViewStyle.State Extension
+
+public extension SegmentItemViewStyle.State {
+    
+    func tintSelectedOnStyleColor() -> UIColor {
+        switch self {
+        case .default: .Components.SegmentItem.Selected.Label.Color.default
+        case .pressed: .Components.SegmentItem.Selected.Label.Color.pressed
         }
     }
     
-    private func backgroundSelectedOnStyleColor(
-        state: State
-    ) -> UIColor {
-        switch state {
+    func tintSelectedOffStyleColor() -> UIColor {
+        switch self {
+        case .default: .Components.SegmentItem.Default.Label.Color.default
+        case .pressed: .Components.SegmentItem.Default.Label.Color.pressed
+        }
+    }
+    
+    func backgroundSelectedOnStyleColor() -> UIColor {
+        switch self {
         case .default: .Components.SegmentItem.Selected.Background.Color.default
         case .pressed: .Components.SegmentItem.Selected.Background.Color.pressed
         }
     }
     
-    private func backgroundSelectedOffStyleColor(
-        state: State
-    ) -> UIColor {
-        switch state {
+    func backgroundSelectedOffStyleColor() -> UIColor {
+        switch self {
         case .default: .Components.SegmentItem.Default.Background.Color.default
         case .pressed: .Components.SegmentItem.Default.Background.Color.pressed
         }
     }
 }
 
-extension SegmentItemViewStyle.ShowDivider {
+// MARK: - SegmentItemViewStyle.ShowDivider Extension
+
+public extension SegmentItemViewStyle.ShowDivider {
+    
     func isDividerHidden() -> Bool {
         switch self {
         case .true: false
@@ -165,7 +155,10 @@ extension SegmentItemViewStyle.ShowDivider {
     }
 }
 
-extension SegmentItemViewStyle.Size {
+// MARK: - SegmentItemViewStyle.Size Extension
+
+public extension SegmentItemViewStyle.Size {
+    
     func fontStyle() -> FontStyle {
         switch self {
         case .sizeS: .textS
@@ -180,59 +173,27 @@ extension SegmentItemViewStyle.Size {
         }
     }
     
-    func textTop() -> CGFloat {
+    func textInsets() -> UIEdgeInsets {
         switch self {
-        case .sizeS: 2
-        case .sizeL: 4
+        case .sizeS: .init(top: 2, left: 8, bottom: 2, right: 8)
+        case .sizeL: .init(top: 4, left: 8, bottom: 4, right: 8)
         }
     }
     
-    func textLeading() -> CGFloat {
+    func dividerInsets() -> UIEdgeInsets {
         switch self {
-        case .sizeS: 8
-        case .sizeL: 8
+        case .sizeS: .zero
+        case .sizeL: .init(top: 4, left: .zero, bottom: 4, right: .zero)
         }
     }
     
-    func textTrailing() -> CGFloat {
-        switch self {
-        case .sizeS: 8
-        case .sizeL: 8
-        }
-    }
-    
-    func textBottom() -> CGFloat {
-        switch self {
-        case .sizeS: 2
-        case .sizeL: 4
-        }
-    }
-    
-    func dividerTop() -> CGFloat {
-        switch self {
-        case .sizeS: 0
-        case .sizeL: 4
-        }
-    }
-    
-    func dividerTrailing() -> CGFloat {
-        switch self {
-        case .sizeS: 0
-        case .sizeL: 0
-        }
-    }
-    
-    func dividerBottom() -> CGFloat {
-        switch self {
-        case .sizeS: 0
-        case .sizeL: 4
-        }
+    func dividerHeight() -> CGFloat {
+        24
     }
     
     func cornerRadius() -> CGFloat {
         switch self {
-        case .sizeS: 6
-        case .sizeL: 6
+        case .sizeS, .sizeL: 6
         }
     }
 }
