@@ -3,6 +3,8 @@ import Components
 
 public final class ButtonAuthStyle {
     
+    // MARK: - Properties
+    
     public enum Variant {
         case gosuslugi
         case abb
@@ -18,9 +20,13 @@ public final class ButtonAuthStyle {
         case light
     }
     
+    // MARK: - Private properties
+    
     private var variant: Variant
     private var state: State
     private var color: Color
+    
+    // MARK: - Init
     
     public init(
         variant: Variant,
@@ -31,6 +37,8 @@ public final class ButtonAuthStyle {
         self.state = state
         self.color = color
     }
+    
+    // MARK: - Methods
     
     public func update(
         variant: Variant? = nil,
@@ -54,7 +62,8 @@ public final class ButtonAuthStyle {
         viewProperties.cornerRadius = 8
         viewProperties.height = 56
         viewProperties.backgroundColor = backgroundColor()
-        viewProperties.title = viewProperties.title
+        viewProperties.horizontalStackSpacing = spacing()
+        viewProperties.text = viewProperties.text
             .fontStyle(.textM)
             .foregroundColor(titleColor())
         
@@ -63,14 +72,13 @@ public final class ButtonAuthStyle {
             viewProperties.image = viewProperties.image
                 .withTintColor(iconTintColor)
         }
-
-        viewProperties.spacing = spacing()
     }
 }
 
 // MARK: - Background Colors
 
 extension ButtonAuthStyle {
+    
     private func backgroundColor() -> UIColor {
         switch variant {
         case .abb: backgroundAbbColor()
@@ -124,6 +132,7 @@ extension ButtonAuthStyle {
 // MARK: - Text Colors
 
 extension ButtonAuthStyle {
+    
     private func titleColor() -> UIColor {
         switch variant {
         case .abb: titleAbbColor()
@@ -177,6 +186,7 @@ extension ButtonAuthStyle {
 // MARK: - Icon Tint Colors
 
 extension ButtonAuthStyle {
+    
     private func iconTintColor() -> UIColor? {
         switch variant {
         case .abb: iconAbbTintColor()
@@ -209,6 +219,7 @@ extension ButtonAuthStyle {
 // MARK: - Spacing
 
 extension ButtonAuthStyle {
+    
     private func spacing() -> CGFloat {
         switch variant {
         case .abb: 16
