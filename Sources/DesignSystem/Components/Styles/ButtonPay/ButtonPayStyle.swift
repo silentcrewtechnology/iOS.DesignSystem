@@ -3,7 +3,7 @@ import Components
 import Colors
 import ImagesService
 
-public struct ButtonPayStyle {
+public final class ButtonPayStyle {
     
     // MARK: - Properties
     
@@ -35,15 +35,21 @@ public struct ButtonPayStyle {
         self.type = type
     }
     
-    public func update(viewProperties: inout ButtonPay.ViewProperties) {
+    public func update(
+        newType: Type? = nil,
+        viewProperties: inout ButtonPay.ViewProperties
+    ) {
+        if let newType {
+            type = newType
+        }
+        
         viewProperties.backgroundColor = .Components.ButtonPay.Background.Color.color
         viewProperties.image = type.logoImage()
         viewProperties.height = 56
-        viewProperties.maxWidth = 257
         viewProperties.cornerRadius = 8
         viewProperties.horizontalStackSpacing = 8
         viewProperties.stackViewInsets = .init(top: .zero, left: 16, bottom: .zero, right: 16)
-        viewProperties.text = .init(string: "Добавить в")
+        viewProperties.text = viewProperties.text
             .fontStyle(.textM)
             .foregroundColor(.Components.ButtonPay.Label.Color.color)
     }
