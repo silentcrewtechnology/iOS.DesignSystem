@@ -4,9 +4,12 @@ import Colors
 
 public final class ChipsViewStyle {
     
+    // MARK: - Properties
+    
     public enum Set {
         case rightIcon
         case leftIcon
+        case none
     }
     
     public enum Size {
@@ -30,33 +33,32 @@ public final class ChipsViewStyle {
         case `false`
     }
     
-    public enum Icon {
-        case `true`
-        case `false`
-    }
+    public private(set) var selected: Selected
+    
+    // MARK: - Private properties
     
     private var set: Set
     private var size: Size
     private var state: State
-    private var selected: Selected
     private var label: Label
-    private var icon: Icon
+    
+    // MARK: - Init
     
     public init(
         set: Set = .leftIcon,
         size: Size = .large,
         state: State = .default,
         selected: Selected = .off,
-        label: Label = .true,
-        icon: Icon = .true
+        label: Label = .true
     ) {
         self.set = set
         self.size = size
         self.state = state
         self.selected = selected
         self.label = label
-        self.icon = icon
     }
+    
+    // MARK: - Methods
     
     public func update(
         set: Set? = nil,
@@ -64,61 +66,62 @@ public final class ChipsViewStyle {
         state: State? = nil,
         selected: Selected? = nil,
         label: Label? = nil,
-        icon: Icon? = nil,
         viewProperties: inout ChipsView.ViewProperties
     ) {
         if let set {
             self.set = set
         }
+        
         if let size {
             self.size = size
         }
+        
         if let state {
             self.state = state
         }
+        
         if let selected {
             self.selected = selected
         }
+        
         if let label {
             self.label = label
         }
-        if let icon {
-            self.icon = icon
-        }
+        
+        let tintColor = tintColor(
+            state: self.state,
+            selected: self.selected
+        )
         viewProperties.backgroundColor = backgroundColor(state: self.state, selected: self.selected)
-        
         viewProperties.cornerRadius = self.size.cornerRadius()
-        viewProperties.leftImageColor = tintColor(state: self.state,
-                                                selected: self.selected)
-        viewProperties.text = viewProperties.text.string.fontStyle(self.size.fontStyle())
-        viewProperties.textColor = tintColor(state: self.state,
-                                             selected: self.selected)
-        viewProperties.rightImageColor = tintColor(state: self.state,
-                                                  selected: self.selected)
-        
-        switch self.state {
-        case .default:
-            viewProperties.isUserInteractionEnabled = true
-        case .disabled:
-            viewProperties.isUserInteractionEnabled = false
-        case .pressed:
-            viewProperties.isUserInteractionEnabled = true
-        }
         viewProperties.margins = getMargins()
+        viewProperties.isUserInteractionEnabled = state != .disabled
+        viewProperties.isLeftImageHidden = self.set.isLeftIconHidden()
+        viewProperties.isRightImageHidden = self.set.isRightIconHidden()
+        viewProperties.isTextHidden = self.label == .false
+        viewProperties.text = viewProperties.text
+            .fontStyle(self.size.fontStyle())
+            .foregroundColor(tintColor)
+        viewProperties.leftImage = viewProperties.leftImage?
+            .withTintColor(tintColor)
+        viewProperties.rightImage = viewProperties.rightImage?
+            .withTintColor(tintColor)
     }
+    
+    // MARK: - Private methods
     
     private func getMargins() -> ChipsView.ViewProperties.Margins {
         return .init(
+            insets: size.insets(),
             spacing: size.spacing(),
-            top: size.top(),
-            leading: size.leading(),
-            trailing: size.trailing(),
-            bottom: size.bottom(),
             height: size.height())
     }
 }
 
+// MARK: - ChipsViewStyle Extension
+
 extension ChipsViewStyle {
+    
     private func backgroundColor(
         state: State,
         selected: Selected
@@ -150,7 +153,10 @@ extension ChipsViewStyle {
     }
 }
 
+// MARK: - ChipsViewStyle Extension
+
 extension ChipsViewStyle {
+    
     private func tintColor(
         state: State,
         selected: Selected
@@ -181,8 +187,30 @@ extension ChipsViewStyle {
         }
     }
 }
+
+// MARK: - ChipsViewStyle.Set Extension
+
+public extension ChipsViewStyle.Set {
     
-extension ChipsViewStyle.Size {
+    func isLeftIconHidden() -> Bool {
+        switch self {
+        case .rightIcon, .none: true
+        case .leftIcon: false
+        }
+    }
+    
+    func isRightIconHidden() -> Bool {
+        switch self {
+        case .rightIcon: false
+        case .leftIcon, .none: true
+        }
+    }
+}
+
+// MARK: - ChipsViewStyle.Size Extension
+    
+public extension ChipsViewStyle.Size {
+    
     func height() -> CGFloat {
         switch self {
         case .small: 32
@@ -203,36 +231,14 @@ extension ChipsViewStyle.Size {
     
     func spacing() -> CGFloat {
         switch self {
-        case .small: 8
-        case .large: 8
+        case .small, .large: 8
         }
     }
     
-    func top() -> CGFloat {
+    func insets() -> UIEdgeInsets {
         switch self {
-        case .small: 6
-        case .large: 8
-        }
-    }
-    
-    func leading() -> CGFloat {
-        switch self {
-        case .small: 16
-        case .large: 16
-        }
-    }
-    
-    func trailing() -> CGFloat {
-        switch self {
-        case .small: 16
-        case .large: 16
-        }
-    }
-    
-    func bottom() -> CGFloat {
-        switch self {
-        case .small: 6
-        case .large: 8
+        case .large: .init(top: 8, left: 16, bottom: 8, right: 16)
+        case .small: .init(top: 6, left: 16, bottom: 6, right: 16)
         }
     }
 }
