@@ -33,20 +33,12 @@ public final class InputSearchStyle {
     
     public func update(
         newState: State? = nil,
-        viewProperties: inout InputSearchView.ViewProperties,
-        textDidChange: ((String) -> Void)? = nil,
-        cancelButtonClicked: (() -> Void)? = nil,
-        textDidBeginEditing: (() -> Void)? = nil,
-        textDidEndEditing: (() -> Void)? = nil
+        viewProperties: inout InputSearchView.ViewProperties
     ) {
         if let newState {
             state = newState
         }
         
-        viewProperties.textDidChange = textDidChange
-        viewProperties.cancelButtonClicked = cancelButtonClicked
-        viewProperties.textDidBeginEditing = textDidBeginEditing
-        viewProperties.textDidEndEditing = textDidEndEditing
         viewProperties.cancelButtonAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.Components.Button.Accent.Function.Label.Color.default,
             NSAttributedString.Key.font: UIFont.textM

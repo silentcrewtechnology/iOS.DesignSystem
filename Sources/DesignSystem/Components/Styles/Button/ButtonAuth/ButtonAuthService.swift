@@ -20,6 +20,7 @@ public final class ButtonAuthService {
         self.viewProperties = viewProperties
         self.style = style
         
+        configureOnHighligthed()
         update()
     }
     
@@ -47,5 +48,13 @@ public final class ButtonAuthService {
             viewProperties: &viewProperties
         )
         view.update(with: viewProperties)
+    }
+    
+    // MARK: - Private methods
+    
+    private func configureOnHighligthed() {
+        viewProperties.onHighlighted = { [weak self] isHighlighted in
+            self?.update(newState: isHighlighted ? .pressed : .default)
+        }
     }
 }

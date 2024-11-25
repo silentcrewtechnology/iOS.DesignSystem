@@ -32,6 +32,7 @@ public final class ButtonViewService {
         self.style = style
         
         self.viewProperties.loader = self.loaderService.view
+        configureOnHighligthed()
         update()
     }
     
@@ -63,5 +64,13 @@ public final class ButtonViewService {
         }()
         loaderService.update(newStyle: style.loaderStyle(), isHidden: isHidden)
         view.update(with: viewProperties)
+    }
+    
+    // MARK: - Private methods
+    
+    private func configureOnHighligthed() {
+        viewProperties.onHighlighted = { [weak self] isHighlighted in
+            self?.update(newState: isHighlighted ? .pressed : .default)
+        }
     }
 }

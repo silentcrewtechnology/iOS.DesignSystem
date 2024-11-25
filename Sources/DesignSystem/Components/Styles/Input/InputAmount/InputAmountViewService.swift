@@ -21,8 +21,8 @@ public final class InputAmountViewService {
     private var onEndEditing: (String?) -> Void
     private var onShouldChangeCharacters: (UITextField, NSRange, String) -> Bool
     
-    private lazy var delegate: InputAmountViewTextFieldDelegate = {
-        let delegate = InputAmountViewTextFieldDelegate(
+    private lazy var delegate: DefaultTextFieldDelegate = {
+        let delegate = DefaultTextFieldDelegate(
             onBeginEditing: { [weak self] text in self?.onBeginEditing(text) },
             onEndEditing: { [weak self] text in self?.onEndEditing(text) },
             onShouldChangeCharacters: { [weak self] textField, range, string in
@@ -56,8 +56,14 @@ public final class InputAmountViewService {
         
         self.viewProperties.headerView = labelService.view
         self.viewProperties.hintView = hintService.view
-        self.viewProperties.textFieldProperties.delegateAssigningClosure = { textField in
+        self.viewProperties.textFieldProperties.delegateAssigningClosure = { [weak self] textField in
+            guard let self else { return }
             textField.delegate = self.delegate
+            textField.addTarget(
+                self,
+                action: #selector(self.textChanged(textField:)),
+                for: .editingChanged
+            )
         }
         
         update()
@@ -88,5 +94,9 @@ public final class InputAmountViewService {
         case .error: hintService.update(newColor: .error)
         case .disabled: hintService.update(newColor: .disabled)
         }
+    }
+    
+    @objc private func textChanged(textField: UITextField) {
+        viewProperties.onTextChanged?(textField.text)
     }
 }

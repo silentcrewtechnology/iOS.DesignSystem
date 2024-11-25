@@ -34,11 +34,18 @@ public final class ImageViewService {
     
     public func update(
         newType: ImageViewStyle.Types? = nil,
-        newColor: ImageViewStyle.Color? = nil
+        newColor: ImageViewStyle.Color? = nil,
+        newSize: ImageViewStyle.Size? = nil,
+        newImage: UIImage? = nil
     ) {
+        if let newImage {
+            viewProperties.image = newImage
+        }
+        
         style.update(
             type: newType,
             color: newColor,
+            size: newSize,
             viewProperties: &viewProperties
         )
         view.update(with: viewProperties)
