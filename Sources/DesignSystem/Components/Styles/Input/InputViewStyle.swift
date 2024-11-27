@@ -97,10 +97,10 @@ public final class InputViewStyle {
     private func updateTextFieldViewProperties(
         viewProperties: inout InputTextField.ViewProperties
     ) {
-        viewProperties.text = viewProperties.text
-            .fontStyle(.textM)
-            .foregroundColor(state.textColor())
-            .alignment(.left)
+        viewProperties.textAttributes = [
+            .font: UIFont.textM,
+            .foregroundColor: state.textColor(),
+        ]
         viewProperties.placeholder = viewProperties.placeholder
             .fontStyle(.textM)
             .foregroundColor(state.placeholderColor())
