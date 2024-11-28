@@ -27,11 +27,10 @@ public final class InputViewService {
                 if self?.style.state != .active {
                     self?.update(state: .active)
                 }
-                
                 self?.onBeginEditing(text)
             },
             onEndEditing: { [weak self] text in
-                self?.update(state: .default)
+                self?.update(state: self?.style.state == .disabled ? .disabled : .default)
                 self?.onEndEditing(text)
             },
             onShouldChangeCharacters: { [weak self] textField, range, string in

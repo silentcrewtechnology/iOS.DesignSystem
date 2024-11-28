@@ -49,6 +49,7 @@ public final class TitleViewStyle {
     ) {
         if let newSize { size = newSize }
         if let newTitleColor { color = newTitleColor }
+        
         viewProperties.title = viewProperties.title
             .fontStyle(size.titleFontStyle())
             .foregroundColor(color.titleColor())
@@ -64,7 +65,9 @@ public final class TitleViewStyle {
     func buttonIconSize() -> ButtonIconStyle.Size { .small }
 }
 
-private extension TitleViewStyle.Size {
+// MARK: - TitleViewStyle.Size Extension
+
+public extension TitleViewStyle.Size {
     
     func titleFontStyle() -> FontStyle {
         switch self {
@@ -85,7 +88,9 @@ private extension TitleViewStyle.Size {
     }
 }
 
-private extension TitleViewStyle.Color {
+// MARK: - TitleViewStyle.Color Extension
+
+public extension TitleViewStyle.Color {
     
     func titleColor() -> UIColor {
         switch self {

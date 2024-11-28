@@ -23,8 +23,16 @@ public final class InputAmountViewService {
     
     private lazy var delegate: DefaultTextFieldDelegate = {
         let delegate = DefaultTextFieldDelegate(
-            onBeginEditing: { [weak self] text in self?.onBeginEditing(text) },
-            onEndEditing: { [weak self] text in self?.onEndEditing(text) },
+            onBeginEditing: { [weak self] text in
+                if self?.style.state != .active {
+                    self?.update(newState: .active)
+                }
+                self?.onBeginEditing(text)
+            },
+            onEndEditing: { [weak self] text in
+                self?.update(newState: self?.style.state == .disabled ? .disabled : .default)
+                self?.onEndEditing(text)
+            },
             onShouldChangeCharacters: { [weak self] textField, range, string in
                 guard let self else { return true }
                 let currentText = textField.text ?? ""
