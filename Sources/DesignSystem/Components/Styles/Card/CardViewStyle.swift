@@ -86,6 +86,7 @@ public final class CardViewStyle {
         viewProperties.maskedCardNumber = maskedCardNumber?
             .fontStyle(.text3XS_1)
             .foregroundColor(.Semantic.LightTheme.Content.Base.accentOn)
+        viewProperties.isMaskedCardNumberHidden = self.size == .small
         
         if set == .empty {
             viewProperties.emptyBand = .init(
@@ -93,21 +94,29 @@ public final class CardViewStyle {
                 topInset: size.emptyBandTopInset(),
                 height: size.emptyBandHeight()
             )
+        } else {
+            viewProperties.emptyBand = nil
         }
-        
-        switch stack {
-        case .true(var stackCardViewProperties):
-            stackCardViewProperties.containerInsets = .zero
-            stackCardViewProperties.size = size.stackCardSize()
-            stackCardViewProperties.cornerRadius = size.stackCardCornerRadius()
-            stackCardViewProperties.paymentSystemImage = nil
-            viewProperties.stackCardView = .init(
-                stackCardViewProperties: [stackCardViewProperties],
-                alphaValue: 0.4,
-                insets: size.stackCardInsets()
-            )
-        default:
-            break
+    }
+    
+    public func stackCardSize() -> CGSize {
+        switch size {
+        case .small: .init(width: 36, height: 23)
+        case .medium: .init(width: 44, height: 28)
+        }
+    }
+    
+    public func stackCardInsets() -> UIEdgeInsets {
+        switch size {
+        case .small: .init(top: .zero, left: .zero, bottom: -2, right: .zero)
+        case .medium: .init(top: .zero, left: .zero, bottom: -3, right: .zero)
+        }
+    }
+    
+    public func stackCardCornerRadius() -> CGFloat {
+        switch size {
+        case .small: 2
+        case .medium: 4
         }
     }
 }
@@ -115,6 +124,7 @@ public final class CardViewStyle {
 // MARK: - CardViewStyle.Set Extension
 
 public extension CardViewStyle.Set {
+    
     func paymentSystemImage() -> UIImage? {
         switch self {
         case .visa: .brand40VisaWhite
@@ -142,6 +152,7 @@ public extension CardViewStyle.Set {
 // MARK: - CardViewStyle.Size Extension
 
 public extension CardViewStyle.Size {
+    
     func size() -> CGSize {
         switch self {
         case .small: .init(width: 40, height: 40)
@@ -188,27 +199,6 @@ public extension CardViewStyle.Size {
         switch self {
         case .small: .zero
         case .medium: .init(top: .zero, left: 4, bottom: .zero, right: .zero)
-        }
-    }
-    
-    func stackCardSize() -> CGSize {
-        switch self {
-        case .small: .init(width: 36, height: 23)
-        case .medium: .init(width: 44, height: 28)
-        }
-    }
-    
-    func stackCardInsets() -> UIEdgeInsets {
-        switch self {
-        case .small: .init(top: .zero, left: .zero, bottom: -2, right: .zero)
-        case .medium: .init(top: .zero, left: .zero, bottom: -3, right: .zero)
-        }
-    }
-    
-    func stackCardCornerRadius() -> CGFloat {
-        switch self {
-        case .small: 2
-        case .medium: 4
         }
     }
 }

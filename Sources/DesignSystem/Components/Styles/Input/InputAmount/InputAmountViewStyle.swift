@@ -12,9 +12,7 @@ public final class InputAmountViewStyle {
         case disabled
     }
     
-    // MARK: - Private properties
-    
-    private var state: State
+    public private(set) var state: State
     
     // MARK: - Init
     

@@ -49,6 +49,10 @@ public final class TitleViewStyle {
     ) {
         if let newSize { size = newSize }
         if let newTitleColor { color = newTitleColor }
+        
+        viewProperties.insets = .init(top: 16, left: 16, bottom: 8, right: 16)
+        viewProperties.horizontalStackSpacing = 16
+        viewProperties.verticalStackSpacing = 4
         viewProperties.title = viewProperties.title
             .fontStyle(size.titleFontStyle())
             .foregroundColor(color.titleColor())
@@ -57,14 +61,15 @@ public final class TitleViewStyle {
             .fontStyle(size.descriptionFontStyle())
             .foregroundColor(color.descriptionColor())
             .alignment(.left)
-        viewProperties.insets = .init(top: 16, left: 16, bottom: 8, right: 16)
     }
     
     /// Для передачи в дочерний ``ButtonIconService``
     func buttonIconSize() -> ButtonIconStyle.Size { .small }
 }
 
-private extension TitleViewStyle.Size {
+// MARK: - TitleViewStyle.Size Extension
+
+public extension TitleViewStyle.Size {
     
     func titleFontStyle() -> FontStyle {
         switch self {
@@ -85,7 +90,9 @@ private extension TitleViewStyle.Size {
     }
 }
 
-private extension TitleViewStyle.Color {
+// MARK: - TitleViewStyle.Color Extension
+
+public extension TitleViewStyle.Color {
     
     func titleColor() -> UIColor {
         switch self {

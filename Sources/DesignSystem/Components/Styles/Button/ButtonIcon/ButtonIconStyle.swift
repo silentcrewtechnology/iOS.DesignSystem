@@ -4,6 +4,8 @@ import Colors
 
 public final class ButtonIconStyle {
     
+    // MARK: - Properties
+    
     public enum Variant {
         case primary
         case secondary
@@ -26,10 +28,14 @@ public final class ButtonIconStyle {
         case accent
     }
     
+    // MARK: - Private properties
+    
     private var variant: Variant
     private var size: Size
     private var state: State
     private var color: Color
+    
+    // MARK: - Init
     
     public init(
         variant: Variant,
@@ -42,6 +48,8 @@ public final class ButtonIconStyle {
         self.state = state
         self.color = color
     }
+    
+    // MARK: - Methods
     
     public func update(
         variant: Variant? = nil,
@@ -67,36 +75,33 @@ public final class ButtonIconStyle {
         }
         
         viewProperties.backgroundColor = backgroundColor(variant: self.variant, state: self.state, color: self.color)
-        viewProperties.pressedBackgroundColor = backgroundColor(variant: self.variant, state: .pressed, color: self.color)
-        viewProperties.imageColor = tintColor(variant: self.variant, state: self.state, color: self.color)
-        viewProperties.pressedImageColor = tintColor(variant: self.variant, state: .pressed, color: self.color)
         viewProperties.margins = getMargins()
         viewProperties.cornerRadius = self.size.cornerRadius()
         viewProperties.isEnabled = self.state.isEnabled()
-        
-        viewProperties.activityIndicator = .init(
-            icon: .ic24SpinerLoader.withTintColor(tintColor(
-                variant: self.variant,
-                state: self.state,
-                color: self.color)),
-            size: self.size.indicatorSize(),
-            isAnimating: self.state.isLoading()
-        )
+        viewProperties.image = viewProperties.image?
+            .withTintColor(
+                tintColor(
+                    variant: self.variant,
+                    state: self.state,
+                    color: self.color
+                )
+            )
     }
+    
+    // MARK: - Private methods
     
     private func getMargins() -> ButtonIcon.ViewProperties.Margins {
         return .init(
-            imageTop: size.imageTop(),
-            imageBottom: size.imageBottom(),
-            imageLeading: size.imageLeading(),
-            imageTrailing: size.imageTrailing(),
+            insets: size.insets(),
             size: size.imageSize()
         )
     }
 }
 
-// MARK: Background Colors
+// MARK: - Background Colors
+
 extension ButtonIconStyle {
+    
     private func backgroundColor(
         variant: Variant,
         state: State,
@@ -127,8 +132,7 @@ extension ButtonIconStyle {
         case .default: .Components.ButtonIcon.Accent.Primary.Background.Color.default
         case .pressed: .Components.ButtonIcon.Accent.Primary.Background.Color.pressed
         case .disabled: .Components.ButtonIcon.Accent.Primary.Background.Color.disabled
-            // TODO: в json от дизайнеров нет Color.loading
-        case .loading: .Components.ButtonIcon.Accent.Primary.Background.Color.default
+        case .loading: .Components.ButtonIcon.Accent.Primary.Background.Color.loading
         }
     }
     
@@ -137,8 +141,7 @@ extension ButtonIconStyle {
         case .default: .Components.ButtonIcon.Accent.Secondary.Background.Color.default
         case .pressed: .Components.ButtonIcon.Accent.Secondary.Background.Color.pressed
         case .disabled: .Components.ButtonIcon.Accent.Secondary.Background.Color.disabled
-            // TODO: в json от дизайнеров нет Color.loading
-        case .loading: .Components.ButtonIcon.Accent.Secondary.Background.Color.default
+        case .loading: .Components.ButtonIcon.Accent.Secondary.Background.Color.loading
         }
     }
     
@@ -147,14 +150,16 @@ extension ButtonIconStyle {
         case .default: .Components.ButtonIcon.Light.Primary.Background.Color.default
         case .pressed: .Components.ButtonIcon.Light.Primary.Background.Color.pressed
         case .disabled: .Components.ButtonIcon.Light.Primary.Background.Color.disabled
-            // TODO: в json от дизайнеров нет Color.loading
-        case .loading: .Components.ButtonIcon.Light.Primary.Background.Color.default
+
+        case .loading: .Components.ButtonIcon.Light.Primary.Background.Color.loading
         }
     }
 }
 
-// MARK: Tint Colors
+// MARK: - Tint Colors
+
 extension ButtonIconStyle {
+    
     private func tintColor(
         variant: Variant,
         state: State,
@@ -238,14 +243,13 @@ extension ButtonIconStyle {
     private func loaderPrimaryColor() -> UIColor {
         switch color {
         case .light: .Components.ButtonIcon.Light.Primary.Loader.Color.color
-        // TODO: Заменить на ButtonIcon.Accent при появлении PCABO3-11972
-        case .accent: .Components.Button.Accent.Primary.Loader.Color.loading
+        case .accent: .Components.ButtonIcon.Accent.Primary.Loader.Color.color
         }
     }
     
     private func loaderSecondaryColor() -> UIColor {
         switch color {
-        // TODO: Заменить на ButtonIcon.Light при появлении PCABO3-11972
+        // TODO: - Нет цвета в json
         case .light: .Components.Button.Light.Secondary.Loader.Color.loading
         case .accent: .Components.ButtonIcon.Accent.Secondary.Loader.Color.color
         }
@@ -259,9 +263,10 @@ extension ButtonIconStyle {
     }
 }
 
-// MARK: - Size
+// MARK: - ButtonIconStyle.Size Extension
 
 public extension ButtonIconStyle.Size {
+    
     func size() -> CGFloat {
         switch self {
         case .small: 32
@@ -273,13 +278,6 @@ public extension ButtonIconStyle.Size {
         return self.size() / 2
     }
     
-    func indicatorSize() -> CGSize {
-        switch self {
-        case .small: .init(width: 16, height: 16)
-        case .large: .init(width: 24, height: 24)
-        }
-    }
-    
     func imageSize() -> CGSize {
         switch self {
         case .small: .init(width: 16, height: 16)
@@ -287,36 +285,18 @@ public extension ButtonIconStyle.Size {
         }
     }
     
-    func imageTop() -> CGFloat {
+    func insets() -> UIEdgeInsets {
         switch self {
-        case .small: 8
-        case .large: 16
-        }
-    }
-    
-    func imageLeading() -> CGFloat {
-        switch self {
-        case .small: 8
-        case .large: 16
-        }
-    }
-    
-    func imageTrailing() -> CGFloat {
-        switch self {
-        case .small: 8
-        case .large: 16
-        }
-    }
-    
-    func imageBottom() -> CGFloat {
-        switch self {
-        case .small: 8
-        case .large: 16
+        case .small: .init(top: 8, left: 8, bottom: 8, right: 8)
+        case .large: .init(top: 16, left: 16, bottom: 16, right: 16)
         }
     }
 }
 
+// MARK: - ButtonIconStyle.State Extension
+
 public extension ButtonIconStyle.State {
+    
     func isLoading() -> Bool {
         switch self {
         case .loading: true
@@ -326,10 +306,8 @@ public extension ButtonIconStyle.State {
     
     func isEnabled() -> Bool {
         switch self {
-        case .default: true
-        case .pressed: true
-        case .disabled: false
-        case .loading: false
+        case .default, .pressed: true
+        case .disabled, .loading: false
         }
     }
 }

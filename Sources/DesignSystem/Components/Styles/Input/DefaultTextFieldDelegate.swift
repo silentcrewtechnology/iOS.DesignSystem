@@ -1,6 +1,6 @@
 import UIKit
 
-public final class InputAmountViewTextFieldDelegate: NSObject, UITextFieldDelegate {
+public final class DefaultTextFieldDelegate: NSObject, UITextFieldDelegate {
     
     // MARK: - Private properties
     
