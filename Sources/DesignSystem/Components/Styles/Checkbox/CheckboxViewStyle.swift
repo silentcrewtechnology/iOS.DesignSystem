@@ -2,20 +2,28 @@ import UIKit
 import Components
 import ImagesService
 
-public struct CheckboxViewStyle {
+public final class CheckboxViewStyle {
+    
+    // MARK: - Properties
     
     public typealias Selection = CheckboxVariables.Selection
     public typealias State = CheckboxVariables.State
     
-    private var variables: CheckboxVariables
     public var selection: Selection {
         get { variables.selection }
         set { variables.selection = newValue }
     }
+    
     public var state: State {
         get { variables.state }
         set { variables.state = newValue }
     }
+    
+    // MARK: - Private properties
+    
+    private var variables: CheckboxVariables
+    
+    // MARK: - Init
     
     public init(
         selection: Selection,
@@ -24,9 +32,21 @@ public struct CheckboxViewStyle {
         self.variables = .init(selection: selection, state: state)
     }
     
+    // MARK: - Methods
+    
     public func update(
+        newSelection: Selection? = nil,
+        newState: State? = nil,
         viewProperties: inout CheckboxView.ViewProperties
     ) {
+        if let newSelection {
+            selection = newSelection
+        }
+        
+        if let newState {
+            state = newState
+        }
+        
         viewProperties.backgroundColor = variables.backgroundColor()
         viewProperties.size = .init(width: 20, height: 20)
         viewProperties.cornerRadius = viewProperties.size.width / 2
@@ -37,7 +57,11 @@ public struct CheckboxViewStyle {
     }
 }
 
+// MARK: - CheckboxVariables
+
 public struct CheckboxVariables {
+    
+    // MARK: - Properties
     
     public enum Selection: String {
         case `default`
@@ -53,6 +77,8 @@ public struct CheckboxVariables {
     public var selection: Selection
     public var state: State
     
+    // MARK: - Init
+    
     public init(
         selection: Selection,
         state: State
@@ -60,6 +86,8 @@ public struct CheckboxVariables {
         self.selection = selection
         self.state = state
     }
+    
+    // MARK: - Methods
     
     public func backgroundColor() -> UIColor {
         switch selection {
@@ -94,6 +122,8 @@ public struct CheckboxVariables {
         
         return .ic10Check.withTintColor(color)
     }
+    
+    // MARK: - Private methods
     
     private func backgroundDefaultColor() -> UIColor {
         switch state {
