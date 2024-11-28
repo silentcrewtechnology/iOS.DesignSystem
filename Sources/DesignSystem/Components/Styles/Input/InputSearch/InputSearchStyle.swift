@@ -39,6 +39,8 @@ public final class InputSearchStyle {
             state = newState
         }
         
+        viewProperties.cancelButtonText = "Отменить"
+        viewProperties.cancelButtonTextKey = "cancelButtonText"
         viewProperties.cancelButtonAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.Components.Button.Accent.Function.Label.Color.default,
             NSAttributedString.Key.font: UIFont.textM
@@ -60,7 +62,10 @@ public final class InputSearchStyle {
                 .fontStyle(.textM)
                 .alignment(.left)
                 .foregroundColor(state.placeholderColor()),
-            font: .textM
+            textFieldKey: "searchField",
+            font: .textM,
+            layerBorderWidth: 2,
+            layerCornerRadius: 8
         )
     }
 }
