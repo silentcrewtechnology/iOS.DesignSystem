@@ -27,10 +27,15 @@ public final class LabelViewService {
     
     public func update(
         newVariant: LabelViewStyle.Variant? = nil,
-        newText: NSMutableAttributedString? = nil
+        newText: NSMutableAttributedString? = nil,
+        newAccessibilityIds: LabelView.ViewProperties.AccessibilityIds? = nil
     ) {
         if let newText {
             viewProperties.text = newText
+        }
+        
+        if let newAccessibilityIds {
+            viewProperties.accessibilityIds = newAccessibilityIds
         }
         
         style.update(
