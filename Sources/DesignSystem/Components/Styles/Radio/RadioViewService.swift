@@ -1,21 +1,21 @@
 import UIKit
 import Components
 
-public final class CheckboxViewService {
+public final class RadioViewService {
     
     // MARK: - Properties
     
-    public private(set) var view: CheckboxView
-    public private(set) var viewProperties: CheckboxView.ViewProperties
-    public private(set) var style: CheckboxViewStyle
+    public private(set) var view: RadioView
+    public private(set) var viewProperties: RadioView.ViewProperties
+    public private(set) var style: RadioViewStyle
     private var isChecked: Bool
     
     // MARK: - Init
     
     public init(
-        view: CheckboxView = .init(),
-        viewProperties: CheckboxView.ViewProperties = .init(),
-        style: CheckboxViewStyle
+        view: RadioView = .init(),
+        viewProperties: RadioView.ViewProperties = .init(),
+        style: RadioViewStyle
     ) {
         self.view = view
         self.viewProperties = viewProperties
@@ -29,8 +29,8 @@ public final class CheckboxViewService {
     // MARK: - Methods
     
     public func update(
-        newSelection: CheckboxVariables.Selection? = nil,
-        newState: CheckboxVariables.State? = nil,
+        newSelection: RadioViewStyle.Selection? = nil,
+        newState: RadioViewStyle.State? = nil,
         newOnPressChange: ((PressableView.State) -> Void)? = nil,
         newOnTap: ((Bool) -> Void)? = nil
     ) {
@@ -44,8 +44,8 @@ public final class CheckboxViewService {
         }
         
         style.update(
-            newSelection: newSelection,
-            newState: newState,
+            state: newState,
+            selection: newSelection,
             viewProperties: &viewProperties
         )
         view.update(with: viewProperties)

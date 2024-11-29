@@ -271,44 +271,13 @@ private extension DSAtomStyleService {
         action: @escaping (Bool) -> Void,
         style: CheckboxViewStyle?
     ) -> UIView? {
-        var style = style ?? CheckboxViewStyle(
-            selection: isOn ? .checked : .default,
+        let style = style ?? CheckboxViewStyle(
+            selection: isOn ? .on : .off,
             state: .default
         )
-        // TODO: нужна сущность, чтобы хранить ссылки на View/ViewProperties
-        var updateView: (CheckboxViewStyle) -> Void = { _ in }
-        let accessibilityIds = CheckboxView.ViewProperties.AccessibilityIds(
-            id: DesignSystemAccessibilityIDs.RowAtoms.checkbox
-        )
-        var viewProperties = CheckboxView.ViewProperties(
-            accessibilityIds: accessibilityIds,
-            onPressChange: { state in
-                switch state {
-                case .pressed:
-                    style.state = .pressed
-                case .unpressed:
-                    switch style.selection {
-                    case .default:
-                        style.selection = .checked
-                        action(true)
-                    case .checked:
-                        style.selection = .default
-                        action(false)
-                    }
-                    style.state = .default
-                case .cancelled:
-                    style.state = .default
-                }
-                updateView(style)
-            })
-        style.update(viewProperties: &viewProperties)
+        let checkboxService = CheckboxViewService(style: style)
         
-        let checkbox = RowBlocksService().createRowBlock(.atom(.checkbox(viewProperties)))
-        updateView = { style in
-            style.update(viewProperties: &viewProperties)
-            (checkbox as? CheckboxView)?.update(with: viewProperties)
-        }
-        return checkbox
+        return checkboxService.view
     }
     
     private func createRadio(
@@ -318,40 +287,11 @@ private extension DSAtomStyleService {
     ) -> UIView? {
         let style = style ?? RadioViewStyle(
             state: .default,
-            selection: isOn ? .checked : .default
+            selection: isOn ? .on : .off
         )
-        // TODO: нужна сущность, чтобы хранить ссылки на View/ViewProperties
-        var updateView: (RadioViewStyle) -> Void = { _ in }
-        let accessibilityIds = RadioView.ViewProperties.AccessibilityIds(
-            id: DesignSystemAccessibilityIDs.RowAtoms.radio
-        )
-        var viewProperties = RadioView.ViewProperties(
-            accessibilityIds: accessibilityIds,
-            onPressChange: { state in
-                switch state {
-                case .pressed:
-                    style.state = .pressed
-                case .unpressed:
-                    switch style.selection {
-                    case .default:
-                        style.selection = .checked
-                        action()
-                    case .checked: break // already checked
-                    }
-                    style.state = .default
-                case .cancelled:
-                    style.state = .default
-                }
-                updateView(style)
-            }
-        )
-        style.update(viewProperties: &viewProperties)
-        let radio = RowBlocksService().createRowBlock(.atom(.radio(viewProperties)))
-        updateView = { style in
-            style.update(viewProperties: &viewProperties)
-            (radio as? RadioView)?.update(with: viewProperties)
-        }
-        return radio
+        let radioService = RadioViewService(style: style)
+        
+        return radioService.view
     }
     
     private func createButton(
