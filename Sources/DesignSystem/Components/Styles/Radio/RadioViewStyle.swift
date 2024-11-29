@@ -4,6 +4,8 @@ import ImagesService
 
 public final class RadioViewStyle {
     
+    // MARK: - Properties
+    
     public enum State {
         case `default`
         case pressed
@@ -11,12 +13,17 @@ public final class RadioViewStyle {
     }
     
     public enum Selection: String {
-        case `default`
-        case checked
+        case off
+        case on
     }
     
-    public var state: State
-    public var selection: Selection
+    public private(set) var selection: Selection
+    
+    // MARK: - Private properties
+    
+    private var state: State
+    
+    // MARK: - Init
     
     public init(
         state: State,
@@ -26,12 +33,13 @@ public final class RadioViewStyle {
         self.selection = selection
     }
     
+    // MARK: - Methods
+    
     public func update(
         state: State? = nil,
         selection: Selection? = nil,
         viewProperties: inout RadioView.ViewProperties
     ) {
-        
         if let state {
             self.state = state
         }
@@ -50,11 +58,14 @@ public final class RadioViewStyle {
     }
 }
 
+// MARK: - RadioViewStyle Extension
+
 extension RadioViewStyle {
+    
     private func backgroundColor() -> UIColor {
         switch selection {
-        case .default: backgroundSelectionDefaultColor()
-        case .checked: backgroundSelectionCheckedColor()
+        case .off: backgroundSelectionDefaultColor()
+        case .on: backgroundSelectionCheckedColor()
         }
     }
     
@@ -76,15 +87,15 @@ extension RadioViewStyle {
     
     private func borderWidth() -> CGFloat {
         switch selection {
-        case .default: 1
-        case .checked: 0
+        case .off: 1
+        case .on: 0
         }
     }
     
     private func borderColor() -> UIColor {
         switch selection {
-        case .default: borderSelectionDefaultColor()
-        case .checked: borderSelectionCheckedColor()
+        case .off: borderSelectionDefaultColor()
+        case .on: borderSelectionCheckedColor()
         }
     }
     
@@ -106,8 +117,8 @@ extension RadioViewStyle {
     
     private func checkIcon() -> UIImage? {
         switch selection {
-        case .default: return nil
-        case .checked: return .ic10Radio.withTintColor(iconCheckedColor())
+        case .off: return nil
+        case .on: return .ic10Radio.withTintColor(iconCheckedColor())
         }
     }
     

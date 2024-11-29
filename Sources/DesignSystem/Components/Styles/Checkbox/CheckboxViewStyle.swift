@@ -9,17 +9,17 @@ public final class CheckboxViewStyle {
     public typealias Selection = CheckboxVariables.Selection
     public typealias State = CheckboxVariables.State
     
-    public var selection: Selection {
+    public private(set) var selection: Selection {
         get { variables.selection }
         set { variables.selection = newValue }
     }
+
+    // MARK: - Private properties
     
-    public var state: State {
+    private var state: State {
         get { variables.state }
         set { variables.state = newValue }
     }
-    
-    // MARK: - Private properties
     
     private var variables: CheckboxVariables
     
@@ -64,8 +64,8 @@ public struct CheckboxVariables {
     // MARK: - Properties
     
     public enum Selection: String {
-        case `default`
-        case checked
+        case off
+        case on
     }
     
     public enum State: String {
@@ -91,22 +91,22 @@ public struct CheckboxVariables {
     
     public func backgroundColor() -> UIColor {
         switch selection {
-        case .default: backgroundDefaultColor()
-        case .checked: backgroundCheckedColor()
+        case .off: backgroundDefaultColor()
+        case .on: backgroundCheckedColor()
         }
     }
     
     public func borderColor() -> UIColor {
         switch selection {
-        case .default: borderDefaultColor()
-        case .checked: borderCheckedColor()
+        case .off: borderDefaultColor()
+        case .on: borderCheckedColor()
         }
     }
     
     public func borderWidth() -> CGFloat {
         switch selection {
-        case .checked: 0
-        case .default: 1
+        case .on: 0
+        case .off: 1
         }
     }
     
@@ -114,10 +114,8 @@ public struct CheckboxVariables {
         var color: UIColor
         
         switch selection {
-        case .default: 
-            color = backgroundDefaultColor()
-        case .checked:
-            color = checkIconCheckedColor()
+        case .off: color = backgroundDefaultColor()
+        case .on: color = checkIconCheckedColor()
         }
         
         return .ic10Check.withTintColor(color)
