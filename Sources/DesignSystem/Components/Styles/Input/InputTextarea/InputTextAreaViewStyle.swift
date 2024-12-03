@@ -47,10 +47,11 @@ public final class InputTextAreaViewStyle {
         
         viewProperties.backgroundColor = state.backgroundColor()
         viewProperties.border = .init(color: state.borderColor(), width: 2)
+        viewProperties.minTextViewHeight = 56
         viewProperties.cornerRadius = 8
         viewProperties.isUserInteractionEnabled = self.state != .disabled
         viewProperties.stackViewInsets = .init(top: .zero, left: 16, bottom: .zero, right: 16)
-        viewProperties.minTextViewHeight = 56
+        viewProperties.placeholderInsets = .init(inset: 16)
         viewProperties.textViewInsets = .init(inset: 16)
         
         viewProperties.placeholder = viewProperties.placeholder
@@ -61,9 +62,12 @@ public final class InputTextAreaViewStyle {
             .fontStyle(.textM)
             .foregroundColor(state.textColor())
             .alignment(.left)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.minimumLineHeight = 24
         viewProperties.textViewProperties.textAttributes = [
             .font: UIFont.textM,
-            .foregroundColor: state.textColor()
+            .foregroundColor: state.textColor(),
+            .paragraphStyle: paragraphStyle
         ]
     }
 }

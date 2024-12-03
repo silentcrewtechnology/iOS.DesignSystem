@@ -105,10 +105,10 @@ public final class InputTextAreaViewService {
     
     private func changeHintColor(with state: InputTextAreaViewStyle.State) {
         switch state {
-        case .default: hintService.update(newColor: .default)
-        case .active: hintService.update(newColor: .active)
-        case .error: hintService.update(newColor: .error)
-        case .disabled: hintService.update(newColor: .disabled)
+        case .default: hintService.update(newVariant: .right, newColor: .default)
+        case .active: hintService.update(newVariant: .right, newColor: .active)
+        case .error: hintService.update(newVariant: .both, newColor: .error)
+        case .disabled: hintService.update(newVariant: .right, newColor: .disabled)
         }
     }
     
@@ -120,8 +120,6 @@ public final class InputTextAreaViewService {
     }
     
     private func textChanged(text: String?) {
-        viewProperties.onTextChanged?(text)
-        
         if let text, !text.isEmpty {
             viewProperties.isPlaceholderHidden = true
         } else {
@@ -129,5 +127,6 @@ public final class InputTextAreaViewService {
         }
         
         update()
+        viewProperties.onTextChanged?(text)
     }
 }
