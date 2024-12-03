@@ -71,7 +71,6 @@ public final class InputViewStyle {
         viewProperties.isEnabled = self.state.isEnabled()
         viewProperties.textFieldCornerRadius = 8
         viewProperties.textFieldHeight = 56
-        viewProperties.minHeight = 80
         viewProperties.textFieldInsets = .init(inset: 16)
         viewProperties.stackViewInsets = .init(top: .zero, left: 16, bottom: .zero, right: 16)
         

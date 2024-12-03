@@ -74,6 +74,7 @@ public final class InputAmountViewService {
             )
         }
         
+        changeHintColor(with: style.state)
         update()
     }
     
