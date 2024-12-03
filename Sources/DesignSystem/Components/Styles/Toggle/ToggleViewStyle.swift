@@ -1,15 +1,8 @@
-//
-//  ToggleViewStyle.swift
-//  
-//
-//  Created by user on 13.05.2024.
-//
-
 import UIKit
 import Components
 import Colors
 
-public struct ToggleViewStyle {
+public final class ToggleViewStyle {
     
     // MARK: - Properties
     
@@ -19,28 +12,62 @@ public struct ToggleViewStyle {
         case disabled
     }
     
-    public var state: State
+    public enum Checked {
+        case off
+        case on
+    }
     
-    public init(state: State) {
+    // MARK: - Private properties
+    
+    private var state: State
+    private var checked: Checked
+    
+    // MARK: - Init
+    
+    public init(
+        state: State,
+        checked: Checked = .off
+    ) {
         self.state = state
+        self.checked = checked
     }
     
     // MARK: - Public methods
         
     public func update(
+        newState: State? = nil,
+        newChecked: Checked? = nil,
         viewProperties: inout ToggleView.ViewProperties
     ) {
+        if let newState {
+            state = newState
+        }
+        
+        if let newChecked {
+            checked = newChecked
+        }
+        
         viewProperties.offTintColor = state.offTintColor()
         viewProperties.onTintColor = state.onTintColor()
-        viewProperties.thumbOffTintColor = state.thumbOffTintColor()
-        viewProperties.thumbOnTintColor = state.thumbOnTintColor()
-        viewProperties.isEnabled = state == .default
+        viewProperties.thumbColor = thumbTintColor()
+        viewProperties.isEnabled = state != .disabled
+        viewProperties.isChecked = checked == .on
+    }
+    
+    // MARK: - Private methods
+    
+    private func thumbTintColor() -> UIColor {
+        switch checked {
+        case .off: state.thumbOffTintColor()
+        case .on: state.thumbOnTintColor()
+        }
     }
 }
 
 // MARK: - ToggleViewStyle.State Extension
 
 public extension ToggleViewStyle.State {
+    
     func offTintColor() -> UIColor {
         switch self {
         case .default: .Components.Toggle.Default.Background.Color.default
