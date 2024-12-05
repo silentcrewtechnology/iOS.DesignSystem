@@ -150,7 +150,6 @@ extension ButtonIconStyle {
         case .default: .Components.ButtonIcon.Light.Primary.Background.Color.default
         case .pressed: .Components.ButtonIcon.Light.Primary.Background.Color.pressed
         case .disabled: .Components.ButtonIcon.Light.Primary.Background.Color.disabled
-
         case .loading: .Components.ButtonIcon.Light.Primary.Background.Color.loading
         }
     }
@@ -193,9 +192,8 @@ extension ButtonIconStyle {
             return .Components.ButtonIcon.Accent.Primary.Icon.Color.pressed
         case .disabled:
             return .Components.ButtonIcon.Accent.Primary.Icon.Color.disabled
-            // TODO: в json от дизайнеров нет Color.loading
         case .loading:
-            return .Components.ButtonIcon.Accent.Primary.Icon.Color.default
+            return .clear
             
         }
     }
@@ -208,9 +206,8 @@ extension ButtonIconStyle {
             return .Components.ButtonIcon.Accent.Secondary.Icon.Color.pressed
         case .disabled:
             return .Components.ButtonIcon.Accent.Secondary.Icon.Color.disabled
-            // TODO: в json от дизайнеров нет Color.loading
         case .loading:
-            return .Components.ButtonIcon.Accent.Secondary.Icon.Color.default
+            return .clear
         }
     }
     
@@ -222,9 +219,8 @@ extension ButtonIconStyle {
             return .Components.ButtonIcon.Light.Primary.Icon.Color.pressed
         case .disabled:
             return .Components.ButtonIcon.Light.Primary.Icon.Color.disabled
-            // TODO: в json от дизайнеров нет Color.loading
         case .loading:
-            return .Components.ButtonIcon.Light.Primary.Icon.Color.default
+            return .clear
         }
     }
 }
@@ -249,8 +245,7 @@ extension ButtonIconStyle {
     
     private func loaderSecondaryColor() -> UIColor {
         switch color {
-        // TODO: - Нет цвета в json
-        case .light: .Components.Button.Light.Secondary.Loader.Color.loading
+        case .light: .clear
         case .accent: .Components.ButtonIcon.Accent.Secondary.Loader.Color.color
         }
     }
