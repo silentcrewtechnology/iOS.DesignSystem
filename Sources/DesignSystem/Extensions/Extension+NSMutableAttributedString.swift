@@ -61,6 +61,12 @@ public extension NSMutableAttributedString {
         return addingAttributes([.paragraphStyle: paragraphStyle])
     }
     
+    func lineBreakMode(_ lineBreakMode: NSLineBreakMode) -> Self {
+        let paragraphStyle = existingParagraphStyle
+        paragraphStyle.lineBreakMode = lineBreakMode
+        return addingAttributes([.paragraphStyle: paragraphStyle])
+    }
+    
     func kern(_ spacing: CGFloat) -> Self {
         addingAttributes([.kern: spacing])
     }
