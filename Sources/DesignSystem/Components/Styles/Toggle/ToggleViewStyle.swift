@@ -8,7 +8,6 @@ public final class ToggleViewStyle {
     
     public enum State {
         case `default`
-        case pressed
         case disabled
     }
     
@@ -71,7 +70,6 @@ public extension ToggleViewStyle.State {
     func offTintColor() -> UIColor {
         switch self {
         case .default: .Components.Toggle.Default.Background.Color.default
-        case .pressed: .Components.Toggle.Default.Background.Color.pressed
         case .disabled: .Components.Toggle.Default.Background.Color.disabled
         }
     }
@@ -79,7 +77,6 @@ public extension ToggleViewStyle.State {
     func onTintColor() -> UIColor {
         switch self {
         case .default: .Components.Toggle.Checked.Background.Color.default
-        case .pressed: .Components.Toggle.Checked.Background.Color.pressed
         case .disabled: .Components.Toggle.Checked.Background.Color.disabled
         }
     }
@@ -87,7 +84,6 @@ public extension ToggleViewStyle.State {
     func thumbOffTintColor() -> UIColor {
         switch self {
         case .default: .Components.Toggle.Default.Switch.Color.default
-        case .pressed: .Components.Toggle.Default.Switch.Color.pressed
         case .disabled: .Components.Toggle.Default.Switch.Color.disabled
         }
     }
@@ -95,7 +91,6 @@ public extension ToggleViewStyle.State {
     func thumbOnTintColor() -> UIColor {
         switch self {
         case .default: .Components.Toggle.Checked.Switch.Color.default
-        case .pressed: .Components.Toggle.Checked.Switch.Color.pressed
         case .disabled: .Components.Toggle.Checked.Switch.Color.disabled
         }
     }
