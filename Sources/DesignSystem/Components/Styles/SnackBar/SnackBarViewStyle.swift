@@ -1,14 +1,7 @@
-//
-//  SnackBarViewStyle.swift
-//  
-//
-//  Created by Ilnur Mugaev on 27.03.2024.
-//
-
 import UIKit
 import Components
 
-public struct SnackBarViewStyle {
+public final class SnackBarViewStyle {
     
     // MARK: - Properties
     
@@ -37,8 +30,8 @@ public struct SnackBarViewStyle {
     
     // MARK: - Private proeprties
     
-    private let variant: Variant
-    private let delay: Delay
+    private var variant: Variant
+    private var delay: Delay
     
     // MARK: - Life cycle
     
@@ -53,8 +46,14 @@ public struct SnackBarViewStyle {
     // MARK: - Methods
     
     public func update(
+        newVariant: Variant? = nil,
+        newDelay: Delay? = nil,
         viewProperties: inout SnackBarView.ViewProperties
     ) {
+        if let newVariant { variant = newVariant }
+        
+        if let newDelay { delay = newDelay }
+        
         viewProperties.icon = .init(image: variant.icon(), size: .init(width: 24, height: 24))
         viewProperties.title = viewProperties.title?.fontStyle(.textM_1).foregroundColor(variant.titleTintColor())
         viewProperties.subtitle = viewProperties.subtitle?.fontStyle(.textS).foregroundColor(variant.subtitleTintColor())
@@ -101,7 +100,7 @@ public struct SnackBarViewStyle {
     ) {
         viewProperties.animationIn = .init(
             duration: 0.4,
-            delay: 0.1,
+            delay: .zero,
             options: .curveEaseOut,
             showTime: delay.showTime()
         )
