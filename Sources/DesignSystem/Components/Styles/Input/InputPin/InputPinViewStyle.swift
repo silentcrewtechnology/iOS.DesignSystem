@@ -1,6 +1,5 @@
 import UIKit
 import Components
-import Colors
 
 public final class InputPinViewStyle {
     
