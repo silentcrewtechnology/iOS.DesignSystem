@@ -2,7 +2,9 @@ import UIKit
 import Components
 import Colors
 
-public struct InputOTPItemViewStyle {
+public final class InputOTPItemViewStyle {
+    
+    // MARK: - Properties
     
     public enum State {
         case `default`
@@ -11,22 +13,35 @@ public struct InputOTPItemViewStyle {
         case disabled
     }
     
-    public init() { }
+    public private(set) var state: State
+    
+    // MARK: - Init
+    
+    public init(state: State) {
+        self.state = state
+    }
+    
+    // MARK: - Methods
     
     public func update(
-        state: State,
+        state: State? = nil,
         viewProperties: inout InputOTPItemView.ViewProperties
     ) {
-        viewProperties.backgroundColor = state.backgroundColor()
+        if let state { self.state = state }
+        
+        viewProperties.backgroundColor = self.state.backgroundColor()
+        viewProperties.borderColor = self.state.borderColor()
+        viewProperties.borderWidth = self.state.borderWidth()
         viewProperties.size = .init(width: 44, height: 56)
         viewProperties.cornerRadius = 4
         viewProperties.text = viewProperties.text
             .fontStyle(.textM)
-            .foregroundColor(state.textColor())
-        viewProperties.borderColor = state.borderColor()
-        viewProperties.borderWidth = state.borderWidth()
+            .foregroundColor(self.state.textColor())
+            .alignment(.center)
     }
 }
+
+// MARK: - InputOTPItemViewStyle.State Extension
 
 public extension InputOTPItemViewStyle.State {
     
@@ -59,10 +74,9 @@ public extension InputOTPItemViewStyle.State {
     
     func borderWidth() -> CGFloat {
         switch self {
-        case .default: 0
+        case .default, .disabled: 0
         case .active: 2
         case .error: 1
-        case .disabled: 0
         }
     }
 }
