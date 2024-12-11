@@ -130,15 +130,6 @@ public extension InputViewStyle.State {
         }
     }
     
-    func labelColor() -> UIColor {
-        switch self {
-        case .default: .Components.Input.Label.Color.default
-        case .active: .Components.Input.Label.Color.active
-        case .error: .Components.Input.Label.Color.error
-        case .disabled: .Components.Input.Label.Color.disabled
-        }
-    }
-    
     func iconColor() -> UIColor {
         switch self {
         case .default: .Components.Input.Icon.Color.default
@@ -181,8 +172,9 @@ public extension InputViewStyle.State {
     
     func borderWidth() -> CGFloat {
         switch self {
-        case .default, .disabled: .zero
-        case .active, .error: 2
+        case .active: 2
+        case .error: 1
+        default: .zero
         }
     }
     

@@ -46,7 +46,7 @@ public final class InputTextAreaViewStyle {
         }
         
         viewProperties.backgroundColor = state.backgroundColor()
-        viewProperties.border = .init(color: state.borderColor(), width: 2)
+        viewProperties.border = .init(color: state.borderColor(), width: state.borderWidth())
         viewProperties.minTextViewHeight = 56
         viewProperties.cornerRadius = 8
         viewProperties.isUserInteractionEnabled = self.state != .disabled
@@ -109,6 +109,14 @@ public extension InputTextAreaViewStyle.State {
         case .active: .Components.InputTextArea.Background.Color.active
         case .error: .Components.InputTextArea.Background.Color.error
         case .disabled: .Components.InputTextArea.Background.Color.disabled
+        }
+    }
+    
+    func borderWidth() -> CGFloat {
+        switch self {
+        case .active: 2
+        case .error: 1
+        default: .zero
         }
     }
 }
