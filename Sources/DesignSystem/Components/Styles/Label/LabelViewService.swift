@@ -1,7 +1,17 @@
 import UIKit
 import Components
 
-public final class LabelViewService {
+public protocol LabelViewServiceProtocol {
+    var view: LabelView { get }
+    var viewProperties: LabelView.ViewProperties { get }
+    var style: LabelViewStyle { get }
+    
+    func update(
+        with parameters: LabelViewService.LabelUpdateParameters?
+    )
+}
+
+public final class LabelViewService: LabelViewServiceProtocol {
     
     // MARK: - Properties
     
@@ -23,20 +33,47 @@ public final class LabelViewService {
         update()
     }
     
+    // MARK: - UpdateParameters
+    
+    public struct LabelUpdateParameters {
+        public var newVariant: LabelViewStyle.Variant?
+        public var newText: NSMutableAttributedString?
+        
+        public init(
+            newVariant: LabelViewStyle.Variant? = nil,
+            newText: NSMutableAttributedString? = nil
+        ) {
+            self.newVariant = newVariant
+            self.newText = newText
+        }
+    }
+    
     // MARK: - Methods
     
     public func update(
-        newVariant: LabelViewStyle.Variant? = nil,
-        newText: NSMutableAttributedString? = nil
+        with parameters: LabelUpdateParameters? = nil
     ) {
-        if let newText {
+        if let newText = parameters?.newText {
             viewProperties.text = newText
         }
         
         style.update(
-            variant: newVariant,
+            variant: parameters?.newVariant,
             viewProperties: &viewProperties
         )
         view.update(with: viewProperties)
+    }
+}
+
+extension LabelViewService {
+    @available(*, deprecated, message: "Use  update(with parameters:")
+    public func update(
+        newVariant: LabelViewStyle.Variant? = nil,
+        newText: NSMutableAttributedString? = nil
+    ) {
+        update(with: .init(
+            newVariant: newVariant,
+            newText: newText
+        ))
     }
 }

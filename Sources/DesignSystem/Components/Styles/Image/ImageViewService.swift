@@ -8,7 +8,13 @@
 import UIKit
 import Components
 
-public final class ImageViewService {
+public protocol ImageViewServiceProtocol {
+    var view: ImageView { get }
+    var viewProperties: ImageView.ViewProperties { get }
+    var style: ImageViewStyle { get }
+}
+
+public final class ImageViewService: ImageViewServiceProtocol {
     
     // MARK: - Properties
     
@@ -30,17 +36,41 @@ public final class ImageViewService {
         update()
     }
     
-    // MARK: - Methods
+    // MARK: - UpdateParameters
+    public struct ImageUpdateParameters {
+        public var newType: ImageViewStyle.Types?
+        public var newColor: ImageViewStyle.Color?
+        
+        public init(
+            newType: ImageViewStyle.Types? = nil,
+            newColor: ImageViewStyle.Color? = nil
+        ) {
+            self.newType = newType
+            self.newColor = newColor
+        }
+    }
     
+    // MARK: - Methods
+    public func update(
+        with parameters: ImageUpdateParameters? = nil
+    ) {
+        style.update(
+            type: parameters?.newType,
+            color: parameters?.newColor,
+            viewProperties: &viewProperties
+        )
+        view.update(with: viewProperties)
+    }
+}
+extension ImageViewService {
+    @available(*, deprecated, message: "Use  update(with parameters:")
     public func update(
         newType: ImageViewStyle.Types? = nil,
         newColor: ImageViewStyle.Color? = nil
     ) {
-        style.update(
-            type: newType,
-            color: newColor,
-            viewProperties: &viewProperties
-        )
-        view.update(with: viewProperties)
+        update(with: .init(
+            newType: newType,
+            newColor: newColor
+        ))
     }
 }
