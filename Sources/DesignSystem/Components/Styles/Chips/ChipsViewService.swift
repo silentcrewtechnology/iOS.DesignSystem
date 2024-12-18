@@ -2,25 +2,68 @@ import UIKit
 import Components
 
 public final class ChipsViewService {
+    
+    // MARK: - Properties
+    
     public private(set) var view: ChipsView
     public private(set) var viewProperties: ChipsView.ViewProperties
     public private(set) var style: ChipsViewStyle
-    public private(set) var isSelected: Bool
+    private var isSelected: Bool
     
-    public init(view: ChipsView = .init(),
-                viewProperties: ChipsView.ViewProperties = .init(),
-                style: ChipsViewStyle = .init(),
-                isSelected: Bool = false) {
+    // MARK: - Init
+    
+    public init(
+        view: ChipsView = .init(),
+        viewProperties: ChipsView.ViewProperties = .init(),
+        style: ChipsViewStyle = .init()
+    ) {
         self.view = view
         self.viewProperties = viewProperties
         self.style = style
-        self.isSelected = isSelected
+        self.isSelected = style.selected == .on
         
-        configureAction()
+        configureHandleTap()
         update()
     }
     
-    private func configureAction() {
+    // MARK: - Methods
+    
+    public func update(
+        set: ChipsViewStyle.Set? = nil,
+        size: ChipsViewStyle.Size? = nil,
+        state: ChipsViewStyle.State? = nil,
+        selected: ChipsViewStyle.Selected? = nil,
+        label: ChipsViewStyle.Label? = nil,
+        newText: NSMutableAttributedString? = nil,
+        newRightImage: UIImage? = nil,
+        newLeftImage: UIImage? = nil
+    ) {
+        if let newText {
+            viewProperties.text = newText
+        }
+        
+        if let newRightImage {
+            viewProperties.rightImage = newRightImage
+        }
+        
+        if let newLeftImage {
+            viewProperties.leftImage = newLeftImage
+        }
+        
+        style.update(
+            set: set,
+            size: size,
+            state: state,
+            selected: selected,
+            label: label,
+            viewProperties: &viewProperties
+        )
+        view.update(with: viewProperties)
+    }
+    
+    // MARK: - Private methods
+    
+    private func configureHandleTap() {
         viewProperties.handleTap = { [weak self] state in
             guard let self else { return }
             switch state {
@@ -29,36 +72,10 @@ public final class ChipsViewService {
             case .unpressed:
                 isSelected = !isSelected
                 let selected: ChipsViewStyle.Selected = isSelected ? .on : . off
-                
-                update(state: .default,
-                       selected: selected)
+                update(state: .default, selected: selected)
                 viewProperties.onChipsTap(isSelected)
-                
-            case .cancelled:
-                let selected: ChipsViewStyle.Selected = isSelected ? .on : . off
-                update(state: .default,
-                       selected: selected)
-                viewProperties.onChipsTap(isSelected)
-                break
+            case .cancelled: break
             }
         }
-    }
-    
-    public func update(
-        set: ChipsViewStyle.Set? = nil,
-        size: ChipsViewStyle.Size? = nil,
-        state: ChipsViewStyle.State? = nil,
-        selected: ChipsViewStyle.Selected? = nil,
-        label: ChipsViewStyle.Label? = nil,
-        icon: ChipsViewStyle.Icon? = nil
-    ) {
-        style.update(set: set,
-                     size: size,
-                     state: state,
-                     selected: selected,
-                     label: label,
-                     icon: icon,
-                     viewProperties: &viewProperties)
-        view.update(with: viewProperties)
     }
 }

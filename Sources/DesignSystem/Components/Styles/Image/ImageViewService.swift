@@ -40,13 +40,16 @@ public final class ImageViewService: ImageViewServiceProtocol {
     public struct ImageUpdateParameters {
         public var newType: ImageViewStyle.Types?
         public var newColor: ImageViewStyle.Color?
+        public var newSize: ImageViewStyle.Size?
         
         public init(
             newType: ImageViewStyle.Types? = nil,
-            newColor: ImageViewStyle.Color? = nil
+            newColor: ImageViewStyle.Color? = nil,
+            newSize: ImageViewStyle.Size? = nil
         ) {
             self.newType = newType
             self.newColor = newColor
+            self.newSize = newSize
         }
     }
     
@@ -57,6 +60,7 @@ public final class ImageViewService: ImageViewServiceProtocol {
         style.update(
             type: parameters?.newType,
             color: parameters?.newColor,
+            size: parameters?.newSize,
             viewProperties: &viewProperties
         )
         view.update(with: viewProperties)
@@ -66,11 +70,13 @@ extension ImageViewService {
     @available(*, deprecated, message: "Use  update(with parameters:")
     public func update(
         newType: ImageViewStyle.Types? = nil,
-        newColor: ImageViewStyle.Color? = nil
+        newColor: ImageViewStyle.Color? = nil,
+        newSize: ImageViewStyle.Size? = nil
     ) {
         update(with: .init(
             newType: newType,
-            newColor: newColor
+            newColor: newColor,
+            newSize: newSize
         ))
     }
 }

@@ -40,6 +40,7 @@ public final class TitleViewService {
         if let newDescription { viewProperties.description = newDescription }
         if let newButtonIconService { setupButtonIcon(using: newButtonIconService) }
         if let showButton { viewProperties.buttonIcon.isHidden = !showButton }
+        
         style.update(
             newSize: newSize,
             newTitleColor: newTitleColor,
@@ -47,6 +48,8 @@ public final class TitleViewService {
         )
         view.update(with: viewProperties)
     }
+    
+    // MARK: - Private methods
     
     /// Подставляем пустую скрытую вьюху вместо `buttonIcon`, если `buttonIconService == nil`
     private func setupButtonIcon(using buttonIconService: ButtonIconService?) {
