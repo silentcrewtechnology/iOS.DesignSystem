@@ -85,14 +85,18 @@ public final class InputViewStyle {
     private func updateTextFieldViewProperties(
         viewProperties: inout InputTextField.ViewProperties
     ) {
-        viewProperties.text = viewProperties.text
+        let newText = NSMutableAttributedString(attributedString: viewProperties.text)
             .fontStyle(.textM)
             .foregroundColor(state.textColor())
             .alignment(.left)
-        viewProperties.placeholder = viewProperties.placeholder
+        viewProperties.text = newText
+
+        let newPlaceholder = NSMutableAttributedString(attributedString: viewProperties.placeholder)
             .fontStyle(.textM)
             .foregroundColor(state.placeholderColor())
             .alignment(.left)
+        viewProperties.placeholder = newPlaceholder
+
         viewProperties.cursorColor = state.cursorColor()
     }
     
