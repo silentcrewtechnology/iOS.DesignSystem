@@ -65,6 +65,7 @@ public final class LabelViewStyle {
 // MARK: - LabelViewStyle.Variant Extension
 
 public extension LabelViewStyle.Variant {
+    
     func gestureRecognizer() -> UILongPressGestureRecognizer? {
         switch self {
         case .rowTitle(let recognizer): return recognizer ?? nil
@@ -116,6 +117,7 @@ public extension LabelViewStyle.Variant {
 // MARK: - LabelViewStyle.Variant.StatusCardVariant Extension
 
 public extension LabelViewStyle.Variant.StatusCardVariant {
+    
     func foregroundColor() -> UIColor {
         switch self {
         case .blocked: .Components.Row.StatusCard.Color.blocked

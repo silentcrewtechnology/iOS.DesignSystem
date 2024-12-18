@@ -3,6 +3,8 @@ import Components
 import Colors
 
 public final class ButtonViewStyle {
+    
+    // MARK: - Properties
 
     public enum Size {
         case large
@@ -33,11 +35,15 @@ public final class ButtonViewStyle {
         case with(UIImage)
     }
     
+    // MARK: - Private properties
+    
     private var size: Size
     private var color: Color
     private var variant: Variant
     private var state: State
     private var icon: Icon
+    
+    // MARK: - Init
     
     public init(
         size: Size,
@@ -52,6 +58,8 @@ public final class ButtonViewStyle {
         self.state = state
         self.icon = icon
     }
+    
+    // MARK: - Methods
 
     public func update(
         size: Size? = nil,
@@ -82,6 +90,9 @@ public final class ButtonViewStyle {
         }
         
         viewProperties.backgroundColor = backgroundColor()
+        viewProperties.isEnabled = self.state.isEnabled()
+        viewProperties.cornerRadius = self.size.cornerRadius()
+        viewProperties.margins = self.size.getMargins(isLoading: self.state.isLoading())
         viewProperties.attributedText = viewProperties.attributedText?
             .fontStyle(self.size.fontStyle())
             .foregroundColor(tintColor())
@@ -97,10 +108,6 @@ public final class ButtonViewStyle {
                 viewProperties.leftIcon = nil
             }
         }
-
-        viewProperties.isEnabled = self.state.isEnabled()
-        viewProperties.cornerRadius = self.size.cornerRadius()
-        viewProperties.margins = self.size.getMargins(isLoading: self.state.isLoading())
     }
 }
 

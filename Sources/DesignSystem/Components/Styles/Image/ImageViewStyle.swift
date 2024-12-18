@@ -2,11 +2,13 @@ import UIKit
 import Components
 
 public final class ImageViewStyle {
+    
+    // MARK - Properties
+    
     public enum Types {
         case icon(UIImage)
         case letter(NSMutableAttributedString)
         case fillImage(UIImage)
-        // TODO: Обсудить с Соней добавление всех атомов картинок
         case custom(UIImage, CGSize)
     }
     
@@ -24,49 +26,60 @@ public final class ImageViewStyle {
         case additional8
     }
     
+    public enum Size {
+        case small
+        case medium
+        case large
+        case extraLarge
+    }
+    
+    // MARK: - Private properties
+    
     private var type: Types
     private var color: Color
+    private var size: Size
+    
+    // MARK: - Init
     
     public init(
         type: Types,
-        color: Color
+        color: Color,
+        size: Size = .small
     ) {
         self.type = type
         self.color = color
+        self.size = size
     }
+    
+    // MARK: - Methods
     
     public func update(
         type: Types? = nil,
         color: Color? = nil,
+        size: Size? = nil,
         viewProperties: inout ImageView.ViewProperties
     ) {
         if let type {
             self.type = type
         }
-        viewProperties.size = self.type.size()
-        viewProperties.cornerRadius = self.type.cornerRadius()
-        viewProperties.margins = getMargins()
         
         if let color {
             self.color = color
         }
+        
+        if let size {
+            self.size = size
+        }
+        
+        viewProperties.size = self.size.size()
+        viewProperties.imageSize = imageSize()
+        viewProperties.cornerRadius = cornerRadius()
         viewProperties.backgroundColor = backgroundColor()
-        
-        viewProperties.text = self.type.text()?
-            .fontStyle(.textM)
-            .foregroundColor(self.color.textColor())
-        
         viewProperties.image = self.type.image(tintColor: self.color.tintIconColor())
-    }
-    
-    private func getMargins() -> ImageView.ViewProperties.Margins {
-        return .init(
-            imageTop: type.imageTop(),
-            imageBottom: type.imageBottom(),
-            imageLeading: type.imageLeading(),
-            imageTrailing: type.imageTrailing(),
-            size: type.imageSize()
-        )
+        viewProperties.text = self.type.text()?
+            .fontStyle(self.size.fontStyle())
+            .foregroundColor(self.color.textColor())
+            .alignment(.center)
     }
     
     private func backgroundColor() -> UIColor {
@@ -77,19 +90,24 @@ public final class ImageViewStyle {
         case .custom: return color.backgroundIconColor()
         }
     }
-}
-
-public extension ImageViewStyle.Types {
-    func size() -> CGSize {
-        switch self {
-        case .custom(_ , let size): size
-        default: .init(width: 40, height: 40)
-        }
+    
+    private func cornerRadius() -> CGFloat {
+        return size.size().height / 2
     }
     
-    func cornerRadius() -> CGFloat {
-        return self.size().height / 2
+    private func imageSize() -> CGSize {
+        switch type {
+        case .icon: .init(width: 24, height: 24)
+        case .letter: .init(width: 40, height: 40)
+        case .fillImage: size.size()
+        case .custom( _, let size): size
+        }
     }
+}
+
+// MARK: - ImageViewStyle.Types Extension
+
+public extension ImageViewStyle.Types {
     
     func image(tintColor: UIColor) -> UIImage? {
         switch self {
@@ -108,129 +126,80 @@ public extension ImageViewStyle.Types {
         case .custom: nil
         }
     }
-    
-    func imageSize() -> CGSize {
-        switch self {
-        case .icon: .init(width: 24, height: 24)
-        case .letter: .init(width: 40, height: 40)
-        case .fillImage: .init(width: 40, height: 40)
-        case .custom( _, let size): size
-        }
-    }
-    
-    func imageTop() -> CGFloat {
-        switch self {
-        case .icon: 8
-        case .letter: 0
-        case .fillImage: 0
-        case .custom: 0
-        }
-    }
-    
-    func imageLeading() -> CGFloat {
-        switch self {
-        case .icon: 8
-        case .letter: 0
-        case .fillImage: 0
-        case .custom: 0
-        }
-    }
-    
-    func imageTrailing() -> CGFloat {
-        switch self {
-        case .icon: 8
-        case .letter: 0
-        case .fillImage: 0
-        case .custom: 0
-        }
-    }
-    
-    func imageBottom() -> CGFloat {
-        switch self {
-        case .icon: 8
-        case .letter: 0
-        case .fillImage: 0
-        case .custom: 0
-        }
-    }
 }
 
+// MARK: - ImageViewStyle.Color Extension
+
 public extension ImageViewStyle.Color {
+    
     func backgroundIconColor() -> UIColor {
         switch self {
-        case .primary:
-                .Components.Image.Primary.Background.Color.value
-        case .main:
-                .Components.Image.Main.Background.Color.value
-        case .mainInverse:
-                .Components.Image.MainInverse.Background.Color.value
-        case .additional1:
-                .Components.Image.Add1.Background.Color.value
-        case .additional2:
-                .Components.Image.Add2.Background.Color.value
-        case .additional3:
-                .Components.Image.Add3.Background.Color.value
-        case .additional4:
-                .Components.Image.Add4.Background.Color.value
-        case .additional5:
-                .Components.Image.Add5.Background.Color.value
-        case .additional6:
-                .Components.Image.Add6.Background.Color.value
-        case .additional7:
-                .Components.Image.Add7.Background.Color.value
-        case .additional8:
-                .Components.Image.Add8.Background.Color.value
+        case .primary: .Components.Image.Primary.Background.Color.value
+        case .main: .Components.Image.Main.Background.Color.value
+        case .mainInverse: .Components.Image.MainInverse.Background.Color.value
+        case .additional1: .Components.Image.Add1.Background.Color.value
+        case .additional2: .Components.Image.Add2.Background.Color.value
+        case .additional3: .Components.Image.Add3.Background.Color.value
+        case .additional4: .Components.Image.Add4.Background.Color.value
+        case .additional5: .Components.Image.Add5.Background.Color.value
+        case .additional6: .Components.Image.Add6.Background.Color.value
+        case .additional7: .Components.Image.Add7.Background.Color.value
+        case .additional8: .Components.Image.Add8.Background.Color.value
         }
     }
     
     func backgroundLetterColor() -> UIColor {
         switch self {
-        case .primary:
-                .Components.Image.Primary.Background.Color.value
-        case .main:
-                .Components.Image.Main.Background.Color.value
-        case .mainInverse:
-                .Components.Image.MainInverse.Background.Color.value
+        case .primary: .Components.Image.Primary.Background.Color.value
+        case .main: .Components.Image.Main.Background.Color.value
+        case .mainInverse: .Components.Image.MainInverse.Background.Color.value
         default: .Components.Image.Primary.Background.Color.value
         }
     }
     
     func tintIconColor() -> UIColor {
         switch self {
-        case .primary:
-                .Components.Image.Primary.Icon.Color.value
-        case .main:
-                .Components.Image.Main.Icon.Color.value
-        case .mainInverse:
-                .Components.Image.MainInverse.Icon.Color.value
-        case .additional1:
-                .Components.Image.Add1.Icon.Color.value
-        case .additional2:
-                .Components.Image.Add2.Icon.Color.value
-        case .additional3:
-                .Components.Image.Add3.Icon.Color.value
-        case .additional4:
-                .Components.Image.Add4.Icon.Color.value
-        case .additional5:
-                .Components.Image.Add5.Icon.Color.value
-        case .additional6:
-                .Components.Image.Add6.Icon.Color.value
-        case .additional7:
-                .Components.Image.Add7.Icon.Color.value
-        case .additional8:
-                .Components.Image.Add8.Icon.Color.value
+        case .primary: .Components.Image.Primary.Icon.Color.value
+        case .main: .Components.Image.Main.Icon.Color.value
+        case .mainInverse: .Components.Image.MainInverse.Icon.Color.value
+        case .additional1: .Components.Image.Add1.Icon.Color.value
+        case .additional2: .Components.Image.Add2.Icon.Color.value
+        case .additional3: .Components.Image.Add3.Icon.Color.value
+        case .additional4: .Components.Image.Add4.Icon.Color.value
+        case .additional5: .Components.Image.Add5.Icon.Color.value
+        case .additional6: .Components.Image.Add6.Icon.Color.value
+        case .additional7: .Components.Image.Add7.Icon.Color.value
+        case .additional8: .Components.Image.Add8.Icon.Color.value
         }
     }
     
     func textColor() -> UIColor {
         switch self {
-        case .primary:
-                .Components.Image.Primary.Label.Color.value
-        case .main:
-                .Components.Image.Main.Label.Color.value
-        case .mainInverse:
-                .Components.Image.MainInverse.Label.Color.value
+        case .primary: .Components.Image.Primary.Label.Color.value
+        case .main: .Components.Image.Main.Label.Color.value
+        case .mainInverse: .Components.Image.MainInverse.Label.Color.value
         default: .Components.Image.Primary.Label.Color.value
+        }
+    }
+}
+
+// MARK: - ImageViewStyle.Size
+
+public extension ImageViewStyle.Size {
+    
+    func size() -> CGSize {
+        switch self {
+        case .small: .init(width: 32, height: 32)
+        case .medium: .init(width: 40, height: 40)
+        case .large: .init(width: 56, height: 56)
+        case .extraLarge: .init(width: 64, height: 64)
+        }
+    }
+    
+    func fontStyle() -> FontStyle {
+        switch self {
+        case .small, .medium: .textM
+        case .large, .extraLarge: .text2XL
         }
     }
 }

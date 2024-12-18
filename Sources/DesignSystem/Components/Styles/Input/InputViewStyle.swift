@@ -9,7 +9,7 @@ public final class InputViewStyle {
     public enum State {
         case `default`
         case active
-        case error(HintView.ViewProperties)
+        case error
         case disabled
     }
     
@@ -19,16 +19,28 @@ public final class InputViewStyle {
         case prefix(NSMutableAttributedString)
     }
     
-    // MARK: - Private properties
+    public enum Label {
+        case off
+        case on
+    }
     
-    private var state: State
+    public private(set) var state: State
+    public private(set) var label: Label
+    
+    // MARK: - Private properties
+
     private var set: Set
     
     // MARK: - Life cycle
     
-    public init(state: State, set: Set) {
+    public init(
+        state: State,
+        set: Set,
+        label: Label = .off
+    ) {
         self.state = state
         self.set = set
+        self.label = label
     }
     
     // MARK: - Public methods
@@ -36,6 +48,7 @@ public final class InputViewStyle {
     public func update(
         state: State? = nil,
         set: Set? = nil,
+        label: Label? = nil,
         viewProperties: inout InputView.ViewProperties
     ) {
         if let state {
@@ -46,22 +59,20 @@ public final class InputViewStyle {
             self.set = set
         }
         
+        if let label {
+            self.label = label
+        }
+        
         updateTextFieldViewProperties(viewProperties: &viewProperties.textFieldViewProperties)
         
         viewProperties.textFieldBackgroundColor = self.state.fieldBackgroundColor()
         viewProperties.textFieldBorderColor = self.state.borderColor()
         viewProperties.textFieldBorderWidth = self.state.borderWidth()
         viewProperties.isEnabled = self.state.isEnabled()
-        viewProperties.hintViewProperties = self.state.hintViewProperties()
         viewProperties.textFieldCornerRadius = 8
         viewProperties.textFieldHeight = 56
-        viewProperties.minHeight = 80
         viewProperties.textFieldInsets = .init(inset: 16)
         viewProperties.stackViewInsets = .init(top: .zero, left: 16, bottom: .zero, right: 16)
-        
-        if var labelViewProperties = viewProperties.labelViewProperties {
-            updateLabelViewProperties(viewProperties: &labelViewProperties)
-        }
         
         var rightView = UIView()
         switch self.set {
@@ -85,29 +96,22 @@ public final class InputViewStyle {
     private func updateTextFieldViewProperties(
         viewProperties: inout InputTextField.ViewProperties
     ) {
-        viewProperties.text = viewProperties.text
-            .fontStyle(.textM)
-            .foregroundColor(state.textColor())
-            .alignment(.left)
+        viewProperties.textAttributes = [
+            .font: UIFont.textM,
+            .foregroundColor: state.textColor(),
+        ]
         viewProperties.placeholder = viewProperties.placeholder
             .fontStyle(.textM)
             .foregroundColor(state.placeholderColor())
             .alignment(.left)
         viewProperties.cursorColor = state.cursorColor()
     }
-    
-    private func updateLabelViewProperties(
-        viewProperties: inout LabelView.ViewProperties
-    ) {
-        viewProperties.text = viewProperties.text
-            .fontStyle(.textS)
-            .foregroundColor(state.labelColor())
-    }
 }
 
 // MARK: - InputViewStyle.State Extension
 
 public extension InputViewStyle.State {
+    
     func textColor() -> UIColor {
         switch self {
         case .default: .Components.Input.Content.Color.default
@@ -123,15 +127,6 @@ public extension InputViewStyle.State {
         case .active: .Components.Input.Placeholder.Color.active
         case .error: .Components.Input.Placeholder.Color.error
         case .disabled: .Components.Input.Placeholder.Color.disabled
-        }
-    }
-    
-    func labelColor() -> UIColor {
-        switch self {
-        case .default: .Components.Input.Label.Color.default
-        case .active: .Components.Input.Label.Color.active
-        case .error: .Components.Input.Label.Color.error
-        case .disabled: .Components.Input.Label.Color.disabled
         }
     }
     
@@ -177,8 +172,9 @@ public extension InputViewStyle.State {
     
     func borderWidth() -> CGFloat {
         switch self {
-        case .default, .disabled: .zero
-        case .active, .error: 2
+        case .active: 2
+        case .error: 1
+        default: .zero
         }
     }
     
@@ -186,13 +182,6 @@ public extension InputViewStyle.State {
         switch self {
         case .disabled: false
         default: true
-        }
-    }
-    
-    func hintViewProperties() -> HintView.ViewProperties {
-        switch self {
-        case .error(let viewProperties): viewProperties
-        default: .init()
         }
     }
 }

@@ -38,13 +38,16 @@ public final class LabelViewService: LabelViewServiceProtocol {
     public struct LabelUpdateParameters {
         public var newVariant: LabelViewStyle.Variant?
         public var newText: NSMutableAttributedString?
+        public var newAccessibilityIds: LabelView.ViewProperties.AccessibilityIds?
         
         public init(
             newVariant: LabelViewStyle.Variant? = nil,
-            newText: NSMutableAttributedString? = nil
+            newText: NSMutableAttributedString? = nil,
+            newAccessibilityIds: LabelView.ViewProperties.AccessibilityIds? = nil
         ) {
             self.newVariant = newVariant
             self.newText = newText
+            self.newAccessibilityIds = newAccessibilityIds
         }
     }
     
@@ -55,6 +58,10 @@ public final class LabelViewService: LabelViewServiceProtocol {
     ) {
         if let newText = parameters?.newText {
             viewProperties.text = newText
+        }
+        
+        if let newAccessibilityIds = parameters?.newAccessibilityIds {
+            viewProperties.accessibilityIds = newAccessibilityIds
         }
         
         style.update(
@@ -69,11 +76,13 @@ extension LabelViewService {
     @available(*, deprecated, message: "Use  update(with parameters:")
     public func update(
         newVariant: LabelViewStyle.Variant? = nil,
-        newText: NSMutableAttributedString? = nil
+        newText: NSMutableAttributedString? = nil,
+        newAccessibilityIds: LabelView.ViewProperties.AccessibilityIds? = nil
     ) {
         update(with: .init(
             newVariant: newVariant,
-            newText: newText
+            newText: newText,
+            newAccessibilityIds: newAccessibilityIds
         ))
     }
 }

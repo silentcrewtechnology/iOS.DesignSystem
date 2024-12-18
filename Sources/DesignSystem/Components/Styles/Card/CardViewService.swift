@@ -42,13 +42,43 @@ public final class CardViewService {
         let maskedNumber = newMaskedCardNumber ?? viewProperties.maskedCardNumber
         let backgroundImage = newBackgroundImage ?? viewProperties.backgroundImage
         
+        if let newStack {
+            createStackCardView(from: newStack)
+        }
+        
         style.update(
             viewProperties: &viewProperties,
             backgroundImage: backgroundImage,
             maskedCardNumber: maskedNumber,
-            newSet: newSet, newSize: newSize,
+            newSet: newSet,
+            newSize: newSize,
             newStack: newStack
         )
         view.update(with: viewProperties)
+    }
+    
+    // MARK: - Private methods
+    
+    private func createStackCardView(from stack: CardViewStyle.Stack) {
+        switch stack {
+        case .false: viewProperties.stackCardView = nil
+        case .true(var stackCardViewProperties):
+            /// Не можем использовать CardViewService, так как
+            /// stackCardView по сути без стиля, просто вью с
+            /// картинкой и размером
+            stackCardViewProperties.containerInsets = .zero
+            stackCardViewProperties.size = style.stackCardSize()
+            stackCardViewProperties.cornerRadius = style.stackCardCornerRadius()
+            stackCardViewProperties.paymentSystemImage = nil
+            
+            let stackCardView = CardView()
+            stackCardView.update(with: stackCardViewProperties)
+            stackCardView.alpha = 0.4
+            
+            viewProperties.stackCardView = .init(
+                stackCards: [stackCardView],
+                insets: style.stackCardInsets()
+            )
+        }
     }
 }

@@ -137,7 +137,7 @@ public final class NavigationBarStyle {
         case let .mainScreen(name, icon, margins, onProfile):
             let profileView = createProfileView(name: name, icon: icon, margins: margins)
             profileView.addTapGesture(onProfile)
-            viewProperties.leftBarButtonItems = [.init(customView: profileView)]
+            viewProperties.titleView = profileView
         case let .basicAmount(title, subtitle, spacing, updateAction):
             viewProperties.titleView = createBasicAmountTitleView(
                 title: title,
@@ -235,11 +235,11 @@ public final class NavigationBarStyle {
                      nil)
                 )),
             margins: margins ?? .init(
-                leading: .zero,
+                leading: .zero, // 8 empty back button item + 8 empty left button items
                 trailing: 16,
                 top: 2,
                 bottom: 2,
-                spacing: 16
+                spacing: 12
             )
         )
     }
