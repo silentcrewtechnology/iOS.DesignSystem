@@ -1,14 +1,18 @@
-//
-//  ButtonViewService.swift
-//
-//
-//  Created by user on 14.10.2024.
-//
-
 import UIKit
 import Components
 
-public final class ButtonViewService {
+public protocol ButtonViewServiceProtocol {
+    var view: ButtonView { get }
+    var viewProperties: ButtonView.ViewProperties { get }
+    var style: ButtonViewStyle { get }
+    var loaderService: LoaderViewService { get }
+    
+    func update(
+        with parameters: ButtonViewService.ButtonUpdateParameters?
+    )
+}
+
+public final class ButtonViewService: ButtonViewServiceProtocol {
     
     // MARK: - Properties
     
@@ -36,30 +40,59 @@ public final class ButtonViewService {
         update()
     }
     
+    // MARK: - UpdateParameters
+    
+    public struct ButtonUpdateParameters {
+        public var newSize: ButtonViewStyle.Size?
+        public var newColor: ButtonViewStyle.Color?
+        public var newVariant: ButtonViewStyle.Variant?
+        public var newState: ButtonViewStyle.State?
+        public var newIcon: ButtonViewStyle.Icon?
+        public var newText: NSMutableAttributedString?
+        public var newOnTap: (() -> Void)?
+        
+        public init(
+            newSize: ButtonViewStyle.Size? = nil,
+            newColor: ButtonViewStyle.Color? = nil,
+            newVariant: ButtonViewStyle.Variant? = nil,
+            newState: ButtonViewStyle.State? = nil,
+            newIcon: ButtonViewStyle.Icon? = nil,
+            newText: NSMutableAttributedString? = nil,
+            newOnTap: (() -> Void)? = nil
+        ) {
+            self.newSize = newSize
+            self.newColor = newColor
+            self.newVariant = newVariant
+            self.newState = newState
+            self.newIcon = newIcon
+            self.newText = newText
+            self.newOnTap = newOnTap
+        }
+    }
+    
     // MARK: - Methods
     
     public func update(
-        newSize: ButtonViewStyle.Size? = nil,
-        newColor: ButtonViewStyle.Color? = nil,
-        newVariant: ButtonViewStyle.Variant? = nil,
-        newState: ButtonViewStyle.State? = nil,
-        newIcon: ButtonViewStyle.Icon? = nil,
-        newText: NSMutableAttributedString? = nil
+        with parameters: ButtonUpdateParameters? = nil
     ) {
-        if let newText {
+        if let newText = parameters?.newText {
             viewProperties.attributedText = newText
         }
-
+        
+        if let newOnTap = parameters?.newOnTap {
+            viewProperties.onTap = newOnTap
+        }
+        
         style.update(
-            size: newSize,
-            color: newColor,
-            variant: newVariant,
-            state: newState,
-            icon: newIcon,
+            size: parameters?.newSize,
+            color: parameters?.newColor,
+            variant: parameters?.newVariant,
+            state: parameters?.newState,
+            icon: parameters?.newIcon,
             viewProperties: &viewProperties
         )
         let isHidden: Bool = {
-            guard let newState else { return loaderService.viewProperties.isHidden }
+            guard let newState = parameters?.newState else { return loaderService.viewProperties.isHidden }
             return newState != .loading
         }()
         loaderService.update(newStyle: style.loaderStyle(), isHidden: isHidden)
@@ -72,5 +105,28 @@ public final class ButtonViewService {
         viewProperties.onHighlighted = { [weak self] isHighlighted in
             self?.update(newState: isHighlighted ? .pressed : .default)
         }
+    }
+}
+
+extension ButtonViewService {
+    @available(*, deprecated, message: "Use  update(with parameters:")
+    public func update(
+        newSize: ButtonViewStyle.Size? = nil,
+        newColor: ButtonViewStyle.Color? = nil,
+        newVariant: ButtonViewStyle.Variant? = nil,
+        newState: ButtonViewStyle.State? = nil,
+        newIcon: ButtonViewStyle.Icon? = nil,
+        newText: NSMutableAttributedString? = nil,
+        newOnTap: (() -> Void)? = nil
+    ) {
+        update(with: .init(
+            newSize: newSize,
+            newColor: newColor,
+            newVariant: newVariant,
+            newState: newState,
+            newIcon: newIcon,
+            newText: newText,
+            newOnTap: newOnTap
+        ))
     }
 }

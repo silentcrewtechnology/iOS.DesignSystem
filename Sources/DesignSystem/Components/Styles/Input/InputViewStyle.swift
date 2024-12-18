@@ -104,6 +104,7 @@ public final class InputViewStyle {
             .fontStyle(.textM)
             .foregroundColor(state.placeholderColor())
             .alignment(.left)
+
         viewProperties.cursorColor = state.cursorColor()
     }
 }

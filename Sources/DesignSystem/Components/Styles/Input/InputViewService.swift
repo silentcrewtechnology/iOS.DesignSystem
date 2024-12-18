@@ -1,7 +1,28 @@
 import UIKit
 import Components
 
-public final class InputViewService {
+public protocol InputViewServiceProtocol {
+    var view: InputView { get }
+    var viewProperties: InputView.ViewProperties { get }
+    var style: InputViewStyle { get }
+    
+    init(
+        view: InputView,
+        viewProperties: InputView.ViewProperties,
+        style: InputViewStyle,
+        onBeginEditing: @escaping (String?) -> Void,
+        onEndEditing: @escaping (String?) -> Void,
+        onShouldChangeCharacters: @escaping (UITextField, NSRange, String) -> Bool
+    )
+    
+    func update(
+        with parameters: InputViewService.InputUpdateParameters?,
+        onTextChanged: ((String?) -> Void)?
+    )
+}
+
+public final class InputViewService: InputViewServiceProtocol {
+    public var onTextChange: ((String) -> Void)?
     
     // MARK: - Properties
     
@@ -46,7 +67,6 @@ public final class InputViewService {
     }()
     
     // MARK: - Init
-    
     public init(
         view: InputView = .init(),
         viewProperties: InputView.ViewProperties = .init(),
@@ -78,19 +98,33 @@ public final class InputViewService {
         update()
     }
     
+    public struct InputUpdateParameters {
+        var state: InputViewStyle.State? = nil
+        var set: InputViewStyle.Set? = nil
+        var label: InputViewStyle.Label? = nil
+        
+        public init(
+            state: InputViewStyle.State? = nil,
+            set: InputViewStyle.Set? = nil,
+            label: InputViewStyle.Label? = nil
+        ) {
+            self.state = state
+            self.set = set
+            self.label = label
+        }
+    }
+    
     // MARK: - Methods
     
     public func update(
-        state: InputViewStyle.State? = nil,
-        set: InputViewStyle.Set? = nil,
-        label: InputViewStyle.Label? = nil,
+        with parameters: InputUpdateParameters? = nil,
         onTextChanged: ((String?) -> Void)? = nil
     ) {
-        if let state {
+        if let state = parameters?.state {
             changeHintIsHidden(with: state)
         }
         
-        if let label {
+        if let label = parameters?.label {
             changeLabelIsHidden(with: label)
         }
         
@@ -99,14 +133,33 @@ public final class InputViewService {
         }
         
         style.update(
-            state: state,
-            set: set,
-            label: label,
+            state: parameters?.state,
+            set: parameters?.set,
+            label: parameters?.label,
             viewProperties: &viewProperties
         )
         view.update(with: viewProperties)
     }
     
+    @objc private func textChanged(textField: UITextField) {
+        viewProperties.onTextChanged?(textField.text)
+    }
+}
+
+extension InputViewService {
+    @available(*, deprecated, message: "Use  update(with parameters:")
+    public func update(
+        state: InputViewStyle.State? = nil,
+        set: InputViewStyle.Set? = nil,
+        label: InputViewStyle.Label? = nil
+    ) {
+        update(with: .init(
+            state: state,
+            set: set,
+            label: label
+        ))
+    }
+
     // MARK: - Private methods
     
     private func changeHintIsHidden(with state: InputViewStyle.State) {
@@ -127,7 +180,4 @@ public final class InputViewService {
         }
     }
     
-    @objc private func textChanged(textField: UITextField) {
-        viewProperties.onTextChanged?(textField.text)
-    }
 }
