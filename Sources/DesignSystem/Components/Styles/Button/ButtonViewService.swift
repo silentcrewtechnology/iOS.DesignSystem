@@ -36,7 +36,6 @@ public final class ButtonViewService: ButtonViewServiceProtocol {
         self.style = style
         
         self.viewProperties.loader = self.loaderService.view
-        configureOnHighligthed()
         update()
     }
     
@@ -100,12 +99,6 @@ public final class ButtonViewService: ButtonViewServiceProtocol {
     }
     
     // MARK: - Private methods
-    
-    private func configureOnHighligthed() {
-        viewProperties.onHighlighted = { [weak self] isHighlighted in
-            self?.update(newState: isHighlighted ? .pressed : .default)
-        }
-    }
 }
 
 extension ButtonViewService {
