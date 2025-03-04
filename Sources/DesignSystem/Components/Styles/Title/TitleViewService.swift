@@ -1,7 +1,19 @@
 import UIKit
 import Components
 
-public final class TitleViewService {
+
+public protocol TitleViewServiceProtocol {
+    var view: TitleView { get }
+    var viewProperties: TitleView.ViewProperties { get }
+    var style: TitleViewStyle { get }
+    var buttonIconService: ButtonIconService? { get }
+    
+    func update(
+        with parameters: TitleViewService.TitleUpdateParameters?
+    )
+}
+
+public final class TitleViewService: TitleViewServiceProtocol {
     
     // MARK: - Properties
     
@@ -26,24 +38,54 @@ public final class TitleViewService {
         update()
     }
     
+    // MARK: - UpdateParameters
+    
+    public struct TitleUpdateParameters {
+        public var newSize: TitleViewStyle.Size?
+        public var newTitle: NSMutableAttributedString?
+        public var newTitleColor: TitleViewStyle.Color?
+        public var newDescription: NSMutableAttributedString?
+        public var showButton: Bool?
+        public var newButtonIconService: ButtonIconService?
+        
+        public init(
+            newSize: TitleViewStyle.Size? = nil,
+            newTitle: NSMutableAttributedString? = nil,
+            newTitleColor: TitleViewStyle.Color? = nil,
+            newDescription: NSMutableAttributedString? = nil,
+            showButton: Bool? = nil,
+            newButtonIconService: ButtonIconService? = nil
+        ) {
+            self.newSize = newSize
+            self.newTitle = newTitle
+            self.newTitleColor = newTitleColor
+            self.newDescription = newDescription
+            self.showButton = showButton
+            self.newButtonIconService = newButtonIconService
+        }
+    }
+    
     // MARK: - Methods
     
     public func update(
-        newSize: TitleViewStyle.Size? = nil,
-        newTitle: NSMutableAttributedString? = nil,
-        newTitleColor: TitleViewStyle.Color? = nil,
-        newDescription: NSMutableAttributedString? = nil,
-        showButton: Bool? = nil,
-        newButtonIconService: ButtonIconService? = nil
+        with parameters: TitleUpdateParameters? = nil
     ) {
-        if let newTitle { viewProperties.title = newTitle }
-        if let newDescription { viewProperties.description = newDescription }
-        if let newButtonIconService { setupButtonIcon(using: newButtonIconService) }
-        if let showButton { viewProperties.buttonIcon.isHidden = !showButton }
+        if let newTitle = parameters?.newTitle {
+            viewProperties.title = newTitle
+        }
+        if let newDescription = parameters?.newDescription {
+            viewProperties.description = newDescription
+        }
+        if let newButtonIconService = parameters?.newButtonIconService {
+            setupButtonIcon(using: newButtonIconService)
+        }
+        if let showButton = parameters?.showButton {
+            viewProperties.buttonIcon.isHidden = !showButton
+        }
         
         style.update(
-            newSize: newSize,
-            newTitleColor: newTitleColor,
+            newSize: parameters?.newSize,
+            newTitleColor: parameters?.newTitleColor,
             viewProperties: &viewProperties
         )
         view.update(with: viewProperties)
@@ -61,5 +103,26 @@ public final class TitleViewService {
         }
         viewProperties.buttonIcon = buttonIconService.view
         buttonIconService.update(newSize: style.buttonIconSize())
+    }
+}
+
+extension TitleViewService {
+    @available(*, deprecated, message: "Use  update(with parameters:")
+    public func update(
+        newSize: TitleViewStyle.Size? = nil,
+        newTitle: NSMutableAttributedString? = nil,
+        newTitleColor: TitleViewStyle.Color? = nil,
+        newDescription: NSMutableAttributedString? = nil,
+        showButton: Bool? = nil,
+        newButtonIconService: ButtonIconService? = nil
+    ) {
+        update(with: .init(
+            newSize: newSize,
+            newTitle: newTitle,
+            newTitleColor: newTitleColor,
+            newDescription: newDescription,
+            showButton: showButton,
+            newButtonIconService: newButtonIconService
+        ))
     }
 }

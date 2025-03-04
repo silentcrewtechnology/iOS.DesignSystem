@@ -71,7 +71,7 @@ public final class ImageViewStyle {
             self.size = size
         }
         
-        viewProperties.size = self.size.size()
+        viewProperties.size = self.imageSize()
         viewProperties.imageSize = imageSize()
         viewProperties.cornerRadius = cornerRadius()
         viewProperties.backgroundColor = backgroundColor()
