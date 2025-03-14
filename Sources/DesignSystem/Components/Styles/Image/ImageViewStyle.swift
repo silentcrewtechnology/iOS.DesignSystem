@@ -73,7 +73,7 @@ public final class ImageViewStyle {
         
         viewProperties.size = self.imageSize()
         viewProperties.imageSize = imageSize()
-        viewProperties.cornerRadius = cornerRadius()
+        viewProperties.cornerRadius = cornerRadius(custom: viewProperties.cornerRadius)
         viewProperties.backgroundColor = backgroundColor()
         viewProperties.image = self.type.image(tintColor: self.color.tintIconColor())
         viewProperties.text = self.type.text()?
@@ -91,8 +91,17 @@ public final class ImageViewStyle {
         }
     }
     
-    private func cornerRadius() -> CGFloat {
-        return size.size().height / 2
+    private func cornerRadius(custom: CGFloat) -> CGFloat {
+        switch type {
+        case .icon:
+            return size.size().height / 2
+        case .letter:
+            return size.size().height / 2
+        case .fillImage:
+            return size.size().height / 2
+        case .custom:
+            return custom
+        }
     }
     
     private func imageSize() -> CGSize {
