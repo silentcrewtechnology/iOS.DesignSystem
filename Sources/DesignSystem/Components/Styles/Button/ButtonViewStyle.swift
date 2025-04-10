@@ -14,6 +14,8 @@ public final class ButtonViewStyle {
     public enum Color {
         case light
         case accent
+        case custom(UIColor, UIColor)
+        case customWithAlpha(UIColor, UIColor, CGFloat)
     }
     
     public enum Variant {
@@ -119,6 +121,10 @@ extension ButtonViewStyle {
         switch color {
         case .accent: backgroundAccentColor()
         case .light: backgroundLightColor()
+        case .custom(_, let backgroundColor):
+            backgroundColor
+        case .customWithAlpha(_, let backgroundColor, let alpha):
+            UIColor(cgColor: backgroundColor.cgColor).withAlphaComponent(alpha)
         }
     }
     
@@ -211,6 +217,10 @@ extension ButtonViewStyle {
         switch color {
         case .accent: tintAccentColor()
         case .light: tintLightColor()
+        case .custom(let tintColor, _):
+            tintColor
+        case .customWithAlpha(let tintColor, _, _):
+            tintColor
         }
     }
     
@@ -313,6 +323,10 @@ extension ButtonViewStyle {
         switch color {
         case .accent: tintIconAccentColor()
         case .light: tintIconLightColor()
+        case .custom(let tintColor, _):
+            tintColor
+        case .customWithAlpha(let tintColor, _, _):
+            tintColor
         }
     }
     
@@ -424,6 +438,10 @@ public extension ButtonViewStyle {
         switch color {
         case .light: .Components.Button.Light.Primary.Loader.Color.loading
         case .accent: .Components.Button.Accent.Primary.Loader.Color.loading
+        case .custom(let tintColor, _):
+            tintColor
+        case .customWithAlpha(let tintColor, _, _):
+            tintColor
         }
     }
     
@@ -431,6 +449,10 @@ public extension ButtonViewStyle {
         switch color {
         case .light: .Components.Button.Light.Secondary.Loader.Color.loading
         case .accent: .Components.Button.Accent.Secondary.Loader.Color.loading
+        case .custom(let tintColor, _):
+            tintColor
+        case .customWithAlpha(let tintColor, _, _):
+            tintColor
         }
     }
     
@@ -438,6 +460,10 @@ public extension ButtonViewStyle {
         switch color {
         case .light: .Components.Button.Light.Tertiary.Loader.Color.loading
         case .accent: .Components.Button.Accent.Tertiary.Loader.Color.loading
+        case .custom(let tintColor, _):
+            tintColor
+        case .customWithAlpha(let tintColor, _, _):
+            tintColor
         }
     }
     
@@ -445,6 +471,10 @@ public extension ButtonViewStyle {
         switch color {
         case .light: .Components.Button.Light.Function.Loader.Color.loading
         case .accent: .Components.Button.Accent.Function.Loader.Color.loading
+        case .custom(let tintColor, _):
+            tintColor
+        case .customWithAlpha(let tintColor, _, _):
+            tintColor
         }
     }
     
