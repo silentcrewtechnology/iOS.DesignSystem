@@ -4,15 +4,15 @@ public final class DefaultTextFieldDelegate: NSObject, UITextFieldDelegate {
     
     // MARK: - Private properties
     
-    private let onBeginEditing: (String?) -> Void
-    private let onEndEditing: (String?) -> Void
+    private let onBeginEditing: (UITextField) -> Void
+    private let onEndEditing: (UITextField) -> Void
     private let onShouldChangeCharacters: (UITextField, NSRange, String) -> Bool
     
     // MARK: - Life cycle
     
     public init(
-        onBeginEditing: @escaping (String?) -> Void,
-        onEndEditing: @escaping (String?) -> Void,
+        onBeginEditing: @escaping (UITextField) -> Void,
+        onEndEditing: @escaping (UITextField) -> Void,
         onShouldChangeCharacters: @escaping (UITextField, NSRange, String) -> Bool
     ) {
         self.onBeginEditing = onBeginEditing
@@ -29,11 +29,11 @@ public final class DefaultTextFieldDelegate: NSObject, UITextFieldDelegate {
     }
     
     public func textFieldDidBeginEditing(_ textField: UITextField) {
-        onBeginEditing(textField.text)
+        onBeginEditing(textField)
     }
     
     public func textFieldDidEndEditing(_ textField: UITextField) {
-        onEndEditing(textField.text)
+        onEndEditing(textField)
     }
     
     public func textField(

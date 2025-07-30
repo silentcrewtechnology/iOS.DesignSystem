@@ -15,27 +15,27 @@ public final class InputOTPViewService {
     
     // MARK: - Private properties
     
-    private var onBeginEditing: (String?) -> Void
-    private var onEndEditing: (String?) -> Void
+    private var onBeginEditing: (UITextField) -> Void
+    private var onEndEditing: (UITextField) -> Void
     private var onShouldChangeCharacters: (UITextField, NSRange, String) -> Bool
     private var currentIndex: Int = .zero
     
     private lazy var delegate: DefaultTextFieldDelegate = {
         let delegate = DefaultTextFieldDelegate(
-            onBeginEditing: { [weak self] text in
+            onBeginEditing: { [weak self] textField in
                 guard let self else { return }
                 if self.itemServices[self.currentIndex].style.state != .active {
                     self.update(newState: .active, range: currentIndex..<currentIndex + 1)
                 }
-                self.onBeginEditing(text)
+                self.onBeginEditing(textField)
             },
-            onEndEditing: { [weak self] text in
+            onEndEditing: { [weak self] textField in
                 guard let self else { return }
                 self.update(
                     newState: self.style.state == .disabled ? .disabled : .default,
                     range: 0..<self.itemServices.count
                 )
-                self.onEndEditing(text)
+                self.onEndEditing(textField)
             },
             onShouldChangeCharacters: { [weak self] textField, range, string in
                 guard let self, let text = textField.text else { return false }
@@ -58,8 +58,8 @@ public final class InputOTPViewService {
         viewProperties: InputOTPView.ViewProperties = .init(),
         style: InputOTPViewStyle,
         itemServices: [InputOTPItemViewService] = [],
-        onBeginEditing: @escaping (String?) -> Void = { _ in },
-        onEndEditing: @escaping (String?) -> Void = { _ in },
+        onBeginEditing: @escaping (UITextField) -> Void = { _ in },
+        onEndEditing: @escaping (UITextField) -> Void = { _ in },
         onShouldChangeCharacters: @escaping (UITextField, NSRange, String) -> Bool = { _,_,_  in true}
     ) {
         self.view = view
