@@ -26,11 +26,11 @@ let package = Package(
         .target(
             name: "DesignSystem",
             dependencies: [
-                .product(name: "iOS.Resources.Fonts", package: "ios-resources-fonts"),
-                .product(name: "iOS.Resources.Colors", package: "ios-resources-colors"),
-                .product(name: "iOS.Resources.Icons", package: "ios-resources-icons"),
-                .product(name: "iOS.Resources.UiComponents", package: "ios-resources-ui-components"),
-                .product(name: "Extensions", package: "ios-extensions")
+                .product(name: "iOS.Resources.Fonts", package: "iOS.Resources.Fonts"),
+                .product(name: "iOS.Resources.Colors", package: "iOS.Resources.Colors"),
+                .product(name: "iOS.Resources.Icons", package: "iOS.Resources.Icons"),
+                .product(name: "iOS.Resources.UiComponents", package: "iOS.Resources.UIComponents"),
+                .product(name: "Extensions", package: "iOS.Extensions")
             ]
         ),
     ]
